@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import _, { isEmpty } from "lodash";
 import { FormattedMessage } from "react-intl";
-import "./AddUser.scss";
+import "../AddUser.scss";
 import { createPatient, getAllcode } from "../../../../services/userService";
 
 import Select from "react-select";

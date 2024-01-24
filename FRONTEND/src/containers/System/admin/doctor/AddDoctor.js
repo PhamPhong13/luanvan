@@ -3,66 +3,42 @@ import { connect } from "react-redux";
 import _, { isEmpty } from "lodash";
 import { FormattedMessage } from "react-intl";
 import "../AddUser.scss";
-import {
-  updatePatient,
-  getAllcode,
-  getPatientById,
-} from "../../../../services/userService";
-
+import { createDoctor, getAllcode } from "../../../../services/userService";
+import { CommonUtils } from "../../../../utils"; // vi or en
 import Select from "react-select";
-import DatePicker from "../../../../components/Input/DatePicker";
-import { Toast, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { withRouter } from "react-router";
-class EditPatient extends Component {
+class AddDoctor extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: "",
       password: "",
-      fullName: "",
+      firstName: "",
+      lastName: "",
       address: "",
-      birthday: "",
       phone: "",
-      gender: "",
-      roleId: "R3",
-      listGender: [],
-      selectedGender: "",
-      patient: [],
+      image: "",
+      previewImg: "",
+      position: "",
+      roleId: "R2",
+      listPositon: [],
+      selectedPositon: "",
     };
   }
 
   async componentDidMount() {
-    await this.getGender();
-    await this.getPatien();
-    this.getgenderSelected();
+    await this.getPosition();
   }
 
-  getPatien = async () => {
-    let id = this.props.match.params.id;
-    let res = await getPatientById(id);
-    this.setState({
-      patient: res.data[0],
-    });
-
-    this.setState({
-      email: this.state.patient.email,
-      fullName: this.state.patient.fullName,
-      address: this.state.patient.address,
-      birthday: this.state.patient.birthday,
-      phone: this.state.patient.phone,
-      gender: this.state.patient.gender,
-    });
-  };
   async componentDidUpdate(prevProps) {
     if (prevProps.language !== this.props.language) {
-      await this.getGender();
-      await this.getPatien();
-      this.getgenderSelected();
+      await this.getPosition();
     }
   }
 
-  getGender = async () => {
-    let res = await getAllcode("GENDER");
+  getPosition = async () => {
+    let res = await getAllcode("POSITION");
     let result = [];
     if (res.data && res.data.length > 0) {
       res.data.map((item, index) => {
@@ -75,24 +51,14 @@ class EditPatient extends Component {
       });
     }
     this.setState({
-      listGender: result,
-    });
-  };
-  getgenderSelected = () => {
-    let selectedGender = this.state.listGender.find((item) => {
-      return item && item.value === this.state.patient.gender;
-    });
-
-    this.setState({
-      selectedGender: selectedGender,
-      gender: selectedGender.value,
+      listPositon: result,
     });
   };
 
-  handleChangeGender = (selectGender) => {
+  handleChangeGender = (selectPosition) => {
     this.setState({
-      selectedGender: selectGender,
-      gender: selectGender.value,
+      selectedPositon: selectPosition,
+      position: selectPosition.value,
     });
   };
 
@@ -110,26 +76,28 @@ class EditPatient extends Component {
     });
   };
 
-  handleEditPatient = async () => {
+  handleAddPatient = async () => {
     let checkState = this.checkState();
-    console.log(checkState);
-    console.log(this.state);
     if (checkState === true) {
-      let res = await updatePatient({
+      let res = await createDoctor({
         email: this.state.email,
-        fullName: this.state.fullName,
+        password: this.state.password,
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
         address: this.state.address,
-        birthday: this.state.birthday,
         phone: this.state.phone,
-        gender: this.state.gender,
-        id: this.props.match.params.id,
+        position: this.state.position,
+        image: this.state.image,
+        roleId: this.state.roleId,
       });
 
       if (res && res.errCode === 0) {
-        toast.success("Update a new patient successfully!");
+        toast.success("Create a new doctor successfully!");
         this.linkto();
+      } else if (res && res.errCode === 3) {
+        toast.error("Email already exists!");
       } else {
-        toast.error("Update a new patient failed!");
+        toast.error("Create a new doctor failed!");
       }
     }
   };
@@ -140,17 +108,17 @@ class EditPatient extends Component {
     if (!emailPattern.test(this.state.email)) {
       alert("Email does not match!");
       isValid = false;
-    } else if (this.state.fullName.length <= 0) {
-      alert("Please enter your fullName!");
+    } else if (this.state.password.length <= 7) {
+      alert("Password must be at least 8 characters!");
       isValid = false;
-    } else if (this.state.birthday.length <= 0) {
-      alert("Please enter your date of birth!");
+    } else if (this.state.firstName.length <= 0) {
+      alert("Please enter your firstName!");
+      isValid = false;
+    } else if (this.state.lastName.length <= 0) {
+      alert("Please enter your lastName!");
       isValid = false;
     } else if (this.state.phone.length < 10) {
       alert("Incorrect phone number!");
-      isValid = false;
-    } else if (!this.state.gender) {
-      alert("Please select gender!");
       isValid = false;
     }
     return isValid;
@@ -158,21 +126,32 @@ class EditPatient extends Component {
 
   linkto = () => {
     if (this.props.history) {
-      this.props.history.push(`/system/manage-patient`);
+      this.props.history.push(`/system/manage-doctor`);
     }
   };
+
+  handleOnchangeImg = async (event) => {
+    let file = event.target.files[0];
+    if (file) {
+      let getBase64 = await CommonUtils.getBase64(file);
+      this.setState({
+        image: getBase64,
+      });
+    }
+  };
+
   render() {
-    let { listGender } = this.state;
-    let { email, fullName, birthday, phone, gender, address } = this.state;
+    let { listPositon, selectedPositon, birthday, image } = this.state;
+    console.log(this.state);
     return (
       <>
         <title>
-          <FormattedMessage id="system.add.edit-patient" />
+          <FormattedMessage id="system.add.add-doctor" />
         </title>
 
         <div className="container adduser">
           <div className="title">
-            <FormattedMessage id="system.add.edit-patient" />
+            <FormattedMessage id="system.add.add-doctor" />
           </div>
 
           <div className="form">
@@ -184,7 +163,6 @@ class EditPatient extends Component {
                 </label>
                 <input
                   type="text"
-                  value={email}
                   onChange={(event) => this.handleOnchangeInput(event, "email")}
                 />
               </div>
@@ -195,63 +173,37 @@ class EditPatient extends Component {
                 </label>
                 <input
                   type="password"
-                  value="HASHCODE"
-                  disabled
                   onChange={(event) =>
                     this.handleOnchangeInput(event, "password")
                   }
                 />
               </div>
-              {/* fullname */}
+              {/* firstname */}
               <div className="form-group">
                 <label>
-                  <FormattedMessage id="key.fullname" />
+                  <FormattedMessage id="key.firstname" />
                 </label>
                 <input
                   type="text"
-                  value={fullName}
                   onChange={(event) =>
-                    this.handleOnchangeInput(event, "fullName")
+                    this.handleOnchangeInput(event, "firstName")
                   }
                 />
               </div>
 
-              {/* birthday */}
+              {/* lastname */}
               <div className="form-group">
                 <label>
-                  <FormattedMessage id="key.birthday" />
-                </label>
-                <DatePicker
-                  className="form-control date"
-                  onChange={this.handleOnchangeDatePicker}
-                  value={birthday}
-                  selected={birthday}
-                />
-              </div>
-              {/* phone */}
-              <div className="form-group">
-                <label>
-                  <FormattedMessage id="key.phone" />
+                  <FormattedMessage id="key.lastname" />
                 </label>
                 <input
                   type="text"
-                  value={phone}
-                  onChange={(event) => this.handleOnchangeInput(event, "phone")}
+                  onChange={(event) =>
+                    this.handleOnchangeInput(event, "lastName")
+                  }
                 />
               </div>
-              {/* gender */}
-              <div className="form-group">
-                <label>
-                  <FormattedMessage id="key.gender" />
-                </label>
-                <Select
-                  options={listGender}
-                  value={this.state.selectedGender}
-                  onChange={this.handleChangeGender}
-                  placeholder={<FormattedMessage id="key.gender" />}
-                  name="selectGender"
-                />
-              </div>
+
               {/* address */}
               <div className="form-group address">
                 <label>
@@ -259,20 +211,57 @@ class EditPatient extends Component {
                 </label>
                 <input
                   type="text"
-                  value={address}
                   onChange={(event) =>
                     this.handleOnchangeInput(event, "address")
                   }
                 />
               </div>
 
+              {/* phone */}
+              <div className="form-group adddoctor">
+                <label>
+                  <FormattedMessage id="key.phone" />
+                </label>
+                <input
+                  type="text"
+                  onChange={(event) => this.handleOnchangeInput(event, "phone")}
+                />
+              </div>
+
+              {/* position */}
+              <div className="form-group adddoctor">
+                <label>
+                  <FormattedMessage id="key.position" />
+                </label>
+                <Select
+                  options={listPositon}
+                  value={this.state.selectedPositon}
+                  onChange={this.handleChangeGender}
+                  placeholder={<FormattedMessage id="key.position" />}
+                  name="selectPosition"
+                />
+              </div>
+
+              {/* gender */}
+              <div className="form-group adddoctor">
+                <label>
+                  <FormattedMessage id="key.image" />
+                </label>
+                <input
+                  type="file"
+                  className="form-controll-file"
+                  onChange={(event) => this.handleOnchangeImg(event)}
+                />
+                {image && image !== "" && <img src={image} />}
+              </div>
+
               {/* button add */}
               <div className="button-add ">
                 <div
                   className="btn btn-primary btn-add"
-                  onClick={() => this.handleEditPatient()}
+                  onClick={() => this.handleAddPatient()}
                 >
-                  <FormattedMessage id="system.btn.change" />
+                  <FormattedMessage id="system.btn.add" />
                 </div>
               </div>
             </form>
@@ -294,5 +283,5 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(EditPatient)
+  connect(mapStateToProps, mapDispatchToProps)(AddDoctor)
 );

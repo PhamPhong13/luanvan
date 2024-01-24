@@ -47,6 +47,9 @@ const getAllAdmin = () => {
 const getAllDoctor = () => {
   return axios.get(`/api/get-doctor`);
 };
+const createDoctor = (data) => {
+  return axios.post(`/api/create-doctor`, data);
+};
 
 export {
   handleLoginApi,
@@ -63,4 +66,5 @@ export {
   getAllAdmin,
   /* doctor */
   getAllDoctor,
+  createDoctor,
 };

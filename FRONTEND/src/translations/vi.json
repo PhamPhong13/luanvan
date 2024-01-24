@@ -25,7 +25,10 @@
     "add": {
       "add-patient": "Thêm tài khoản bệnh nhân",
       "add-doctor": "Thêm tài khoản bác sĩ",
-      "add-admin": "Thêm tài khoản quản trị"
+      "add-admin": "Thêm tài khoản quản trị",
+      "edit-patient": "Chỉnh sửa tài khoản bệnh nhân",
+      "edit-doctor": "Chỉnh sửa tài khoản bác sĩ",
+      "edit-admin": "Chỉnh sửa tài khoản quản trị"
     }
   },
   "key": {
@@ -37,6 +40,8 @@
     "address": "Địa chỉ",
     "phone": "Số điện thoại",
     "gender": "Giới tính",
-    "birthday": "Ngày sinh"
+    "birthday": "Ngày sinh",
+    "position": "Chức vụ",
+    "image": "Ảnh đại diện"
   }
 }

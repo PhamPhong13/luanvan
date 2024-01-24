@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import _, { isEmpty } from "lodash";
 import { FormattedMessage } from "react-intl";
-import "./manage.scss";
+import "../manage.scss";
 import { withRouter } from "react-router";
-import { getAllDoctor } from "../../../services/userService";
+import { getAllDoctor } from "../../../../services/userService";
 class ManageDoctor extends Component {
   constructor(props) {
     super(props);
@@ -36,7 +36,7 @@ class ManageDoctor extends Component {
   // move to link
   handleOnpenAddPatient = () => {
     if (this.props.history) {
-      this.props.history.push(`/system/add-patient`);
+      this.props.history.push(`/system/add-doctor`);
     }
   };
   render() {

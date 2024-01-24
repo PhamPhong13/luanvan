@@ -25,7 +25,10 @@
     "add": {
       "add-patient": "Add account patient",
       "add-doctor": "Add account doctor",
-      "add-admin": "Add account admin"
+      "add-admin": "Add account admin",
+      "edit-patient": "Edit account patient",
+      "edit-doctor": "Edit account doctor",
+      "edit-admin": "Edit account admin"
     }
   },
   "key": {
@@ -37,6 +40,8 @@
     "address": "Address",
     "phone": "Phone",
     "gender": "Gender",
-    "birthday": "Birthday"
+    "birthday": "Birthday",
+    "position": "Position",
+    "image": "Avatar"
   }
 }
