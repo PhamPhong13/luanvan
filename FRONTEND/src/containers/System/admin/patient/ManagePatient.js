@@ -63,13 +63,13 @@ class ManagePatient extends Component {
     } else toast.error("Delete patientt faild!");
   };
 
-  handleSearch = (event) => {
+  handleSearch = async (event) => {
     let keyword = this.removeAccents(event.target.value.toUpperCase());
-
     if (keyword.length > 0) {
       let { listPatient } = this.state;
       let result = [];
-      listPatient.map((item, index) => {
+      let res = await getAllPatient();
+      res.data.map((item, index) => {
         let fullName = this.removeAccents(item.fullName.toUpperCase());
         if (fullName.includes(keyword) === true) {
           result.push(item);
