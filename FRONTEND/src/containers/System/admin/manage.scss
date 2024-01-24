@@ -1,0 +1,83 @@
+.manage {
+    height: 100vh;
+    padding-top: 50px;
+
+    .form-search {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 50px;
+
+        .form-group {
+            width: 50%;
+            height: 50px;
+            border-radius: 50px;
+            overflow: hidden;
+            position: relative;
+
+            input {
+                width: 100%;
+                height: 100%;
+                border: none;
+                outline: none;
+                padding: 10px 20px;
+                font-size: 16px;
+            }
+
+            i {
+                position: absolute;
+                top: 27%;
+                right: 16px;
+                font-size: 20px;
+            }
+        }
+    }
+
+    .table-patient {
+        margin-top: 10px;
+        height: 400px;
+        overflow: auto;
+
+        tr {
+            th {
+                text-align: center;
+                background-color: blue;
+                color: white;
+            }
+        }
+
+        tr {
+            td {
+                align-items: center;
+            }
+        }
+
+        .listnull {
+            text-align: center;
+            color: red;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .stt {
+            text-align: center;
+        }
+
+        .action {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .btn-edit {
+                font-size: 12px;
+            }
+
+            .btn-delete {
+                margin-left: 5px;
+                font-size: 12px;
+            }
+        }
+    }
+
+
+}

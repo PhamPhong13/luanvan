@@ -1,0 +1,18 @@
+.homesystem {
+    height: 100vh;
+    background-image: url("../../../assets/bg.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .welcome {
+        font-size: 50px;
+        font-weight: bold;
+        text-align: center;
+        color: red;
+        text-shadow: 3px 0px #ecaeae;
+    }
+}
