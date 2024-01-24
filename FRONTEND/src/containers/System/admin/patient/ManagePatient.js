@@ -11,6 +11,7 @@ class ManagePatient extends Component {
     super(props);
     this.state = {
       listPatient: [],
+      listPatientSearch: false,
     };
   }
 
@@ -22,6 +23,7 @@ class ManagePatient extends Component {
     let res = await getAllPatient();
     this.setState({
       listPatient: res.data,
+      listPatientSearch: false,
     });
   };
 
@@ -61,9 +63,62 @@ class ManagePatient extends Component {
     } else toast.error("Delete patientt faild!");
   };
 
+  handleSearch = (event) => {
+    let keyword = this.removeAccents(event.target.value.toUpperCase());
+
+    if (keyword.length > 0) {
+      let { listPatient } = this.state;
+      let result = [];
+      listPatient.map((item, index) => {
+        let fullName = this.removeAccents(item.fullName.toUpperCase());
+        if (fullName.includes(keyword) === true) {
+          result.push(item);
+        }
+      });
+
+      if (result && result.length > 0) {
+        this.setState({
+          listPatient: result,
+          listPatientSearch: false,
+        });
+      } else if (result && result.length == 0) {
+        this.setState({
+          listPatient: [],
+          listPatientSearch: true,
+        });
+      }
+    } else {
+      this.getAllPatients();
+    }
+  };
+
+  removeAccents = (str) => {
+    var AccentsMap = [
+      "aàảãáạăằẳẵắặâầẩẫấậ",
+      "AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬ",
+      "dđ",
+      "DĐ",
+      "eèẻẽéẹêềểễếệ",
+      "EÈẺẼÉẸÊỀỂỄẾỆ",
+      "iìỉĩíị",
+      "IÌỈĨÍỊ",
+      "oòỏõóọôồổỗốộơờởỡớợ",
+      "OÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢ",
+      "uùủũúụưừửữứự",
+      "UÙỦŨÚỤƯỪỬỮỨỰ",
+      "yỳỷỹýỵ",
+      "YỲỶỸÝỴ",
+    ];
+    for (var i = 0; i < AccentsMap.length; i++) {
+      var re = new RegExp("[" + AccentsMap[i].substr(1) + "]", "g");
+      var char = AccentsMap[i][0];
+      str = str.replace(re, char);
+    }
+    return str;
+  };
+
   render() {
-    let { listPatient } = this.state;
-    console.log(listPatient);
+    let { listPatient, listPatientSearch } = this.state;
     let placeholder =
       this.props.language === "vi" ? "Nhập để tìm kiếm" : "Type to search";
     return (
@@ -80,7 +135,11 @@ class ManagePatient extends Component {
           {/* form search */}
           <div className="form-search">
             <div className="form-group">
-              <input type="text" placeholder={placeholder} />
+              <input
+                type="text"
+                onChange={(event) => this.handleSearch(event)}
+                placeholder={placeholder}
+              />
               <i className="fas fa-search"></i>
             </div>
           </div>
@@ -111,11 +170,20 @@ class ManagePatient extends Component {
                 </tr>
               </thead>
               <tbody>
-                {listPatient && isEmpty(listPatient) && (
-                  <div className="listnull">
-                    <i>Danh sách rổng!</i>
-                  </div>
-                )}
+                {listPatient &&
+                  isEmpty(listPatient) &&
+                  listPatientSearch === false && (
+                    <div className="listnull">
+                      <i>Danh sách rổng!</i>
+                    </div>
+                  )}
+                {listPatient &&
+                  isEmpty(listPatient) &&
+                  listPatientSearch === true && (
+                    <div className="listnull">
+                      <i>Không tìm thấy bệnh nhân!</i>
+                    </div>
+                  )}
 
                 {listPatient &&
                   !isEmpty(listPatient) &&
