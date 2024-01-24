@@ -26,6 +26,16 @@ const deletePatient = (id) => {
   });
 };
 
+const getPatientById = (id) => {
+  return axios.get(`/api/get-patient`, {
+    data: { id: id },
+  });
+};
+
+const updatePatient = (data) => {
+  return axios.put(`/api/update-patient`, data);
+};
+
 // ---------------------- admin -------------------
 
 const getAllAdmin = () => {
@@ -46,6 +56,8 @@ export {
   getAllPatient,
   createPatient,
   deletePatient,
+  getPatientById,
+  updatePatient,
 
   /* admin */
   getAllAdmin,

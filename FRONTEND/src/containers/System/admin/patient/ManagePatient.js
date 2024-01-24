@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import _, { isEmpty } from "lodash";
 import { FormattedMessage } from "react-intl";
-import "./manage.scss";
-import "./ManagePatient.scss";
+import "../manage.scss";
 import { withRouter } from "react-router";
-import { getAllPatient, deletePatient } from "../../../services/userService";
+import { getAllPatient, deletePatient } from "../../../../services/userService";
 import { toast } from "react-toastify";
 class ManagePatient extends Component {
   constructor(props) {
@@ -30,6 +29,12 @@ class ManagePatient extends Component {
   handleOnpenAddPatient = () => {
     if (this.props.history) {
       this.props.history.push(`/system/add-patient`);
+    }
+  };
+
+  linktoEdit = (id) => {
+    if (this.props.history) {
+      this.props.history.push(`/system/edit-patient/${id}`);
     }
   };
 
@@ -125,9 +130,31 @@ class ManagePatient extends Component {
                         <td>{item.address}</td>
                         <td>{this.getngay(item.birthday)}</td>
                         <td>{item.phone}</td>
-                        <td>{item.gender}</td>
+                        <td>
+                          {this.props.language === "vi" &&
+                            item.gender === "M" &&
+                            "Nam"}
+                          {this.props.language === "vi" &&
+                            item.gender === "F" &&
+                            "Nữ"}
+                          {this.props.language === "vi" &&
+                            item.gender === "O" &&
+                            "Khác"}
+                          {this.props.language === "en" &&
+                            item.gender === "M" &&
+                            "Male"}
+                          {this.props.language === "en" &&
+                            item.gender === "F" &&
+                            "Female"}
+                          {this.props.language === "en" &&
+                            item.gender === "O" &&
+                            "Other"}
+                        </td>
                         <td className="action">
-                          <button className="btn btn-warning btn-edit">
+                          <button
+                            className="btn btn-warning btn-edit"
+                            onClick={() => this.linktoEdit(item.id)}
+                          >
                             <FormattedMessage id="system.btn.edit" />
                           </button>
                           <button
