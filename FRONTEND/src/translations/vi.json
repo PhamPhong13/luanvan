@@ -1,31 +1,42 @@
 {
-    "system": {
-        "header": {
-            "user": "Người dùng",
-            "manage-patient": "Quản lý tài khoản bệnh nhân",
-            "manage-doctor": "Quản lý tài khoản bác sĩ",
-            "manage-admin": "Quản lý tài khoản quản trị"
-        },
-        "home": {
-            "home": "Trang chủ",
-            "welcome": "CHÀO MỪNG BẠN ĐẾN VỚI TRANG CHỦ QUẢN LÝ!"
-        },
-        "patient": {
-            "add-account": "Thêm tài khoản"
-        },
-        "btn": {
-            "edit": "Chỉnh sửa",
-            "delete": "xóa",
-            "save": "Lưu",
-            "cancel": "Hủy",
-            "change": "Lưu",
-            "add": "Thêm"
-        },
-        "add": {
-            "add-patient": "Thêm tài khoản bệnh nhân",
-            "add-doctor": "Thêm tài khoản bác sĩ",
-            "add-admin": "Thêm tài khoản quản trị"
-        }
-    }  
-       
+  "system": {
+    "header": {
+      "user": "Người dùng",
+      "welcome": "Xin chào",
+      "manage-patient": "Quản lý tài khoản bệnh nhân",
+      "manage-doctor": "Quản lý tài khoản bác sĩ",
+      "manage-admin": "Quản lý tài khoản quản trị"
+    },
+    "home": {
+      "home": "Trang chủ",
+      "welcome": "CHÀO MỪNG BẠN ĐẾN VỚI TRANG CHỦ QUẢN LÝ!"
+    },
+    "patient": {
+      "add-account": "Thêm tài khoản"
+    },
+    "btn": {
+      "edit": "Chỉnh sửa",
+      "delete": "xóa",
+      "save": "Lưu",
+      "cancel": "Hủy",
+      "change": "Lưu",
+      "add": "Thêm"
+    },
+    "add": {
+      "add-patient": "Thêm tài khoản bệnh nhân",
+      "add-doctor": "Thêm tài khoản bác sĩ",
+      "add-admin": "Thêm tài khoản quản trị"
+    }
+  },
+  "key": {
+    "email": "Email",
+    "password": "Mật khẩu",
+    "fullname": "Họ và tên",
+    "firstname": "Họ tên đệm",
+    "lastname": "Tên",
+    "address": "Địa chỉ",
+    "phone": "Số điện thoại",
+    "gender": "Giới tính",
+    "birthday": "Ngày sinh"
+  }
 }

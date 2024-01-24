@@ -1,30 +1,42 @@
 {
-    "system": {
-        "header": {
-            "user": "User",
-            "manage-patient": "Manage Patient",
-            "manage-doctor": "Manage Doctor",
-            "manage-admin": "Manage Admin"
-        },
-        "home": {
-            "home": "Home page",
-            "welcome": "WELCOME TO THE DASHBOARD!"
-        },
-        "patient": {
-            "add-account": "Add account"
-        },
-        "btn": {
-            "edit": "Edit",
-            "delete": "Delete",
-            "save": "Save",
-            "cancel": "Cancel",
-            "change": "Change",
-            "add": "Add"
-        },
-        "add": {
-            "add-patient": "Add account patient",
-            "add-doctor": "Add account doctor",
-            "add-admin": "Add account admin"
-        }
+  "system": {
+    "header": {
+      "user": "User",
+      "welcome": "Welcome",
+      "manage-patient": "Manage Patient",
+      "manage-doctor": "Manage Doctor",
+      "manage-admin": "Manage Admin"
+    },
+    "home": {
+      "home": "Home page",
+      "welcome": "WELCOME TO THE DASHBOARD!"
+    },
+    "patient": {
+      "add-account": "Add account"
+    },
+    "btn": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "save": "Save",
+      "cancel": "Cancel",
+      "change": "Change",
+      "add": "Add"
+    },
+    "add": {
+      "add-patient": "Add account patient",
+      "add-doctor": "Add account doctor",
+      "add-admin": "Add account admin"
     }
+  },
+  "key": {
+    "email": "Email",
+    "password": "Password",
+    "fullname": "FullName",
+    "firstname": "FirstName",
+    "lastname": "LastName",
+    "address": "Address",
+    "phone": "Phone",
+    "gender": "Gender",
+    "birthday": "Birthday"
+  }
 }
