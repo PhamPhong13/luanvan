@@ -168,9 +168,53 @@ let deleteDoctor = (id) => {
   });
 };
 
+
+let updateDoctor = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!data.id || !data.email ) {
+        resolve({
+          errCode: 2,
+          errMessage: "Missing required parameter!",
+        });
+      }
+      else{
+        let doctor = await db.Doctor.findOne({
+          where: { id: data.id },
+          raw: false,
+        });
+        if (doctor) {
+          doctor.email = data.email;
+          doctor.firstName = data.firstName;
+          doctor.lastName = data.lastName;
+          doctor.address = data.address;
+          doctor.position = data.position;
+          doctor.image = data.image;
+          doctor.phone = data.phone;
+          await doctor.save();
+  
+          resolve({
+            errCode: 0,
+            errMessage: "Update doctor succeed!",
+          });
+        } else {
+          resolve({
+            errCode: 2,
+            errMessage: "Doctor not found!",
+          });
+        }
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+
 module.exports = {
   createDoctor: createDoctor,
   getDoctor: getDoctor,
   getDoctorById: getDoctorById,
   deleteDoctor: deleteDoctor,
+  updateDoctor: updateDoctor,
 };

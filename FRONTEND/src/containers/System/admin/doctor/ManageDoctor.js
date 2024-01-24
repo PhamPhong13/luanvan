@@ -39,6 +39,13 @@ class ManageDoctor extends Component {
       this.props.history.push(`/system/add-doctor`);
     }
   };
+
+  linktoEdit = (id) => {
+    if (this.props.history) {
+      this.props.history.push(`/system/edit-doctor/${id}`);
+    }
+  };
+
   render() {
     let { listPatient } = this.state;
     console.log(listPatient);
@@ -110,7 +117,11 @@ class ManageDoctor extends Component {
                         <td>{item.position}</td>
                         <td>{item.phone}</td>
                         <td className="action">
-                          <button className="btn btn-warning btn-edit">
+                          <button className="btn btn-primary btn-edit">
+                            <FormattedMessage id="system.btn.infor" />
+                          </button>
+                          <button className="btn btn-warning btn-edit"
+                           onClick={() => this.linktoEdit(item.id)}>
                             <FormattedMessage id="system.btn.edit" />
                           </button>
                           <button className="btn btn-danger btn-delete">

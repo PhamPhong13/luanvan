@@ -14,7 +14,7 @@ let getPatient = async (req, res) => {
 
 // get patient by id
 let getPatientById = async (req, res) => {
-  let patient = await patientService.getPatientById(req.body.id);
+  let patient = await patientService.getPatientById(req.query.id);
   return res.status(200).json(patient);
 };
 

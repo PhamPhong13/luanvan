@@ -27,9 +27,7 @@ const deletePatient = (id) => {
 };
 
 const getPatientById = (id) => {
-  return axios.get(`/api/get-patient`, {
-    data: { id: id },
-  });
+  return axios.get(`/api/get-patient-by-id?id=${id}`);
 };
 
 const updatePatient = (data) => {
@@ -51,20 +49,22 @@ const createDoctor = (data) => {
   return axios.post(`/api/create-doctor`, data);
 };
 
+const getDoctorById = (id) => {
+  return axios.get(`/api/get-doctor-by-id?id=${id}`);
+}
+
+const updateDoctor = (data) => {
+  return axios.put(`/api/update-doctor`, data);
+};
+
 export {
-  handleLoginApi,
-  getAllcode,
+  handleLoginApi,   getAllcode,
 
   /* patient */
-  getAllPatient,
-  createPatient,
-  deletePatient,
-  getPatientById,
-  updatePatient,
+  getAllPatient,  createPatient,  deletePatient,  getPatientById,  updatePatient,
 
   /* admin */
   getAllAdmin,
   /* doctor */
-  getAllDoctor,
-  createDoctor,
+  getAllDoctor,  createDoctor, getDoctorById, updateDoctor,
 };

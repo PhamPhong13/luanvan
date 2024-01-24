@@ -208,28 +208,30 @@ let updatePatient = (data) => {
           errMessage: "Missing required parameter!",
         });
       }
-      let patient = await db.Patient.findOne({
-        where: { id: data.id },
-        raw: false,
-      });
-      if (patient) {
-        patient.email = data.email;
-        patient.fullName = data.fullName;
-        patient.address = data.address;
-        patient.birthday = data.birthday;
-        patient.gender = data.gender;
-        patient.phone = data.phone;
-        await patient.save();
-
-        resolve({
-          errCode: 0,
-          errMessage: "Update patient succeed!",
+      else{
+        let patient = await db.Patient.findOne({
+          where: { id: data.id },
+          raw: false,
         });
-      } else {
-        resolve({
-          errCode: 2,
-          errMessage: "Patient not found!",
-        });
+        if (patient) {
+          patient.email = data.email;
+          patient.fullName = data.fullName;
+          patient.address = data.address;
+          patient.birthday = data.birthday;
+          patient.gender = data.gender;
+          patient.phone = data.phone;
+          await patient.save();
+  
+          resolve({
+            errCode: 0,
+            errMessage: "Update patient succeed!",
+          });
+        } else {
+          resolve({
+            errCode: 2,
+            errMessage: "Patient not found!",
+          });
+        }
       }
     } catch (e) {
       reject(e);

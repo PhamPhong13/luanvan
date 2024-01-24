@@ -20,7 +20,8 @@
       "save": "Save",
       "cancel": "Cancel",
       "change": "Change",
-      "add": "Add"
+      "add": "Add",
+      "infor": "Infor"
     },
     "add": {
       "add-patient": "Add account patient",
