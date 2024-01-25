@@ -37,7 +37,15 @@
     margin-top: 10px;
     height: 400px;
     overflow: auto;
-
+    .desc{
+      display: flex;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      height: 20px;
+      overflow: hidden;
+      width: 350px;
+    }
     tr {
       th {
         text-align: center;

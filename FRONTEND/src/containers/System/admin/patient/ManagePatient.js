@@ -195,7 +195,11 @@ class ManagePatient extends Component {
                         </td>
                         <td>{item.email}</td>
                         <td>{item.fullName}</td>
-                        <td>{item.address}</td>
+                        <td>
+                          <div className="desc">
+                          {item.address}
+                          </div>
+                        </td>
                         <td>{this.getngay(item.birthday)}</td>
                         <td>{item.phone}</td>
                         <td>

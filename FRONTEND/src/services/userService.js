@@ -57,6 +57,12 @@ const updateDoctor = (data) => {
   return axios.put(`/api/update-doctor`, data);
 };
 
+const deleteDoctor = (id) => {
+  return axios.delete(`api/delete-doctor`, {
+    data: { id: id },
+  });
+};
+
 export {
   handleLoginApi,   getAllcode,
 
@@ -66,5 +72,5 @@ export {
   /* admin */
   getAllAdmin,
   /* doctor */
-  getAllDoctor,  createDoctor, getDoctorById, updateDoctor,
+  getAllDoctor,  createDoctor, getDoctorById, updateDoctor, deleteDoctor
 };

@@ -4,7 +4,8 @@ import _, { isEmpty } from "lodash";
 import { FormattedMessage } from "react-intl";
 import "../manage.scss";
 import { withRouter } from "react-router";
-import { getAllDoctor } from "../../../../services/userService";
+import { getAllDoctor, deleteDoctor } from "../../../../services/userService";
+import { toast } from "react-toastify";
 class ManageDoctor extends Component {
   constructor(props) {
     super(props);
@@ -23,10 +24,10 @@ class ManageDoctor extends Component {
   }
 
   async componentDidMount() {
-    this.getAllPatients();
+    this.getAllDoctor();
   }
 
-  getAllPatients = async () => {
+  getAllDoctor = async () => {
     let res = await getAllDoctor();
     this.setState({
       listPatient: res.data,
@@ -45,6 +46,18 @@ class ManageDoctor extends Component {
       this.props.history.push(`/system/edit-doctor/${id}`);
     }
   };
+
+  handleDeleteDoctor = async(id) => {
+    alert("Bạn có chắc rằng muốn xóa tài khoản này không!");
+    let res = await deleteDoctor(id);
+    if(res && res.errCode === 0){
+      this.getAllDoctor();
+      toast.success("Doctor deleted successfully!");
+    }
+    else{
+      toast.error("Doctor deleted fail!");
+    }
+  }
 
   render() {
     let { listPatient } = this.state;
@@ -113,7 +126,11 @@ class ManageDoctor extends Component {
                         <td>{item.email}</td>
                         <td>{item.firstName}</td>
                         <td>{item.lastName}</td>
-                        <td>{item.address}</td>
+                        <td>
+                          <div className="desc">
+                          {item.address}
+                          </div>
+                        </td>
                         <td>{item.position}</td>
                         <td>{item.phone}</td>
                         <td className="action">
@@ -124,7 +141,9 @@ class ManageDoctor extends Component {
                            onClick={() => this.linktoEdit(item.id)}>
                             <FormattedMessage id="system.btn.edit" />
                           </button>
-                          <button className="btn btn-danger btn-delete">
+                          <button className="btn btn-danger btn-delete"
+                          onClick={() =>this.handleDeleteDoctor(item.id)}
+                          >
                             <FormattedMessage id="system.btn.delete" />
                           </button>
                         </td>
