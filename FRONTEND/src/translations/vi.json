@@ -44,5 +44,8 @@
     "birthday": "Ngày sinh",
     "position": "Chức vụ",
     "image": "Ảnh đại diện"
+  },
+  "doctor" :{
+    "infor-doctor": "Thông tin bác sĩ"
   }
 }

@@ -6,10 +6,14 @@ import SystemHome from "../containers/System/admin/SystemHome";
 import Header from "../containers/Header/Header";
 import AddPatient from "../containers/System/admin/patient/AddPatient";
 import EditPatient from "../containers/System/admin/patient/EditPatient";
+
 import ManageAdmin from "../containers/System/admin/ManageAdmin";
+
 import ManageDoctor from "../containers/System/admin/doctor/ManageDoctor";
 import AddDoctor from "../containers/System/admin/doctor/AddDoctor";
 import EditDoctor from "../containers/System/admin/doctor/EditDoctor";
+import InforDoctor from "../containers/System/admin/doctor/InforDoctor";
+
 class System extends Component {
   render() {
     const { systemMenuPath, isLoggedIn } = this.props;
@@ -31,6 +35,7 @@ class System extends Component {
               <Route path="/system/manage-doctor" component={ManageDoctor} />
               <Route path="/system/add-doctor" component={AddDoctor} />
               <Route path="/system/edit-doctor/:id" component={EditDoctor} />
+              <Route path="/system/info-doctor/:id" component={InforDoctor} />
               
               <Route path="/system/home" component={SystemHome} />
               <Route

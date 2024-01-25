@@ -44,5 +44,8 @@
     "birthday": "Birthday",
     "position": "Position",
     "image": "Avatar"
+  },
+  "doctor" :{
+    "infor-doctor": "Information doctor"
   }
 }

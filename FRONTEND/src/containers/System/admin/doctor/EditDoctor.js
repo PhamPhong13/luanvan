@@ -181,12 +181,12 @@ class EditDoctor extends Component {
     return (
       <>
         <title>
-          <FormattedMessage id="system.add.add-doctor" />
+          <FormattedMessage id="system.add.edit-doctor" />
         </title>
 
         <div className="container adduser">
           <div className="title">
-            <FormattedMessage id="system.add.add-doctor" />
+            <FormattedMessage id="system.add.edit-doctor" />
           </div>
 
           <div className="form">
