@@ -1,0 +1,24 @@
+.inforDoctor{
+    padding-top: 50px;
+
+    .infordoctor-content{
+        height: 100px;
+        padding: 5px 10px;
+        width: 90%;
+        margin: 0 auto;
+        margin-top: 10px;
+        box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.2);
+        .content-top{
+            display: flex;
+            width: 100%;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            .form-group{
+                width: calc(100% / 3);
+                padding: 5px;
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+}

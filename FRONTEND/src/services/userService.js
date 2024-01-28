@@ -63,6 +63,13 @@ const deleteDoctor = (id) => {
   });
 };
 
+const getDoctorInForByDoctorId = (id) => {
+  return axios.post(`/api/get-doctorinfor-by-doctor-id`,
+  {
+    id: id 
+  });
+};
+
 export {
   handleLoginApi,   getAllcode,
 
@@ -72,5 +79,6 @@ export {
   /* admin */
   getAllAdmin,
   /* doctor */
-  getAllDoctor,  createDoctor, getDoctorById, updateDoctor, deleteDoctor
+  getAllDoctor,  createDoctor, getDoctorById, updateDoctor, deleteDoctor,
+  getDoctorInForByDoctorId,
 };

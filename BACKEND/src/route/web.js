@@ -32,6 +32,8 @@ let initWebRoutes = (app) => {
   router.get("/api/get-doctor-by-id", doctor.getDoctorById); // get doctor by id
   router.delete("/api/delete-doctor", doctor.deleteDoctor); // delete doctor
   router.put("/api/update-doctor", doctor.updateDoctor); // update doctor
+
+  router.post("/api/get-doctorinfor-by-doctor-id", doctor.getDoctorInForByDoctorId); // get doctor infor
   return app.use("/", router);
 };
 

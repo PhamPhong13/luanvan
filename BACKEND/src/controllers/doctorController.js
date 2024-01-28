@@ -33,10 +33,16 @@ let updateDoctor = async ( req, res ) =>
     return res.status( 200 ).json( patient );
 }
 
+let getDoctorInForByDoctorId = async ( req, res ) => {
+    let doctor = await doctorService.getDoctorInForByDoctorId( req.body.id );
+    return res.status( 200 ).json( doctor );
+}
+
 module.exports = {
     createDoctor: createDoctor,
     getDoctor: getDoctor,
     getDoctorById: getDoctorById,
     deleteDoctor: deleteDoctor,
-    updateDoctor: updateDoctor
+    updateDoctor: updateDoctor,
+    getDoctorInForByDoctorId: getDoctorInForByDoctorId
 }

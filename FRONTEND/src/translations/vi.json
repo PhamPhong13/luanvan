@@ -46,6 +46,7 @@
     "image": "Ảnh đại diện"
   },
   "doctor" :{
-    "infor-doctor": "Thông tin bác sĩ"
+    "infor-doctor": "Thông tin bác sĩ",
+    "choose-doctor": "Chọn bác sĩ"
   }
 }

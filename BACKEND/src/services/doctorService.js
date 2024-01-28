@@ -210,6 +210,50 @@ let updateDoctor = (data) => {
   });
 };
 
+let getDoctorInForByDoctorId = (id) => {
+  return new Promise(async(resolve, reject) => {
+    try {
+      if(!id){
+        resolve({
+          errCode: 2,
+          errMessage: "Missing required parameter!",
+        })
+      }
+
+      else {
+        await db.Doctor_Infor.findOrCreate({
+          where: {
+            doctorId: id
+          },
+          defaults: {
+            doctorId: id
+          }
+        })
+
+        let doctorInfor = await db.Doctor_Infor.findOne({
+          where: {
+            doctorId: id
+          },
+          raw: true,
+          attributes: {
+            exclude: ["password"]
+          }
+        })
+
+        resolve({
+          errCode: 0,
+          errMessage: "Get doctor infor successfully!",
+          data: doctorInfor
+        })
+        
+      }
+    }
+    catch(err) {
+      reject(err);
+    }
+  })
+}
+
 
 module.exports = {
   createDoctor: createDoctor,
@@ -217,4 +261,5 @@ module.exports = {
   getDoctorById: getDoctorById,
   deleteDoctor: deleteDoctor,
   updateDoctor: updateDoctor,
+  getDoctorInForByDoctorId: getDoctorInForByDoctorId
 };

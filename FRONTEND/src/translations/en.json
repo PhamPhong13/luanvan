@@ -46,6 +46,8 @@
     "image": "Avatar"
   },
   "doctor" :{
-    "infor-doctor": "Information doctor"
+    "infor-doctor": "Information doctor",
+    "choose-doctor": "Choose doctor"
+
   }
 }
