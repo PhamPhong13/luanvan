@@ -89,3 +89,52 @@
     }
   }
 }
+
+.clinic{
+  margin-top: 10px;
+  .listnull{
+    text-align: center;
+    color: red;
+    font-style: italic;
+  }
+  .clinic-content{
+        border: 1px solid black;
+          width: 100%;
+          height: 50px;
+          border-radius: 50px;
+          margin-bottom: 10px;
+          padding: 0 25px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+
+          .clinic-content-left{
+            width: 60%;
+            height: 100%;
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+          }
+          .clinic-content-right {
+                      width: 40%;
+                      height: 100%;
+              display: flex;
+              justify-content: right;
+              align-items: center;
+
+              button{
+                height: 70%;
+
+                &.btn-delete{
+                  margin-left: 5px;
+                }
+              }
+              
+          }
+
+          
+  }
+}

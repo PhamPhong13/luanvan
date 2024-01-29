@@ -70,6 +70,23 @@ const getDoctorInForByDoctorId = (id) => {
   });
 };
 
+
+// ---------------------- clinic -------------------
+const createClinic = (data) => {
+  return axios.post(`/api/create-clinic`, data);
+};
+
+const getClinic = () => {
+  return axios.get(`/api/get-clinic`);
+};
+
+const deleteClinic = (id) => {
+  return axios.delete(`api/delete-clinic`, {
+    data: { id: id },
+  });
+};
+
+
 export {
   handleLoginApi,   getAllcode,
 
@@ -81,4 +98,7 @@ export {
   /* doctor */
   getAllDoctor,  createDoctor, getDoctorById, updateDoctor, deleteDoctor,
   getDoctorInForByDoctorId,
+
+  /* clinic */
+  createClinic,getClinic, deleteClinic
 };

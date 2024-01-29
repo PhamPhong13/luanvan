@@ -26,7 +26,9 @@
       "cancel": "Cancel",
       "change": "Change",
       "add": "Add",
-      "infor": "Infor"
+      "infor": "Infor",
+      "add-clinic": "Add clinic"
+
     },
     "add": {
       "add-patient": "Add account patient",
@@ -52,7 +54,10 @@
     "position": "Position",
     "image": "Avatar",
     "name-clinic": "Name clinic",
-    "image-clinic": "Image clinic"
+    "image-clinic": "Image clinic",
+    "address-clinic": "Address clinic"
+
+
   },
   "doctor" :{
     "infor-doctor": "Information doctor",

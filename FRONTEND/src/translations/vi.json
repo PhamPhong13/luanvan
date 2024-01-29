@@ -26,7 +26,8 @@
       "cancel": "Hủy",
       "change": "Lưu",
       "add": "Thêm",
-      "infor": "Thông tin"
+      "infor": "Thông tin",
+      "add-clinic": "Thêm phòng khám"
     },
     "add": {
       "add-patient": "Thêm tài khoản bệnh nhân",
@@ -52,7 +53,8 @@
     "position": "Chức vụ",
     "image": "Ảnh đại diện",
     "name-clinic": "Tên phòng khám",
-    "image-clinic": "Ảnh phòng khám"
+    "image-clinic": "Ảnh phòng khám",
+    "address-clinic": "Địa chỉ phòng khám"
   },
   "doctor" :{
     "infor-doctor": "Thông tin bác sĩ",

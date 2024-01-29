@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import _, { isEmpty } from "lodash";
 import { FormattedMessage } from "react-intl";
 import "../AddUser.scss";
-import { createPatient, getAllcode } from "../../../../services/userService";
+import { createClinic } from "../../../../services/userService";
 import {  CommonUtils } from '../../../../utils'; // vi or en
 import Select from "react-select";
 import DatePicker from "../../../../components/Input/DatePicker";
@@ -23,14 +23,17 @@ class AddClinic extends Component {
             name: "",
             image: "",
             descMarkdown: "",
-            descHTML: "",
+          descHTML: "",
+            address: ""
         }
-    }
+  }
+  
+  
 
 
   linkto = () => {
     if (this.props.history) {
-      this.props.history.push(`/system/manage-patient`);
+      this.props.history.push(`/system/manage-clinic`);
     }
     };
     
@@ -52,6 +55,24 @@ class AddClinic extends Component {
         })
     }
 
+  checkState = () => {
+    let result = true;
+    if (this.state.name.length <= 0) {
+      alert("Please enter the clinic name!")
+      result = false;
+    }
+    else if (this.state.image.length <= 0) {
+      alert("Please upload an image!");
+      result = false;
+    }
+    else if (this.state.address.length <= 0) {
+      alert("Please enter the clinic address!");
+      result = false;
+    }
+
+    return result;
+  }
+
     handleEditorChange = ( { html, text } ) =>
     {
         this.setState( {
@@ -60,7 +81,29 @@ class AddClinic extends Component {
         } )
     }
 
-    render() {
+  handleAddClinic = async () => {
+    if (this.checkState() === false) {
+      return;
+    }
+    else {
+      let res = await createClinic({
+        name: this.state.name,
+        image: this.state.image,
+        address: this.state.address,
+        descMarkdown: this.state.descMarkdown,
+        descHTML: this.state.descHTML
+      });
+      if (res && res.errCode === 0) {
+        toast.success("Create a new clinic successfully!");
+        this.linkto();
+      }
+      else {
+        toast.error("Create a new clinic fail!");
+      }
+    }
+  }
+
+  render() {
     return (
       <>
         <title>
@@ -84,7 +127,7 @@ class AddClinic extends Component {
                   onChange={(event) => this.handleOnchangeInput(event, "name")}
                 />
               </div>
-              {/* password */}
+              {/* image */}
               <div className="form-group">
                 <label>
                   <FormattedMessage id="key.image-clinic" />:
@@ -94,6 +137,16 @@ class AddClinic extends Component {
                                 id="reviewImg" 
                                                
                                 onChange={(event) => this.handleOnchangeImg(event)} />
+              </div>
+              {/* address */}
+              <div className="form-group address">
+                <label>
+                  <FormattedMessage id="key.address-clinic" /> :
+                </label>
+                <input
+                  type="text"
+                  onChange={(event) => this.handleOnchangeInput(event, "address")}
+                />
               </div>
              
             <div className="markdown">
@@ -109,7 +162,7 @@ class AddClinic extends Component {
                          <div className="button-add ">
                 <div
                   className="btn btn-primary btn-add"
-                  onClick={() => this.handleAddPatient()}
+                  onClick={() => this.handleAddClinic()}
                 >
                   <FormattedMessage id="system.btn.add" />
                 </div>

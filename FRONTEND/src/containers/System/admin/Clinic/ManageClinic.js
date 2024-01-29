@@ -4,11 +4,37 @@ import _, { isEmpty } from "lodash";
 import { FormattedMessage } from "react-intl";
 import "../manage.scss";
 import { withRouter } from "react-router";
-import { getAllPatient, deletePatient } from "../../../../services/userService";
+import { getClinic, deleteClinic } from "../../../../services/userService";
 import { toast } from "react-toastify";
 class ManageClinic extends Component {
   
+  constructor(props) { 
+    super(props);
+    this.state = {
+      listClinic: []
+    };
+  }
 
+  async componentDidMount() {
+    await this.getAllClinic();
+  console.log(this.state)
+  }
+
+  getAllClinic = async () => {
+    let res = await getClinic();
+    console.log(res);
+    if (res && res.errCode === 0 && !isEmpty(res.data)) {
+      this.setState({
+        listClinic: res.data
+      });
+    }
+    else {
+      this.setState({
+        listClinic: []
+
+      })
+    }
+  }
      // move to link
   handleOnpenAddClinic = () => {
     if (this.props.history) {
@@ -16,8 +42,20 @@ class ManageClinic extends Component {
     }
   };
 
+  handleDeleteClinic = async(id) => {
+    alert("Bạn có chắc rằng muốn xóa phòng khám này không!");
+    let res = await deleteClinic(id);
+    if(res && res.errCode === 0){
+      this.getAllClinic();
+      toast.success("Clinic deleted successfully!");
+    }
+    else{
+      toast.error("Clinic deleted fail!");
+    }
+  }
+
     render() {
-    
+      let { listClinic } = this.state;
         return (
             <>
                 <title>
@@ -42,33 +80,46 @@ class ManageClinic extends Component {
           </div>
 
           {/* button add  */}
-          <div className="btn-add mt-3">
+          <div className="btn-add mt-3 mx-3">
             <div
               className="btn btn-primary add"
               onClick={() => this.handleOnpenAddClinic()}
             >
-              + <FormattedMessage id="system.patient.add-account" />
+              + <FormattedMessage id="system.btn.add-clinic" />
             </div>
           </div>
 
-          <div className="table-patient">
-            <table className="table table-striped table-bordered">
-              <thead>
-                <tr>
-                  <th scope="col">STT</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">FullName</th>
-                  <th scope="col">Address</th>
-                  <th scope="col">Birthday</th>
-                  <th scope="col">Phone</th>
-                  <th scope="col">Gender</th>
-                  <th scope="col">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-          </div>
+              {/* list clinic */}
+              <div className="container clinic">
+                  {listClinic &&  listClinic.map((item, index) => {
+                    return (
+                      <>
+                      <div className="clinic-content">
+                        <div className="clinic-content-left">
+                    {item.name}
+                  </div>
+                  <div className="clinic-content-right">
+                    <button
+                            className="btn btn-warning btn-edit"
+                            /* onClick={() => this.linktoEdit(item.id)} */
+                          >
+                            <FormattedMessage id="system.btn.edit" />
+                          </button>
+                          <button
+                            className="btn btn-danger btn-delete"
+                            onClick={() => this.handleDeleteClinic(item.id)}
+                          >
+                            <FormattedMessage id="system.btn.delete" />
+                          </button>
+                  </div>
+                </div>
+                      </>
+                    )
+                  })}
+                {listClinic && listClinic.length <= 0 && <div className="listnull">
+                Danh sách rổng!</div>}
+              </div>
+          
         </div>
             </>
         );

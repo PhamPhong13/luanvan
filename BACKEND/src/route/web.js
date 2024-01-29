@@ -3,6 +3,7 @@ import patient from "../controllers/patientController";
 import admin from "../controllers/adminController";
 import doctor from "../controllers/doctorController";
 import user from "../controllers/userController";
+import clinic from "../controllers/clinicController";
 
 let router = express.Router();
 
@@ -34,6 +35,13 @@ let initWebRoutes = (app) => {
   router.put("/api/update-doctor", doctor.updateDoctor); // update doctor
 
   router.post("/api/get-doctorinfor-by-doctor-id", doctor.getDoctorInForByDoctorId); // get doctor infor
+
+  // router clinic
+  router.post("/api/create-clinic", clinic.createClinic); // create clinic
+  router.get("/api/get-clinic", clinic.getClinic); // get clinic
+  router.get("/api/get-clinic-by-id", clinic.getClinicById); // get clinic by id
+  router.delete("/api/delete-clinic", clinic.deleteClinic); // delete clinic
+  router.put("/api/update-clinic", clinic.updateClinic); // update clinic
   return app.use("/", router);
 };
 
