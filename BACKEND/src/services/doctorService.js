@@ -87,7 +87,11 @@ let getDoctor = () => {
         attributes: {
           exclude: ["password"],
         },
+        include: [
+          { model: db.Allcode, as: 'positionDoctor', attributes: [ 'valueEn', 'valueVi' ] },
+        ],
         raw: true,
+        nest: true
       });
       if (patients) {
         resolve({
@@ -230,20 +234,24 @@ let getDoctorInForByDoctorId = (id) => {
           }
         })
 
-        let doctorInfor = await db.Doctor_Infor.findOne({
+
+        let doctor = await db.Doctor.findOne({
           where: {
-            doctorId: id
+            id: id
           },
-          raw: true,
+          include: [
+            {model: db.Doctor_Infor}
+          ] ,
           attributes: {
             exclude: ["password"]
-          }
+          } ,
+          raw: false,
+          nest: true
         })
-
         resolve({
           errCode: 0,
           errMessage: "Get doctor infor successfully!",
-          data: doctorInfor
+          data: doctor
         })
         
       }

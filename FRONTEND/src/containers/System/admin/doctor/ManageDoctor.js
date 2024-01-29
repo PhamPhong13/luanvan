@@ -218,7 +218,8 @@ class ManageDoctor extends Component {
                           {item.address}
                           </div>
                         </td>
-                        <td>{item.position}</td>
+                        <td>{this.props.language === "vi" ? item.positionDoctor.valueVi : 
+                        item.positionDoctor.valueEn}</td>
                         <td>{item.phone}</td>
                         <td className="action">
                           <button className="btn btn-primary btn-edit"

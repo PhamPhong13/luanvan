@@ -14,6 +14,8 @@ module.exports = ( sequelize, DataTypes ) =>
         static associate ( models )
         {
             // define association here
+            Doctor.hasOne(models.Doctor_Infor, { foreignKey: 'doctorId' });
+            Doctor.belongsTo(models.Allcode, { foreignKey: 'position', targetKey: 'keyMap', as: 'positionDoctor' });
         }
     };
     Doctor.init( {

@@ -47,6 +47,9 @@
   },
   "doctor" :{
     "infor-doctor": "Thông tin bác sĩ",
-    "choose-doctor": "Chọn bác sĩ"
+    "choose-doctor": "Chọn bác sĩ",
+    "doctor_fullname": "Họ tên bác sĩ",
+    "desc": "Thông tin chung ",
+    "price": "Giá khám"
   }
 }

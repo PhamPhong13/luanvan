@@ -117,7 +117,11 @@ let getPatient = () => {
         attributes: {
           exclude: ["password"],
         },
+        include: [
+          { model: db.Allcode, as: 'genderPatient', attributes: [ 'valueEn', 'valueVi' ] }
+        ],
         raw: true,
+        nest: true
       });
       if (patients) {
         resolve({

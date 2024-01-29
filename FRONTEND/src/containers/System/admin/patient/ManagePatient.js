@@ -119,6 +119,7 @@ class ManagePatient extends Component {
 
   render() {
     let { listPatient, listPatientSearch } = this.state;
+    console.log(this.state)
     let placeholder =
       this.props.language === "vi" ? "Nhập để tìm kiếm" : "Type to search";
     return (
@@ -203,24 +204,7 @@ class ManagePatient extends Component {
                         <td>{this.getngay(item.birthday)}</td>
                         <td>{item.phone}</td>
                         <td>
-                          {this.props.language === "vi" &&
-                            item.gender === "M" &&
-                            "Nam"}
-                          {this.props.language === "vi" &&
-                            item.gender === "F" &&
-                            "Nữ"}
-                          {this.props.language === "vi" &&
-                            item.gender === "O" &&
-                            "Khác"}
-                          {this.props.language === "en" &&
-                            item.gender === "M" &&
-                            "Male"}
-                          {this.props.language === "en" &&
-                            item.gender === "F" &&
-                            "Female"}
-                          {this.props.language === "en" &&
-                            item.gender === "O" &&
-                            "Other"}
+                          {this.props.language === "vi" ? item.genderPatient.valueVi : item.genderPatient.valueEn}
                         </td>
                         <td className="action">
                           <button

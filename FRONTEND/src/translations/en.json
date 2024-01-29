@@ -47,7 +47,10 @@
   },
   "doctor" :{
     "infor-doctor": "Information doctor",
-    "choose-doctor": "Choose doctor"
+    "choose-doctor": "Choose doctor",
+    "doctor_fullname": "Doctor's fullname",
+    "desc": "Generral information",
+    "price": "Examination price"
 
   }
 }

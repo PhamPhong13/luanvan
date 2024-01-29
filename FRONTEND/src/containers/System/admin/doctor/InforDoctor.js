@@ -4,7 +4,10 @@ import _, { isEmpty } from "lodash";
 import { FormattedMessage } from "react-intl";
 import "./InforDoctor.scss";
 import { withRouter } from "react-router";
-import { getAllDoctor, getDoctorInForByDoctorId } from "../../../../services/userService";
+import {
+  getAllDoctor, getDoctorInForByDoctorId,
+  getAllcode
+} from "../../../../services/userService";
 import Select from "react-select";
 
 import { toast } from "react-toastify";
@@ -12,58 +15,84 @@ class InforDoctor extends Component {
  constructor(props) {
     super(props);
     this.state = {
-        listDoctor: [],
-        listName: [],
-        selectedDoctor: '',
-        seleteName: '',
-        doctorInfor: ""
+        doctorInfor: "",
+        fullname: "",
+        infor: "",
+      listPrice: [],
+        selectedPrice: "",
     };
  }
 
  async componentDidMount() {
-    await this.getAllDoctors();
-    this.buildFullName();
-    let id = "1";
-    let res = await getDoctorInForByDoctorId(id);
-    console.log(res)
-    
- }
-
- buildFullName = () => {
-    let result =[];
-    let {listDoctor} = this.state;
-    listDoctor.map(item => {
-        let object = {};
-        object.value = item.id;
-        object.label = this.removeSpace(item.firstName + " " + item.lastName);
-        result.push(object);
-    })
-    this.setState({
-        listName: result
-    })
- }
-
- removeSpace = (name) => {
-    return name.replace(/\s+/g, ' '); // In ra "PHAM THANH PHONG"
+   await this.getDoctorInfor(); 
+   
+   await this.getListPrice();
+   this.getSelectedPrice();
+   
   }
 
 
- getAllDoctors = async () => {
-    let res = await getAllDoctor();
-    if (res && res.errCode === 0) {
-        this.setState({
-            listDoctor: res.data
-        })
-    }
-}
+  getSelectedPrice() { 
+    let priceId = this.state.infor.priceId;
+   if (priceId === null) {
+     this.setState({
+       selectedPrice: "",
+     });
+   }
+   else {
+     let selectedPrice = this.state.listPrice.find((item) => {
+       return item && item.value === priceId;
+      }); 
+     this.setState({
+        selectedPrice: selectedPrice,
+      })
+   }
+  }
+  
 
-handleChangeDoctor = (selectedDoctor) => {
+
+  getListPrice = async () => {
+    let res = await getAllcode("PRICE");
+    let result = [];
+    if (res && res.errCode === 0) {
+      res.data.map((item, index) => {
+        let object = {};
+        object.label = this.props.language === 'vi' ? item.valueVi : item.valueEn;
+        object.value = item.keyMap;
+        result.push(object);
+      })
+    }
     this.setState({
-        seleteName: selectedDoctor
+      listPrice: result
+    });
+  }
+  
+
+ getDoctorInfor = async () => {
+  let id = this.props.match.params.id;
+   let doctorInfor = await getDoctorInForByDoctorId(id);
+  this.setState({
+    doctorInfor: doctorInfor.data,
+    infor: doctorInfor.data.Doctor_Infor,
+  })
+    
+  this.buildFullName(doctorInfor.data.firstName, doctorInfor.data.lastName);
+ }
+
+
+ buildFullName = (firstName, lastNames) => {
+    let result = `${firstName} ${lastNames}`;
+    this.setState({
+        fullname: result
     })
-}
+  }
+  
+ removeSpace = (name) => {
+    return name.replace(/\s+/g, ' '); // In ra "PHAM THANH PHONG"
+  }
+ 
   render() {
-    let { listName } = this.state;
+    let { fullname, infor, listPrice , selectedPrice} = this.state;
     return (
       <>
         <title>
@@ -79,16 +108,34 @@ handleChangeDoctor = (selectedDoctor) => {
                 <div className="content-top">
                     <div className="form-group">
                         <label>
-                            Chọn bác sĩ
+                        <FormattedMessage id="doctor.doctor_fullname" /> : 
+                        </label>
+                        <input  type="text" value={fullname}/>
+                    </div>
+                    <div className="form-group description">
+                      <label>
+                       <FormattedMessage id="doctor.desc" /> :
+                      </label>
+                <textarea value={infor.desc === null ? "Chưa có thông tin, vui lòng nhập thông tin bác sĩ!":
+                  "khoong null"} >               </textarea>
+                    </div>
+            </div>
+            
+
+            <div className="content-top">
+                    <div className="form-group">
+                        <label>
+                        <FormattedMessage id="doctor.price" /> : 
                         </label>
                         <Select
-                            options={listName}
-                            value={this.state.seleteName}
-                            onChange={this.handleChangeDoctor}
-                            placeholder={<FormattedMessage id="doctor.choose-doctor" />}
-                            name="selectedDoctor"
+                          options={listPrice}
+                           value={selectedPrice}
+                         /* onChange={this.handleChangePrice}
+                          placeholder={<FormattedMessage id="key.position" />} */
+                          name="selectPosition"
                         />
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -108,6 +155,4 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(InforDoctor)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(InforDoctor);
