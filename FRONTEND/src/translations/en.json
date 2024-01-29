@@ -50,7 +50,16 @@
     "choose-doctor": "Choose doctor",
     "doctor_fullname": "Doctor's fullname",
     "desc": "Generral information",
-    "price": "Examination price"
+    "price": "Examination price",
+    "payment": "Payment",
+    "province": "province",
+    "clinic": "Clinic",
+    "specialty": "Specialty",
+    "note": "note",
+    "count": "Number of medical examination combs",
+    "infor-detail": "Detail information"
+
+
 
   }
 }
