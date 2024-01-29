@@ -21,6 +21,18 @@ export const adminMenu = [
       },
     ],
   },
+  {
+    name: "system.header.clinic",
+    menus: [
+       {
+        name: "system.header.manage-clinic",
+        link: "/system/manage-clinic",
+      },
+    ]
+  },
+  {
+    name: "system.header.specialty",
+  }
 ];
 
 export const doctorMenu = [

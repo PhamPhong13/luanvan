@@ -14,6 +14,10 @@
       justify-content: space-between;
       flex-wrap: wrap;
 
+      .markdown{
+        width: 100%;
+        padding: 5px;
+      }
       .button-add {
         display: flex;
         justify-content: center;

@@ -35,11 +35,25 @@ class InforDoctor extends Component {
     };
  }
 
- async componentDidMount() {
+  async componentDidMount() {
+    this.setState({
+     fullname: "",
+      listPrice: [],
+      listPayment: [],
+        listProvince: [],
+      selectedPrice: "",
+      selectedPayment: "",
+      selectedProvince: "",
+      firstName: "",
+      lastName: "",
+      desc: "",
+        priceId: "",
+        note: ""
+   })
    await this.getDoctorInfor(); 
-    await this.getListPrice("PRICE", "listPrice");
-    await this.getListPrice("PAYMENT", "listPayment");
-    await this.getListPrice("PROVINCE", "listProvince");
+    await this.getList("PRICE", "listPrice");
+    await this.getList("PAYMENT", "listPayment");
+    await this.getList("PROVINCE", "listProvince");
    this.getSelected(); 
   }
 
@@ -96,7 +110,7 @@ class InforDoctor extends Component {
   
 
 
-  getListPrice = async (name, id) => {
+  getList = async (name, id) => {
     let res = await getAllcode(name);
     let listres = this.bullAllcode(res)
     let stateCopy = { ...this.state };
@@ -104,7 +118,7 @@ class InforDoctor extends Component {
     this.setState({
       ...stateCopy,
     });
-
+console.log(this.state)
   }
   
 
@@ -185,7 +199,8 @@ class InforDoctor extends Component {
   } 
 
   render() {
-    let { fullname, listPrice, selectedPrice, desc, listPayment, selectedPayment,
+    let { fullname, listPrice, selectedPrice, desc,
+      listPayment, selectedPayment, note,
     listProvince, selectedProvince} = this.state;
     console.log(this.state)
     return (
@@ -289,7 +304,7 @@ class InforDoctor extends Component {
                         <label>
                         <FormattedMessage id="doctor.note" /> : 
                         </label>
-                        <textarea>kqwfhqwuhqwfi</textarea>
+                        <textarea value={note}></textarea>
               </div>
               
 

@@ -5,7 +5,12 @@
       "welcome": "Welcome",
       "manage-patient": "Manage Patient",
       "manage-doctor": "Manage Doctor",
-      "manage-admin": "Manage Admin"
+      "manage-admin": "Manage Admin",
+      "clinic": "Clinic",
+      "manage-clinic": "Manage clinic",
+      "specialty": "Specialty",
+      "manage-specialty": "Manage specialty"
+
     },
     "home": {
       "home": "Home page",
@@ -27,6 +32,8 @@
       "add-patient": "Add account patient",
       "add-doctor": "Add account doctor",
       "add-admin": "Add account admin",
+      "add-clinic": "Add clinic",
+      "add-specialty": "Add specialty",
       "edit-patient": "Edit account patient",
       "edit-doctor": "Edit account doctor",
       "edit-admin": "Edit account admin"
@@ -43,7 +50,9 @@
     "gender": "Gender",
     "birthday": "Birthday",
     "position": "Position",
-    "image": "Avatar"
+    "image": "Avatar",
+    "name-clinic": "Name clinic",
+    "image-clinic": "Image clinic"
   },
   "doctor" :{
     "infor-doctor": "Information doctor",
