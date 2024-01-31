@@ -145,7 +145,11 @@ let getAdmin = () =>
                 attributes: {
                     exclude: [ 'password' ]
                 },
-                raw: true
+                include: [
+                    { model: db.Allcode, as: 'positionAdmin', attributes: [ 'valueEn', 'valueVi' ] },
+                ],
+                raw: true,
+                nest: true
             } );
             if ( patients )
             {

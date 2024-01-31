@@ -4,7 +4,8 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import SystemHome from "../containers/System/admin/SystemHome";
 import Header from "../containers/Header/Header";
 
-import ManageAdmin from "../containers/System/admin/ManageAdmin";
+import ManageAdmin from "../containers/System/admin/Manage-user/ManageAdmin";
+import AddAdmin from "../containers/System/admin/Manage-user/AddAdmin";
 
 class System extends Component {
   render() {

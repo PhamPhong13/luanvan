@@ -1,0 +1,81 @@
+.manage{
+    border: 1px solid black;
+    padding-top: 120px;
+
+    .search{
+        width: 100%;
+        height: 50px;
+        margin: 20px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        .form-search{
+            border: 1px solid black;
+            width: 50%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            border-radius: 30px;
+            overflow: hidden;
+            i{
+                position: absolute;
+                top: 13px;
+                    right: 10px;
+                    font-size: 20px;
+            }
+            input{
+                width: 100%;
+                height: 100%;
+                border: none;
+                outline: none;
+                padding: 0 20px;
+                padding-right: 35px;
+            }
+
+        }
+
+        
+    }
+
+        table {
+            thead {
+                tr {
+                    background-color: blue;
+                    color: white;
+                    th{
+                        text-align: center;
+                    }
+                }
+            }
+            tbody{
+                tr{
+                    td{
+                        text-align: center;
+                    }
+                    .action {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            .btn-delete {
+                                    margin-left: 5px;
+                                }
+
+                        }
+                }
+
+                .null{
+                    color: red;
+                    font-size: italic;
+                }
+            }
+        }
+
+    .btn-add{
+        width: 100%;
+        margin-top: 20px;
+        margin-bottom: 5px;
+    }
+}

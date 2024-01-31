@@ -56,7 +56,7 @@ class Header extends Component
 
                     <div className='header-img-right'>
                         <div className='language'>
-                    <span className='welcom'><FormattedMessage id="system.welcome" /> <b>{ userInfo && userInfo.fullName ? userInfo.fullName : `${ userInfo.firstName } ${ userInfo.lastName }` } !</b></span>
+                    <span className='welcom'><FormattedMessage id="system.welcome" /> <b>{ userInfo && userInfo.fullName ? userInfo.fullName : `` } !</b></span>
                     <span onClick={ () => { this.handleChangeLanguage( LANGUAGE.VI ) } } className={ language === LANGUAGE.VI ? "language-vi active" : "language-vi " }>VI</span>
                     <span onClick={ () => { this.handleChangeLanguage( LANGUAGE.EN ) } } className={ language === LANGUAGE.EN ? "language-en active" : "language-en " }>EN</span>
                     {/* nút logout */ }
