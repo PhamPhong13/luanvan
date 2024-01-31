@@ -1,6 +1,6 @@
 {
   "development": {
-    "database": "datlichkhambenh",
+    "database": "binhtan",
     "dialect": "mysql",
     "host": "127.0.0.1",
     "logging": false,

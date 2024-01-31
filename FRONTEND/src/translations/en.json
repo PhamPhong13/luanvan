@@ -1,79 +1,9 @@
 {
   "system": {
-    "header": {
-      "user": "User",
-      "welcome": "Welcome",
-      "manage-patient": "Manage Patient",
-      "manage-doctor": "Manage Doctor",
-      "manage-admin": "Manage Admin",
-      "clinic": "Clinic",
-      "manage-clinic": "Manage clinic",
-      "specialty": "Specialty",
-      "manage-specialty": "Manage specialty"
-
-    },
-    "home": {
-      "home": "Home page",
-      "welcome": "WELCOME TO THE DASHBOARD!"
-    },
-    "patient": {
-      "add-account": "Add account"
-    },
-    "btn": {
-      "edit": "Edit",
-      "delete": "Delete",
-      "save": "Save",
-      "cancel": "Cancel",
-      "change": "Change",
-      "add": "Add",
-      "infor": "Infor",
-      "add-clinic": "Add clinic"
-
-    },
-    "add": {
-      "add-patient": "Add account patient",
-      "add-doctor": "Add account doctor",
-      "add-admin": "Add account admin",
-      "add-clinic": "Add clinic",
-      "add-specialty": "Add specialty",
-      "edit-patient": "Edit account patient",
-      "edit-doctor": "Edit account doctor",
-      "edit-admin": "Edit account admin"
+    "welcome": "Welcome, ",
+    "manage": {
+      "manage-user": "Manage user",
+      "manage-admin": "Manage admin"
     }
-  },
-  "key": {
-    "email": "Email",
-    "password": "Password",
-    "fullname": "FullName",
-    "firstname": "FirstName",
-    "lastname": "LastName",
-    "address": "Address",
-    "phone": "Phone",
-    "gender": "Gender",
-    "birthday": "Birthday",
-    "position": "Position",
-    "image": "Avatar",
-    "name-clinic": "Name clinic",
-    "image-clinic": "Image clinic",
-    "address-clinic": "Address clinic"
-
-
-  },
-  "doctor" :{
-    "infor-doctor": "Information doctor",
-    "choose-doctor": "Choose doctor",
-    "doctor_fullname": "Doctor's fullname",
-    "desc": "Generral information",
-    "price": "Examination price",
-    "payment": "Payment",
-    "province": "province",
-    "clinic": "Clinic",
-    "specialty": "Specialty",
-    "note": "note",
-    "count": "Number of medical examination combs",
-    "infor-detail": "Detail information"
-
-
-
   }
 }

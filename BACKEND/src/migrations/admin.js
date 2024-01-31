@@ -20,11 +20,12 @@ module.exports = {
                 type: Sequelize.STRING
             },
             phone: {
-                allowNull: false,
                 type: Sequelize.STRING
             },
-            roleId: {
-                allowNull: false,
+            position: {
+                type: Sequelize.STRING
+            },
+            image: {
                 type: Sequelize.STRING
             },
             createdAt: {

@@ -1,73 +1,9 @@
 {
   "system": {
-    "header": {
-      "user": "Người dùng",
-      "welcome": "Xin chào",
-      "manage-patient": "Quản lý tài khoản bệnh nhân",
-      "manage-doctor": "Quản lý tài khoản bác sĩ",
-      "manage-admin": "Quản lý tài khoản quản trị",
-      "clinic": "Phòng khám",
-      "manage-clinic": "Quản lý phòng khám",
-      "specialty": "Chuyên khoa",
-      "manage-specialty": "Quản lý chuyên khoa"
-
-    },
-    "home": {
-      "home": "Trang chủ",
-      "welcome": "CHÀO MỪNG BẠN ĐẾN VỚI TRANG CHỦ QUẢN LÝ!"
-    },
-    "patient": {
-      "add-account": "Thêm tài khoản"
-    },
-    "btn": {
-      "edit": "Chỉnh sửa",
-      "delete": "xóa",
-      "save": "Lưu",
-      "cancel": "Hủy",
-      "change": "Lưu",
-      "add": "Thêm",
-      "infor": "Thông tin",
-      "add-clinic": "Thêm phòng khám"
-    },
-    "add": {
-      "add-patient": "Thêm tài khoản bệnh nhân",
-      "add-doctor": "Thêm tài khoản bác sĩ",
-      "add-admin": "Thêm tài khoản quản trị",
-      "add-clinic": "Thêm phòng khám",
-      "add-specialty": "Thêm chuyên khoa",
-      "edit-patient": "Chỉnh sửa tài khoản bệnh nhân",
-      "edit-doctor": "Chỉnh sửa tài khoản bác sĩ",
-      "edit-admin": "Chỉnh sửa tài khoản quản trị"
+    "welcome": "Xin chào, ",
+    "manage": {
+      "manage-user": "Người dùng",
+      "manage-admin": "Quản lý người quản trị"
     }
-  },
-  "key": {
-    "email": "Email",
-    "password": "Mật khẩu",
-    "fullname": "Họ và tên",
-    "firstname": "Họ tên đệm",
-    "lastname": "Tên",
-    "address": "Địa chỉ",
-    "phone": "Số điện thoại",
-    "gender": "Giới tính",
-    "birthday": "Ngày sinh",
-    "position": "Chức vụ",
-    "image": "Ảnh đại diện",
-    "name-clinic": "Tên phòng khám",
-    "image-clinic": "Ảnh phòng khám",
-    "address-clinic": "Địa chỉ phòng khám"
-  },
-  "doctor" :{
-    "infor-doctor": "Thông tin bác sĩ",
-    "choose-doctor": "Chọn bác sĩ",
-    "doctor_fullname": "Họ tên bác sĩ",
-    "desc": "Thông tin chung ",
-    "price": "Giá khám",
-    "payment": "Thanh toán bằng",
-    "province": "Tỉnh thành",
-    "clinic": "Phòng khám",
-    "specialty": "Chuyên khoa",
-    "note": "Ghi chú",
-    "count": "Số lượng khám bệnh",
-    "infor-detail": "Thông tin chi tiết"
   }
 }

@@ -47,6 +47,47 @@ let checkUserEmail = ( userEmail ) =>
     } )
 }
 
+
+let login = (email, password) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let userData = {};
+      let isExist = await checkUserEmail(email);
+      if (isExist) {
+        //user already exist
+        let user = await db.Admin.findOne({
+          where: { email: email },
+          raw: true,
+        });
+        if (user) {
+          let check = await bcrypt.compare(password, user.password);
+
+          if (check) {
+            userData.errCode = 0;
+            userData.errMessage = "OK";
+
+            delete user.password;
+            userData.user = user;
+          } else {
+            userData.errCode = 3;
+            userData.errMessage = "Wrong password";
+          }
+        } else {
+          userData.errCode = 2;
+          userData.errMessage = `User not found`;
+        }
+      } else {
+        userData.errCode = 1;
+        userData.errMessage = `Your's Email isn't exist in our system, plz try other email`;
+      }
+      resolve(userData);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+
 // create a new patient
 let createAdmin = ( data ) =>
 {
@@ -258,5 +299,6 @@ module.exports = {
     getAdmin: getAdmin,
     getAdminById: getAdminById,
     deleteAdmin: deleteAdmin,
-    updateAdmin: updateAdmin
+    updateAdmin: updateAdmin,
+    login: login
 }

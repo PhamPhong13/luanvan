@@ -20,7 +20,7 @@ import System from '../routes/System';
 import { CustomToastCloseButton } from '../components/CustomToast';
 import ConfirmModal from '../components/ConfirmModal';
 import HomePage from './HomePage/HomePage';
-import Doctor from '../routes/Doctor';
+/* import Doctor from '../routes/Doctor'; */
 
 
 class App extends Component

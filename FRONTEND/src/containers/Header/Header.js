@@ -27,8 +27,8 @@ class Header extends Component
     componentDidMount ()
     {
         let { userInfo } = this.props;
-        let menu = [];
-        if ( userInfo && !_.isEmpty( userInfo ) )
+        let menu = adminMenu;
+        /* if ( userInfo && !_.isEmpty( userInfo ) )
         {
             let role = userInfo.roleId;
             if ( role === USER_ROLE.ADMIN )
@@ -45,8 +45,8 @@ class Header extends Component
             {
                 menu = adminMenu;
             }
-        }
-        else { }
+        } 
+        else { }*/
         this.setState( {
             menuApp: menu
         } );
@@ -57,6 +57,8 @@ class Header extends Component
         const { processLogout, language, userInfo } = this.props;
 
         return (
+            <> 
+                
             <div className="header-container">
                 {/* thanh navigator */ }
                 <div className="header-tabs-container">
@@ -64,7 +66,7 @@ class Header extends Component
                 </div>
                 {/* language */ }
                 <div className='language'>
-                    <span className='welcom'><FormattedMessage id="system.header.welcome" />, <b>{ userInfo && userInfo.fullName ? userInfo.fullName : `${ userInfo.firstName } ${ userInfo.lastName }` } !</b></span>
+                    <span className='welcom'><FormattedMessage id="system.welcome" /> <b>{ userInfo && userInfo.fullName ? userInfo.fullName : `${ userInfo.firstName } ${ userInfo.lastName }` } !</b></span>
                     <span onClick={ () => { this.handleChangeLanguage( LANGUAGE.VI ) } } className={ language === LANGUAGE.VI ? "language-vi active" : "language-vi " }>VI</span>
                     <span onClick={ () => { this.handleChangeLanguage( LANGUAGE.EN ) } } className={ language === LANGUAGE.EN ? "language-en active" : "language-en " }>EN</span>
                     {/* nút logout */ }
@@ -73,6 +75,7 @@ class Header extends Component
                     </div>
                 </div>
             </div>
+            </>
         );
     }
 
