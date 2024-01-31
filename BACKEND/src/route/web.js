@@ -6,7 +6,7 @@ let router = express.Router();
 
 let initWebRoutes = (app) => {
   // route login
-  router.post("/api/login", user.login); // login
+  router.post("/api/login", admin.login); // login
   // route allcode
   router.get("/api/get-allcode", user.getAllCode); // get all code
 
@@ -17,7 +17,7 @@ let initWebRoutes = (app) => {
   router.delete("/api/delete-admin", admin.deleteAdmin); // delete admin
   router.put("/api/update-admin", admin.updateAdmin); // update admin
 
- 
+ return app.use("/", router);
 };
 
 module.exports = initWebRoutes;
