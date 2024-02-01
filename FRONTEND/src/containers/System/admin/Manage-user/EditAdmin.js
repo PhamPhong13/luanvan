@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
-import { createAdmin, getAllcode } from "../../../../services/userService"
+import { getAdminById, getAllcode, updateAdmin } from "../../../../services/userService"
 import { CommonUtils } from '../../../../utils'; // vi or en
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 import { withRouter } from 'react-router';
-class AddAdmin extends Component
+class EditAdmin extends Component
 {
     constructor(props) {
         super(props);
@@ -27,7 +27,30 @@ class AddAdmin extends Component
 
     async componentDidMount() {
         await this.getAllPosition();
+        await this.getUserById();
+        console.log(this.state)
         
+    }
+
+    getUserById = async () => {
+        let id = this.props.match.params.id;
+        let res = await getAdminById(id);
+        this.setState({
+            email: res.data.email,
+            fullName: res.data.fullName,
+            phone: res.data.phone,
+            image: res.data.image,
+            position: res.data.position
+        });
+
+        let select = this.state.listPosition.find( item =>
+                {
+                    return item && item.value === res.data.position
+        })
+        
+        this.setState({
+            selectedPosition: select
+        })
     }
 
     async componentDidUpdate(prevProps) {
@@ -80,25 +103,25 @@ class AddAdmin extends Component
         } )
     }
 
-    handleSave = async () => {
+     handleSave = async () => {
         if (this.checkstate() === true) {
-            let res = await createAdmin({
+            let res = await updateAdmin({
                 email: this.state.email,
-                password: this.state.password,
                 fullName: this.state.fullName,
                 phone: this.state.phone,
                 position: this.state.position,
                 image: this.state.image,
+                id: this.props.match.params.id
             })
 
             if (res && res.errCode === 0) {
                 this.linkToManageAdmin();
-                toast.success("Tạo nười dùng mới thành công!");
+                toast.success("Sửa người dùng thành công!");
                 
             }
-            else toast.error("Tạo người dùng mới không thành công!");
+            else toast.error("Sửa người dùng không thành công!");
         }
-    }
+    } 
 
     checkstate = () => { 
         let result = true;
@@ -109,10 +132,6 @@ class AddAdmin extends Component
         }
         else if (this.state.email.length <= 0) {
             alert("Vui lòng nhập email!");
-            result = false;
-        }
-        else if (this.state.password.length <= 0) {
-            alert("Vui lòng nhập password!");
             result = false;
         }
         else if (this.state.fullName.length <= 0) { 
@@ -159,6 +178,7 @@ class AddAdmin extends Component
                         <div className='form-group'>
                             <label><FormattedMessage id="key.email"></FormattedMessage>:</label>
                             <input type='text'
+                                value={this.state.email}
                             onChange={(event) => this.handleOnchangeInput(event, "email")}
                             />
                         </div>
@@ -166,6 +186,8 @@ class AddAdmin extends Component
                         <div className='form-group'>
                             <label><FormattedMessage id="key.password"></FormattedMessage>:</label>
                             <input type='password'
+                                value="hashcode"
+                                disabled
                             onChange={(event) => this.handleOnchangeInput(event, "password")}
                             />
                         </div>
@@ -175,12 +197,16 @@ class AddAdmin extends Component
                                 <div className='form-group'>
                                     <label><FormattedMessage id="key.fullname"></FormattedMessage>:</label>
                                     <input type='text'
+                                value={this.state.fullName}
+                                        
                                         onChange={(event) => this.handleOnchangeInput(event, "fullName")}
                                     />
                                 </div>
                                 <div className='form-group'>
                                     <label><FormattedMessage id="key.phone"></FormattedMessage>:</label>
                                     <input type='text'
+                                value={this.state.phone}
+                                        
                             onChange={(event) => this.handleOnchangeInput(event, "phone")}
                                     
                                     />
@@ -207,9 +233,9 @@ class AddAdmin extends Component
 
                         <div className='button-sumit'>
                             <div className='btn btn-primary btn-submit'
-                            onClick={() => this.handleSave()}
+                             onClick={() => this.handleSave()} 
                             >
-                                <FormattedMessage id="key.add"></FormattedMessage></div>
+                                <FormattedMessage id="key.change"></FormattedMessage></div>
                         </div>
                     </form>
                 </div>
@@ -233,4 +259,4 @@ const mapDispatchToProps = dispatch =>
     };
 };
 
-export default withRouter(connect( mapStateToProps, mapDispatchToProps )( AddAdmin ));
+export default withRouter(connect( mapStateToProps, mapDispatchToProps )( EditAdmin ));

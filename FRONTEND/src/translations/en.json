@@ -3,7 +3,25 @@
     "welcome": "Welcome, ",
     "manage": {
       "manage-user": "Manage user",
-      "manage-admin": "Manage admin"
+      "manage-admin": "Manage admin",
+      "add-admin": "Add account administrator"
     }
+  },
+
+  "key": {
+    "email": "Email",
+    "password": "Password",
+    "fullname": "Full Name",
+    "phone": "Phone",
+    "address": "Address",
+    "position": "Position",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "action": "Action",
+    "add": "Add",
+    "change" : "Change"
+
   }
 }

@@ -6,6 +6,7 @@ import Header from "../containers/Header/Header";
 
 import ManageAdmin from "../containers/System/admin/Manage-user/ManageAdmin";
 import AddAdmin from "../containers/System/admin/Manage-user/AddAdmin";
+import EditAdmin from "../containers/System/admin/Manage-user/EditAdmin";
 
 class System extends Component {
   render() {
@@ -19,6 +20,8 @@ class System extends Component {
               
               {/* admin */}
               <Route path="/system/manage-admin" component={ManageAdmin} />
+              <Route path="/system/add-admin" component={AddAdmin} />
+              <Route path="/system/edit-admin/:id" component={EditAdmin} />
                            
               <Route path="/system/home" component={SystemHome} />
               <Route

@@ -43,7 +43,7 @@ let getAdmin = async ( req, res ) =>
 // get patient by id
 let getAdminById = async ( req, res ) =>
 {
-    let admin = await adminService.getAdminById( req.body.id );
+    let admin = await adminService.getAdminById( req.query.id );
     return res.status( 200 ).json( admin );
 }
 

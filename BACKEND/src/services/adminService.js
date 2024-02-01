@@ -118,7 +118,8 @@ let createAdmin = ( data ) =>
                 password: hashPassWord,
                 fullName: data.fullName,
                 phone: data.phone,
-                roleId: "R1"
+                position: data.position,
+                image: data.image,
             } );
 
             resolve( {
@@ -273,6 +274,8 @@ let updateAdmin = ( data ) =>
                 patient.email = data.email;
                 patient.fullName = data.fullName;
                 patient.phone = data.phone;
+                patient.position = data.position;
+                patient.image = data.image
                 await patient.save();
 
                 resolve( {

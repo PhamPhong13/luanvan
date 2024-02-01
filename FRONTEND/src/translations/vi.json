@@ -3,7 +3,26 @@
     "welcome": "Xin chào, ",
     "manage": {
       "manage-user": "Người dùng",
-      "manage-admin": "Quản lý người quản trị"
+      "manage-admin": "Quản lý người quản trị",
+      "add-admin": "Thêm tài khoản quản trị"
     }
+  },
+
+  "key": {
+    "email": "Email",
+    "password": "Mật khẩu",
+    "fullname": "Họ tên",
+    "phone": "Số điện thoại",
+    "address": "Địa chỉ",
+    "position": "Chức vụ",
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "delete": "Xóa",
+    "edit": "Sửa",
+    "action": "Hành động",
+    "add": "Thêm",
+    "change" : "Thay đổi"
   }
+
+
 }

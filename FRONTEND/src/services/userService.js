@@ -16,11 +16,29 @@ const getAllAdmin = () => {
   return axios.get(`/api/get-admin`);
 };
 
+const createAdmin = (data) => {
+  return axios.post(`/api/create-admin`, data);
+}
+
+const deleteAdmin = (id) => {
+  return axios.delete(`/api/delete-admin`, {
+    data: { id: id }
+  })
+}
+
+const getAdminById = (id) => {
+  return axios.get(`api/get-admin-by-id?id=${id}`);
+}
+
+const updateAdmin = (data) => {
+  return axios.put(`api/update-admin`, data);
+}
+
 
 export {
   handleLoginApi,   getAllcode,
 
   /* admin */
-  getAllAdmin,
+  getAllAdmin,createAdmin, deleteAdmin, getAdminById, updateAdmin
   
 };
