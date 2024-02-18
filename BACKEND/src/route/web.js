@@ -2,6 +2,7 @@ import express from "express";
 import admin from "../controllers/adminController";
 import user from "../controllers/userController";
 import cat from "../controllers/catController";
+import post from "../controllers/postController";
 
 let router = express.Router();
 
@@ -30,7 +31,14 @@ let initWebRoutes = (app) => {
   router.get("/api/get-cat", cat.getcat); // get cat
   router.get("/api/get-cat-by-id", cat.getcatById); // get cat by id
   router.delete("/api/delete-cat", cat.deletecat); // delete cat
-  router.put("/api/update-cat", cat.updatecat); // update cat 
+  router.put("/api/update-cat", cat.updatecat); // update cat
+
+  // route post
+  router.post("/api/create-post", post.createpost); // create post
+  router.get("/api/get-post", post.getpost); // get post
+  router.get("/api/get-post-by-id", post.getpostById); // get post by id
+  router.delete("/api/delete-post", post.deletepost); // delete post
+  router.put("/api/update-post", post.updatepost); // update post 
 
  return app.use("/", router);
 };

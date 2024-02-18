@@ -22,11 +22,20 @@ export const adminMenu = [
     ],
   },
   {
-    //quản lý người dùng
+    //quản lý danh mục
     name: "system.manage.manage-cat",
     menus: [
     {
         name: "system.manage.manage-category",        link: "/system/manage-cat",
+      },
+    ],
+  },
+  {
+    //quản lý bài viết
+    name: "system.manage.essay",
+    menus: [
+    {
+        name: "system.manage.manage-essay",        link: "/system/manage-cat",
       },
     ],
   },
