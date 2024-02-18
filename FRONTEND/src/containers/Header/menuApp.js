@@ -21,6 +21,15 @@ export const adminMenu = [
       },
     ],
   },
+  {
+    //quản lý người dùng
+    name: "system.manage.manage-cat",
+    menus: [
+    {
+        name: "system.manage.manage-category",        link: "/system/manage-cat",
+      },
+    ],
+  },
 
 ];
 

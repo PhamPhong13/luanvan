@@ -3,9 +3,13 @@
     "welcome": "Xin chào, ",
     "manage": {
       "manage-user": "Người dùng",
+      "manage-cat": "Danh mục",
+      "manage-category": "Quản lý danh mục",
       "manage-admin": "Quản lý người quản trị",
       "add-admin": "Thêm tài khoản quản trị",
-      "add-user": "Thêm tài khoản hội viên"
+      "add-user": "Thêm tài khoản hội viên",
+      "add-cat": "Thêm danh mục"
+
     }
   },
 

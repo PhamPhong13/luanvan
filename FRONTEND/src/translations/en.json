@@ -3,9 +3,12 @@
     "welcome": "Welcome, ",
     "manage": {
       "manage-user": "Manage user",
+      "manage-cat": "Category",
+      "manage-category": "Manage category",
       "manage-admin": "Manage admin",
       "add-admin": "Add account administrator",
-      "add-user": "Add account member"
+      "add-user": "Add account member",
+      "add-cat": "Add category"
     }
   },
 
