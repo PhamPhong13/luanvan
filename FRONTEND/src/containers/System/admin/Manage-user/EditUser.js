@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
-import { getAdminById, getAllcode, updateAdmin } from "../../../../services/userService"
+import { getUserById, updateUser } from "../../../../services/userService"
 import { CommonUtils } from '../../../../utils'; // vi or en
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 import { withRouter } from 'react-router';
-class EditAdmin extends Component
+class EditUser extends Component
 {
     constructor(props) {
         super(props);
@@ -16,10 +16,7 @@ class EditAdmin extends Component
             password: "",
             fullName: "",
             phone: "",
-            position: "",
             image: "",
-            listPosition: [],
-            selectedPosition: "",
             desc: ""
         }
     }
@@ -27,55 +24,25 @@ class EditAdmin extends Component
     
 
     async componentDidMount() {
-        await this.getAllPosition();
         await this.getUserById();
-        console.log(this.state)
         
     }
 
     getUserById = async () => {
         let id = this.props.match.params.id;
-        let res = await getAdminById(id);
+        let res = await getUserById(id);
         this.setState({
             email: res.data.email,
             fullName: res.data.fullName,
             phone: res.data.phone,
             image: res.data.image,
-            position: res.data.position,
             desc: res.data.desc
         });
 
-        let select = this.state.listPosition.find( item =>
-                {
-                    return item && item.value === res.data.position
-        })
-        
-        this.setState({
-            selectedPosition: select
-        })
     }
 
     async componentDidUpdate(prevProps) {
-        if (prevProps.language !== this.props.language) { 
-            await this.getAllPosition();
-        }
-    }
-
-    getAllPosition = async() => {
-        let res = await getAllcode("POSITION");
-        let result = [];
-        if (res && res.data) {
-            res.data.map((item, index) => {
-                let object = {};
-                object.label = this.props.language === "vi" ? item.valueVi : item.valueEn;
-                object.value = item.keyMap;
-                result.push(object);
-            })
-        }
-
-        this.setState({
-            listPosition: result
-        })
+       
     }
 
 
@@ -88,14 +55,7 @@ class EditAdmin extends Component
             })
         }
     }
-    
-    handleChangeSelect = (selected) => {
-        this.setState({
-            selectedPosition: selected,
-            position: selected.value
-        })
-    }
-
+   
     handleOnchangeInput = ( event, id ) =>
     {
         let stateCopy = { ...this.state };
@@ -107,11 +67,10 @@ class EditAdmin extends Component
 
      handleSave = async () => {
         if (this.checkstate() === true) {
-            let res = await updateAdmin({
+            let res = await updateUser({
                 email: this.state.email,
                 fullName: this.state.fullName,
                 phone: this.state.phone,
-                position: this.state.position,
                 image: this.state.image,
                 desc: this.state.desc,
                 id: this.props.match.params.id
@@ -149,17 +108,13 @@ class EditAdmin extends Component
             alert("Số điện thoại không đúng dịnh dạng!");
             result = false;
         }
-        else if (this.state.position === null) { 
-            alert("Vui lòng chọn chức vụ!");
-            result = false;
-        }
         return result;
     }
 
     linkToManageAdmin = () => {
         if ( this.props.history )
         {
-            this.props.history.push( `/system/manage-admin` );
+            this.props.history.push( `/system/manage-user` );
         }
     }
 
@@ -272,4 +227,4 @@ const mapDispatchToProps = dispatch =>
     };
 };
 
-export default withRouter(connect( mapStateToProps, mapDispatchToProps )( EditAdmin ));
+export default withRouter(connect( mapStateToProps, mapDispatchToProps )( EditUser ));

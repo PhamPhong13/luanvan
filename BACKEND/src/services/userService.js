@@ -118,8 +118,8 @@ let createUser = ( data ) =>
                 password: hashPassWord,
                 fullName: data.fullName,
                 phone: data.phone,
-                position: data.position,
                 image: data.image,
+                desc: data.desc,
             } );
 
             resolve( {
@@ -269,8 +269,8 @@ let updateUser = ( data ) =>
                 patient.email = data.email;
                 patient.fullName = data.fullName;
                 patient.phone = data.phone;
-                patient.position = data.position;
-                patient.image = data.image
+                patient.image = data.image,
+                patient.desc = data.desc,
                 await patient.save();
 
                 resolve( {

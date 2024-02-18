@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
-import { getAdminById, getAllcode, updateAdmin } from "../../../../services/userService"
+import { createUser, getAllcode } from "../../../../services/userService"
 import { CommonUtils } from '../../../../utils'; // vi or en
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 import { withRouter } from 'react-router';
-class EditAdmin extends Component
+class AddUser extends Component
 {
     constructor(props) {
         super(props);
@@ -16,10 +16,7 @@ class EditAdmin extends Component
             password: "",
             fullName: "",
             phone: "",
-            position: "",
             image: "",
-            listPosition: [],
-            selectedPosition: "",
             desc: ""
         }
     }
@@ -27,57 +24,12 @@ class EditAdmin extends Component
     
 
     async componentDidMount() {
-        await this.getAllPosition();
-        await this.getUserById();
-        console.log(this.state)
         
-    }
-
-    getUserById = async () => {
-        let id = this.props.match.params.id;
-        let res = await getAdminById(id);
-        this.setState({
-            email: res.data.email,
-            fullName: res.data.fullName,
-            phone: res.data.phone,
-            image: res.data.image,
-            position: res.data.position,
-            desc: res.data.desc
-        });
-
-        let select = this.state.listPosition.find( item =>
-                {
-                    return item && item.value === res.data.position
-        })
-        
-        this.setState({
-            selectedPosition: select
-        })
     }
 
     async componentDidUpdate(prevProps) {
-        if (prevProps.language !== this.props.language) { 
-            await this.getAllPosition();
-        }
+        
     }
-
-    getAllPosition = async() => {
-        let res = await getAllcode("POSITION");
-        let result = [];
-        if (res && res.data) {
-            res.data.map((item, index) => {
-                let object = {};
-                object.label = this.props.language === "vi" ? item.valueVi : item.valueEn;
-                object.value = item.keyMap;
-                result.push(object);
-            })
-        }
-
-        this.setState({
-            listPosition: result
-        })
-    }
-
 
     handleOnchangeImg = async (event) => {
         let file = event.target.files[0];
@@ -89,13 +41,6 @@ class EditAdmin extends Component
         }
     }
     
-    handleChangeSelect = (selected) => {
-        this.setState({
-            selectedPosition: selected,
-            position: selected.value
-        })
-    }
-
     handleOnchangeInput = ( event, id ) =>
     {
         let stateCopy = { ...this.state };
@@ -105,26 +50,26 @@ class EditAdmin extends Component
         } )
     }
 
-     handleSave = async () => {
+    handleSave = async () => {
         if (this.checkstate() === true) {
-            let res = await updateAdmin({
+            let res = await createUser({
                 email: this.state.email,
+                password: this.state.password,
                 fullName: this.state.fullName,
                 phone: this.state.phone,
-                position: this.state.position,
                 image: this.state.image,
                 desc: this.state.desc,
-                id: this.props.match.params.id
+
             })
 
             if (res && res.errCode === 0) {
                 this.linkToManageAdmin();
-                toast.success("Sửa người dùng thành công!");
+                toast.success("Tạo nười dùng mới thành công!");
                 
             }
-            else toast.error("Sửa người dùng không thành công!");
+            else toast.error("Tạo người dùng mới không thành công!");
         }
-    } 
+    }
 
     checkstate = () => { 
         let result = true;
@@ -135,6 +80,10 @@ class EditAdmin extends Component
         }
         else if (this.state.email.length <= 0) {
             alert("Vui lòng nhập email!");
+            result = false;
+        }
+        else if (this.state.password.length <= 0) {
+            alert("Vui lòng nhập password!");
             result = false;
         }
         else if (this.state.fullName.length <= 0) { 
@@ -149,17 +98,13 @@ class EditAdmin extends Component
             alert("Số điện thoại không đúng dịnh dạng!");
             result = false;
         }
-        else if (this.state.position === null) { 
-            alert("Vui lòng chọn chức vụ!");
-            result = false;
-        }
         return result;
     }
 
     linkToManageAdmin = () => {
         if ( this.props.history )
         {
-            this.props.history.push( `/system/manage-admin` );
+            this.props.history.push( `/system/manage-user` );
         }
     }
 
@@ -168,11 +113,11 @@ class EditAdmin extends Component
         return (
             <>
                 <title>
-                    <FormattedMessage id="system.manage.add-admin"></FormattedMessage>
+                    <FormattedMessage id="system.manage.add-user"></FormattedMessage>
                 </title>
                 <div className='container manage'>
 
-                    <div className='title'><FormattedMessage id="system.manage.add-admin"></FormattedMessage></div>
+                    <div className='title'><FormattedMessage id="system.manage.add-user"></FormattedMessage></div>
 
                 </div>
 
@@ -181,7 +126,6 @@ class EditAdmin extends Component
                         <div className='form-group'>
                             <label><FormattedMessage id="key.email"></FormattedMessage>:</label>
                             <input type='text'
-                                value={this.state.email}
                             onChange={(event) => this.handleOnchangeInput(event, "email")}
                             />
                         </div>
@@ -189,8 +133,6 @@ class EditAdmin extends Component
                         <div className='form-group'>
                             <label><FormattedMessage id="key.password"></FormattedMessage>:</label>
                             <input type='password'
-                                value="hashcode"
-                                disabled
                             onChange={(event) => this.handleOnchangeInput(event, "password")}
                             />
                         </div>
@@ -200,39 +142,20 @@ class EditAdmin extends Component
                                 <div className='form-group'>
                                     <label><FormattedMessage id="key.fullname"></FormattedMessage>:</label>
                                     <input type='text'
-                                value={this.state.fullName}
-                                        
                                         onChange={(event) => this.handleOnchangeInput(event, "fullName")}
                                     />
                                 </div>
-                                <div className='form-phone-position'>
-                                    <div className='form-group'>
+                                <div className='form-group'>
                                     <label><FormattedMessage id="key.phone"></FormattedMessage>:</label>
                                     <input type='text'
-                                value={this.state.phone}
-                                        
                             onChange={(event) => this.handleOnchangeInput(event, "phone")}
                                     
                                     />
                                 </div>
                                 <div className='form-group'>
-                                    <label><FormattedMessage id="key.position"></FormattedMessage>:</label>
-                                    <Select
-                                        value={ this.state.selectedPosition }
-                                        onChange={ this.handleChangeSelect }
-                                        options={ this.state.listPosition }
-                                        placeholder={ <FormattedMessage id="key.position" /> }
-                                    />
-                                    </div>
-                                    
-                                </div>
-                                    <div className='form-group'>
                                     <label><FormattedMessage id="key.desc"></FormattedMessage>:</label>
-                            <textarea value={this.state.desc} onChange={(event) => this.handleOnchangeInput(event, "desc")}>
-                                
-                                    </textarea>
+                                    <textarea onChange={(event) => this.handleOnchangeInput(event, "desc")}></textarea>
                                 </div>
-                                
                             </div>
                             <div className='right'>
                                 <input type="file" className="form-control" id="reviewImg" hidden
@@ -246,9 +169,9 @@ class EditAdmin extends Component
 
                         <div className='button-sumit'>
                             <div className='btn btn-primary btn-submit'
-                             onClick={() => this.handleSave()} 
+                            onClick={() => this.handleSave()}
                             >
-                                <FormattedMessage id="key.change"></FormattedMessage></div>
+                                <FormattedMessage id="key.add"></FormattedMessage></div>
                         </div>
                     </form>
                 </div>
@@ -272,4 +195,4 @@ const mapDispatchToProps = dispatch =>
     };
 };
 
-export default withRouter(connect( mapStateToProps, mapDispatchToProps )( EditAdmin ));
+export default withRouter(connect( mapStateToProps, mapDispatchToProps )( AddUser ));

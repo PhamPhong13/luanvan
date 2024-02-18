@@ -4,7 +4,8 @@
     "manage": {
       "manage-user": "Người dùng",
       "manage-admin": "Quản lý người quản trị",
-      "add-admin": "Thêm tài khoản quản trị"
+      "add-admin": "Thêm tài khoản quản trị",
+      "add-user": "Thêm tài khoản hội viên"
     }
   },
 
@@ -21,7 +22,8 @@
     "edit": "Sửa",
     "action": "Hành động",
     "add": "Thêm",
-    "change" : "Thay đổi"
+    "change" : "Thay đổi",
+    "desc": "Mô tả"
   }
 
 

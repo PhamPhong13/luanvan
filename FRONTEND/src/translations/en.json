@@ -4,7 +4,8 @@
     "manage": {
       "manage-user": "Manage user",
       "manage-admin": "Manage admin",
-      "add-admin": "Add account administrator"
+      "add-admin": "Add account administrator",
+      "add-user": "Add account member"
     }
   },
 
@@ -21,7 +22,9 @@
     "edit": "Edit",
     "action": "Action",
     "add": "Add",
-    "change" : "Change"
+    "change" : "Change",
+    "desc": "Desction"
+
 
   }
 }

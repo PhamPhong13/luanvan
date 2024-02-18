@@ -8,6 +8,9 @@ import ManageAdmin from "../containers/System/admin/Manage-user/ManageAdmin";
 import AddAdmin from "../containers/System/admin/Manage-user/AddAdmin";
 import EditAdmin from "../containers/System/admin/Manage-user/EditAdmin";
 
+import ManageUser from "../containers/System/admin/Manage-user/ManageUser";
+import AddUser from "../containers/System/admin/Manage-user/AddUser";
+import EditUser from "../containers/System/admin/Manage-user/EditUser";
 class System extends Component {
   render() {
     const { systemMenuPath, isLoggedIn } = this.props;
@@ -22,7 +25,11 @@ class System extends Component {
               <Route path="/system/manage-admin" component={ManageAdmin} />
               <Route path="/system/add-admin" component={AddAdmin} />
               <Route path="/system/edit-admin/:id" component={EditAdmin} />
-                           
+
+              {/* admin */}
+              <Route path="/system/manage-user" component={ManageUser} />
+              <Route path="/system/add-user" component={AddUser} />      
+              <Route path="/system/edit-user/:id" component={EditUser} />
               <Route path="/system/home" component={SystemHome} />
               <Route
                 component={() => {

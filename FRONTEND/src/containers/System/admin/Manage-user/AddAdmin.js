@@ -18,6 +18,7 @@ class AddAdmin extends Component
             phone: "",
             position: "",
             image: "",
+            desc: "",
             listPosition: [],
             selectedPosition: ""
         }
@@ -89,6 +90,7 @@ class AddAdmin extends Component
                 phone: this.state.phone,
                 position: this.state.position,
                 image: this.state.image,
+                desc: this.state.desc,
             })
 
             if (res && res.errCode === 0) {
@@ -178,7 +180,8 @@ class AddAdmin extends Component
                                         onChange={(event) => this.handleOnchangeInput(event, "fullName")}
                                     />
                                 </div>
-                                <div className='form-group'>
+                                <div className='form-phone-position'>
+                                    <div className='form-group'>
                                     <label><FormattedMessage id="key.phone"></FormattedMessage>:</label>
                                     <input type='text'
                             onChange={(event) => this.handleOnchangeInput(event, "phone")}
@@ -194,6 +197,14 @@ class AddAdmin extends Component
                                         placeholder={ <FormattedMessage id="key.position" /> }
                                     />
                                 </div>
+                                </div>
+
+                                <div className='form-group'>
+                                    <label><FormattedMessage id="key.desc"></FormattedMessage>:</label>
+                            <textarea onChange={(event) => this.handleOnchangeInput(event, "desc")}>
+                                
+                                    </textarea>
+                                </div>
                             </div>
                             <div className='right'>
                                 <input type="file" className="form-control" id="reviewImg" hidden
@@ -204,6 +215,8 @@ class AddAdmin extends Component
                                                 ></div>
                             </div>
                         </div>
+
+                        
 
                         <div className='button-sumit'>
                             <div className='btn btn-primary btn-submit'

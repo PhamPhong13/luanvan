@@ -23,7 +23,8 @@ module.exports = ( sequelize, DataTypes ) =>
         fullName: DataTypes.STRING,
         phone: DataTypes.STRING,
         position: DataTypes.STRING,
-        image: DataTypes.STRING
+        image: DataTypes.STRING,
+        desc: DataTypes.STRING
     }, {
         sequelize,
         modelName: 'Admin',
