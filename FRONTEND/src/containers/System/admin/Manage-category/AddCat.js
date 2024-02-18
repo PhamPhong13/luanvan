@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
-import { createAdmin, getAllcode } from "../../../../services/userService"
+import { createcat } from "../../../../services/userService"
 import { CommonUtils } from '../../../../utils'; // vi or en
 import Select from 'react-select';
 import { toast } from 'react-toastify';
@@ -35,25 +35,26 @@ class AddCat extends Component
         } )
     }
 
+
     handleSave = async () => {
         if (this.checkstate() === true) {
-            let res = await createAdmin({
+            let res = await createcat({
                 name: this.state.name,
             })
 
             if (res && res.errCode === 0) {
                 this.linkToManageAdmin();
-                toast.success("Tạo nười dùng mới thành công!");
+                toast.success("Tạo danh mục mới thành công!");
                 
             }
-            else toast.error("Tạo người dùng mới không thành công!");
+            else toast.error("Tạo danh mục mới không thành công!");
         }
     }
 
     checkstate = () => { 
         let result = true;
         if (this.state.name === null) { 
-            alert("Vui lòng chọn chức vụ!");
+            alert("Vui lòng nhập tên danh mục!");
             result = false;
         }
         return result;
@@ -84,7 +85,7 @@ class AddCat extends Component
                         <div className='form-group'>
                             <label><FormattedMessage id="system.manage.manage-cat"></FormattedMessage>:</label>
                             <input type='text'
-                            onChange={(event) => this.handleOnchangeInput(event, "name")}
+                                onChange={(event) => this.handleOnchangeInput(event, "name")}
                             />
                         </div>
 

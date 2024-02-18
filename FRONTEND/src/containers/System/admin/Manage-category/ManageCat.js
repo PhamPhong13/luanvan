@@ -2,19 +2,29 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
-import { getAllAdmin, deleteAdmin } from "../../../../services/userService"
+import {getAllcat, deleteAdmin } from "../../../../services/userService"
 
 import { withRouter } from 'react-router';
 import { toast } from 'react-toastify';
+import { isEmpty } from 'lodash';
 class ManageCat extends Component
 {
     constructor(props) {
         super(props);
         this.state = {
+            listCat: []
         }
     }
 
     async componentDidMount() {
+        await this.getAllCats();
+    }
+
+    getAllCats = async () => {
+        let res = await getAllcat();
+        this.setState({
+            listCat: res.data
+        })
     }
 
    
@@ -36,7 +46,7 @@ class ManageCat extends Component
     handleDeleteUser = async (id) => {
         let res = await deleteAdmin(id);
         if (res && res.errCode === 0) {
-            await this.getAllAdmins();
+            await this.getAllCats();
                 toast.success("Xóa nười dùng mới thành công!");
                 
             }
@@ -86,11 +96,11 @@ class ManageCat extends Component
     handleOchangeToSearch = async(event) => {
 
         if (event.target.value.length <= 0) {
-            this.getAllAdmins();
+            this.getAllCats();
         }
         else {
             let key = this.removedau(event.target.value).toLowerCase();
-            let res =  await getAllAdmin();
+            let res =  await getAllcat();
             let result = [];
             res.data.map((item, index) => {
                 let fullName = item.fullName.toLowerCase()
@@ -150,7 +160,7 @@ class ManageCat extends Component
 
     render ()
     {
-
+        let { listCat } = this.state;
         return (
             <>
                 <title>
@@ -179,9 +189,16 @@ class ManageCat extends Component
                     </div>
 
                     <div className='cat'>
-                        <div className='cat-content'>
+                        {
+                            listCat && isEmpty(listCat) && <span>Danh sách rổng!</span>
+                        }
+                        {
+                            listCat && !isEmpty(listCat) && listCat.map((item, index) => {
+                                return (
+
+                                    <div className='cat-content'>
                             <div className='content-left'>
-                                Hội nhập quốc tế
+                               {item.name}
                             </div>
                             <div className='content-right'>
                                 
@@ -189,6 +206,10 @@ class ManageCat extends Component
                                 <div className='btn btn-danger btn-delete'><FormattedMessage id="key.delete"></FormattedMessage></div>
                             </div>
                         </div>
+                                )
+                            })
+}
+                        
 
 
                         
