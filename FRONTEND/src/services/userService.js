@@ -59,12 +59,38 @@ const updateUser = (data) => {
 }
 
 
+// ---------------------- cat -------------------
+
+const getAllcat = () => {
+  return axios.get(`/api/get-cat`);
+};
+
+const createcat = (data) => {
+  return axios.post(`/api/create-cat`, data);
+}
+
+const deletecat = (id) => {
+  return axios.delete(`/api/delete-cat`, {
+    data: { id: id }
+  })
+}
+
+const getcatById = (id) => {
+  return axios.get(`api/get-cat-by-id?id=${id}`);
+}
+
+const updatecat = (data) => {
+  return axios.put(`api/update-cat`, data);
+}
+
 export {
   handleLoginApi,   getAllcode,
 
   /* admin */
   getAllAdmin, createAdmin, deleteAdmin, getAdminById, updateAdmin,
-  /* admin */
-  getAllUser,createUser, deleteUser, getUserById, updateUser
+  /* user */
+  getAllUser, createUser, deleteUser, getUserById, updateUser,
+  /* category */
+  getAllcat,createcat, deletecat, getcatById, updatecat,
   
 };
