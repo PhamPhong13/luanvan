@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
-import {getAllcat, deleteAdmin } from "../../../../services/userService"
+import {getAllcat, deletecat } from "../../../../services/userService"
 
 import { withRouter } from 'react-router';
 import { toast } from 'react-toastify';
@@ -44,13 +44,13 @@ class ManageCat extends Component
     }
 
     handleDeleteUser = async (id) => {
-        let res = await deleteAdmin(id);
+        let res = await deletecat(id);
         if (res && res.errCode === 0) {
             await this.getAllCats();
-                toast.success("Xóa nười dùng mới thành công!");
+                toast.success("Xóa danh mục thành công!");
                 
             }
-            else toast.error("Xóa người dùng mới không thành công!");
+            else toast.error("Xóa danh mục không thành công!");
     }
 
     // bỏ dấu trong chuổi
@@ -203,7 +203,9 @@ class ManageCat extends Component
                             <div className='content-right'>
                                 
                                 <div className='btn btn-primary'><FormattedMessage id="key.edit"></FormattedMessage></div>
-                                <div className='btn btn-danger btn-delete'><FormattedMessage id="key.delete"></FormattedMessage></div>
+                                            <div className='btn btn-danger btn-delete'
+                                            onClick={() => this.handleDeleteUser(item.id)}
+                                            ><FormattedMessage id="key.delete"></FormattedMessage></div>
                             </div>
                         </div>
                                 )
