@@ -41,11 +41,7 @@ let getcat = () =>
     {
         try
         {
-            let patients = await db.Cat.findAll( {
-                attributes: {
-                    exclude: [ 'password' ]
-                }
-            } );
+            let patients = await db.Cat.findAll();
             if ( patients )
             {
                 resolve( {

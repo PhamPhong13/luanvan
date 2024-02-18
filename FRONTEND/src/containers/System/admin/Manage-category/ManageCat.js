@@ -202,7 +202,9 @@ class ManageCat extends Component
                             </div>
                             <div className='content-right'>
                                 
-                                <div className='btn btn-primary'><FormattedMessage id="key.edit"></FormattedMessage></div>
+                                            <div className='btn btn-warning'
+                                                onClick={() => this.linkToEditAdmin(item.id)}
+                                            ><FormattedMessage id="key.edit"></FormattedMessage></div>
                                             <div className='btn btn-danger btn-delete'
                                             onClick={() => this.handleDeleteUser(item.id)}
                                             ><FormattedMessage id="key.delete"></FormattedMessage></div>

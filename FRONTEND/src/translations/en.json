@@ -8,7 +8,10 @@
       "manage-admin": "Manage admin",
       "add-admin": "Add account administrator",
       "add-user": "Add account member",
-      "add-cat": "Add category"
+      "add-cat": "Add category",
+      "edit-admin": "Edit account administrator",
+      "edit-user": "Edit account member",
+      "edit-cat": "Edit category"
     }
   },
 

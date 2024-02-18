@@ -123,11 +123,11 @@ class EditUser extends Component
         return (
             <>
                 <title>
-                    <FormattedMessage id="system.manage.add-admin"></FormattedMessage>
+                    <FormattedMessage id="system.manage.edit-user"></FormattedMessage>
                 </title>
                 <div className='container manage'>
 
-                    <div className='title'><FormattedMessage id="system.manage.add-admin"></FormattedMessage></div>
+                    <div className='title'><FormattedMessage id="system.manage.edit-user"></FormattedMessage></div>
 
                 </div>
 

@@ -14,6 +14,7 @@ import EditUser from "../containers/System/admin/Manage-user/EditUser";
 
 import ManageCat from "../containers/System/admin/Manage-category/ManageCat";
 import AddCat from "../containers/System/admin/Manage-category/AddCat";
+import EditCat from "../containers/System/admin/Manage-category/EditCat";
 
 class System extends Component {
   render() {
@@ -37,6 +38,7 @@ class System extends Component {
 
               <Route path="/system/manage-cat" component={ManageCat} />
               <Route path="/system/add-cat" component={AddCat} />      
+              <Route path="/system/edit-cat/:id" component={EditCat} />
 
               <Route path="/system/home" component={SystemHome} />
               <Route
