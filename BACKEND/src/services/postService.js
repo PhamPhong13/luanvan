@@ -21,6 +21,7 @@ let createpost = ( data ) =>
                 image: data.image,
                 descMarkdown: data.descMarkdown,
                 descHTML: data.descHTML,
+                catId: data.catId,
             } );
 
             resolve( {
@@ -161,6 +162,7 @@ let updatepost = ( data ) =>
             {
                 patient.name = data.name;
                 patient.image = data.image;
+                patient.catId = data.catId;
                 patient.descMarkdown = data.descMarkdown;
                 patient.descHTML = data.descHTML,
                 await patient.save();

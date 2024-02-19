@@ -83,7 +83,7 @@ class AddCat extends Component
                 <div className='container form-add-cat'>
                     <form>
                         <div className='form-group'>
-                            <label><FormattedMessage id="system.manage.manage-cat"></FormattedMessage>:</label>
+                            <label><FormattedMessage id="system.manage.cat"></FormattedMessage>:</label>
                             <input type='text'
                                 onChange={(event) => this.handleOnchangeInput(event, "name")}
                             />

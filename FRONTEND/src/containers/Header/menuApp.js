@@ -35,7 +35,7 @@ export const adminMenu = [
     name: "system.manage.essay",
     menus: [
     {
-        name: "system.manage.manage-essay",        link: "/system/manage-cat",
+        name: "system.manage.manage-post",        link: "/system/manage-post",
       },
     ],
   },

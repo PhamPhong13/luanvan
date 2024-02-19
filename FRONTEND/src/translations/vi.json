@@ -8,7 +8,6 @@
       "manage-category": "Quản lý danh mục",
       "manage-admin": "Quản lý người quản trị",
       "essay": "Bài viết",
-      "manage-essay": "Quản lý Bài viết",
       "add-essay": "Thêm bài viết",
       "edit-essay": "Sửa bài viết",
       "add-admin": "Thêm tài khoản quản trị",
@@ -16,7 +15,11 @@
       "add-cat": "Thêm danh mục",
       "edit-admin": "Sửa tài khoản quản trị",
       "edit-user": "Sửa tài khoản hội viên",
-      "edit-cat": "Sửa danh mục"
+      "edit-cat": "Sửa danh mục",
+      "manage-post": "Quản lý bài viết",
+      "add-post": "Thêm bài viết",
+      "edit-post": "Sửa bài viết",
+      "post": "Bài viết"
 
     }
   },
@@ -35,7 +38,12 @@
     "action": "Hành động",
     "add": "Thêm",
     "change" : "Thay đổi",
-    "desc": "Mô tả"
+    "desc": "Mô tả",
+    "name-post": "Tên bài viết",
+    "choose-cat": "Chọn danh mục",
+    "image-post": "Ảnh bài viết",
+    "content-post": "Nội dung bài viết",
+    "see": "Xem"
   }
 
 

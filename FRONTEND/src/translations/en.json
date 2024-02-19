@@ -16,7 +16,11 @@
       "add-cat": "Add category",
       "edit-admin": "Edit account administrator",
       "edit-user": "Edit account member",
-      "edit-cat": "Edit category"
+      "edit-cat": "Edit category",
+      "manage-post": "Manage post",
+      "add-post": "Add post",
+      "edit-post": "Edit post",
+      "post": "Post"
     }
   },
 
@@ -34,7 +38,12 @@
     "action": "Action",
     "add": "Add",
     "change" : "Change",
-    "desc": "Desction"
+    "desc": "Desction",
+    "name-post": "Name post",
+    "choose-cat": "Choose post",
+    "image-post": "Image post",
+    "content-post": "Content post",
+    "see": "See"
 
 
   }

@@ -21,6 +21,9 @@ module.exports = ( sequelize, DataTypes ) =>
         image: DataTypes.STRING,
         descMarkdown: DataTypes.STRING,
         descHTML: DataTypes.STRING,
+        catId: DataTypes.STRING,
+        count: DataTypes.STRING,
+        
     }, {
         sequelize,
         modelName: 'Post',

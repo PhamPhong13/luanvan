@@ -52,6 +52,10 @@
             .btn-delete{
                 margin-left: 10px;
             }
+
+                   .btn-edit {
+                       margin-left: 10px;
+                   }
         }
     }
 }
@@ -75,6 +79,48 @@
             display: flex;
             justify-content: center;
             margin-top: 10px;
+        }
+    }
+}
+
+
+.Addpost{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    .addpost-content{
+        border: 1px solid black;
+        width: 80%;
+        height: 550px;
+        padding: 10px;
+
+        .top{
+            display: flex;
+            justify-content: space-between;
+
+            .form-group{
+                width: calc(100% / 3);
+                display: flex;
+                flex-direction: column;
+                padding: 5px;
+                input{
+                    padding: 5px 10px;
+                }
+
+                &.image{
+                    display: flex;
+                }
+            }
+        }
+
+        .down{
+            padding: 5px;
+        }
+
+        .button-sumit{
+            display: flex;
+            justify-content: center;
         }
     }
 }

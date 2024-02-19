@@ -22,6 +22,12 @@ module.exports = {
             descHTML: {
                 type: Sequelize.STRING
             },
+            catId: {
+                type: Sequelize.STRING
+            },
+            count: {
+                type: Sequelize.STRING
+            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE

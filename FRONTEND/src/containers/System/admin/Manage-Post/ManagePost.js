@@ -2,28 +2,28 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
-import {getAllcat, deletecat } from "../../../../services/userService"
+import {getAllpost, deletepost } from "../../../../services/userService"
 
 import { withRouter } from 'react-router';
 import { toast } from 'react-toastify';
 import { isEmpty } from 'lodash';
-class ManageCat extends Component
+class ManagePost extends Component
 {
     constructor(props) {
         super(props);
         this.state = {
-            listCat: []
+            listPost: []
         }
     }
 
     async componentDidMount() {
-        await this.getAllCats();
+        await this.getAllPosts();
     }
 
-    getAllCats = async () => {
-        let res = await getAllcat();
+    getAllPosts = async () => {
+        let res = await getAllpost();
         this.setState({
-            listCat: res.data
+            listPost: res.data
         })
     }
 
@@ -32,25 +32,25 @@ class ManageCat extends Component
     linkToAddAdmin = () => {
         if ( this.props.history )
         {
-            this.props.history.push( `/system/add-cat` );
+            this.props.history.push( `/system/add-post` );
         }
     }
 
     linkToEditAdmin = (id) => {
         if ( this.props.history )
         {
-            this.props.history.push( `/system/edit-cat/${id}` );
+            this.props.history.push( `/system/edit-post/${id}` );
         }
     }
 
     handleDeleteUser = async (id) => {
-        let res = await deletecat(id);
+        let res = await deletepost(id);
         if (res && res.errCode === 0) {
-            await this.getAllCats();
-                toast.success("Xóa danh mục thành công!");
+            await this.getAllPosts();
+                toast.success("Xóa bài viết thành công!");
                 
             }
-            else toast.error("Xóa danh mục không thành công!");
+            else toast.error("Xóa bài viết không thành công!");
     }
 
     // bỏ dấu trong chuổi
@@ -97,11 +97,11 @@ class ManageCat extends Component
         console.log(event.target.value)
 
         if (event.target.value.length <= 0) {
-            this.getAllCats();
+            this.getAllPosts();
         }
         else {
             let key = this.removedau(event.target.value).toLowerCase();
-            let res =  await getAllcat();
+            let res =  await getAllpost();
             let result = [];
             res.data.map((item, index) => {
                 let fullName = item.name.toLowerCase()
@@ -113,14 +113,14 @@ class ManageCat extends Component
 
             if (result.length > 0) {
                 this.setState({
-                    listCat: result
+                    listPost: result
                 })
             
             }
             else {
 
                 this.setState({
-                            listCat: []
+                            listPost: []
                         })
                 }
                 
@@ -130,20 +130,20 @@ class ManageCat extends Component
 
     render ()
     {
-        let { listCat } = this.state;
+        let { listPost } = this.state;
         return (
             <>
                 <title>
-                    <FormattedMessage id="system.manage.manage-category"></FormattedMessage>
+                    <FormattedMessage id="system.manage.manage-post"></FormattedMessage>
                 </title>
                 <div className='container manage'>
 
-                    <div className='title'><FormattedMessage id="system.manage.manage-category"></FormattedMessage></div>
+                    <div className='title'><FormattedMessage id="system.manage.manage-post"></FormattedMessage></div>
 
                     <div className='search'>
                         <div className='form-search'>
                             <input type="text"
-                                placeholder={this.props.language === 'vi' ? "Nhập để tìm tên danh mục" : "Type to find the category name"}
+                                placeholder={this.props.language === 'vi' ? "Nhập để tìm bài viết" : "Type to find the post"}
                                 onChange={(event) => this.handleOchangeToSearch(event)}
                             />
                             <i className='fas fa-search'></i>
@@ -154,16 +154,16 @@ class ManageCat extends Component
                         <div className='btn btn-primary'
                             onClick={() => this.linkToAddAdmin()}
                         >
-                            + Thêm danh mục
+                            + Thêm bài viết
                         </div>
                     </div>
 
                     <div className='cat'>
                         {
-                            listCat && isEmpty(listCat) && <span>Danh sách rổng!</span>
+                            listPost && isEmpty(listPost) && <span>Danh sách rổng!</span>
                         }
                         {
-                            listCat && !isEmpty(listCat) && listCat.map((item, index) => {
+                            listPost && !isEmpty(listPost) && listPost.reverse().map((item, index) => {
                                 return (
 
                                     <div className='cat-content'>
@@ -172,7 +172,10 @@ class ManageCat extends Component
                             </div>
                             <div className='content-right'>
                                 
-                                            <div className='btn btn-warning'
+                                            <div className='btn btn-primary'
+                                                onClick={() => this.linkToEditAdmin(item.id)}
+                                            ><FormattedMessage id="key.see"></FormattedMessage></div>
+                                            <div className='btn btn-warning btn-edit'
                                                 onClick={() => this.linkToEditAdmin(item.id)}
                                             ><FormattedMessage id="key.edit"></FormattedMessage></div>
                                             <div className='btn btn-danger btn-delete'
@@ -211,4 +214,4 @@ const mapDispatchToProps = dispatch =>
     };
 };
 
-export default withRouter(connect( mapStateToProps, mapDispatchToProps )( ManageCat ));
+export default withRouter(connect( mapStateToProps, mapDispatchToProps )( ManagePost ));
