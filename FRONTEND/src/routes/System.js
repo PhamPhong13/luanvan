@@ -19,6 +19,7 @@ import EditCat from "../containers/System/admin/Manage-category/EditCat";
 import ManagePost from "../containers/System/admin/Manage-Post/ManagePost";
 import AddPost from "../containers/System/admin/Manage-Post/AddPost";
 import EditPost from "../containers/System/admin/Manage-Post/EditPost";
+import InforPost from "../containers/System/admin/Manage-Post/InforPost";
 class System extends Component {
   render() {
     const { systemMenuPath, isLoggedIn } = this.props;
@@ -46,6 +47,7 @@ class System extends Component {
               <Route path="/system/manage-post" component={ManagePost} />
               <Route path="/system/add-post" component={AddPost} />      
               <Route path="/system/edit-post/:id" component={EditPost} />
+              <Route path="/system/infor-post/:id" component={InforPost} />
 
               <Route path="/system/home" component={SystemHome} />
               <Route

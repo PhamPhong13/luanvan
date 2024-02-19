@@ -163,7 +163,7 @@ class ManageCat extends Component
                             listCat && isEmpty(listCat) && <span>Danh sách rổng!</span>
                         }
                         {
-                            listCat && !isEmpty(listCat) && listCat.map((item, index) => {
+                            listCat && !isEmpty(listCat) && listCat.reverse().map((item, index) => {
                                 return (
 
                                     <div className='cat-content'>

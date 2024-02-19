@@ -124,3 +124,230 @@
         }
     }
 }
+
+
+.postinfor{
+    padding-top: 120px;
+    display: flex;
+    justify-content: center;
+    .postinfor-content{
+        width: 60%;
+        border-radius: 8px;
+        padding: 20px;
+        background-color: white;
+        height: 100%;
+
+        .postinfor-title{
+            .name{
+                font-size: 20px;
+                font-weight: bold;
+                text-align: justify;
+                    text-indent: 25px;
+                    margin: 0;
+
+                    
+            }
+
+            .cat{
+                i{
+                    margin-right: 5px;
+                    font-size: 12px;
+                }
+                height: 100%;
+                span {
+                        background-color: #00ff08;
+                        font-size: 13px;
+                        color: black;
+                        padding: 3px 7px;
+                        border-radius: 3px;
+                        position: relative;
+                        margin-left: 13px;
+                        color: white;
+                        font-weight: bold;
+                
+                        &::before {
+                            content: '';
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: -12px;
+                            width: 11px;
+                            height: 100%;
+                            border-top: 10px solid transparent;
+                            border-bottom: 11px solid transparent;
+                            border-right: 13px solid #00ff08;
+                
+                        }
+                
+                        &::after {
+                            content: '';
+                            width: 8px;
+                            height: 8px;
+                            background-color: white;
+                            position: absolute;
+                            top: 6px;
+                            left: -4px;
+                            border-radius: 50%;
+                        }
+                    }
+            }
+
+            .date{
+                font-size: 12px;
+            }
+
+            .like{
+                font-size: 12px;
+                margin-left: 10px;
+            }
+
+            .img{
+                margin: 0;
+                width: 100%;
+                margin-top: 10px;
+                display: flex;
+                justify-content: center;
+                img{
+                    width: 60%;
+
+                    height: auto;
+                    border-radius: 10px;
+                }
+            }
+
+            .content-p{
+                text-align: justify;
+                margin-top: 15px;
+                p{
+                    margin: 0;
+                    display: flex;
+                    img{
+                        margin: 0 auto;
+                        width: 60%;
+                        height: auto;
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+
+            
+            
+        }
+.open-close {
+    cursor: default;
+    margin-left: 10px;
+    font-size: 12px;
+    
+}
+        .post-comment{
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            &.see{
+                height: 100%;
+            }
+
+            
+            .post-comment-content {
+                    width: 100%;
+                    margin-top: 10px;
+            
+                    .comment-main {
+                        display: flex;
+                        justify-content: left;
+            
+                        img {
+                            width: 7%;
+                            height: 50px;
+                            background-size: 100%;
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            border-radius: 50%;
+            
+            
+                        }
+            
+                        .comment-main-content {
+                            display: flex;
+                            flex-direction: column;
+                            margin-left: 15px;
+            
+                            .comment-main-content-top {
+            
+                                background-color: #f0f2f5;
+                                padding: 0 10px;
+                                border-radius: 10px;
+            
+                                .name {
+                                    font-weight: bold;
+                                }
+                            }
+            
+                            .comment-main-content-bottom {
+                                display: flex;
+                                justify-content: left;
+                                font-size: 14px;
+                                margin-top: 3px;
+            
+                                span {
+                                    margin-right: 20px;
+                                }
+                            }
+                        }
+            
+                    }
+            
+                    .comment-rep {
+                        margin-left: 60px;
+                        margin-top: 10px;
+            
+                        li {
+                            display: flex;
+                            justify-content: left;
+                            margin-top: 10px;
+            
+                            img {
+                                width: 7%;
+                                height: 50px;
+                                background-size: 100%;
+                                background-repeat: no-repeat;
+                                background-position: center;
+                                border-radius: 50%;
+            
+                            }
+            
+                            .comment-main-content {
+                                display: flex;
+                                flex-direction: column;
+                                margin-left: 15px;
+            
+                                .comment-main-content-top {
+            
+                                    padding: 0 10px;
+                                    border-radius: 10px;
+                                    background-color: #f0f2f5;
+            
+                                    .name {
+                                        font-weight: bold;
+                                    }
+                                }
+            
+                                .comment-main-content-bottom {
+                                    display: flex;
+                                    justify-content: left;
+                                    font-size: 14px;
+                                    margin-top: 3px;
+            
+                                    span {
+                                        margin-right: 20px;
+                                    }
+                                }
+                            }
+            
+                        }
+                    }
+                }
+        }
+
+    }
+}

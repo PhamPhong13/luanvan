@@ -43,6 +43,13 @@ class ManagePost extends Component
         }
     }
 
+    linkToInforPost = (id) => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `/system/infor-post/${id}` );
+        }
+    }
+
     handleDeleteUser = async (id) => {
         let res = await deletepost(id);
         if (res && res.errCode === 0) {
@@ -173,7 +180,7 @@ class ManagePost extends Component
                             <div className='content-right'>
                                 
                                             <div className='btn btn-primary'
-                                                onClick={() => this.linkToEditAdmin(item.id)}
+                                                onClick={() => this.linkToInforPost(item.id)}
                                             ><FormattedMessage id="key.see"></FormattedMessage></div>
                                             <div className='btn btn-warning btn-edit'
                                                 onClick={() => this.linkToEditAdmin(item.id)}
