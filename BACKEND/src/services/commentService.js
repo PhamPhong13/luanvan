@@ -6,13 +6,6 @@ let createcomment = ( data ) =>
     return new Promise( async ( resolve, reject ) =>
     {
         // check input parameters
-        if ( !data.name )
-        {
-            resolve( {
-                errCode: 1,
-                message: "Missing required parameter!"
-            } )
-        }
 
         try
         {
@@ -42,7 +35,15 @@ let getcomment = () =>
     {
         try
         {
-            let patients = await db.Comment.findAll( );
+            let patients = await db.Comment.findAll(
+                {
+                    include: [
+                    { model: db.User },
+                ],
+                raw: true,
+                nest: true
+                }
+             );
             if ( patients )
             {
                 resolve( {

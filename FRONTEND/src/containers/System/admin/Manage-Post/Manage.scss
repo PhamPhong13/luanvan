@@ -237,6 +237,11 @@
         .post-comment{
             width: 100%;
             .post-cs{
+
+                .not-comment {
+                        color: red;
+                        margin: auto;
+                    }
                 height: 220px;
                 overflow: hidden;
                 position: relative;
@@ -257,13 +262,13 @@
                     position: absolute;
                     bottom: 0;
                     width: 100%;
+                    background-color: white;
                     border: 1px solid #cccc;
                     height: 40px;
                     display: flex;
                     justify-content: center;
                     align-items: center;
                     padding: 5px;
-                    border-radius: 30px;
                     input{
                         width: 80%;
                         height: 100%;
@@ -287,6 +292,7 @@
                 height: 100%;
                 width: 100%;
                 padding-bottom: 40px;
+                
                 .post-comment-content {
                         width: 100%;
                         margin-top: 10px;
@@ -294,7 +300,20 @@
                         .comment-main {
                             display: flex;
                             justify-content: left;
-                
+                            .removecomment{
+                                flex: 1;
+                                margin-left: 10px;
+
+                                span{
+                                    font-weight: bold;
+                                    border: 1px  solid red;
+                                    padding: 0 3px;
+                                    padding-bottom: 2px;
+                                    border-radius: 50%;
+                                    color: red;
+                                    cursor: pointer;
+                                }
+                            }
                             img {
                                 width: 7%;
                                 height: 50px;
@@ -308,6 +327,7 @@
                 
                             .comment-main-content {
                                 display: flex;
+                                width: 60%;
                                 flex-direction: column;
                                 margin-left: 15px;
                 
@@ -357,6 +377,7 @@
                 
                                 .comment-main-content {
                                     display: flex;
+                                    width: 60%;
                                     flex-direction: column;
                                     margin-left: 15px;
                 

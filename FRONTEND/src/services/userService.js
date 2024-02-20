@@ -114,7 +114,7 @@ const getAllcomment = () => {
 };
 
 const createcomment = (data) => {
-  return axios.comment(`/api/create-comment`, data);
+  return axios.post(`/api/create-comment`, data);
 }
 
 const deletecomment = (id) => {
