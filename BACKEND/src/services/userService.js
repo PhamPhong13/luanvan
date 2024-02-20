@@ -48,14 +48,14 @@ let checkUserEmail = ( userEmail ) =>
 }
 
 
-/* let login = (email, password) => {
+let login = (email, password) => {
   return new Promise(async (resolve, reject) => {
     try {
       let userData = {};
       let isExist = await checkUserEmail(email);
       if (isExist) {
         //user already exist
-        let user = await db.Admin.findOne({
+        let user = await db.User.findOne({
           where: { email: email },
           raw: true,
         });
@@ -86,7 +86,7 @@ let checkUserEmail = ( userEmail ) =>
     }
   });
 };
- */
+
 
 // create a new patient
 let createUser = ( data ) =>
@@ -329,5 +329,5 @@ module.exports = {
     deleteUser: deleteUser,
     updateUser: updateUser,
     getAllCode: getAllCode,
-    /* login: login */
+    login: login
 }

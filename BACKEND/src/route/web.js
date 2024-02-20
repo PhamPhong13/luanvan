@@ -12,6 +12,7 @@ let router = express.Router();
 let initWebRoutes = (app) => {
   // route login
   router.post("/api/login", admin.login); // login
+  router.post("/api/login-user", user.login); // login
   // route allcode
   router.get("/api/get-allcode", user.getAllCode); // get all code
 
