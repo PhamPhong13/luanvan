@@ -2,31 +2,25 @@
 module.exports = {
     up: async ( queryInterface, Sequelize ) =>
     {
-        await queryInterface.createTable( 'posts', {
+        await queryInterface.createTable( 'repcomments', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-            name: {
+            commentId: {
                 allowNull: false,
                 type: Sequelize.STRING
             },
-            image: {
+            userId: {
                 type: Sequelize.STRING
             },
-            descMarkdown: {
+            repcomment: {
                 type: Sequelize.STRING
             },
-            descHTML: {
+            like: {
                 type: Sequelize.STRING
-            },
-            catId: {
-                type: Sequelize.STRING
-            },
-            count: {
-                type: Sequelize.INTEGER
             },
             createdAt: {
                 allowNull: false,
@@ -40,6 +34,6 @@ module.exports = {
     },
     down: async ( queryInterface, Sequelize ) =>
     {
-        await queryInterface.dropTable( 'posts' );
+        await queryInterface.dropTable( 'repcomments' );
     }
 };

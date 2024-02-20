@@ -4,7 +4,7 @@ const {
 } = require( 'sequelize' );
 module.exports = ( sequelize, DataTypes ) =>
 {
-    class Post extends Model
+    class Repcomment extends Model
     {
         /**
          * Helper method for defining associations.
@@ -16,17 +16,15 @@ module.exports = ( sequelize, DataTypes ) =>
             // define association here
         }
     };
-    Post.init( {
-        name: DataTypes.STRING,
-        image: DataTypes.STRING,
-        descMarkdown: DataTypes.STRING,
-        descHTML: DataTypes.STRING,
-        catId: DataTypes.STRING,
-        count: DataTypes.INTEGER,
+    Repcomment.init( {
+        commentId: DataTypes.STRING,
+        userId: DataTypes.STRING,
+        repcomment: DataTypes.STRING,
+        like: DataTypes.INTEGER,
         
     }, {
         sequelize,
-        modelName: 'Post',
+        modelName: 'Repcomment',
     } );
-    return Post;
+    return Repcomment;
 };
