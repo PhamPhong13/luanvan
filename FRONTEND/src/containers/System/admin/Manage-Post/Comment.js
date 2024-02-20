@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
-import {createcomment, getAllcomment, deletecomment } from "../../../../services/userService"
+import {createcomment, getcommentById, deletecomment, createrepcomment, deleterepcommentbycomment } from "../../../../services/userService"
 
 import { withRouter } from 'react-router';
-import { toast } from 'react-toastify';
 import { isEmpty, result } from 'lodash';
-
+import RepComment from './RepComment';
 import avatar from "../../../../assets/340439352_964862588007237_5460541469979575194_n.jpg"
 class Commnent extends Component
 {
@@ -19,7 +18,9 @@ class Commnent extends Component
             postId: "",
             user: "",
             comment_input: "",
-            listComment: []
+            listComment: [],
+            commentId: "",
+            update: false
         }
     }
 
@@ -28,18 +29,29 @@ class Commnent extends Component
         this.setState({
             postId: this.props.match.params.id,
             user: this.props.user,
-            key: "comment"
+            key: "comment",
+            commentId: "",
+            update: false
+
+
         })
 
-        await this.getAllcomments()
+        await this.getAllcomments();
     }
 
     getAllcomments = async () => {
-        let res = await getAllcomment()
-        let reverse = res.data.reverse()
-        this.setState({
-            listComment: reverse
-        })
+        let res = await getcommentById(this.props.match.params.id)
+        if (res && res.data !== null) {
+            let reverse = res.data.reverse()
+            this.setState({
+                listComment: reverse,
+                commentId: "",
+                update: false
+            
+            })
+        } else {
+            
+        }
     }
 
     openSee = () => {
@@ -61,8 +73,8 @@ class Commnent extends Component
         if (prev.listComment!== this.props.listComment) {
             await this.getAllcomments();
             this.setState({
-            key: "comment"
-
+                key: "comment",
+            commentId: ""
             })
         }
     }
@@ -83,29 +95,59 @@ class Commnent extends Component
                 }
             }
             else {
+                
+                let res = await createrepcomment({
+                    commentId: this.state.commentId,
+                    userId: this.state.user.id,
+                    repcomment: this.state.comment_input,
+                })
+                if (res && res.errCode === 0) {
+                    this.setState({
+                        comment_input: '',
+                        update: !this.state.update,
+                    key: 'comment'})
+                }
+
+
+                
             }
         }
     }
 
+
     removeComment = async (id) => { 
+        alert("Bạn có chắc rằng muốn xóa bình luận này không!");
         let res = await deletecomment(id);
+        let res2 = await deleterepcommentbycomment(id);
         if (res && res.errCode === 0) {
+            this.setState({
+                        comment_input: '',
+                        update: !this.state.update,
+                    key: 'comment'})
                     await this.getAllcomments();
                 }
     }
     
-    handleChangeKeyComment = () => { 
+    handleChangeKey = (id) => { 
         this.setState({
-            key: "repcomment"
+            key: "repcomment",
+            commentId: id
         })
     }
+
     checkInputComment = (comment) => {
-        return comment.length <= 0 ? false : true
+        if (comment.lenght <= 0) {
+            return false;
+        }
+        return true;
     }
+
     render ()
     {
         console.log(this.state)
-        let {listComment} = this.state
+        let { listComment } = this.state;
+        console.log(listComment)
+
         return (
             
             <div className={this.state.opensee === true ? 'post-cs see' : 'post-cs'}>
@@ -123,15 +165,18 @@ class Commnent extends Component
                                             <div className='comment'>{ item.comment}</div>
                             </div>
                             <div className='comment-main-content-bottom'>
-                                <span>15 tuần </span> <span><b>Thích</b></span> <span onClick={() => this.handleChangeKeyComment()}><b><label for="texxt">Trả lời</label></b></span>
+                                <span>15 tuần </span> <span><b>Thích</b></span> <span onClick={() => this.handleChangeKey(item.id)}><b><label for="texxt">Trả lời</label></b></span>
                             </div>
                         </div>
                                     <div className='removecomment'><span
                                     onClick={() => this.removeComment(item.id)}
                                     >x</span></div>
 
-                    </div>
-                        <div className='comment-rep'>
+                                </div>
+                                <RepComment commentId={item.id}
+                                    handleChangeKey={this.handleChangeKey}
+                                    update={ this.state.update} />
+                        {/* <div className='comment-rep'>
                         <li>
                         <img src={avatar} />
                                 <div className='comment-main-content'>
@@ -144,7 +189,7 @@ class Commnent extends Component
                             </div>
                         </div>
                                 </li>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                     )

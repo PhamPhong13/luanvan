@@ -1,7 +1,7 @@
 import db from '../models/index';
 
 // create a new patient
-let createcomment = ( data ) =>
+let createrepcomment = ( data ) =>
 {
     return new Promise( async ( resolve, reject ) =>
     {
@@ -9,15 +9,15 @@ let createcomment = ( data ) =>
 
         try
         {
-            await db.Comment.create( {
-                postId: data.postId,
+            await db.Repcomment.create( {
+                commentId: data.commentId,
                 userId: data.userId,
-                comment: data.comment,
+                repcomment: data.repcomment,
             } );
 
             resolve( {
                 errCode: 0,
-                message: "Create a new comment successfully!"
+                message: "Create a new repcomment successfully!"
             } )
         }
         catch ( err )
@@ -29,13 +29,13 @@ let createcomment = ( data ) =>
     } )
 }
 // get all patient
-let getcomment = () =>
+let getrepcomment = () =>
 {
     return new Promise( async ( resolve, reject ) =>
     {
         try
         {
-            let patients = await db.Comment.findAll(
+            let patients = await db.Repcomment.findAll(
                 {
                     include: [
                     { model: db.User },
@@ -48,7 +48,7 @@ let getcomment = () =>
             {
                 resolve( {
                     errCode: 0,
-                    message: "get list comment successfully!",
+                    message: "get list repcomment successfully!",
                     data: patients
                 } )
             }
@@ -56,7 +56,7 @@ let getcomment = () =>
             {
                 resolve( {
                     errCode: 1,
-                    message: "get list comment failed!"
+                    message: "get list repcomment failed!"
                 } )
             }
 
@@ -69,19 +69,19 @@ let getcomment = () =>
 }
 
 //get patient by id
-let getcommentById = ( id ) =>
+let getrepcommentById = ( id ) =>
 {
     return new Promise( async ( resolve, reject ) =>
     {
         try
         {
-            let patients = await db.Comment.findAll( {
+            let patients = await db.Repcomment.findAll( {
                 where: {
-                    postId: id
+                    commentId: id
                 },
                 
                     include: [
-                        { model: db.User },
+                    { model: db.User },
                 ],
                 raw: true,
                 nest: true
@@ -90,7 +90,7 @@ let getcommentById = ( id ) =>
             {
                 resolve( {
                     errCode: 0,
-                    message: "get comment successfully!",
+                    message: "get repcomment successfully!",
                     data: patients
                 } )
             }
@@ -98,7 +98,7 @@ let getcommentById = ( id ) =>
             {
                 resolve( {
                     errCode: 1,
-                    message: "get comment failed!"
+                    message: "get repcomment failed!"
                 } )
             }
 
@@ -111,7 +111,7 @@ let getcommentById = ( id ) =>
 }
 
 // delete patient
-let deletecomment = ( id ) =>
+let deleterepcomment = ( id ) =>
 {
     return new Promise( async ( resolve, reject ) =>
     {
@@ -122,7 +122,7 @@ let deletecomment = ( id ) =>
                 message: "Missing required parameter!"
             } )
         }
-        let Patient = await db.Comment.findOne( {
+        let Patient = await db.Repcomment.findOne( {
             where: { id: id },
         } );
 
@@ -130,22 +130,56 @@ let deletecomment = ( id ) =>
         {
             resolve( {
                 errCode: 2,
-                errMessage: 'comment not found!'
+                errMessage: 'repcomment not found!'
             } );
         }
 
-        await db.Comment.destroy( {
+        await db.Repcomment.destroy( {
             where: { id: id },
         } );
         resolve( {
             errCode: 0,
-            errMessage: 'Delete comment succeed!'
+            errMessage: 'Delete repcomment succeed!'
+        } );
+    } )
+}
+
+// delete patient
+let deleterepcommentbycomment = ( id ) =>
+{
+    return new Promise( async ( resolve, reject ) =>
+    {
+        if ( !id )
+        {
+            resolve( {
+                errCode: 1,
+                message: "Missing required parameter!"
+            } )
+        }
+        let Patient = await db.Repcomment.findAll( {
+            where: { commentId: id },
+        } );
+
+        if ( !Patient )
+        {
+            resolve( {
+                errCode: 2,
+                errMessage: 'repcomment not found!'
+            } );
+        }
+
+        await db.Repcomment.destroy( {
+            where: { commentId: id },
+        } );
+        resolve( {
+            errCode: 0,
+            errMessage: 'Delete repcomment succeed!'
         } );
     } )
 }
 
 // update 
-let updatecomment = ( data ) =>
+let updaterepcomment = ( data ) =>
 {
     return new Promise( async ( resolve, reject ) =>
     {
@@ -158,26 +192,26 @@ let updatecomment = ( data ) =>
                     errMessage: 'Missing required parameter!'
                 } )
             }
-            let patient = await db.Comment.findOne( {
+            let patient = await db.Repcomment.findOne( {
                 where: { id: data.id },
                 raw: false
 
             } )
             if ( patient )
             {
-                patient.comment = data.comment;
+                patient.repcomment = data.repcomment;
                 await patient.save();
 
                 resolve( {
                     errCode: 0,
-                    errMessage: 'Update comment succeed!'
+                    errMessage: 'Update repcomment succeed!'
                 } );
 
             } else
             {
                 resolve( {
                     errCode: 2,
-                    errMessage: 'comment not found!'
+                    errMessage: 'repcomment not found!'
                 } );
 
             }
@@ -190,9 +224,10 @@ let updatecomment = ( data ) =>
 }
  
 module.exports = {
-    createcomment: createcomment,
-    getcomment: getcomment,
-    getcommentById: getcommentById,
-    deletecomment: deletecomment,
-    updatecomment: updatecomment,
+    createrepcomment: createrepcomment,
+    getrepcomment: getrepcomment,
+    getrepcommentById: getrepcommentById,
+    deleterepcomment: deleterepcomment,
+    updaterepcomment: updaterepcomment,
+    deleterepcommentbycomment: deleterepcommentbycomment
 }

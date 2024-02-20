@@ -131,6 +131,37 @@ const updatecomment = (data) => {
   return axios.put(`api/update-comment`, data);
 }
 
+
+// ---------------------- repcomment -------------------
+
+const getAllrepcomment = () => {
+  return axios.get(`/api/get-repcomment`);
+};
+
+const createrepcomment = (data) => {
+  return axios.post(`/api/create-repcomment`, data);
+}
+
+const deleterepcomment = (id) => {
+  return axios.delete(`/api/delete-repcomment`, {
+    data: { id: id }
+  })
+}
+
+const deleterepcommentbycomment = (id) => {
+  return axios.delete(`/api/delete-repcomment-by-commentid`, {
+    data: { id: id }
+  })
+}
+
+const getrepcommentById = (id) => {
+  return axios.get(`api/get-repcomment-by-id?id=${id}`);
+}
+
+const updaterepcomment = (data) => {
+  return axios.put(`api/update-repcomment`, data);
+}
+
 export {
   handleLoginApi,   getAllcode,
 
@@ -143,6 +174,8 @@ export {
   /* posts */
   getAllpost, createpost, deletepost, getpostById, updatepost,
   /* comments */
-  getAllcomment,createcomment, deletecomment, getcommentById, updatecomment,
+  getAllcomment, createcomment, deletecomment, getcommentById, updatecomment,
+   /* rep comment */
+  getAllrepcomment,createrepcomment, deleterepcomment, getrepcommentById, updaterepcomment,deleterepcommentbycomment
   
 };
