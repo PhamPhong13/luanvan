@@ -14,19 +14,29 @@ class Commnent extends Component
     constructor(props) {
         super(props);
         this.state = {
+            opensee: false,
+            key: "comment"
         }
     }
 
     async componentDidMount() {
-        console.log("Check id comment", this.props)
+        console.log("Check id comment", this.state)
     }
+
+    openSee = () => {
+        this.setState({
+        opensee: !this.state.opensee
+    })
+}
 
     render ()
     {
+        console.log(this.state.opensee)
         return (
-            <>
+            <div className={this.state.opensee === true ? 'post-cs see' : 'post-cs'}>
                 <div className=''>Bình luận bài viết: </div>
-                <div className='post-comment-content'>
+                <div className={this.state.opensee === false ? 'cmt-p cmt-p-see' : 'cmt-p'}>
+                    <div className='post-comment-content'>
                     <div className='comment-main'>
                         <img src={avatar} />
                         <div className='comment-main-content'>
@@ -35,7 +45,7 @@ class Commnent extends Component
                             <div className='comment'>Ngày hôm đó tui đã không đi đc, rất buồn feeeeeeeeee</div>
                             </div>
                             <div className='comment-main-content-bottom'>
-                                <span>15 tuần </span> <span><b>Thích</b></span> <span><b>Trả lời</b></span>
+                                <span>15 tuần </span> <span><b>Thích</b></span> <span><b><label for="texxt">Trả lời</label></b></span>
                             </div>
                         </div>
 
@@ -126,7 +136,14 @@ class Commnent extends Component
                         
                         </div>
                 </div>
-            </>
+                </div>
+                <span className='open-close' onClick={() => this.openSee()}><i>{this.state.opensee === true ? 'Ẩn bớt' : 'Xem thêm'} </i></span>
+                <div className='text-comment'>
+                    <input type='text' id="texxt"/>
+                    <i class="fas fa-share"></i>
+                </div>
+
+            </div>
         );
     }
 

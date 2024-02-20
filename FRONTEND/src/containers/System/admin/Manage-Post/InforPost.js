@@ -18,7 +18,6 @@ class InforPost extends Component
             cat: '',
             thu: "",
             day: "",
-            opensee: false
         }
     }
 
@@ -72,11 +71,7 @@ class InforPost extends Component
     }
     
 
-    openSee = () => {
-        this.setState({
-        opensee: !this.state.opensee
-    })
-}
+    
 
     
     render ()
@@ -114,10 +109,9 @@ class InforPost extends Component
                             </p>
                         </div>
 
-                        <div className={this.state.opensee === true ? 'post-comment see' : 'post-comment'}>
+                        <div className="post-comment">
                             <Comment id={this.state.post.id} />
                         </div>
-                            <span className='open-close' onClick={() => this.openSee()}><i>{this.state.opensee === true ? 'Ẩn bớt' : 'Xem thêm'} </i></span>
                     </div>
                 </div>
                 

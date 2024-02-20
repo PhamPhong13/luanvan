@@ -233,79 +233,68 @@
             
             
         }
-.open-close {
-    cursor: default;
-    margin-left: 10px;
-    font-size: 12px;
-    
-}
+
         .post-comment{
             width: 100%;
-            height: 180px;
-            overflow: hidden;
-            &.see{
-                height: 100%;
-            }
+            .post-cs{
+                height: 220px;
+                overflow: hidden;
+                position: relative;
+                &.see {
+                    height: 100%;
+                }
 
-            
-            .post-comment-content {
+                .open-close {
+                    cursor: default;
+                    margin-left: 10px;
+                    font-size: 12px;
+                    position: absolute;
+                    bottom: 40px;
+                    left: 5px;
+                }
+                
+                .text-comment{
+                    position: absolute;
+                    bottom: 0;
                     width: 100%;
-                    margin-top: 10px;
-            
-                    .comment-main {
-                        display: flex;
-                        justify-content: left;
-            
-                        img {
-                            width: 7%;
-                            height: 50px;
-                            background-size: 100%;
-                            background-repeat: no-repeat;
-                            background-position: center;
-                            border-radius: 50%;
-            
-            
-                        }
-            
-                        .comment-main-content {
-                            display: flex;
-                            flex-direction: column;
-                            margin-left: 15px;
-            
-                            .comment-main-content-top {
-            
-                                background-color: #f0f2f5;
-                                padding: 0 10px;
-                                border-radius: 10px;
-            
-                                .name {
-                                    font-weight: bold;
-                                }
-                            }
-            
-                            .comment-main-content-bottom {
-                                display: flex;
-                                justify-content: left;
-                                font-size: 14px;
-                                margin-top: 3px;
-            
-                                span {
-                                    margin-right: 20px;
-                                }
-                            }
-                        }
-            
+                    border: 1px solid #cccc;
+                    height: 40px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 5px;
+                    border-radius: 30px;
+                    input{
+                        width: 80%;
+                        height: 100%;
+                        border-radius: 30px;
+                        padding: 3px 10px;
+                        outline: #004aff;
+                        border-color: #004aff;
                     }
-            
-                    .comment-rep {
-                        margin-left: 60px;
+                    i{
+                        font-size: 20px;
+                        margin-left: 10px;
+                        color: #004aff;
+                    }
+                }
+
+            .cmt-p{
+                &.cmt-p-see{
+                    height: 150px;
+                    overflow: hidden;
+                }
+                height: 100%;
+                width: 100%;
+                padding-bottom: 40px;
+                .post-comment-content {
+                        width: 100%;
                         margin-top: 10px;
-            
-                        li {
+                
+                        .comment-main {
                             display: flex;
                             justify-content: left;
-                            margin-top: 10px;
-            
+                
                             img {
                                 width: 7%;
                                 height: 50px;
@@ -313,40 +302,94 @@
                                 background-repeat: no-repeat;
                                 background-position: center;
                                 border-radius: 50%;
-            
+                
+                
                             }
-            
+                
                             .comment-main-content {
                                 display: flex;
                                 flex-direction: column;
                                 margin-left: 15px;
-            
+                
                                 .comment-main-content-top {
-            
+                
+                                    background-color: #f0f2f5;
                                     padding: 0 10px;
                                     border-radius: 10px;
-                                    background-color: #f0f2f5;
-            
+                
                                     .name {
                                         font-weight: bold;
                                     }
                                 }
-            
+                
                                 .comment-main-content-bottom {
                                     display: flex;
                                     justify-content: left;
                                     font-size: 14px;
                                     margin-top: 3px;
-            
+                
                                     span {
                                         margin-right: 20px;
                                     }
                                 }
                             }
-            
+                
+                        }
+                
+                        .comment-rep {
+                            margin-left: 60px;
+                            margin-top: 10px;
+                
+                            li {
+                                display: flex;
+                                justify-content: left;
+                                margin-top: 10px;
+                
+                                img {
+                                    width: 7%;
+                                    height: 50px;
+                                    background-size: 100%;
+                                    background-repeat: no-repeat;
+                                    background-position: center;
+                                    border-radius: 50%;
+                
+                                }
+                
+                                .comment-main-content {
+                                    display: flex;
+                                    flex-direction: column;
+                                    margin-left: 15px;
+                
+                                    .comment-main-content-top {
+                
+                                        padding: 0 10px;
+                                        border-radius: 10px;
+                                        background-color: #f0f2f5;
+                
+                                        .name {
+                                            font-weight: bold;
+                                        }
+                                    }
+                
+                                    .comment-main-content-bottom {
+                                        display: flex;
+                                        justify-content: left;
+                                        font-size: 14px;
+                                        margin-top: 3px;
+                
+                                        span {
+                                            margin-right: 20px;
+                                        }
+                                    }
+                                }
+                
+                            }
                         }
                     }
-                }
+            }
+
+            }
+            
         }
 
     }

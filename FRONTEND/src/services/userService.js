@@ -107,6 +107,30 @@ const updatepost = (data) => {
   return axios.put(`api/update-post`, data);
 }
 
+// ---------------------- comment -------------------
+
+const getAllcomment = () => {
+  return axios.get(`/api/get-comment`);
+};
+
+const createcomment = (data) => {
+  return axios.comment(`/api/create-comment`, data);
+}
+
+const deletecomment = (id) => {
+  return axios.delete(`/api/delete-comment`, {
+    data: { id: id }
+  })
+}
+
+const getcommentById = (id) => {
+  return axios.get(`api/get-comment-by-id?id=${id}`);
+}
+
+const updatecomment = (data) => {
+  return axios.put(`api/update-comment`, data);
+}
+
 export {
   handleLoginApi,   getAllcode,
 
@@ -117,6 +141,8 @@ export {
   /* category */
   getAllcat, createcat, deletecat, getcatById, updatecat,
   /* posts */
-  getAllpost,createpost, deletepost, getpostById, updatepost,
+  getAllpost, createpost, deletepost, getpostById, updatepost,
+  /* comments */
+  getAllcomment,createcomment, deletecomment, getcommentById, updatecomment,
   
 };

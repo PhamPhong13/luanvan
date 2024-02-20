@@ -3,6 +3,7 @@ import admin from "../controllers/adminController";
 import user from "../controllers/userController";
 import cat from "../controllers/catController";
 import post from "../controllers/postController";
+import comment from "../controllers/commentController";
 
 let router = express.Router();
 
@@ -38,7 +39,14 @@ let initWebRoutes = (app) => {
   router.get("/api/get-post", post.getpost); // get post
   router.get("/api/get-post-by-id", post.getpostById); // get post by id
   router.delete("/api/delete-post", post.deletepost); // delete post
-  router.put("/api/update-post", post.updatepost); // update post 
+  router.put("/api/update-post", post.updatepost); // update post
+
+  // route commment
+  router.post("/api/create-comment", comment.createcomment); // create comment
+  router.get("/api/get-comment", comment.getcomment); // get comment
+  router.get("/api/get-comment-by-id", comment.getcommentById); // get comment by id
+  router.delete("/api/delete-comment", comment.deletecomment); // delete comment
+  router.put("/api/update-comment", comment.updatecomment); // update comment 
 
  return app.use("/", router);
 };
