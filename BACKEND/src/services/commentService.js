@@ -81,7 +81,9 @@ let getcommentById = ( id ) =>
                 },
                 
                     include: [
-                        { model: db.User },
+                        { model: db.User , attributes: {
+                    exclude: [ 'password' ]
+                }},
                 ],
                 raw: true,
                 nest: true

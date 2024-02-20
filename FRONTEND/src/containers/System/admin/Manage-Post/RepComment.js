@@ -59,9 +59,57 @@ class RepComment extends Component
         this.props.handleChangeKey(this.props.commentId);
     }
     
+  timecreated = (data) => {
+    // Thời điểm hiện tại
+    var now = new Date();
+
+    // Thời điểm muốn so sánh
+    var yourDate = new Date(data);
+
+    // Tính toán khoảng thời gian giữa thời điểm hiện tại và thời điểm cụ thể
+    var difference = now - yourDate;
+
+    // Chuyển đổi khoảng thời gian thành số mili giây
+    difference = Math.abs(difference);
+
+    // Chuyển đổi thành ngày, tháng, năm, giờ, phút và giây
+    var daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
+    var hoursDifference = Math.floor(difference / 1000 / 60 / 60) % 24;
+    var minutesDifference = Math.floor(difference / 1000 / 60) % 60;
+    var secondsDifference = Math.floor(difference / 1000) % 60;
+    var monthsDifference = Math.floor(daysDifference / 30);
+    var yearsDifference = Math.floor(monthsDifference / 12);
+
+    let timedate = ''
+    if (secondsDifference == 0 && minutesDifference == 0 && hoursDifference == 0 && daysDifference == 0 && monthsDifference == 0 && yearsDifference == 0) {
+        timedate = `0 giây trước`
+    }
+    else if (secondsDifference != 0 && minutesDifference == 0 && hoursDifference == 0 && daysDifference == 0 && monthsDifference == 0 && yearsDifference == 0) {
+        timedate = `${secondsDifference} giây trước`
+    }
+    else if (minutesDifference != 0 && hoursDifference == 0 && daysDifference == 0 && monthsDifference == 0 && yearsDifference == 0) {
+        timedate = `${minutesDifference} phút trước`
+    }
+    else if (hoursDifference != 0 && daysDifference == 0 && monthsDifference == 0 && yearsDifference == 0) {
+        timedate = `${hoursDifference} giờ trước`
+    }
+    else if (daysDifference != 0 && monthsDifference == 0 && yearsDifference == 0) {
+        timedate = `${daysDifference} ngày trước`
+    }
+    else if (monthsDifference != 0 && yearsDifference == 0) {
+        timedate = `${monthsDifference} tháng trước`
+    }
+    else if (yearsDifference != 0) {
+        timedate = `${yearsDifference} năm trước`
+    }
+
+        return timedate;
+}
+
     render ()
     {
         let { listRepComments } = this.state;
+        console.log(listRepComments)
         return (
             <div className='comment-rep'>
                 {listRepComments && !isEmpty(listRepComments) && 
@@ -75,7 +123,7 @@ class RepComment extends Component
                                         <div className='comment'>{ item.repcomment}</div>
                             </div>
                             <div className='comment-main-content-bottom'>
-                                <span>15 tuần </span> <span><b>Thích</b></span> <label for="texxt"><span onClick={() => this.handleOnchangeKey()}><b>Trả lời</b></span></label>
+                                        <span>{ this.timecreated(item.updatedAt)}</span> <span><b>Thích</b></span> <label for="texxt"><span onClick={() => this.handleOnchangeKey()}><b>Trả lời</b></span></label>
                             </div >
                                 </div>
                                 <div className='removecomment'><span onClick={() => this.removeComment(item.id)}>x</span></div>
