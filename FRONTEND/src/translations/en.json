@@ -1,6 +1,8 @@
 {
   "system": {
     "welcome": "Welcome, ",
+    "home": "Hello Go to the admin page of Binh Tan Student Union",
+    "homepage": "Home page",
     "manage": {
       "manage-user": "Manage user",
       "cat": "Category",

@@ -5,6 +5,7 @@ import cat from "../controllers/catController";
 import post from "../controllers/postController";
 import comment from "../controllers/commentController";
 import repcomment from "../controllers/repcommentController";
+import bg from "../controllers/bgController";
 
 let router = express.Router();
 
@@ -56,6 +57,13 @@ let initWebRoutes = (app) => {
   router.delete("/api/delete-repcomment", repcomment.deleterepcomment); // delete repcomment
   router.delete("/api/delete-repcomment-by-commentid", repcomment.deleterepcommentbycomment); // delete repcomment
   router.put("/api/update-repcomment", repcomment.updaterepcomment); // update repcomment
+
+  // route bg
+  router.post("/api/create-bg", bg.createbg); // create bg
+  router.get("/api/get-bg", bg.getbg); // get bg
+  router.get("/api/get-bg-by-id", bg.getbgById); // get bg by id
+  router.delete("/api/delete-bg", bg.deletebg); // delete bg
+  router.put("/api/update-bg", bg.updatebg); // update bg
 
  return app.use("/", router);
 };

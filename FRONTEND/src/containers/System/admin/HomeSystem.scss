@@ -1,18 +1,75 @@
 .homesystem {
-    height: 100vh;
-    background-image: url("../../../assets/bg.jpg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-    .welcome {
-        font-size: 50px;
-        font-weight: bold;
-        text-align: center;
-        color: red;
-        text-shadow: 3px 0px #ecaeae;
+    height: 100vh;
+    padding-top: 100px;
+    .homesystem-ctt{
+        height: calc(100vh - 100px);
+        width: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        .welcome {
+            font-size: 50px;
+            font-weight: bold;
+            text-align: center;
+            color: red;
+            text-shadow: 3px 0px #ecaeae;
+        }
+    
+        .changebg{
+            position: absolute;
+                bottom: 22px;
+                left: 16px;
+                width: 75px;
+                height: 75px;
+                border: 4px solid #edcaca;
+                text-align: center;
+                font-size: 13px;
+                background-color: #9e97ff;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 10px;
+                cursor: pointer;
+        }
+    
+        .formOnChange{
+            position: fixed;
+            top: 100px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid black;
+            border-radius: 5px;
+    
+            .formOnChnge-content{
+                width: 30%;
+                background-color: white;
+                .form-group{
+                    margin-top: 10px;
+                    display: flex;
+                    justify-content: center;
+                }
+            }
+    
+        }
+    
+        .button-sumit{
+            display: flex;
+            margin: 10px 0 ;
+            justify-content: center;
+    
+            .btn-cancel{
+                margin-left: 10px;
+            }
+        }
     }
 }

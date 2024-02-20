@@ -1,5 +1,7 @@
 {
   "system": {
+    "home": "Xin chào Đến trang quản trị của Chi hội Sinh viên Bình Tân",
+    "homepage": "Trang chủ",
     "welcome": "Xin chào, ",
     "manage": {
       "manage-user": "Người dùng",

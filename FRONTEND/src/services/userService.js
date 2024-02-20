@@ -162,6 +162,32 @@ const updaterepcomment = (data) => {
   return axios.put(`api/update-repcomment`, data);
 }
 
+
+// ---------------------- bg -------------------
+
+const getAllbg = () => {
+  return axios.get(`/api/get-bg`);
+};
+
+const createbg = (data) => {
+  return axios.post(`/api/create-bg`, data);
+}
+
+const deletebg = (id) => {
+  return axios.delete(`/api/delete-bg`, {
+    data: { id: id }
+  })
+}
+
+const getbgById = (id) => {
+  return axios.get(`api/get-bg-by-id?id=${id}`);
+}
+
+const updatebg = (data) => {
+  return axios.put(`api/update-bg`, data);
+}
+
+
 export {
   handleLoginApi,   getAllcode,
 
@@ -176,6 +202,8 @@ export {
   /* comments */
   getAllcomment, createcomment, deletecomment, getcommentById, updatecomment,
    /* rep comment */
-  getAllrepcomment,createrepcomment, deleterepcomment, getrepcommentById, updaterepcomment,deleterepcommentbycomment
+  getAllrepcomment, createrepcomment, deleterepcomment, getrepcommentById, updaterepcomment, deleterepcommentbycomment,
+  /* comments */
+  getAllbg, createbg, deletebg, getbgById, updatebg,
   
 };
