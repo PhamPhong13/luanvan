@@ -6,12 +6,6 @@ const initialState = {
     roles: [],
     positions: [],
     users: [],
-    admins: [],
-    doctors: [],
-    topDoctors: [],
-    allDoctor: [],
-    allScheduleTime: [],
-    allRequiredDoctorInfor: []
 }
 
 const adminReducer = ( state = initialState, action ) =>
@@ -56,20 +50,7 @@ const adminReducer = ( state = initialState, action ) =>
                 ...state,
             }
 
-        case actionTypes.FETCH_REQUIRED_DOCTOR_INFOR_START:
-            return {
-                ...state,
-            }
-        case actionTypes.FETCH_REQUIRED_DOCTOR_INFOR_SUCCESS:
-            state.allRequiredDoctorInfor = action.data;
-            return {
-                ...state,
-            }
-        case actionTypes.FETCH_REQUIRED_DOCTOR_INFOR_FAILED:
-            state.allRequiredDoctorInfor = [];
-            return {
-                ...state,
-            }
+        
 
 
 
@@ -83,82 +64,6 @@ const adminReducer = ( state = initialState, action ) =>
             return {
                 ...state,
             }
-        case actionTypes.FETCH_ROLE_SUCCESS:
-            state.roles = action.data;
-            return {
-                ...state,
-            }
-        case actionTypes.FETCH_ROLE_FAILED:
-            state.roles = [];
-            return {
-                ...state,
-            }
-        case actionTypes.FETCH_ALL_USERS_SUCCESS:
-            state.users = action.users;
-            return {
-                ...state,
-            }
-        case actionTypes.FETCH_ALL_USERS_FAILED:
-            state.users = [];
-            return {
-                ...state,
-            }
-
-
-        case actionTypes.FETCH_ALL_ADMIN_SUCCESS:
-            state.admins = action.admins;
-            return {
-                ...state,
-            }
-        case actionTypes.FETCH_ALL_ADMIN_FAILED:
-            state.admins = [];
-            return {
-                ...state,
-            }
-
-
-        case actionTypes.FETCH_ALL_DOCTOR_SUCCESS:
-            state.doctors = action.doctors;
-            return {
-                ...state,
-            }
-        case actionTypes.FETCH_ALL_DOCTOR_FAILED:
-            state.doctors = [];
-            return {
-                ...state,
-            }
-
-        case actionTypes.FETCH_TOP_DOCTOR_USERS_SUCCESS:
-            state.topDoctors = action.dataDoctors;
-            return {
-                ...state,
-            }
-        case actionTypes.FETCH_TOP_DOCTOR_USERS_FAILED:
-            state.topDoctors = [];
-            return {
-                ...state,
-            }
-        case actionTypes.FETCH_ALL_DOCTOR_USERS_SUCCESS:
-            state.allDoctor = action.dataAllDoctor;
-            return {
-                ...state,
-            }
-        case actionTypes.FETCH_ALL_DOCTOR_USERS_FAILED:
-            state.allDoctor = [];
-            return {
-                ...state,
-            }
-        case actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_SUCCESS:
-            state.allScheduleTime = action.dataTime;
-            return {
-                ...state,
-            }
-        case actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAILED:
-            state.allScheduleTime = [];
-            return {
-                ...state,
-            }
-
         default:
             return state;
     }

@@ -4,17 +4,7 @@ export const path = {
     LOG_OUT: '/logout',
     SYSTEM: '/system',
     HOMEPAGE: '/home',
-    DETAIL_DOCTOR: '/detail-doctor/:id',
-    DETAIL_SPECIALTY: '/detail-specialty/:id',
-    DETAIL_CLINIC: '/detail-clinic/:id',
-    DETAIL_HANDBOOK: '/detail-handbook/:id',
-    VERIFY_EMAIL_BOOK: '/verify-booking',
-    CLINIC: '/clinic',
-    LISTSPECIALTY: '/list-specialty',
-    LISTCLINIC: '/list-linic',
-    LISTDOCTOR: '/list-doctor',
-    LISTHANDBOOK: '/list-handbook',
-    PACKETEXAM: '/packet-exam',
+    PROFILE: '/profile'
 };
 
 export const LANGUAGE = {

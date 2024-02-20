@@ -20,4 +20,18 @@ export const userLoginFail = () => ( {
 
 export const processLogout = () => ( {
     type: actionTypes.PROCESS_LOGOUT
+})
+
+
+export const userLoginSuccess_U = ( userInfo ) => ( {
+    type: actionTypes.USER_U_LOGIN_SUCCESS,
+    userInfo: userInfo
+} )
+
+export const userLoginFail_U = () => ( {
+    type: actionTypes.USER_U_LOGIN_FAIL
+} )
+
+export const processLogout_U = () => ( {
+    type: actionTypes.PROCESS_LOGOUT_USER
 } )

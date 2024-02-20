@@ -4,6 +4,10 @@ import axios from "../axios";
 const handleLoginApi = (email, password) => {
   return axios.post("api/login", { email, password }); // request len server
 };
+const handleLoginUser = (email, password) => {
+  return axios.post("api/login-user", { email, password }); // request len server
+};
+
 
 // get all code
 const getAllcode = (inputData) => {
@@ -189,7 +193,7 @@ const updatebg = (data) => {
 
 
 export {
-  handleLoginApi,   getAllcode,
+  handleLoginApi,   getAllcode, handleLoginUser,
 
   /* admin */
   getAllAdmin, createAdmin, deleteAdmin, getAdminById, updateAdmin,

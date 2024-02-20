@@ -20,7 +20,9 @@ import System from '../routes/System';
 import { CustomToastCloseButton } from '../components/CustomToast';
 import ConfirmModal from '../components/ConfirmModal';
 import HomePage from './HomePage/HomePage';
-/* import Doctor from '../routes/Doctor'; */
+import Profile from './HomePage/Profile';
+import LoginUser from './HomePage/Login';
+import Signup from './HomePage/Signup';
 
 
 class App extends Component
@@ -64,6 +66,9 @@ class App extends Component
                                 <Route path={ path.LOGIN } component={ userIsNotAuthenticated( Login ) } />
                                 <Route path={ path.SYSTEM } component={ userIsAuthenticated( System ) } />
                                 <Route path={ path.HOMEPAGE } component={ HomePage } />
+                                <Route path={path.PROFILE} component={Profile} />
+                                <Route path={'/login-user'} component={LoginUser} />
+                                <Route path={'/signup'} component={Signup} />
                             </Switch>
                         </span>
 
@@ -92,7 +97,9 @@ const mapStateToProps = state =>
 {
     return {
         started: state.app.started,
-        isLoggedIn: state.user.isLoggedIn
+        isLoggedIn: state.user.isLoggedIn,
+        isLoggedInUser: state.user1.isLoggedInUser,
+
     };
 };
 
