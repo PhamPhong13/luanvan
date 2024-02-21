@@ -15,24 +15,84 @@ class Cat extends Component
     constructor(props) {
         super(props);
         this.state = {
-          
+            listPost: [],
+            name: ""
         }
     }
 
     async componentDidMount() {
+        await this.getcat();
+        await this.getpost();
     }
 
+    getcat = async () => { 
+        let res = await getcatById(this.props.match.params.id);
+        if (res && res.errCode === 0 ) {
+            this.setState({
+                name: res.data.name,
+            })
+        }
+        else this.setState({
+            name: ""
+        })
+    }
+
+    async componentDidUpdate(prevProps) {
+        if (prevProps.match.params.id !== this.props.match.params.id) {
+            this.setState({
+                id: this.props.match.params.id
+            })
+            await this.getpost();
+        } 
+    }
+
+    getpost = async () => {
+        let res = await getAllpostById(this.props.match.params.id);
+        if (res && res.errCode === 0 ) {
+            let reverse = res.data.reverse();
+            this.setState({
+                listPost: reverse
+            })
+        }
+        else this.setState({
+            listPost: []
+        })
+    }
     
+    linktopost = (id) => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `/post/${id}` );
+        }
+    }
     
     render ()
     {
+        let { listPost, name } = this.state;
         return (
             <>
                 <title>
-                     Chuyên mục
+                    {name}
                 </title>
                 <Header /> 
-                
+                <div className='container manage_container'id='top'>
+                    <div className='manage_container-content' >
+                        <div className='title'>chuyên mục { name}</div>
+                    </div>
+                    <div className='cat_content'>
+                        {listPost && listPost.map((item, index) => {
+                            return (
+                            <li onClick={() => this.linktopost(item.id)}  className='cat_content-ietm'>
+                            <img src={item.image} />
+                            <div className='name'>
+                                {item.name}
+                            </div>
+                        </li>
+                        )
+                            
+                        })}
+                    </div>
+                </div>
             </>
         );
     }

@@ -3,20 +3,23 @@ import { connect } from 'react-redux';
 import './HomePage.scss';
 import _ from 'lodash';
 import { FormattedMessage } from 'react-intl';
-import { getAllpost } from '../../services/userService';
+import { getAllpost, getAllcat } from '../../services/userService';
 import Header from './Header';
 import Slider from './Slider';
+import PostOnCat from './PostOnCat';
 class HomePage extends Component
 {
     constructor(props) {
         super(props);
         this.state = {
-            listPost: []
+            listPost: [],
+            listCat: [],
         }
     }
 
     async componentDidMount() {
         await this.getAllposts();
+        await this.getCat();
     }
 
     getAllposts = async () => {
@@ -33,6 +36,13 @@ class HomePage extends Component
         console.log(this.state.listPost)
     }
 
+    getCat = async () => {
+        let res = await getAllcat();
+        this.setState({
+            listCat: res.data
+        })
+    }
+
       linktopost = (id) => {
         if ( this.props.history )
         {
@@ -43,6 +53,7 @@ class HomePage extends Component
     render ()
     {
 
+        let { listCat } = this.state;
         return (
             <>
                 <title>
@@ -73,7 +84,19 @@ class HomePage extends Component
                                     <span>-- Xem thêm -- </span>
                                 </div>
                             </div>
+
+                            {/*  */}
+
                         </div>
+                        <div className='homepage-content'>
+                            
+                            {listCat && listCat.map((item, index) => {
+                                return (
+                                    <PostOnCat catId={item.id } />
+                                )
+                            })}
+                            
+                            </div>
                     </div>
                 </div>
 

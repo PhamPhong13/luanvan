@@ -95,6 +95,13 @@ class Post extends Component
             this.props.history.push( `/post/${id}` );
         }
     }
+
+    linktocat = (id) => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `/cat/${id}` );
+        }
+    }
     render ()
     {
         let { post, cat, thu, day, postbycat, id } = this.state;
@@ -150,7 +157,7 @@ class Post extends Component
                                     )
                                 })}
                                 </div>
-                                <div className='see'>
+                                <div onClick={() => this.linktocat(this.state.catId)} className='see'>
                                     <span>-- Xem thêm -- </span>
                                 </div>
                             </div>

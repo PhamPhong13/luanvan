@@ -158,6 +158,40 @@
     }   
 }
 
+.cat_content{
+    width: 100%;
+    margin-top: 20px;
+
+    li{
+        margin-bottom: 10px;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+        position: relative;
+        left: 0;
+        transition: left 0.2s linear;
+
+        &:hover{
+            left: 5px;
+            color: blue;
+        }
+        img{
+            width: 30%;
+            height: 130px;
+            border-radius: 5px;
+        }
+        .name{
+            width: 70%;
+            padding: 0 10px;
+            font-size: 20px;
+            font-weight: bold;
+            margin-left: 10px;
+            
+        }
+    }
+}
+
 
 .login-user{
     padding: 0 100px;
@@ -684,6 +718,59 @@
                     }
                 }
             
+            }
+        }
+
+        .homepage-content{
+            width: 100%;
+            margin-top: 10px;
+            border-radius: 3px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+
+            .homepage-content-item{
+                width: calc(100% / 3);
+                margin-bottom: 20px;
+
+                .top{
+                    width: 95%;
+                    border-top: 2px solid red;
+                    span{
+                        background: red;
+                        font-weight: bold;
+                        color: white;
+                        padding: 4px 10px;
+                    }
+                }
+
+                .down{
+                    margin-top: 10px;
+                    .down-content{
+                        display: flex;
+                        margin-top: 10px;
+                        padding-right: 20px;
+                        cursor: pointer;
+                        justify-content: space-between;
+                        .name{
+                            p{
+                                display: -webkit-box;
+                                -webkit-box-orient: vertical;
+                                -webkit-line-clamp: 4;
+                                overflow: hidden;
+                                height: 100px;
+                            }
+                            width: 60%;
+                            margin-left: 10px;
+                                font-size: 16px;
+                                text-align: justify;
+                        }
+                        img{
+                            width: 40%;
+                            height: 100px;
+                        }
+                    }
+                }
             }
         }
     }
