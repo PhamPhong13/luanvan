@@ -21,6 +21,12 @@ let getpostById = async ( req, res ) =>
     return res.status( 200 ).json( post );
 }
 
+// get patient by id
+let getAllpostById = async ( req, res ) =>
+{
+    let post = await postService.getAllpostById( req.query.id );
+    return res.status( 200 ).json( post );
+}
 let deletepost = async ( req, res ) =>
 {
     let post = await postService.deletepost( req.body.id );
@@ -56,6 +62,5 @@ module.exports = {
     getpostById: getpostById,
     deletepost: deletepost,
   updatepost: updatepost, 
-    getAllCode: getAllCode,
-    /* login: login */
+    getAllpostById: getAllpostById
 }

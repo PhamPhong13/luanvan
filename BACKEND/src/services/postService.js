@@ -105,6 +105,41 @@ let getpostById = ( id ) =>
     } )
 }
 
+//get patient by id
+let getAllpostById = ( id ) =>
+{
+    return new Promise( async ( resolve, reject ) =>
+    {
+        try
+        {
+            let patients = await db.Post.findAll( {
+                where: {
+                    catId: id
+                }
+            } );
+            if ( patients )
+            {
+                resolve( {
+                    errCode: 0,
+                    message: "get post successfully!",
+                    data: patients
+                } )
+            }
+            else
+            {
+                resolve( {
+                    errCode: 1,
+                    message: "get post failed!"
+                } )
+            }
+
+        }
+        catch ( err )
+        {
+            reject( err );
+        }
+    } )
+}
 // delete patient
 let deletepost = ( id ) =>
 {
@@ -194,4 +229,5 @@ module.exports = {
     getpostById: getpostById,
     deletepost: deletepost,
     updatepost: updatepost,
+    getAllpostById: getAllpostById
 }

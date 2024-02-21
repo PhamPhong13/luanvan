@@ -70,8 +70,8 @@ class Commnent extends Component
         } )
     }
 
-    async componentDidUpdate(prev) {
-        if (prev.listComment!== this.props.listComment) {
+    async componentDidUpdate(prevProps) {
+        if (prevProps.listComment!== this.props.listComment) {
             await this.getAllcomments();
             this.setState({
                 key: "comment",
@@ -209,7 +209,7 @@ class Commnent extends Component
                         <div className={this.state.opensee === false ? 'cmt-p cmt-p-see' : 'cmt-p'}>
                     <div className='post-comment-content'>
                     <div className='comment-main'>
-                        <img src={avatar} />
+                        <img src={item.User.image} />
                         <div className='comment-main-content'>
                             <div className='comment-main-content-top'>
                                             <div className='name'>{item.User.fullName }</div>
@@ -227,20 +227,6 @@ class Commnent extends Component
                                 <RepComment commentId={item.id}
                                     handleChangeKey={this.handleChangeKey}
                                     update={ this.state.update} />
-                        {/* <div className='comment-rep'>
-                        <li>
-                        <img src={avatar} />
-                                <div className='comment-main-content'>
-                            <div className='comment-main-content-top'>
-                                <div className='name'>Trần Như Huỳnh</div>
-                            <div className='comment'>Ngày hôm đó tui đã không đi đc, rất buồn feeeeeeeeee</div>
-                            </div>
-                            <div className='comment-main-content-bottom'>
-                                <span>15 tuần </span> <span><b>Thích</b></span> <span><b>Trả lời</b></span>
-                            </div>
-                        </div>
-                                </li>
-                        </div> */}
                     </div>
                 </div>
                     )

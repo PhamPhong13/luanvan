@@ -107,6 +107,9 @@ const getpostById = (id) => {
   return axios.get(`api/get-post-by-id?id=${id}`);
 }
 
+const getAllpostById = (id) => {
+  return axios.get(`api/get-post-all-by-id?id=${id}`);
+}
 const updatepost = (data) => {
   return axios.put(`api/update-post`, data);
 }
@@ -202,7 +205,7 @@ export {
   /* category */
   getAllcat, createcat, deletecat, getcatById, updatecat,
   /* posts */
-  getAllpost, createpost, deletepost, getpostById, updatepost,
+  getAllpost, createpost, deletepost, getpostById, updatepost, getAllpostById,
   /* comments */
   getAllcomment, createcomment, deletecomment, getcommentById, updatecomment,
    /* rep comment */

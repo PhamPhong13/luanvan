@@ -5,14 +5,41 @@ import _, { isEmpty } from 'lodash';
 import * as actions from '../../store/actions'
 import logo from "../../assets/logo.jpg"
 import avatar from "../../assets/user.jpg"
+import top from "../../assets/top.png"
 import { withRouter } from 'react-router';
+import { getAllcat } from '../../services/userService';
 
 class Header extends Component
 {
+    constructor(props) {
+        super(props);
+        this.state = {
+            listCat: []
+        }
+    
+    }
+
+    async componentDidMount() {
+        await this.getAllCats();
+    }
+
+    getAllCats = async () => { 
+        let res = await getAllcat();
+        this.setState({
+            listCat: res.data
+        })
+    }
     linktoLogin = () => {
         if ( this.props.history )
         {
             this.props.history.push( `/login-user` );
+        }
+    }
+
+    linktoCat = (id) => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `/cat/${id}` );
         }
     }
 
@@ -32,7 +59,8 @@ class Header extends Component
 
     render ()
     {
-        let {processLogout_U} = this.props;
+        let { processLogout_U } = this.props;
+        let {listCat} = this.state;
         return (
             <>
                 <div className=' container header' >
@@ -55,13 +83,14 @@ class Header extends Component
                                 <li>
                                     Chuyên mục  <i class="fas fa-chevron-down"></i>
                                     <ul>
-                                        <li>
-                                            <span>Hội nhập quốc tế</span>
-                                        </li>
-                                        <li>
-                                            <span>Hội nhập quốc tế</span>
-                                        </li>
-                                        
+                                        {listCat && listCat.map((item, index) => {
+                                            return (
+                                                
+                                                <li key={index} onClick={() => this.linktoCat(item.id)}>
+                                                    <span>{item.name}</span>
+                                                </li>
+                                            )
+                                        })}
                                     </ul>
                                 </li>
                             </div>
@@ -89,6 +118,8 @@ class Header extends Component
                             </div>
                         </div>
                     </div>
+
+                    <a href='#top'><img className='top_image' src={ top} /></a>
                 </div>
             </>
         );

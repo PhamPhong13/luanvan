@@ -24,6 +24,7 @@ import Profile from './HomePage/Profile';
 import LoginUser from './HomePage/Login';
 import Signup from './HomePage/Signup';
 import Post from './HomePage/Post';
+import Cat from './HomePage/Cat';
 
 class App extends Component
 {
@@ -70,6 +71,7 @@ class App extends Component
                                 <Route path={'/login-user'} component={LoginUser} />
                                 <Route path={'/signup'} component={Signup} />
                                 <Route path={'/post/:id'} component={Post} />
+                                <Route path={'/cat/:id'} component={Cat} />
                             </Switch>
                         </span>
 

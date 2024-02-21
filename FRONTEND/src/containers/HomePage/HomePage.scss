@@ -1,3 +1,11 @@
+.top_image{
+    position: fixed;
+        width: 50px;
+        height: 50px;
+        bottom: 10px;
+        right: 30%;
+}
+
 .header{
     height: 120px;
     padding: 0 100px;
@@ -88,7 +96,9 @@
                         li{
                             color: black;
                             padding: 0;
+                            width: 180px;
                             cursor: pointer;
+                            text-align: left;
                             &:hover{
                                 background-color: #0480c1;
                             }
@@ -455,6 +465,7 @@
                     }
 
                     .cat-id{
+                        cursor: pointer;
                         background-color: #009d0b;
                             padding: 2px 5px;
                             font-size: 14px;
@@ -504,13 +515,104 @@
                             display: flex;
                                 img {
                                     margin: 0 auto;
-                                    width: 50%;
+                                    width: 60%;
                                 }
                                 
                             }
                     }
                     
                 }
+
+                .cmt{
+                    width: 100%;
+                    margin-top: 10px;
+                    &.cmt_s{
+                        height: 170px;
+                        overflow: hidden;
+                    }
+
+                    
+                    .post-comment-content {
+                            width: 100%;
+                    
+                            .comment-main {
+                                width: 100%;
+                                display: flex;
+                    
+                                img {
+                                    width: 7%;
+                                    height: 50px;
+                                    border-radius: 50%;
+                                }
+                    
+                                .comment-main-content {
+                                    margin-left: 10px;
+                    
+                                    .comment-main-content-top {
+                                        background-color: #dbdbdb;
+                                        padding: 5px 10px;
+                                        border-radius: 15px;
+                                    }
+                    
+                                    .comment-main-content-bottom {
+                                        padding: 5px 10px;
+                                    }
+                                }
+                    
+                            }
+                    
+                            .repcomment {
+                                width: 100%;
+                                display: flex;
+                                margin-left: 60px;
+                    
+                                img {
+                                    width: 7%;
+                                    height: 50px;
+                                    border-radius: 50%;
+                                }
+                    
+                                .comment-main-content {
+                                    margin-left: 10px;
+                    
+                                    .comment-main-content-top {
+                                        background-color: #dbdbdb;
+                                        padding: 5px 10px;
+                                        border-radius: 15px;
+                                    }
+                    
+                                    .comment-main-content-bottom {
+                                        padding: 5px 10px;
+                                    }
+                                }
+                            }
+                        }
+                }
+                .see_close{
+                        cursor: pointer;
+                        font-size: 12px;
+                        text-align: left;
+                    }
+
+                    .text-comment{
+                        width: 100%;
+                        border: 1px solid #cccc;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: 5px;
+
+                        input{
+                            width: 60%;
+                            padding: 5px 10px;
+                            border-radius: 30px;
+                        }
+                        i{
+                            margin-left: 10px;
+                            font-size: 18px;
+                            color: #4100ff;
+                        }
+                    }
             }
             .right{
                 z-index: 100;

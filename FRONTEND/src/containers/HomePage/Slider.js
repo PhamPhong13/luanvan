@@ -16,7 +16,8 @@ class Slider extends Component
         this.state = {
             bg: "",
             name: "",
-            listPost: []
+            listPost: [],
+            id: ""
         }
     }
 
@@ -53,57 +54,35 @@ class Slider extends Component
         setInterval(() => {
             this.setState({
                 bg: res[i].image,
-                name: res[i].name
+                name: res[i].name,
+                id: res[i].id
             });
             i++;
             if (i >= res.length) {
                 i = 0; // Nếu i vượt quá độ dài của mảng, đặt lại i về 0
             }
         }, 2000);
-        /* setInterval(() => {
-            this.setState({
-                bg: res[i].image
-            });
-            i++;
-            if (i >= res.length) {
-                i = 0; // Nếu i vượt quá độ dài của mảng, đặt lại i về 0
-            }
-        }, 2000); */
     }
 }
 
 
 
 
-    linktoLogin = () => {
+    linktopost = (id) => {
         if ( this.props.history )
         {
-            this.props.history.push( `/login-user` );
-        }
-    }
-
-    linktoProfile = () => {
-        if ( this.props.history )
-        {
-            this.props.history.push( `/profile` );
-        }
-    }
-
-    linktoHome = () => {
-        if ( this.props.history )
-        {
-            this.props.history.push( `/home` );
+            this.props.history.push( `/post/${id}` );
         }
     }
 
     render ()
     {
-        let {bg, name} = this.state;
+        let {bg, name, id} = this.state;
         return (
             <>
                 <div className='slider' >
                     <img src={bg} alt="bg" />
-                    <div className='name'>
+                    <div onClick={() => this.linktopost(id)} className='name'>
                         {name}
                     </div>
 

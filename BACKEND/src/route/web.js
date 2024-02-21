@@ -41,6 +41,7 @@ let initWebRoutes = (app) => {
   router.post("/api/create-post", post.createpost); // create post
   router.get("/api/get-post", post.getpost); // get post
   router.get("/api/get-post-by-id", post.getpostById); // get post by id
+  router.get("/api/get-post-all-by-id", post.getAllpostById); // get post by id
   router.delete("/api/delete-post", post.deletepost); // delete post
   router.put("/api/update-post", post.updatepost); // update post
 

@@ -50,9 +50,9 @@ class HomePage extends Component
                 </title>
                 <Header /> 
                 
-                <div className='container manage_container'>
-                    <div className='manage_container-content'>
-                        <div className='homepage'>
+                <div className='container manage_container'id='top'>
+                    <div className='manage_container-content' >
+                        <div className='homepage' >
                             <div className='left'>
                                 <Slider />
                             </div>

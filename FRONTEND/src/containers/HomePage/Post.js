@@ -6,25 +6,37 @@ import * as actions from '../../store/actions'
 import logo from "../../assets/logo.jpg"
 import avatar from "../../assets/410251206_697829015774464_3697217710754640905_n.jpg"
 import { withRouter } from 'react-router';
-import { getAllbg,  getcatById, getpostById} from '../../services/userService';
+import {getAllpostById,   getcatById, getpostById} from '../../services/userService';
 import Header from './Header';
+import Comment from './Comment';
 class Post extends Component
 {
 
     constructor(props) {
         super(props);
         this.state = {
-            id: this.props.match.params.id,
+            id: "",
             post: '',
             cat: '',
             catId: "",
             thu: "",
             day: "",
+            postbycat: []
         }
     }
 
     async componentDidMount() {
         await this.getpost();
+
+    }
+
+    async componentDidUpdate(prevProps) {
+        if (prevProps.match.params.id !== this.props.match.params.id) {
+            this.setState({
+                id: this.props.match.params.id
+            })
+            await this.getpost();
+        } 
     }
 
     getcat = async() => {
@@ -35,13 +47,32 @@ class Post extends Component
     }
 
     getpost = async () => {
-        let res = await getpostById(this.state.id);
+        
+        let res = await getpostById(this.props.match.params.id);
         this.setState({
             post: res.data,
             catId: res.data.catId
         })
         this.getcat();
         this.getday(this.state.post.updatedAt);
+        await this.getpostbycat();
+        this.setState({
+            id: this.props.match.params.id
+        })
+    }
+
+    getpostbycat = async () => {
+        let res = await getAllpostById(this.state.catId);
+        if (res && res.errCode === 0 && res.data.length > 0) {
+            let reverse = res.data.reverse();
+            this.setState({
+            postbycat: reverse
+        })
+        }
+        else this.setState({
+            postbycat: []
+        })
+
     }
 
     getday = (date) => {
@@ -58,17 +89,25 @@ class Post extends Component
             day: dateTime.toLocaleDateString()
         })
     }
-    
+    linktopost = (id) => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `/post/${id}` );
+        }
+    }
     render ()
     {
-        let {post, cat, thu, day} = this.state;
+        let { post, cat, thu, day, postbycat, id } = this.state;
         return (
             <>
+                <title>
+                     {post.name}
+                </title>
                 <Header /> 
                 
-                <div className='container manage_container'>
-                    <div className='manage_container-content'>
-                        <div className='homepage'>
+                <div className='container manage_container' id='top'>
+                    <div className='manage_container-content' >
+                        <div className='homepage' >
                             <div className='left post'>
                                 <div className='post-name'>
                                     {post.name}
@@ -83,6 +122,7 @@ class Post extends Component
                                 <div className='post-date'>
                                     <span className='date'>Ngày đăng: {thu} - {day}</span>
                                     <span className='like'>Thích ❤️ <i className='fas fa-heart'></i></span>
+                                    <span className='like'>Lược xem: 500 😍</span>
                                 </div>
 
                                 <div className='post-image'>
@@ -93,20 +133,23 @@ class Post extends Component
                                     <p className='content-p' dangerouslySetInnerHTML={ { __html: post.descHTML } }>
                                     </p>
                                 </div>
+
+                                <Comment postId = {id} />
+
                             </div>
                             <div className='right'>
                                 <div className='tb'>
                                     <div className='thongbao post'>Bài viết liên quan</div>
                                 </div>
-                                {/* <div className='new'>
-                                    {this.state.listPost && this.state.listPost.slice(0, 5).map((item, index) => {
+                                <div className='new'>
+                                    {postbycat && postbycat.slice(0, 5).map((item, index) => {
                                     return (
                                         <li onClick={() => this.linktopost(item.id)}>
                                             <p>{ item.name}</p>
                                         </li>
                                     )
                                 })}
-                                </div> */}
+                                </div>
                                 <div className='see'>
                                     <span>-- Xem thêm -- </span>
                                 </div>

@@ -97,7 +97,7 @@ class Profile extends Component
                     Tài khoản
                 </title>
                 <Header />
-                <div className='container manage_container'>
+                <div className='container manage_container' id='top'>
                     <div className='manage_container-content'>
                         {user === '' && profile &&
                             <div className='profile'>
