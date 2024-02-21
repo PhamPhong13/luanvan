@@ -68,6 +68,9 @@ class Signup extends Component
     {
         return (
             <>
+                 <title>
+                    Đăng ký
+                </title>
                 <Header />
                 <div className='container signup'>
                     <div className='signup-content'>

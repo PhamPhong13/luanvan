@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './HomePage.scss';
 import _ from 'lodash';
+import { FormattedMessage } from 'react-intl';
+import Header from './Header';
 class HomePage extends Component
 {
 
@@ -10,7 +12,12 @@ class HomePage extends Component
 
         return (
             <>
-                fhkukfgufqiukfhqkqfh</>
+                <title>
+                    <FormattedMessage id="system.homepage"></FormattedMessage>
+                </title>
+                <Header />  
+
+            </>
         );
     }
 

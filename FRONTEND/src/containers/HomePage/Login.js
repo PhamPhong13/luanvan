@@ -32,6 +32,7 @@ class Login extends Component
         let res = await handleLoginUser(this.state.email, this.state.password);
         console.log(res);
         if (res && res.errCode === 0) {
+            console.log(res)
             this.props.userLoginSuccess_U(res.user);
             toast.success("Đăng nhập thành công!");
             this.linktoProfile();
@@ -58,6 +59,9 @@ class Login extends Component
     {
         return (
             <>
+                <title>
+                    Đăng nhập
+                </title>
                 <Header />
 
                 <div className='container login-user'>

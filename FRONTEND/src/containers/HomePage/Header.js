@@ -23,6 +23,13 @@ class Header extends Component
         }
     }
 
+    linktoHome = () => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `/home` );
+        }
+    }
+
     render ()
     {
         let {processLogout_U} = this.props;
@@ -41,7 +48,8 @@ class Header extends Component
                         </div>
                         <div className='header_container-bottom'>
                             <div className='left'>
-                                <li className='li-home'>
+                                <li className='li-home'
+                                onClick={() => this.linktoHome()}>
                                     <i className='fas fa-home'></i>
                                 </li>
                                 <li>
@@ -100,8 +108,8 @@ const mapStateToProps = state =>
 const mapDispatchToProps = dispatch =>
 {
     return {
-processLogout_U: () => dispatch( actions.processLogout_U() ),
+        processLogout_U: () => dispatch( actions.processLogout_U() ),
     };
-};
+};  
 
 export default withRouter(connect( mapStateToProps, mapDispatchToProps )( Header ));
