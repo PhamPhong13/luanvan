@@ -6,6 +6,7 @@ import post from "../controllers/postController";
 import comment from "../controllers/commentController";
 import repcomment from "../controllers/repcommentController";
 import bg from "../controllers/bgController";
+import likepost from "../controllers/likepostController";
 
 let router = express.Router();
 
@@ -66,6 +67,13 @@ let initWebRoutes = (app) => {
   router.get("/api/get-bg-by-id", bg.getbgById); // get bg by id
   router.delete("/api/delete-bg", bg.deletebg); // delete bg
   router.put("/api/update-bg", bg.updatebg); // update bg
+
+  // route likepost
+  router.post("/api/create-likepost", likepost.createlikepost); // create likepost
+  router.get("/api/get-likepost", likepost.getlikepost); // get likepost
+  router.get("/api/get-likepost-by-id", likepost.getlikepostById); // get likepost by id
+  router.delete("/api/delete-likepost", likepost.deletelikepost); // delete likepost
+  router.put("/api/update-likepost", likepost.updatelikepost); // update likepost
 
  return app.use("/", router);
 };

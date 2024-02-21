@@ -22,6 +22,7 @@ let createpost = ( data ) =>
                 descMarkdown: data.descMarkdown,
                 descHTML: data.descHTML,
                 catId: data.catId,
+                count: 0
             } );
 
             resolve( {
@@ -200,6 +201,7 @@ let updatepost = ( data ) =>
                 patient.catId = data.catId;
                 patient.descMarkdown = data.descMarkdown;
                 patient.descHTML = data.descHTML,
+                    patient.count = data.count
                 await patient.save();
 
                 resolve( {

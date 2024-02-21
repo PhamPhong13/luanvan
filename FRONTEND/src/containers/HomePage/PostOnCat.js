@@ -55,7 +55,7 @@ class PostOnCat extends Component
                                     </span>
                                 </div>
                     <div className='down'>
-                        {listPost && listPost.map((item, index) => {
+                        {listPost && listPost.slice(0, 2).map((item, index) => {
                     return (
                         <div className='down-content' onClick={() => this.linktopost(item.id)}>
                             <img src={ item.image} />

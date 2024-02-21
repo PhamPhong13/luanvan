@@ -195,6 +195,25 @@ const updatebg = (data) => {
 }
 
 
+// ---------------------- likepost -------------------
+
+
+const createlikepost = (data) => {
+  return axios.post(`/api/create-likepost`, data);
+}
+
+const deletelikepost = (userId, postId) => {
+  return axios.delete(`/api/delete-likepost`, {
+    data: {  userId: userId, postId: postId}
+  })
+}
+
+const getlikepostById = (userId, postId) => {
+  return axios.get(`api/get-likepost-by-id?userId=${userId}&postId=${postId}`);
+}
+
+
+
 export {
   handleLoginApi,   getAllcode, handleLoginUser,
 
@@ -212,5 +231,7 @@ export {
   getAllrepcomment, createrepcomment, deleterepcomment, getrepcommentById, updaterepcomment, deleterepcommentbycomment,
   /* comments */
   getAllbg, createbg, deletebg, getbgById, updatebg,
+   /* admin */
+  createlikepost, deletelikepost, getlikepostById
   
 };

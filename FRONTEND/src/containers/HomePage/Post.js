@@ -6,7 +6,7 @@ import * as actions from '../../store/actions'
 import logo from "../../assets/logo.jpg"
 import avatar from "../../assets/410251206_697829015774464_3697217710754640905_n.jpg"
 import { withRouter } from 'react-router';
-import {getAllpostById,   getcatById, getpostById} from '../../services/userService';
+import {getAllpostById,   getcatById, getpostById, getlikepostById, createlikepost, deletelikepost, updatepost} from '../../services/userService';
 import Header from './Header';
 import Comment from './Comment';
 class Post extends Component
@@ -21,13 +21,31 @@ class Post extends Component
             catId: "",
             thu: "",
             day: "",
-            postbycat: []
+            postbycat: [],
+            userId: "",
+            likepost: false
         }
     }
 
     async componentDidMount() {
         await this.getpost();
+        await this.setCount();        
+    }
 
+    setCount = async () => {
+        let count = this.state.post.count + 1;
+        let res = await updatepost({
+            name: this.state.post.name,
+            image: this.state.post.image,
+            descHTML: this.state.post.descHTML,
+            descMarkdown: this.state.post.descMarkdown,
+            id: this.state.post.id,
+            count: count,
+            catId: this.state.post.catId
+        })
+        if (res && res.errCode === 0) {
+            await this.getpost();
+        }
     }
 
     async componentDidUpdate(prevProps) {
@@ -35,8 +53,20 @@ class Post extends Component
             this.setState({
                 id: this.props.match.params.id
             })
-            await this.getpost();
+            await this.setCount();
         } 
+    }
+
+    getlikepost = async () => {
+        let likepost = await getlikepostById(this.props.userInfo.id, this.props.match.params.id); 
+        if (likepost && likepost.errCode === 0) {
+            this.setState({
+                likepost: true
+            })
+        }
+        else this.setState({
+            likepost: false
+        })
     }
 
     getcat = async() => {
@@ -59,6 +89,9 @@ class Post extends Component
         this.setState({
             id: this.props.match.params.id
         })
+
+        await this.getlikepost();
+
     }
 
     getpostbycat = async () => {
@@ -102,9 +135,25 @@ class Post extends Component
             this.props.history.push( `/cat/${id}` );
         }
     }
+
+    userlike = async () => {
+        let res = await createlikepost({
+            userId: this.props.userInfo.id,
+            postId: this.props.match.params.id
+        });
+        if (res && res.errCode === 0) {
+            await this.getlikepost();
+        }
+    }
+
+    userunlike = async () => {
+        await deletelikepost(this.props.userInfo.id, this.props.match.params.id);
+        await this.getlikepost();
+    }
+
     render ()
     {
-        let { post, cat, thu, day, postbycat, id } = this.state;
+        let { post, cat, thu, day, postbycat, id, likepost } = this.state;
         return (
             <>
                 <title>
@@ -121,15 +170,17 @@ class Post extends Component
                                 </div>
                                 <div className='post-infor'>
                                     <span className='post-id'>Id bài viết: {post.id}</span>
-                                    <span className='cat-id'>
+                                    <span className='cat-id' onClick={() => this.linktocat(cat.id)}>
                                         {cat.name}
                                         <span className='dot'></span>
                                     </span>
                                 </div>
                                 <div className='post-date'>
                                     <span className='date'>Ngày đăng: {thu} - {day}</span>
-                                    <span className='like'>Thích ❤️ <i className='fas fa-heart'></i></span>
-                                    <span className='like'>Lược xem: 500 😍</span>
+                                    {likepost === true ? <span className='like' onClick={() => this.userunlike()}>Thích ❤️ </span> :
+                                        <span className='like' onClick={() => this.userlike()}
+                                        >Thích <i className='fas fa-heart'></i></span>}
+                                    <span className='like'>Lược xem: {post.count} 😍</span>
                                 </div>
 
                                 <div className='post-image'>
