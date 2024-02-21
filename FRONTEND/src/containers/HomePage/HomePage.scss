@@ -384,5 +384,86 @@
                 }
             }
         }
+
+        .homepage{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            
+            .left{
+                width: 70%;
+                margin-right: 5px;
+                border-radius: 2px;
+                padding: 10px;
+            
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;    background-color: white;
+            }
+            .right{
+                     width: 30%;
+                border-radius: 2px;
+                background-color: white;
+                box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+                
+                .new{
+                    padding: 10px;
+                    padding-bottom: 0;
+                    li {
+                            list-style: none;
+                            p{
+                                position: relative;
+                                left: 0;
+                                transition: left 0.2s linear;
+                            }
+                            &:hover p{
+                                left: 5px;
+                                color: blue;
+                                cursor: pointer;
+                            }
+                        }
+                }
+
+                .tb{
+                    border-top: 3px solid red;
+                    .thongbao {
+                        padding: 0 10px;
+                        width: 105px;
+                            background-color: red;
+                            color: white;
+                            font-weight: bold;
+                            position: relative;
+                     
+                        &::before{
+                                display: block;
+                                    position: absolute;
+                                    top: -2px;
+                                    right: -14px;
+                                    content: '';
+                                    border-left: 0 solid transparent;
+                                    border-right: 15px solid transparent;
+                                    border-top: 23px solid red;
+                        }
+                    }
+
+                }
+
+                .see{
+                    padding: 10px;
+                    padding-top: 0;
+                    font-size: 12px;
+                    text-align: right;
+                    span{
+                        left: 0;
+                        position: relative;
+                        transition: left 0.2s linear;
+                        &:hover{
+                            left: 5px;
+                            color: blue;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            
+            }
+        }
     }
 }
