@@ -61,7 +61,7 @@ class Slider extends Component
             if (i >= res.length) {
                 i = 0; // Nếu i vượt quá độ dài của mảng, đặt lại i về 0
             }
-        }, 2000);
+        }, 3000);
     }
 }
 

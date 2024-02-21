@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './HomePage.scss';
 import _ from 'lodash';
-import { getAllpost, getAllpostById } from '../../services/userService';
+import { getAllpost, getAllpostById , getcatById} from '../../services/userService';
 import { withRouter } from 'react-router';
 
 class PostOnCat extends Component
@@ -10,12 +10,20 @@ class PostOnCat extends Component
     constructor(props) {
         super(props);
         this.state = {
-            listPost: []
+            listPost: [],
+            cat: ''
         }
     }
 
     async componentDidMount() {
         await this.getallpost();
+    }
+    
+    getcat = async () => {
+        let res = await getcatById(this.props.catId);
+        this.setState({
+            cat: res.data
+        })
     }
 
     getallpost = async () => {
@@ -29,6 +37,8 @@ class PostOnCat extends Component
         else this.setState({
             listPost: []
         })
+
+        await this.getcat();
     }
     
 
@@ -41,8 +51,7 @@ class PostOnCat extends Component
 
     render ()
     {
-        let { listPost } = this.state;
-        console.log(listPost)
+        let { listPost , cat} = this.state;
         return (
             <>
                 
@@ -51,7 +60,7 @@ class PostOnCat extends Component
                     <div className='homepage-content-item'>
                                 <div className='top'>
                                     <span>
-                                        hội nhập quốc tế
+                                        {cat.name}
                                     </span>
                                 </div>
                     <div className='down'>

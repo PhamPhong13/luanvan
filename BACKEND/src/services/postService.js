@@ -201,7 +201,7 @@ let updatepost = ( data ) =>
                 patient.catId = data.catId;
                 patient.descMarkdown = data.descMarkdown;
                 patient.descHTML = data.descHTML,
-                    patient.count = data.count
+                patient.count = data.count
                 await patient.save();
 
                 resolve( {
