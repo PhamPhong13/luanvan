@@ -5,6 +5,7 @@
     top: 0;
     left: 0;
     right: 0;
+    z-index: 1000;
     .header_container{
         box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
         height: 100%;
@@ -391,14 +392,129 @@
             justify-content: space-between;
             
             .left{
+
+                &.post{
+                    padding: 10px 20px;
+                }
                 width: 70%;
                 margin-right: 5px;
                 border-radius: 2px;
                 padding: 10px;
-            
-            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;    background-color: white;
+                box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;    background-color: white;
+                .slider{
+                    width: 100%;
+                    position: relative;
+                    height: 390px;
+                    border-radius: 5px;
+                    img{
+                        background-position: center;
+                            background-repeat: no-repeat;
+                            background-size: contain;
+                            width: 100%;
+                            height: 100%;
+                    }
+
+                    .name{
+                        width: 100%;
+                        text-align: center;
+                        cursor: pointer;
+                        position: absolute;
+                            top: 40%;
+                            left: 0%;
+                            padding: 0 20px;
+                            font-size: 20px;
+                            font-weight: bold;
+                                color: white;
+                                    background: linear-gradient(178deg, #4100ff, transparent);
+                    }
+
+                    
+                }
+
+                .post-name{
+                    font-size: 20px;
+                    font-weight: bold;
+                    text-indent: 20px;
+                }
+
+                .post-image{
+                    margin-top: 10px;
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center ;
+                    img{
+                        border-radius: 5px;
+                        width: 60%;
+                    }
+                }
+
+                .post-infor{
+                    .post-id{
+                        font-size: 12px;
+                    }
+
+                    .cat-id{
+                        background-color: #009d0b;
+                            padding: 2px 5px;
+                            font-size: 14px;
+                            color: white;
+                            border-radius: 2px;
+                            margin-left: 20px;
+                            position: relative;
+                            .dot{
+                                    width: 8px;
+                                        height: 8px;
+                                        background-color: white;
+                                        border: 1px solid #cccc;
+                                        border-radius: 50%;
+                                        position: absolute;
+                                        top: 6px;
+                                        left: -7px;
+                            }
+                            &::before{
+                                position: absolute;
+                                top: 0;
+                                left: -13px;
+                                    content: '';
+                                    border-top: 11px solid transparent;
+                                    border-bottom: 10px solid transparent;
+                                    border-right: 14px solid #009d0b;
+                            }
+                    }
+                }
+
+                .post-date{
+                    display: flex;
+                    .date{
+                        font-size: 12px;
+                    }
+
+                    .like{
+                        font-size: 12px;
+                        margin-left: 10px;
+                        cursor: pointer;
+                    }
+                }
+
+                .post-content{
+                    margin-top: 10px;
+                    .content-p{
+                        p {
+                            display: flex;
+                                img {
+                                    margin: 0 auto;
+                                    width: 50%;
+                                }
+                                
+                            }
+                    }
+                    
+                }
             }
             .right{
+                z-index: 100;
+                height: 100%;
                      width: 30%;
                 border-radius: 2px;
                 background-color: white;
@@ -427,6 +543,9 @@
                     .thongbao {
                         padding: 0 10px;
                         width: 105px;
+                        &.post{
+                            width: 137px;
+                        }
                             background-color: red;
                             color: white;
                             font-weight: bold;

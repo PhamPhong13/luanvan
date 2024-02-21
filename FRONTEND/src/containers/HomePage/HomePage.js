@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { FormattedMessage } from 'react-intl';
 import { getAllpost } from '../../services/userService';
 import Header from './Header';
+import Slider from './Slider';
 class HomePage extends Component
 {
     constructor(props) {
@@ -32,6 +33,13 @@ class HomePage extends Component
         console.log(this.state.listPost)
     }
 
+      linktopost = (id) => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `/post/${id}` );
+        }
+    }
+
     render ()
     {
 
@@ -46,7 +54,7 @@ class HomePage extends Component
                     <div className='manage_container-content'>
                         <div className='homepage'>
                             <div className='left'>
-                                
+                                <Slider />
                             </div>
                             <div className='right'>
                                 <div className='tb'>
@@ -55,7 +63,7 @@ class HomePage extends Component
                                 <div className='new'>
                                     {this.state.listPost && this.state.listPost.slice(0, 5).map((item, index) => {
                                     return (
-                                        <li>
+                                        <li onClick={() => this.linktopost(item.id)}>
                                             <p>{ item.name}</p>
                                         </li>
                                     )

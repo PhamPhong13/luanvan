@@ -23,7 +23,7 @@ import HomePage from './HomePage/HomePage';
 import Profile from './HomePage/Profile';
 import LoginUser from './HomePage/Login';
 import Signup from './HomePage/Signup';
-
+import Post from './HomePage/Post';
 
 class App extends Component
 {
@@ -69,6 +69,7 @@ class App extends Component
                                 <Route path={path.PROFILE} component={Profile} />
                                 <Route path={'/login-user'} component={LoginUser} />
                                 <Route path={'/signup'} component={Signup} />
+                                <Route path={'/post/:id'} component={Post} />
                             </Switch>
                         </span>
 

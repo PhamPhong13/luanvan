@@ -23,9 +23,9 @@ class InforPost extends Component
 
     async componentDidMount() {
         await this.getPostByIds();
-        
-        
     }
+
+    
 
     getPostByIds = async () => {
         let res = await getpostById(this.props.match.params.id);
