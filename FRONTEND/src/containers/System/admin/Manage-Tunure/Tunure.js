@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
-import {getAllcat, deletecat } from "../../../../services/userService"
+import {getAllnhiemky, deletenhiemky } from "../../../../services/userService"
 
 import { withRouter } from 'react-router';
 import { toast } from 'react-toastify';
@@ -17,11 +17,11 @@ class Tunure extends Component
     }
 
     async componentDidMount() {
-        await this.getAllCats();
+        await this.getAllnhiemkys();
     }
 
-    getAllCats = async () => {
-        let res = await getAllcat();
+    getAllnhiemkys = async () => {
+        let res = await getAllnhiemky();
         this.setState({
             listCat: res.data
         })
@@ -32,25 +32,25 @@ class Tunure extends Component
     linkToAddAdmin = () => {
         if ( this.props.history )
         {
-            this.props.history.push( `/system/add-cat` );
+            this.props.history.push( `/system/add-tunure` );
         }
     }
 
     linkToEditAdmin = (id) => {
         if ( this.props.history )
         {
-            this.props.history.push( `/system/edit-cat/${id}` );
+            this.props.history.push( `/system/edit-tunure/${id}` );
         }
     }
 
     handleDeleteUser = async (id) => {
-        let res = await deletecat(id);
+        let res = await deletenhiemky(id);
         if (res && res.errCode === 0) {
-            await this.getAllCats();
-                toast.success("Xóa danh mục thành công!");
+            await this.getAllnhiemkys();
+                toast.success("Xóa nhiệm kỳ thành công!");
                 
             }
-            else toast.error("Xóa danh mục không thành công!");
+            else toast.error("Xóa nhiệm kỳ không thành công!");
     }
 
     // bỏ dấu trong chuổi
@@ -97,11 +97,11 @@ class Tunure extends Component
         console.log(event.target.value)
 
         if (event.target.value.length <= 0) {
-            this.getAllCats();
+            this.getAllnhiemkys();
         }
         else {
             let key = this.removedau(event.target.value).toLowerCase();
-            let res =  await getAllcat();
+            let res =  await getAllnhiemky();
             let result = [];
             res.data.map((item, index) => {
                 let fullName = item.name.toLowerCase()
@@ -134,16 +134,16 @@ class Tunure extends Component
         return (
             <>
                 <title>
-                    <FormattedMessage id="system.manage.manage-category"></FormattedMessage>
+                    <FormattedMessage id="system.manage-nhiemky"></FormattedMessage>
                 </title>
                 <div className='container manage'>
 
-                    <div className='title'><FormattedMessage id="system.manage.manage-category"></FormattedMessage></div>
+                    <div className='title'><FormattedMessage id="system.manage-nhiemky"></FormattedMessage></div>
 
                     <div className='search'>
                         <div className='form-search'>
                             <input type="text"
-                                placeholder={this.props.language === 'vi' ? "Nhập để tìm tên danh mục" : "Type to find the category name"}
+                                placeholder={this.props.language === 'vi' ? "Nhập để tìm tên nhiệm kỳ" : "Type to find the category name"}
                                 onChange={(event) => this.handleOchangeToSearch(event)}
                             />
                             <i className='fas fa-search'></i>
@@ -154,7 +154,7 @@ class Tunure extends Component
                         <div className='btn btn-primary'
                             onClick={() => this.linkToAddAdmin()}
                         >
-                            + Thêm danh mục
+                            + Thêm nhiệm kỳ
                         </div>
                     </div>
 

@@ -195,6 +195,31 @@ const updatebg = (data) => {
 }
 
 
+// ---------------------- nhiemky -------------------
+
+const getAllnhiemky = () => {
+  return axios.get(`/api/get-nhiemky`);
+};
+
+const createnhiemky = (data) => {
+  return axios.post(`/api/create-nhiemky`, data);
+}
+
+const deletenhiemky = (id) => {
+  return axios.delete(`/api/delete-nhiemky`, {
+    data: { id: id }
+  })
+}
+
+const getnhiemkyById = (id) => {
+  return axios.get(`api/get-nhiemky-by-id?id=${id}`);
+}
+
+const updatenhiemky = (data) => {
+  return axios.put(`api/update-nhiemky`, data);
+}
+
+
 // ---------------------- likepost -------------------
 
 
@@ -221,6 +246,8 @@ export {
   getAllAdmin, createAdmin, deleteAdmin, getAdminById, updateAdmin,
   /* user */
   getAllUser, createUser, deleteUser, getUserById, updateUser,
+  /* nhiemky */
+  getAllnhiemky, createnhiemky, deletenhiemky, getnhiemkyById, updatenhiemky,
   /* category */
   getAllcat, createcat, deletecat, getcatById, updatecat,
   /* posts */

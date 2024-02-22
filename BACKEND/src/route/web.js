@@ -7,6 +7,7 @@ import comment from "../controllers/commentController";
 import repcomment from "../controllers/repcommentController";
 import bg from "../controllers/bgController";
 import likepost from "../controllers/likepostController";
+import nhiemky from "../controllers/nhiemkyController";
 
 let router = express.Router();
 
@@ -37,6 +38,13 @@ let initWebRoutes = (app) => {
   router.get("/api/get-cat-by-id", cat.getcatById); // get cat by id
   router.delete("/api/delete-cat", cat.deletecat); // delete cat
   router.put("/api/update-cat", cat.updatecat); // update cat
+
+   // route nhiemky
+  router.post("/api/create-nhiemky", nhiemky.createnhiemky); // create nhiemky
+  router.get("/api/get-nhiemky", nhiemky.getnhiemky); // get nhiemky
+  router.get("/api/get-nhiemky-by-id", nhiemky.getnhiemkyById); // get nhiemky by id
+  router.delete("/api/delete-nhiemky", nhiemky.deletenhiemky); // delete nhiemky
+  router.put("/api/update-nhiemky", nhiemky.updatenhiemky); // update nhiemky
 
   // route post
   router.post("/api/create-post", post.createpost); // create post
