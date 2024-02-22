@@ -20,6 +20,9 @@ import ManagePost from "../containers/System/admin/Manage-Post/ManagePost";
 import AddPost from "../containers/System/admin/Manage-Post/AddPost";
 import EditPost from "../containers/System/admin/Manage-Post/EditPost";
 import InforPost from "../containers/System/admin/Manage-Post/InforPost";
+
+
+import Tunure from "../containers/System/admin/Manage-Tunure/Tunure";
 class System extends Component {
   render() {
     const { systemMenuPath, isLoggedIn } = this.props;
@@ -49,6 +52,8 @@ class System extends Component {
               <Route path="/system/edit-post/:id" component={EditPost} />
               <Route path="/system/infor-post/:id" component={InforPost} />
 
+              <Route path="/system/manage-nhiemky" component={Tunure} />
+              
               <Route path="/system/home" component={SystemHome} />
               <Route
                 component={() => {

@@ -39,6 +39,15 @@ export const adminMenu = [
       },
     ],
   },
+  {
+    //quản lý bài viết
+    name: "system.nhiemky",
+    menus: [
+    {
+        name: "system.manage-nhiemky",        link: "/system/manage-nhiemky",
+      },
+    ],
+  },
 
 ];
 

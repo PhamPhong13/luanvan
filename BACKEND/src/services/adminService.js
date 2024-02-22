@@ -9,8 +9,7 @@ let hashUserPassword = ( password ) =>
     {
         try
         {
-            //lưu ý, truyền vào đúng password cần hash
-            // let hashPassWord = await bcrypt.hashSync("B4c0/\/", salt); => copy paste mà ko edit nè
+         
             let hashPassWord = await bcrypt.hashSync( password, salt );
 
             resolve( hashPassWord );
