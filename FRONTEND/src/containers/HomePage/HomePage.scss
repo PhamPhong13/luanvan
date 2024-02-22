@@ -851,31 +851,41 @@
     padding: 0 100px;
     margin-top: 10px;
 
-    .footer-content{
+    .footer-content {
         border-radius: 5px;
         background-color: #b1b1b112;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-        .left{
-            width: 15%;
-            img{
-                width: 100%;
-            }
+        p{
+            text-align: center;
+            padding: 10px;
         }
-        .right{
-            width: 25%;
-            margin-left: 20px;
-            font-size: 17px;
-            
-            p{
-                margin: 0;
-                padding: 5px;
-                img{
-                    width: 20px;
+    .top{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+        
+                .left {
+                    width: 15%;
+        
+                    img {
+                        width: 100%;
+                    }
+                }
+        
+                .right {
+                    width: 25%;
+                    margin-left: 20px;
+                    font-size: 17px;
+        
+                    p {
+                        margin: 0;
+                        padding: 5px;
+        
+                        img {
+                            width: 20px;
+                        }
+                    }
                 }
             }
-        }
     }
 }

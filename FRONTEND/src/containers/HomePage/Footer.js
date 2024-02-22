@@ -13,7 +13,8 @@ class Footer extends Component
             <>
                 <div className='container footer'>
                     <div className='footer-content'>
-                        <div className='left'>
+                        <div className='top'>
+                            <div className='left'>
                             <img src={ logo} />
                         </div>
                         <div className='right'>
@@ -21,6 +22,8 @@ class Footer extends Component
                             <p><img src='https://static.xx.fbcdn.net/rsrc.php/v3/yO/r/W4m-1QXtJyK.png'/> chsvbinhtan@gmail.com</p>
                             <p><img src='https://static.xx.fbcdn.net/rsrc.php/v3/y-/r/DzX7o-tOmJ6.png'/> <a href='facebook.com/CTU.chsv.bt'>facebook.com/CTU.chsv.bt</a></p>
                         </div>
+                        </div>
+                    <p>&copy; CopyRight website được thực hiện bởi <a href='https://www.facebook.com/profile.php?id=100029485897703'>Phạm Phong</a></p>
                     </div>
                 </div>
             </>
