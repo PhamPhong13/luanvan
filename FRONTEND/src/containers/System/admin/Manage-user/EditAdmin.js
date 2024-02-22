@@ -29,7 +29,6 @@ class EditAdmin extends Component
     async componentDidMount() {
         await this.getAllPosition();
         await this.getUserById();
-        console.log(this.state)
         
     }
 

@@ -30,9 +30,7 @@ class Login extends Component
 
     login = async () => {
         let res = await handleLoginUser(this.state.email, this.state.password);
-        console.log(res);
         if (res && res.errCode === 0) {
-            console.log(res)
             this.props.userLoginSuccess_U(res.user);
             toast.success("Đăng nhập thành công!");
             this.linktoProfile();

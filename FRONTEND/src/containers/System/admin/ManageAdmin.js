@@ -37,7 +37,6 @@ class ManageAdmin extends Component {
   };
   render() {
     let { listPatient } = this.state;
-    console.log(listPatient);
     let placeholder =
       this.props.language === "vi" ? "Nhập để tìm kiếm" : "Type to search";
     return (

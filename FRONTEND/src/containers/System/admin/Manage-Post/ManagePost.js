@@ -101,7 +101,6 @@ class ManagePost extends Component
 
 
     handleOchangeToSearch = async (event) => {
-        console.log(event.target.value)
 
         if (event.target.value.length <= 0) {
             this.getAllPosts();

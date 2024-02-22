@@ -16,6 +16,7 @@ let initWebRoutes = (app) => {
   // route login
   router.post("/api/login", admin.login); // login
   router.post("/api/login-user", user.login); // login
+  router.post("/api/usersendemail", user.usersendemail); // login
   // route allcode
   router.get("/api/get-allcode", user.getAllCode); // get all code
 

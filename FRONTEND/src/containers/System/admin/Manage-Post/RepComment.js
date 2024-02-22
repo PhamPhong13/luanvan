@@ -109,7 +109,6 @@ class RepComment extends Component
     render ()
     {
         let { listRepComments } = this.state;
-        console.log(listRepComments)
         return (
             <div className='comment-rep'>
                 {listRepComments && !isEmpty(listRepComments) && 

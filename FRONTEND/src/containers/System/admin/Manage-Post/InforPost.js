@@ -34,7 +34,6 @@ class InforPost extends Component
         })
         await this.getcat(this.state.post.catId)
         this.getday(this.state.post.updatedAt)
-        console.log(this.state)
     }
 
     getcat = async (catId) => {
@@ -63,7 +62,6 @@ class InforPost extends Component
         // Lấy ngày trong tuần (từ 0 đến 6, 0 là Chủ Nhật, 1 là Thứ Hai, và cứ tiếp tục)
         let dayIndex = dateTime.getDay();
         let dayOfWeek = daysOfWeek[dayIndex];
-        console.log(dayOfWeek);
         this.setState({
             thu: dayOfWeek,
             day: dateTime.toLocaleDateString()

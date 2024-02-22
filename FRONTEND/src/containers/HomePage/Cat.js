@@ -8,7 +8,7 @@ import avatar from "../../assets/410251206_697829015774464_3697217710754640905_n
 import { withRouter } from 'react-router';
 import {getAllpostById,   getcatById, getpostById} from '../../services/userService';
 import Header from './Header';
-import Comment from './Comment';
+import Footer from './Footer';
 class Cat extends Component
 {
 
@@ -93,6 +93,8 @@ class Cat extends Component
                         })}
                     </div>
                 </div>
+
+                <Footer />
             </>
         );
     }

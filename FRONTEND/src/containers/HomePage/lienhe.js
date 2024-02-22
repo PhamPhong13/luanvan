@@ -5,69 +5,54 @@ import _, { isEmpty } from 'lodash';
 import * as actions from '../../store/actions'
 import logo from "../../assets/logo.jpg"
 import { withRouter } from 'react-router';
-import {getAllpostById,   getcatById, getpostById} from '../../services/userService';
+import {userSendEmail} from '../../services/userService';
 import Header from './Header';
-import Comment from './Comment';
+import { toast } from 'react-toastify';
+import Footer from './Footer';
 class lienhe extends Component
 {
 
     constructor(props) {
         super(props);
         this.state = {
-            listPost: [],
-            name: ""
+            name: "",
+            email: "",
+            content: ""
         }
     }
 
-    async componentDidMount() {
-        await this.getcat();
-        await this.getpost();
+
+    handleOnchangeInput = ( event, id ) =>
+    {
+        let stateCopy = { ...this.state };
+        stateCopy[ id ] = event.target.value;
+        this.setState( {
+            ...stateCopy
+        } )
     }
 
-    getcat = async () => { 
-        let res = await getcatById(this.props.match.params.id);
-        if (res && res.errCode === 0 ) {
-            this.setState({
-                name: res.data.name,
-            })
-        }
-        else this.setState({
-            name: ""
+    handleSend = async () => {
+        let res = await userSendEmail({
+            name: this.state.name,
+            email: this.state.email,
+            content: this.state.content
         })
-    }
-
-    async componentDidUpdate(prevProps) {
-        if (prevProps.match.params.id !== this.props.match.params.id) {
+        if (res && res.errCode === 0) {
+            toast.success("Gửi mail thành công! Cảm con bạn đã phản hôi!");
             this.setState({
-                id: this.props.match.params.id
-            })
-            await this.getpost();
-        } 
-    }
-
-    getpost = async () => {
-        let res = await getAllpostById(this.props.match.params.id);
-        if (res && res.errCode === 0 ) {
-            let reverse = res.data.reverse();
-            this.setState({
-                listPost: reverse
+                name: "",
+                email: "",
+                content: ""
             })
         }
-        else this.setState({
-            listPost: []
-        })
-    }
-    
-    linktopost = (id) => {
-        if ( this.props.history )
-        {
-            this.props.history.push( `/post/${id}` );
+        else {
+            toast.error("Gửi mail không thành công!");
         }
     }
+
     
     render ()
     {
-        let { listPost, name } = this.state;
         return (
             <>
                 <title>
@@ -83,16 +68,26 @@ class lienhe extends Component
                                 <div className='top'>Bạn có vấn đề hoặc có những ý kiến cho Chi hội Sinh viên Bình Tân vui lòng điền vào form bên dưới!</div>
 
                                 <div className='form-group'>
+                                    <label>Họ tên:</label>
+                                    
+                                    <input type='text' className='form-control'
+                                    onChange={(event) => this.handleOnchangeInput(event, "name")}/>
+                                </div>
+
+                                <div className='form-group'>
                                     <label>Email:</label>
                                     
-                                    <input type='text' className='form-control' placeholder='Email' />
+                                    <input type='text' className='form-control'
+                                    onChange={(event) => this.handleOnchangeInput(event, "email")}/>
                                 </div>
+
                                 <div className='form-group'>
                                     <label>Nội dung:</label>
-                                    <textarea></textarea>
+                                    <textarea
+                                    onChange={(event) => this.handleOnchangeInput(event, "content")}></textarea>
                                 </div>
                                 <div className='btn-submit'>
-                                    <div className='btn btn-primary'>Gửi</div>
+                                    <div className='btn btn-primary' onClick={() => this.handleSend()}>Gửi</div>
                                 </div>
                             </div>
                             <div className='right'>
@@ -101,6 +96,7 @@ class lienhe extends Component
                         </div>
                     </div>
                 </div>
+                <Footer />
             </>
         );
     }

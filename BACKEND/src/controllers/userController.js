@@ -69,6 +69,21 @@ let login = async (req, res) => {
     user: userData.user ? userData.user : {},
   });
 };
+
+let usersendemail = async (req, res) => {
+    try {
+
+        let patient = await userService.usersendemail(req.body);
+        return res.status(200).json(patient);
+    }
+    catch (e) {
+        console.log(e);
+        return res.status(200).json({
+            errCode: -1,
+            errMessage: "Error from the serser!"
+        })
+    }
+}
  
 module.exports = {
     createUser: createUser,
@@ -77,5 +92,6 @@ module.exports = {
     deleteUser: deleteUser,
     updateUser: updateUser, 
     getAllCode: getAllCode,
-    login: login
+    login: login,
+    usersendemail: usersendemail
 }

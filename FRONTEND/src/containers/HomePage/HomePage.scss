@@ -777,6 +777,7 @@
 
         .nhiemky{
             background-color: white;
+            margin-bottom: 20px;
             .menber {
                     margin-top: 10px;
                     display: flex;
@@ -805,7 +806,6 @@
             background-color: white;
             display: flex;
             justify-content: space-between;
-            border: 1px solid black;
             .left{
                 width: 60%;
                 p{
@@ -841,6 +841,40 @@
                     width: 100%;
                 }
                 
+            }
+        }
+    }
+}
+
+
+.footer{
+    padding: 0 100px;
+    margin-top: 10px;
+
+    .footer-content{
+        border-radius: 5px;
+        background-color: #b1b1b112;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        .left{
+            width: 15%;
+            img{
+                width: 100%;
+            }
+        }
+        .right{
+            width: 25%;
+            margin-left: 20px;
+            font-size: 17px;
+            
+            p{
+                margin: 0;
+                padding: 5px;
+                img{
+                    width: 20px;
+                }
             }
         }
     }

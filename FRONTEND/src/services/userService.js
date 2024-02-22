@@ -262,6 +262,11 @@ const getlikepostById = (userId, postId) => {
 }
 
 
+const userSendEmail = (data) => {
+  return axios.post(`/api/usersendemail`, data);
+}
+
+
 
 export {
   handleLoginApi,   getAllcode, handleLoginUser,
@@ -285,6 +290,9 @@ export {
   /* comments */
   getAllbg, createbg, deletebg, getbgById, updatebg,
    /* admin */
-  createlikepost, deletelikepost, getlikepostById
+  createlikepost, deletelikepost, getlikepostById,
+
+  userSendEmail,
+
   
 };

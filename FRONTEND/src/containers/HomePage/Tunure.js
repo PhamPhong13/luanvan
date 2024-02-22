@@ -8,7 +8,7 @@ import avatar from "../../assets/410251206_697829015774464_3697217710754640905_n
 import { withRouter } from 'react-router';
 import { getAllbg, getAllnhiemky, getmenberById } from '../../services/userService';
 import Header from './Header';
-
+import Footer from './Footer';
 class Tunure extends Component
 {
 
@@ -81,7 +81,6 @@ class Tunure extends Component
     render ()
     {
         let { nhiemky, menber, menber1, menber2, bg } = this.state;
-        console.log(bg)
         
         return (
             <>
@@ -93,7 +92,7 @@ class Tunure extends Component
                 <div className='container manage_container'id='top'>
                     <div className='manage_container-content' >
                         <div className='nhiemky' >
-                            <div className='text-center title'> Chi hội sinh viên bình tân</div>
+                            <div className='text-center title pt-5'> Chi hội sinh viên bình tân</div>
                         <div className='text-center'>Nhiệm kỳ 2020-2021</div>
                         <div className='text-center'>-------------------- * --------------------</div>
 
@@ -132,6 +131,8 @@ class Tunure extends Component
                         </div>
                     </div>
                 </div>
+
+                <Footer />
             </>
         );
     }

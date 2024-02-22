@@ -65,7 +65,6 @@ class EditTunure extends Component
 
 
     checkMenber = async () => {
-        console.log(this.props.match.params.id)
         let user = await getmenberById(this.props.match.params.id, '0');
         let user1 = await getmenberById(this.props.match.params.id, '1');
         let user2 = await getmenberById(this.props.match.params.id, '2');
@@ -194,9 +193,6 @@ class EditTunure extends Component
             await this.checkMenber();
             this.add1();
             this.setState({
-                add1: false,
-                add2: false,
-                add3: false,
                 addform1: false,
                 addform2: false,
                 addform3: false,
@@ -212,7 +208,6 @@ class EditTunure extends Component
         else {
             toast.error("Thêm thành viên không thành công");
         }
-        console.log(this.state)
     }
 
     deleteUser = async (id) =>{

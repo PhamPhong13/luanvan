@@ -7,6 +7,7 @@ import { getAllpost, getAllcat } from '../../services/userService';
 import Header from './Header';
 import Slider from './Slider';
 import PostOnCat from './PostOnCat';
+import Footer from './Footer';
 class HomePage extends Component
 {
     constructor(props) {
@@ -33,7 +34,6 @@ class HomePage extends Component
         else this.setState({
             listPost: []
         })
-        console.log(this.state.listPost)
     }
 
     getCat = async () => {
@@ -99,6 +99,8 @@ class HomePage extends Component
                             </div>
                     </div>
                 </div>
+
+                <Footer />
 
             </>
         );

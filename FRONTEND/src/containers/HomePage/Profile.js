@@ -90,7 +90,6 @@ class Profile extends Component
     {
         let profile = this.props.userInfo;
         let { user, email, fullName, image, phone, desc } = this.state;
-        console.log(this.state)
         return (
             <>
                  <title>

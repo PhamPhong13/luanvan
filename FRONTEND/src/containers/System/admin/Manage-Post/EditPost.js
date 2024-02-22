@@ -140,7 +140,6 @@ class EditPost extends Component
             })
         }
 
-        console.log(this.state)
     }
 
     render ()

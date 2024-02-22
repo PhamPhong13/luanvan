@@ -1,6 +1,8 @@
 import db from '../models/index';
 import bcrypt from 'bcryptjs';
 
+import sendEmail from "./sendEmail"
+
 const salt = bcrypt.genSaltSync( 10 );
 // hash password
 let hashUserPassword = ( password ) =>
@@ -322,6 +324,27 @@ let getAllCode = (typeInput) => {
 }
 
 
+let usersendemail = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            await sendEmail.sendAttachment({
+                email: data.email,
+                content: data.content,
+                name: data.name
+            })
+            resolve({
+                errCode: 0,
+                errMessage: 'Send email successfully!',
+            })
+        }
+        catch (e) {
+            reject(e);
+        }
+    })
+}
+
+
+
 module.exports = {
     createUser: createUser,
     getUser: getUser,
@@ -329,5 +352,6 @@ module.exports = {
     deleteUser: deleteUser,
     updateUser: updateUser,
     getAllCode: getAllCode,
-    login: login
+    login: login,
+    usersendemail: usersendemail
 }

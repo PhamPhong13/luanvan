@@ -9,6 +9,7 @@ import { withRouter } from 'react-router';
 import {getAllpostById,   getcatById, getpostById, getlikepostById, createlikepost, deletelikepost, updatepost} from '../../services/userService';
 import Header from './Header';
 import Comment from './Comment';
+import Footer from './Footer';
 class Post extends Component
 {
 
@@ -215,6 +216,8 @@ class Post extends Component
                         </div>
                     </div>
                 </div>
+
+                <Footer />
             </>
         );
     }

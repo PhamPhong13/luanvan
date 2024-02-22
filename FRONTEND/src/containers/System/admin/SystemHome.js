@@ -19,7 +19,6 @@ class SystemHome extends Component
 
    async componentDidMount() {
        await this.getAllBackground();
-       console.log(this.state)
     }
 
     getAllBackground = async () => {

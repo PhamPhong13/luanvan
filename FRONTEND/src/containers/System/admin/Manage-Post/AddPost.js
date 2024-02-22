@@ -117,7 +117,6 @@ class AddPost extends Component
             })
         }
 
-        console.log(this.state)
     }
 
     render ()
