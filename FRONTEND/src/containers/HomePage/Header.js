@@ -57,6 +57,20 @@ class Header extends Component
         }
     }
 
+    linktoTunure = () => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `/tunure` );
+        }
+    }
+
+    linktolh = () => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `/lienhe` );
+        }
+    }
+
     render ()
     {
         let { processLogout_U } = this.props;
@@ -92,6 +106,12 @@ class Header extends Component
                                             )
                                         })}
                                     </ul>
+                                </li>
+                                <li onClick={() => this.linktolh()}>
+                                    Liên hệ
+                                </li>
+                                <li onClick={() => this.linktoTunure()}>
+                                    Thông tin
                                 </li>
                             </div>
                             <div className='right'>

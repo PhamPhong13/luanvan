@@ -25,6 +25,8 @@ import LoginUser from './HomePage/Login';
 import Signup from './HomePage/Signup';
 import Post from './HomePage/Post';
 import Cat from './HomePage/Cat';
+import Tunure from './HomePage/Tunure';
+import lienhe from './HomePage/lienhe';
 
 class App extends Component
 {
@@ -72,6 +74,8 @@ class App extends Component
                                 <Route path={'/signup'} component={Signup} />
                                 <Route path={'/post/:id'} component={Post} />
                                 <Route path={'/cat/:id'} component={Cat} />
+                                <Route path={'/Tunure'} component={Tunure} />
+                                <Route path={'/lienhe'} component={lienhe} />
                             </Switch>
                         </span>
 

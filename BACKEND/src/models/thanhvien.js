@@ -2,6 +2,7 @@
 const {
     Model
 } = require( 'sequelize' );
+const nhiemky = require('./nhiemky');
 module.exports = ( sequelize, DataTypes ) =>
 {
     class Thanhvien extends Model
@@ -22,7 +23,10 @@ module.exports = ( sequelize, DataTypes ) =>
         phone: DataTypes.STRING,
         image: DataTypes.STRING,
         desc: DataTypes.STRING,
-        position: DataTypes.STRING
+        position: DataTypes.STRING,
+        nhiemky: DataTypes.STRING,
+        oldposition: DataTypes.STRING,
+        inunion: DataTypes.STRING
     }, {
         sequelize,
         modelName: 'Thanhvien',

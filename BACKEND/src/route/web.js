@@ -8,6 +8,7 @@ import repcomment from "../controllers/repcommentController";
 import bg from "../controllers/bgController";
 import likepost from "../controllers/likepostController";
 import nhiemky from "../controllers/nhiemkyController";
+import menber from "../controllers/menberController";
 
 let router = express.Router();
 
@@ -82,6 +83,13 @@ let initWebRoutes = (app) => {
   router.get("/api/get-likepost-by-id", likepost.getlikepostById); // get likepost by id
   router.delete("/api/delete-likepost", likepost.deletelikepost); // delete likepost
   router.put("/api/update-likepost", likepost.updatelikepost); // update likepost
+
+    // route menber
+  router.post("/api/create-menber", menber.createmenber); // create menber
+  router.get("/api/get-menber", menber.getmenber); // get menber
+  router.get("/api/get-menber-by-id", menber.getmenberById); // get menber by id
+  router.delete("/api/delete-menber", menber.deletemenber); // delete menber
+  router.put("/api/update-menber", menber.updatemenber); // update menber
 
  return app.use("/", router);
 };

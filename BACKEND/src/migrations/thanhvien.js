@@ -28,6 +28,15 @@ module.exports = {
             position: {
                 type: Sequelize.INTEGER
             },
+            nhiemky: {
+                type: Sequelize.INTEGER
+            },
+            oldposition: {
+                type: Sequelize.INTEGER
+            },
+            inunion: {
+                type: Sequelize.INTEGER
+            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE

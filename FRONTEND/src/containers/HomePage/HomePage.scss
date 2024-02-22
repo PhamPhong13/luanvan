@@ -773,5 +773,75 @@
                 }
             }
         }
+
+
+        .nhiemky{
+            background-color: white;
+            .menber {
+                    margin-top: 10px;
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;
+                    text-align: center;
+            
+                    img {
+                        width: 180px;
+                        height: 180px;
+                        border-radius: 50%;
+                        margin: 10px auto;
+                    }
+            
+                    .name {
+                        font-size: 17px;
+                        padding: 5px 10px;
+                    }
+                }
+        }
+
+
+        .lienhe{
+            padding: 20px;
+            border-radius: 5px;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            border: 1px solid black;
+            .left{
+                width: 60%;
+                p{
+                    text-align: center;
+                    font-weight: 600;
+                }
+
+                .top{
+                    margin-top: 30px;
+                }
+
+                .form-group{
+                    margin-top: 10px;
+                    display: flex;
+                    flex-direction: column;
+                    textarea{
+                        height: 150px;
+                    }
+                    
+                }
+
+                .btn-submit{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-top: 20px;
+                }
+            }
+
+            .right{
+                width: 40%;
+                img{
+                    width: 100%;
+                }
+                
+            }
+        }
     }
 }

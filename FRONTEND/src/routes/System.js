@@ -24,6 +24,7 @@ import InforPost from "../containers/System/admin/Manage-Post/InforPost";
 
 import Tunure from "../containers/System/admin/Manage-Tunure/Tunure";
 import AddTunure from "../containers/System/admin/Manage-Tunure/AddTunure";
+import EditTunure from "../containers/System/admin/Manage-Tunure/EditTunure";
 class System extends Component {
   render() {
     const { systemMenuPath, isLoggedIn } = this.props;
@@ -55,6 +56,7 @@ class System extends Component {
 
               <Route path="/system/manage-nhiemky" component={Tunure} />
               <Route path="/system/add-tunure" component={AddTunure} />      
+              <Route path="/system/edit-tunure/:id" component={EditTunure} />
               
               <Route path="/system/home" component={SystemHome} />
 

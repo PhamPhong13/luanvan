@@ -219,6 +219,30 @@ const updatenhiemky = (data) => {
   return axios.put(`api/update-nhiemky`, data);
 }
 
+// ---------------------- menber -------------------
+
+const getAllmenber = () => {
+  return axios.get(`/api/get-menber`);
+};
+
+const createmenber = (data) => {
+  return axios.post(`/api/create-menber`, data);
+}
+
+const deletemenber = (id) => {
+  return axios.delete(`/api/delete-menber`, {
+    data: { id: id }
+  })
+}
+
+const getmenberById = (id, position) => {
+  return axios.get(`api/get-menber-by-id?id=${id}&position=${position}`);
+}
+
+const updatemenber = (data) => {
+  return axios.put(`api/update-menber`, data);
+}
+
 
 // ---------------------- likepost -------------------
 
@@ -248,6 +272,8 @@ export {
   getAllUser, createUser, deleteUser, getUserById, updateUser,
   /* nhiemky */
   getAllnhiemky, createnhiemky, deletenhiemky, getnhiemkyById, updatenhiemky,
+    /* menber */
+  getAllmenber, createmenber, deletemenber, getmenberById, updatemenber,
   /* category */
   getAllcat, createcat, deletecat, getcatById, updatecat,
   /* posts */
