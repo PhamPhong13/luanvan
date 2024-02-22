@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
-import {getAllcat, deletecat } from "../../../../services/userService"
+import {getAllcat, deletecat, getAllpostById, deletepost } from "../../../../services/userService"
 
 import { withRouter } from 'react-router';
 import { toast } from 'react-toastify';
@@ -44,14 +44,17 @@ class ManageCat extends Component
     }
 
     handleDeleteUser = async (id) => {
-        let res = await deletecat(id);
-        if (res && res.errCode === 0) {
-            await this.getAllCats();
-                toast.success("Xóa danh mục thành công!");
-                
-            }
-            else toast.error("Xóa danh mục không thành công!");
+    await deletecat(id);
+    let post = await getAllpostById(id);
+    if (post && post.errCode === 0) {
+        await Promise.all(post.data.map(async (item) => {
+            await deletepost(item.id);
+        }));
     }
+    await this.getAllCats();
+    toast.success("Xóa danh mục thành công!");
+}
+
 
     // bỏ dấu trong chuổi
     removedau = (word) => {
