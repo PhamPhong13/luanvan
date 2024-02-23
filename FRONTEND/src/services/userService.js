@@ -267,6 +267,24 @@ const userSendEmail = (data) => {
 }
 
 
+// ---------------------- likepost -------------------
+
+
+const createhistory = (data) => {
+  return axios.post(`/api/create-history`, data);
+}
+
+const deletehistory = (userId, postId) => {
+  return axios.delete(`/api/delete-history`, {
+    data: {  userId: userId, postId: postId}
+  })
+}
+
+const gethistoryById = (userId, postId) => {
+  return axios.get(`api/get-history-by-id?userId=${userId}&postId=${postId}`);
+}
+
+
 
 export {
   handleLoginApi,   getAllcode, handleLoginUser,
@@ -291,6 +309,8 @@ export {
   getAllbg, createbg, deletebg, getbgById, updatebg,
    /* admin */
   createlikepost, deletelikepost, getlikepostById,
+  /* admin */
+  createhistory, deletehistory, gethistoryById,
 
   userSendEmail,
 

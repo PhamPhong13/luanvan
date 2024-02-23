@@ -9,6 +9,7 @@ import bg from "../controllers/bgController";
 import likepost from "../controllers/likepostController";
 import nhiemky from "../controllers/nhiemkyController";
 import menber from "../controllers/menberController";
+import history from "../controllers/historyController";
 
 let router = express.Router();
 
@@ -33,6 +34,13 @@ let initWebRoutes = (app) => {
   router.get("/api/get-user-by-id", user.getUserById); // get User by id
   router.delete("/api/delete-user", user.deleteUser); // delete User
   router.put("/api/update-user", user.updateUser); // update User
+
+  // route history
+  router.post("/api/create-history", history.createhistory); // create history
+  router.get("/api/get-history", history.gethistory); // get history
+  router.get("/api/get-history-by-id", history.gethistoryById); // get history by id
+  router.delete("/api/delete-history", history.deletehistory); // delete history
+  router.put("/api/update-history", history.updatehistory); // update history
 
   // route cat
   router.post("/api/create-cat", cat.createcat); // create cat
