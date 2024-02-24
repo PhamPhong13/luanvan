@@ -6,7 +6,7 @@ import * as actions from '../../store/actions'
 import logo from "../../assets/logo.jpg"
 import avatar from "../../assets/410251206_697829015774464_3697217710754640905_n.jpg"
 import { withRouter } from 'react-router';
-import {getAllpostById,   getcatById, getpostById, getlikepostById, createlikepost, deletelikepost, updatepost} from '../../services/userService';
+import {getAllpostById,   getcatById, getpostById, getlikepostById, createlikepost, deletelikepost, updatepost, createhistory} from '../../services/userService';
 import Header from './Header';
 import Comment from './Comment';
 import Footer from './Footer';
@@ -41,11 +41,17 @@ class Post extends Component
             descHTML: this.state.post.descHTML,
             descMarkdown: this.state.post.descMarkdown,
             id: this.state.post.id,
+            catId: this.state.post.catId,
             count: count,
-            catId: this.state.post.catId
         })
         if (res && res.errCode === 0) {
             await this.getpost();
+        }
+        if (this.props.userInfo) {
+            await createhistory({
+                postId: this.props.match.params.id,
+                userId: this.props.userInfo.id,
+            })
         }
     }
 
@@ -59,7 +65,8 @@ class Post extends Component
     }
 
     getlikepost = async () => {
-        let likepost = await getlikepostById(this.props.userInfo.id, this.props.match.params.id); 
+        if (this.props.userInfo) {
+            let likepost = await getlikepostById(this.props.userInfo.id, this.props.match.params.id); 
         if (likepost && likepost.errCode === 0) {
             this.setState({
                 likepost: true
@@ -68,10 +75,15 @@ class Post extends Component
         else this.setState({
             likepost: false
         })
+        }
+        else this.setState({
+            likepost: false
+        })
+        
     }
 
     getcat = async() => {
-        let res = await getcatById(this.state.catId);
+        let res = await getcatById(this.state.post.catId);
         this.setState({
             cat: res.data
         })
@@ -85,14 +97,14 @@ class Post extends Component
             catId: res.data.catId
         })
         this.getcat();
+        console.log(this.state.post)
         this.getday(this.state.post.updatedAt);
         await this.getpostbycat();
         this.setState({
             id: this.props.match.params.id
         })
 
-        await this.getlikepost();
-
+       await this.getlikepost(); 
     }
 
     getpostbycat = async () => {
@@ -138,18 +150,34 @@ class Post extends Component
     }
 
     userlike = async () => {
-        let res = await createlikepost({
-            userId: this.props.userInfo.id,
-            postId: this.props.match.params.id
-        });
-        if (res && res.errCode === 0) {
-            await this.getlikepost();
+        if (this.props.userInfo) {
+            
+            let res = await createlikepost({
+                userId: this.props.userInfo.id,
+                postId: this.props.match.params.id
+            });
+            if (res && res.errCode === 0) {
+                await this.getlikepost();
+            }
+        }
+        else {
+            this.setState({
+                likepost: true
+            })
         }
     }
 
     userunlike = async () => {
-        await deletelikepost(this.props.userInfo.id, this.props.match.params.id);
-        await this.getlikepost();
+        if (this.props.userInfo) {
+            
+            await deletelikepost(this.props.userInfo.id, this.props.match.params.id);
+            await this.getlikepost();
+        }
+        else {
+            this.setState({
+                likepost: false
+            })
+        }
     }
 
     render ()

@@ -17,11 +17,10 @@ module.exports = ( sequelize, DataTypes ) =>
         }
     };
     History.init( {
-        postId: DataTypes.STRING,
         userId: DataTypes.STRING,
     }, {
         sequelize,
         modelName: 'History',
     } );
-    return History;
+    return Connect;
 };

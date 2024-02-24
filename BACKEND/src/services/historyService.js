@@ -7,7 +7,7 @@ let createhistory = ( data ) =>
     {
         try
         {
-            await db.history.create( {
+            await db.History.create( {
                 postId: data.postId,
                 userId: data.userId,
             } );
@@ -32,7 +32,7 @@ let gethistory = () =>
     {
         try
         {
-            let patients = await db.history.findAll( );
+            let patients = await db.History.findAll( );
             if ( patients )
             {
                 resolve( {
@@ -64,7 +64,7 @@ let gethistoryById = ( postId ) =>
     {
         try
         {
-            let patients = await db.history.findOne( {
+            let patients = await db.History.findOne( {
                 where: {
                     postId: postId,
                 }
@@ -100,7 +100,7 @@ let getAllhistoryById = ( id ) =>
     {
         try
         {
-            let patients = await db.history.findAll( {
+            let patients = await db.History.findAll( {
                 where: {
                     catId: id
                 }
@@ -133,7 +133,7 @@ let deletehistory = ( userId, postId ) =>
 {
     return new Promise( async ( resolve, reject ) =>
     {
-        let Patient = await db.history.findOne( {
+        let Patient = await db.History.findOne( {
             where: {
                 userId: userId,
                 postId: postId,
@@ -148,7 +148,7 @@ let deletehistory = ( userId, postId ) =>
             } );
         }
 
-        await db.history.destroy( {
+        await db.History.destroy( {
             where: { userId: userId,
                 postId: postId, },
         } );

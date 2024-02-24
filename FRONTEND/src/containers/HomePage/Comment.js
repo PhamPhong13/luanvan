@@ -40,9 +40,16 @@ class Comment extends Component
     }
 
     getUser = () => {
-        this.setState({
-            userId: this.props.userInfo.id
-        });
+        if (this.props.userInfo) {
+            this.setState({
+                    userId: this.props.userInfo.id
+                });
+            
+        }else {
+                this.setState({
+                    userId: '4'
+                });
+            }
     }
 
     
@@ -167,6 +174,7 @@ class Comment extends Component
     render ()
     {
         let { comment, fullComment } = this.state;
+        console.log(this.props)
 
         return (
             <>

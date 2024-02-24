@@ -48,6 +48,15 @@ export const adminMenu = [
       },
     ],
   },
+  {
+    //quản lý bài viết
+    name: "system.thongke",
+    menus: [
+    {
+        name: "system.manage-thongke",        link: "/system/manage-thongke",
+      },
+    ],
+  },
 
 ];
 

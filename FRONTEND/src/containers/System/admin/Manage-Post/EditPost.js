@@ -46,7 +46,7 @@ class EditPost extends Component
         } )
         this.setState({
             selectedCat: selected,
-            catId: selected.value
+            catId: selected 
         })
     }
 
