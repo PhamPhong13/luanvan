@@ -1,4 +1,59 @@
 .thongke{
   padding-top: 120px;
+  border: 1px solid black;
+  
+  .ltc{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    select {
+      margin-left: 10px;
+    font-weight: bold;
+    }
+  }
 
+  .line{
+    text-align: center;
+  }
+
+  .ltc-value{
+    display: flex;
+    margin: 10px;
+    font-size: 25px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .post-value{
+    margin-top: 20px;
+    .ltc-value-item{
+      margin: 0 auto;
+      display: flex;
+      width: 50%;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      cursor: pointer;
+      height: 180px;
+      &:hover {
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+      }
+      img{
+        width: 40%;
+        height: 180px;
+      }
+      .name{
+        flex: 1;
+        padding: 10px;
+        font-size: 20px;
+
+      }
+    }
+
+  }
 }

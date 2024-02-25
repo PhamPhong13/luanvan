@@ -10,6 +10,7 @@ import likepost from "../controllers/likepostController";
 import nhiemky from "../controllers/nhiemkyController";
 import menber from "../controllers/menberController";
 import history from "../controllers/historyController";
+import connect from "../controllers/connectController";
 
 let router = express.Router();
 
@@ -41,6 +42,13 @@ let initWebRoutes = (app) => {
   router.get("/api/get-history-by-id", history.gethistoryById); // get history by id
   router.delete("/api/delete-history", history.deletehistory); // delete history
   router.put("/api/update-history", history.updatehistory); // update history
+
+   // route connect
+  router.post("/api/create-connect", connect.createconnect); // create connect
+  router.get("/api/get-connect", connect.getconnect); // get connect
+  router.get("/api/get-connect-by-id", connect.getconnectById); // get connect by id
+  router.delete("/api/delete-connect", connect.deleteconnect); // delete connect
+  router.put("/api/update-connect", connect.updateconnect); // update connect
 
   // route cat
   router.post("/api/create-cat", cat.createcat); // create cat

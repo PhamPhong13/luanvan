@@ -4,7 +4,7 @@ const {
 } = require( 'sequelize' );
 module.exports = ( sequelize, DataTypes ) =>
 {
-    class History extends Model
+    class Connect extends Model
     {
         /**
          * Helper method for defining associations.
@@ -16,11 +16,11 @@ module.exports = ( sequelize, DataTypes ) =>
             // define association here
         }
     };
-    History.init( {
+    Connect.init( {
         userId: DataTypes.STRING,
     }, {
         sequelize,
-        modelName: 'History',
+        modelName: 'Connect',
     } );
     return Connect;
 };

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import './HomePage.scss';
 import _ from 'lodash';
 import { FormattedMessage } from 'react-intl';
-import { getAllpost, getAllcat } from '../../services/userService';
+import { getAllpost, getAllcat, createconnect } from '../../services/userService';
 import Header from './Header';
 import Slider from './Slider';
 import PostOnCat from './PostOnCat';
@@ -21,6 +21,18 @@ class HomePage extends Component
     async componentDidMount() {
         await this.getAllposts();
         await this.getCat();
+        await this.createconnection();
+    }
+    createconnection = async () => { 
+        console.log(this.props.userInfo.id)
+        if (this.props.userInfo) {
+            await createconnect({
+                userId: this.props.userInfo.id
+            })
+        }
+        else await createconnect({
+                userId: 4
+            })
     }
 
     getAllposts = async () => {
@@ -111,7 +123,8 @@ class HomePage extends Component
 const mapStateToProps = state =>
 {
     return {
-        language: state.app.language
+        language: state.app.language,
+        userInfo: state.user.userInfo,
     };
 };
 

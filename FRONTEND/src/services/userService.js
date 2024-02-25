@@ -267,7 +267,7 @@ const userSendEmail = (data) => {
 }
 
 
-// ---------------------- likepost -------------------
+// ---------------------- history -------------------
 
 
 const createhistory = (data) => {
@@ -284,6 +284,26 @@ const gethistoryById = (userId, postId) => {
   return axios.get(`api/get-history-by-id?userId=${userId}&postId=${postId}`);
 }
 
+
+// ---------------------- connect -------------------
+
+const getAllconnect = () => {
+  return axios.get(`/api/get-connect`);
+};
+
+const createconnect = (data) => {
+  return axios.post(`/api/create-connect`, data);
+}
+
+const deleteconnect = (id) => {
+  return axios.delete(`/api/delete-connect`, {
+    data: { id: id }
+  })
+}
+
+const getconnectById = (id) => {
+  return axios.get(`api/get-connect-by-id?id=${id}`);
+}
 
 
 export {
@@ -311,6 +331,8 @@ export {
   createlikepost, deletelikepost, getlikepostById,
   /* admin */
   createhistory, deletehistory, gethistoryById,
+  /* connect */
+  createconnect, deleteconnect, getconnectById,getAllconnect,
 
   userSendEmail,
 
