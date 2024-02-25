@@ -24,7 +24,6 @@ class HomePage extends Component
         await this.createconnection();
     }
     createconnection = async () => { 
-        console.log(this.props.userInfo.id)
         if (this.props.userInfo) {
             await createconnect({
                 userId: this.props.userInfo.id
@@ -124,7 +123,7 @@ const mapStateToProps = state =>
 {
     return {
         language: state.app.language,
-        userInfo: state.user.userInfo,
+        userInfo: state.user1.users,
     };
 };
 

@@ -5,7 +5,6 @@ let createpost = ( data ) =>
 {
     return new Promise( async ( resolve, reject ) =>
     {
-        // check input parameters
         if ( !data.name )
         {
             resolve( {
@@ -41,34 +40,77 @@ let createpost = ( data ) =>
 // get all patient
 let getpost = () =>
 {
-    return new Promise( async ( resolve, reject ) =>
+   
+
+    return new Promise( async (resolve, reject) =>
     {
         try
         {
-            let patients = await db.Post.findAll( );
-            if ( patients )
-            {
-                resolve( {
+            let patients = await db.Post.findAll();
+
+            if (patients.length > 0) {
+                resolve({
                     errCode: 0,
                     message: "get list post successfully!",
-                    data: patients
-                } )
+                    data: patients,
+                });
             }
-            else
-            {
-                resolve( {
+            else {
+                resolve({
                     errCode: 1,
-                    message: "get list post failed!"
-                } )
+                    message: "No posts found for this page"
+                });
             }
-
         }
-        catch ( err )
+        catch (err)
         {
-            reject( err );
+            reject(err);
         }
-    } )
+    });
 }
+
+let getpostbypage = (page) =>
+{
+    const limit = 5; // Số lượng bài viết mỗi trang
+    const offset = (page - 1) * limit; // Vị trí bắt đầu của trang hiện tại
+
+    return new Promise( async (resolve, reject) =>
+    {
+        try
+        {
+            let totalPosts = await db.Post.count(); // Đếm tổng số bài viết
+            let totalPages = Math.ceil(totalPosts / limit); // Tính tổng số trang
+
+            // Sắp xếp ngược lại các bài viết
+            let patients = await db.Post.findAll({
+                order: [['createdAt', 'DESC']], // Sắp xếp theo ngày tạo giảm dần (ngược lại)
+                offset: offset,
+                limit: limit
+            });
+
+            if (patients.length > 0) {
+                resolve({
+                    errCode: 0,
+                    message: "get list post successfully!",
+                    data: patients,
+                    total: totalPosts,
+                    totalPages: totalPages // Thêm thông tin về số trang vào đối tượng kết quả
+                });
+            }
+            else {
+                resolve({
+                    errCode: 1,
+                    message: "No posts found for this page"
+                });
+            }
+        }
+        catch (err)
+        {
+            reject(err);
+        }
+    });
+}
+
 
 //get patient by id
 let getpostById = ( id ) =>
@@ -231,5 +273,6 @@ module.exports = {
     getpostById: getpostById,
     deletepost: deletepost,
     updatepost: updatepost,
-    getAllpostById: getAllpostById
+    getAllpostById: getAllpostById,
+    getpostbypage: getpostbypage
 }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import * as actions from "../../store/actions";
 import Navigator from '../../components/Navigator';
-import { adminMenu, doctorMenu } from './menuApp';
+import { adminMenu, menberMenu } from './menuApp';
 import './Header.scss';
 import { FormattedMessage } from 'react-intl'; // fomat language
 import { LANGUAGE, USER_ROLE } from '../../utils';
@@ -29,10 +29,21 @@ class Header extends Component
     componentDidMount ()
     {
         let { userInfo } = this.props;
-        let menu = adminMenu;
-        this.setState( {
+        let menu = [];
+        if (userInfo && !_.isEmpty(userInfo)) {
+            let role = userInfo.position;
+            if (role === "P0") {
+                menu = adminMenu;
+            }
+
+            if (role === "P1") {
+                menu = menberMenu;
+            }
+        }
+        else { }
+        this.setState({
             menuApp: menu
-        } );
+        });
     }
 
     render ()

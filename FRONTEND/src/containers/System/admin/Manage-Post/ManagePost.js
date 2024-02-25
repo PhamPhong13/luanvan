@@ -2,28 +2,34 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
-import {getAllpost, deletepost } from "../../../../services/userService"
+import {getpostbypage, deletepost, getAllpost } from "../../../../services/userService"
 
 import { withRouter } from 'react-router';
 import { toast } from 'react-toastify';
 import { isEmpty } from 'lodash';
+
+import ReactPaginate from 'react-paginate';
 class ManagePost extends Component
 {
     constructor(props) {
         super(props);
         this.state = {
-            listPost: []
+            listPost: [],
+            totalpage: 0,
         }
     }
 
     async componentDidMount() {
-        await this.getAllPosts();
+        await this.getAllPosts(1);
     }
 
-    getAllPosts = async () => {
-        let res = await getAllpost();
+    getAllPosts = async (page) => {
+        let res = await getpostbypage(page);
+        console.log(res);
         this.setState({
-            listPost: res.data
+            listPost: res.data,
+            totalpage: res.totalPages
+
         })
     }
 
@@ -102,8 +108,8 @@ class ManagePost extends Component
 
     handleOchangeToSearch = async (event) => {
 
-        if (event.target.value.length <= 0) {
-            this.getAllPosts();
+        if (event.target.value.length == 0) {
+           await this.getAllPosts(1);
         }
         else {
             let key = this.removedau(event.target.value).toLowerCase();
@@ -134,9 +140,13 @@ class ManagePost extends Component
         }
     }
 
+    handlePageClick = async (event) => {
+        await this.getAllPosts(event.selected + 1);
+     }
+
     render ()
     {
-        let { listPost } = this.state;
+        let { listPost, totalpage } = this.state;
         return (
             <>
                 <title>
@@ -169,7 +179,7 @@ class ManagePost extends Component
                             listPost && isEmpty(listPost) && <span>Danh sách rổng!</span>
                         }
                         {
-                            listPost && !isEmpty(listPost) && listPost.reverse().map((item, index) => {
+                            listPost && !isEmpty(listPost) && listPost.map((item, index) => {
                                 return (
 
                                     <div className='cat-content'>
@@ -196,6 +206,29 @@ class ManagePost extends Component
 
 
                         
+                    </div>
+
+                    <div className='ReactPaginate mt-2'>
+                        <ReactPaginate
+                            breakLabel="..."
+                            nextLabel="next >"
+                            onPageChange={this.handlePageClick}
+                            pageRangeDisplayed={totalpage}
+                            pageCount={totalpage}
+                            previousLabel="< previous"
+                            renderOnZeroPageCount={null}
+                            pageClassName='page-item'
+                            pageLinkClassName='page-link'
+                            previousClassName='page-item'
+                            previousLinkClassName='page-link'
+                            nextClassName='page-item'
+                            nextLinkClassName='page-link'
+                            breakClassName='page-item'
+                            breakLinkClassName='page-link'
+                            containerClassName='pagination'
+                            activeClassName='active'
+                            marginPagesDisplayed={10}
+                        />
                     </div>
 
                     

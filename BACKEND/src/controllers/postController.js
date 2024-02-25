@@ -7,12 +7,23 @@ let createpost = async ( req, res ) =>
     return res.status( 200 ).json( post );
 }
 
+
+
 // get all patient
 let getpost = async ( req, res ) =>
 {
     let post = await postService.getpost();
     return res.status( 200 ).json( post );
 }
+
+
+// get all patient
+let getpostbypage = async ( req, res ) =>
+{
+    let post = await postService.getpostbypage(req.query.page);
+    return res.status( 200 ).json( post );
+}
+
 
 // get patient by id
 let getpostById = async ( req, res ) =>
@@ -62,5 +73,6 @@ module.exports = {
     getpostById: getpostById,
     deletepost: deletepost,
   updatepost: updatepost, 
-    getAllpostById: getAllpostById
+    getAllpostById: getAllpostById,
+    getpostbypage: getpostbypage
 }

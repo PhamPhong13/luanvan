@@ -89,8 +89,12 @@ const updatecat = (data) => {
 
 // ---------------------- post -------------------
 
-const getAllpost = () => {
+const getAllpost = (page) => {
   return axios.get(`/api/get-post`);
+};
+
+const getpostbypage = (page) => {
+  return axios.get(`/api/get-post-by-page?page=${page}`);
 };
 
 const createpost = (data) => {
@@ -320,7 +324,7 @@ export {
   /* category */
   getAllcat, createcat, deletecat, getcatById, updatecat,
   /* posts */
-  getAllpost, createpost, deletepost, getpostById, updatepost, getAllpostById,
+  getAllpost, createpost, deletepost, getpostById, updatepost, getAllpostById,getpostbypage,
   /* comments */
   getAllcomment, createcomment, deletecomment, getcommentById, updatecomment,
    /* rep comment */
