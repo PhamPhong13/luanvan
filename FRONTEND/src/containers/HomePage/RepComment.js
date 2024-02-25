@@ -7,7 +7,9 @@ import logo from "../../assets/logo.jpg"
 import avatar from "../../assets/user.jpg"
 import top from "../../assets/top.png"
 import { withRouter } from 'react-router';
-import { getrepcommentById } from '../../services/userService';
+import { getrepcommentById , createreport} from '../../services/userService';
+import { CommonUtils } from '../../utils'; // vi or en
+import { toast } from 'react-toastify';
 class RepComment extends Component
 {
     constructor(props) {
@@ -15,7 +17,12 @@ class RepComment extends Component
         this.state = {
             commentId: this.props.commentId,
             comment: [],
-            update: this.props.update
+            update: this.props.update,
+            openReport: false,
+            senReport: false,
+            imageReport: "",
+            content: "",
+            userReport: []
             
         }
     }
@@ -87,10 +94,84 @@ class RepComment extends Component
     handleOnchangeKey = () => {
         this.props.handleChangeKey(this.props.commentId);
     }
+
+    
+    handlereport = async (id) => { 
+        this.setState({
+            openReport: !this.state.openReport,
+            userReport: id,
+            imageReport: "",
+            content: "",
+        })
+    }
+
+    handleSenReport = () => {
+        this.setState({
+            senReport:!this.state.senReport
+        })
+    }
+    
+    handleOnchangeImg = async (event) => {
+        let file = event.target.files[0];
+        if (file) {
+            let getBase64 = await CommonUtils.getBase64(file);
+            this.setState({
+                imageReport: getBase64
+            })
+        }
+
+    }
+
+      handleOnchangeInput = ( event, id ) =>
+    {
+        let stateCopy = { ...this.state };
+        stateCopy[ id ] = event.target.value;
+        this.setState( {
+            ...stateCopy
+        } )
+    }
+
+    checkcontentreport = () => {
+        if (this.state.content.length <= 0) {
+            alert("Vui lòng nhập nội dung báo cáo!");
+            return false;
+        }
+        return true;
+    }
+
+    handleOnsaveReport = async () => {
+        
+        if (this.checkcontentreport()) {
+            let res = await createreport({
+                type: "pcomment",
+                userId: this.props.userInfo.id,
+                userrportId: this.state.userReport.userId,
+                postId: this.props.match.params.id,
+                content: this.state.content,
+                image: this.state.imageReport,
+                comment: this.state.userReport.repcomment,
+                status: "S1"
+            })
+            if (res && res.errCode === 0) { 
+                this.setState({
+                    openReport: false,
+                    senReport: false,
+                    content: '',
+                    imageReport: ''
+                })
+                toast.success("Báo cáo của bạn sẽ được xử lý sớm!");
+            }
+            else {
+                
+                toast.error("Có lỗi xảy ra, vui lòng thử lại!");
+            }
+        }
+    }
+    
     
     render ()
     {
-        let { comment } = this.state;
+        let { comment, openReport , senReport, imageReport } = this.state;
 
         return (
             <>
@@ -104,13 +185,39 @@ class RepComment extends Component
                                     <div className='comment'>{ item.repcomment}</div>
                                 </div>
                                 <div className='comment-main-content-bottom'>
-                                    <span> {this.timecreated(item.updatedAt)} </span> <span><b>Thích</b></span> <span onClick={() => this.handleOnchangeKey()}><b><label for="texxt">Trả lời</label></b></span>
+                                    <span> {this.timecreated(item.updatedAt)} </span>
+                                    <span><b>Thích</b></span> <span onClick={() => this.handleOnchangeKey()}><b><label for="texxt">Trả lời</label></b></span>
+                                    <span onClick={() => this.handlereport(item)} title='Báo cáo bài viết'><i class="fas fa-bug"></i></span>
         
                     </div>
                 </div>
             </div>
                     )
                 })}
+
+                {openReport === true && <div className='form-report'>
+                    <div className='form-report-content'>
+                        <div className='name text-center'>Báo cáo</div>
+                        <div className='form-group'>
+                            <label>Nội dung báo cáo: </label>
+                            <textarea onChange={(event) => this.handleOnchangeInput(event, "content")}></textarea>
+                        </div>
+                        <div className='form-group image' >
+                            <label className='label_upload-img' htmlFor='reviewImg'>Ảnh  <i className='fas fa-upload'></i></label>
+                                <input hidden type='file' className='form-controll-file' id="reviewImg"
+                                    onChange={(event) => this.handleOnchangeImg(event)}
+                            />
+                            <img src={ imageReport} alt='Ảnh'/>
+                        </div>
+                        <p><input onClick={() => this.handleSenReport()} type='checkbox'/> Bạn có chắc chắn rằng nội dung báo cáo của bạn là hoàn toàn chính xác và đáng tin cậy?</p>
+                        <div className='btn-submit'>
+                            {senReport === true ? <div className='btn btn-primary'
+                            onClick={() => this.handleOnsaveReport()}
+                            >Gửi</div> : <div className='btn btn-secondary'>Gửi</div>}
+                            <div className='btn btn-secondary btn-cancel' onClick={() => this.handlereport()}>Hủy</div>
+                        </div>
+                       </div>
+                </div>}
             </>
         );
     }

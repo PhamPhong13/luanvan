@@ -16,10 +16,10 @@ module.exports = {
             userId: {
                 type: Sequelize.STRING
             },
-            userId: {
+            userrportId: {
                 type: Sequelize.STRING
             },
-            userrportId: {
+            postId: {
                 type: Sequelize.STRING
             },
             content: {

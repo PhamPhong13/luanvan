@@ -9,8 +9,8 @@ import top from "../../assets/top.png"
 import { withRouter } from 'react-router';
 import { getcommentById, createcomment, createrepcomment , createreport} from '../../services/userService';
 import { CommonUtils } from '../../utils'; // vi or en
-import RepComment from './RepComment';
 import { toast } from 'react-toastify';
+import RepComment from './RepComment';
 class Comment extends Component
 {
     constructor(props) {
@@ -148,15 +148,7 @@ class Comment extends Component
         }
     }
 
-    handleOnchangeInput = ( event, id ) =>
-    {
-        let stateCopy = { ...this.state };
-        stateCopy[ id ] = event.target.value;
-        this.setState( {
-            ...stateCopy
-        } )
-    }
-
+   
     handleChangeKey = (id) => { 
         this.setState({
             commentkey: "repcomment",
@@ -180,7 +172,9 @@ class Comment extends Component
     handlereport = async (id) => { 
         this.setState({
             openReport: !this.state.openReport,
-            userReport: id
+            userReport: id,
+            imageReport: "",
+            content: "",
         })
     }
 
@@ -219,11 +213,12 @@ class Comment extends Component
     }
 
     handleOnsaveReport = async () => {
+        
         if (this.checkcontentreport()) {
             let res = await createreport({
                 type: "pcomment",
                 userId: this.state.userId,
-                userrportId: this.state.userReport.id,
+                userrportId: this.state.userReport.userId,
                 postId: this.state.postId,
                 content: this.state.content,
                 image: this.state.imageReport,
@@ -237,7 +232,7 @@ class Comment extends Component
                     content: '',
                     imageReport: ''
                 })
-                toast.success("Báo cáo của bạn sẽ được xữ lý sớm!");
+                toast.success("Báo cáo của bạn sẽ được xử lý sớm!");
             }
             else {
                 
