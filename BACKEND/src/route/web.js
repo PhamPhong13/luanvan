@@ -11,6 +11,7 @@ import nhiemky from "../controllers/nhiemkyController";
 import menber from "../controllers/menberController";
 import history from "../controllers/historyController";
 import connect from "../controllers/connectController";
+import report from "../controllers/reportController";
 
 let router = express.Router();
 
@@ -69,6 +70,7 @@ let initWebRoutes = (app) => {
   router.get("/api/get-post", post.getpost); // get post
   router.get("/api/get-post-by-page", post.getpostbypage); // get post
   router.get("/api/get-post-by-id", post.getpostById); // get post by id
+  router.get("/api/get-all-post-by-page", post.getAllpostBypage); // get post by id
   router.get("/api/get-post-all-by-id", post.getAllpostById); // get post by id
   router.delete("/api/delete-post", post.deletepost); // delete post
   router.put("/api/update-post", post.updatepost); // update post
@@ -108,6 +110,13 @@ let initWebRoutes = (app) => {
   router.get("/api/get-menber-by-id", menber.getmenberById); // get menber by id
   router.delete("/api/delete-menber", menber.deletemenber); // delete menber
   router.put("/api/update-menber", menber.updatemenber); // update menber
+
+  // route report
+  router.post("/api/create-report", report.createreport); // create report
+  router.get("/api/get-report", report.getreport); // get report
+  router.get("/api/get-report-by-id", report.getreportById); // get report by id
+  router.delete("/api/delete-report", report.deletereport); // delete report
+  router.put("/api/update-report", report.updatereport); // update report
 
  return app.use("/", router);
 };

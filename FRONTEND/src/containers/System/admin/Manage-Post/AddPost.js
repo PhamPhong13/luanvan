@@ -82,6 +82,7 @@ class AddPost extends Component
                 descHTML: this.state.descHTML,
                 descMarkdown: this.state.descMarkdown,
                 image: this.state.image,
+                adminId: this.props.userInfo.id
             })
 
             if (res && res.errCode === 0) {
@@ -121,6 +122,7 @@ class AddPost extends Component
 
     render ()
     {
+        
         return (
             <>
                 <title>
@@ -187,7 +189,8 @@ class AddPost extends Component
 const mapStateToProps = state =>
 {
     return {
-        language: state.app.language
+        language: state.app.language,
+        userInfo: state.user.userInfo,
     };
 };
 

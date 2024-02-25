@@ -7,8 +7,10 @@ import logo from "../../assets/logo.jpg"
 import avatar from "../../assets/user.jpg"
 import top from "../../assets/top.png"
 import { withRouter } from 'react-router';
-import { getcommentById, createcomment, createrepcomment } from '../../services/userService';
+import { getcommentById, createcomment, createrepcomment , createreport} from '../../services/userService';
+import { CommonUtils } from '../../utils'; // vi or en
 import RepComment from './RepComment';
+import { toast } from 'react-toastify';
 class Comment extends Component
 {
     constructor(props) {
@@ -21,7 +23,12 @@ class Comment extends Component
             comment_input: "",
             userId: "",
             commentId: "",
-            update: false
+            update: false,
+            openReport: false,
+            senReport: false,
+            imageReport: "",
+            content: "",
+            userReport: []
         }
     }
 
@@ -34,7 +41,8 @@ class Comment extends Component
         let res = await getcommentById(this.props.match.params.id);
         let reverse = res.data.reverse();
         this.setState({
-            comment: reverse
+            comment: reverse,
+            imageReport: ""
         })
         this.getUser();
     }
@@ -167,19 +175,88 @@ class Comment extends Component
         if (e.keyCode === 13 || e.keyCode === "Enter") {
             await this.handleComment();
         }
+    }   
+
+    handlereport = async (id) => { 
+        this.setState({
+            openReport: !this.state.openReport,
+            userReport: id
+        })
     }
 
+    handleSenReport = () => {
+        this.setState({
+            senReport:!this.state.senReport
+        })
+    }
     
+    handleOnchangeImg = async (event) => {
+        let file = event.target.files[0];
+        if (file) {
+            let getBase64 = await CommonUtils.getBase64(file);
+            this.setState({
+                imageReport: getBase64
+            })
+        }
+
+    }
+
+      handleOnchangeInput = ( event, id ) =>
+    {
+        let stateCopy = { ...this.state };
+        stateCopy[ id ] = event.target.value;
+        this.setState( {
+            ...stateCopy
+        } )
+    }
+
+    checkcontentreport = () => {
+        if (this.state.content.length <= 0) {
+            alert("Vui lòng nhập nội dung báo cáo!");
+            return false;
+        }
+        return true;
+    }
+
+    handleOnsaveReport = async () => {
+        if (this.checkcontentreport()) {
+            let res = await createreport({
+                type: "pcomment",
+                userId: this.state.userId,
+                userrportId: this.state.userReport.id,
+                postId: this.state.postId,
+                content: this.state.content,
+                image: this.state.imageReport,
+                comment: this.state.userReport.comment,
+                status: "S1"
+            })
+            if (res && res.errCode === 0) { 
+                this.setState({
+                    openReport: false,
+                    senReport: false,
+                    content: '',
+                    imageReport: ''
+                })
+                toast.success("Báo cáo của bạn sẽ được xữ lý sớm!");
+            }
+            else {
+                
+                toast.error("Có lỗi xảy ra, vui lòng thử lại!");
+            }
+        }
+    }
     
     render ()
     {
-        let { comment, fullComment } = this.state;
-        console.log(this.props)
+        let { comment, fullComment, openReport , senReport, imageReport} = this.state;
 
         return (
             <>
                 <div>Bình luận bài viết: </div>
-                <div className={fullComment === true ? 'cmt':'cmt cmt_s'}>
+                
+                {comment && comment.length <= 0 && "Hãy bình luận cho bài viết!"} 
+
+                {comment && comment.length > 0 && <div className={fullComment === true   ? 'cmt':'cmt cmt_s'}>
                     {comment && comment.length > 0 && comment.map((item, index) => {
                     return (
                         <div className='post-comment-content'>
@@ -191,7 +268,10 @@ class Comment extends Component
                                         <div className='comment'>{item.comment }</div>
                             </div>
                             <div className='comment-main-content-bottom'>
-                                <span>{ this.timecreated(item.updatedAt)} </span> <span><b>Thích</b></span> <span onClick={() => this.handleChangeKey(item.id)}><b><label for="texxt">Trả lời</label></b></span>
+                                        <span>{this.timecreated(item.updatedAt)} </span>
+                                        <span><b>Thích</b></span>
+                                        <span onClick={() => this.handleChangeKey(item.id)}><b><label for="texxt">Trả lời</label></b></span>
+                                        <span onClick={() => this.handlereport(item)} title='Báo cáo bài viết'><i class="fas fa-bug"></i></span>
         
                         </div>
                         </div>
@@ -202,15 +282,16 @@ class Comment extends Component
                                 update={this.state.update}
                             />
 
-                </div>
-                    )
-                })}
-                   {comment && comment.length <= 0 && "Hãy bình luận cho bài viết!"} 
-                </div>
+                    </div>
+                        )
+                    })}
+                   
+                </div>}
+                
+                {fullComment === false && comment && comment.length > 0 &&  <div className='see_close'><span onClick={() => this.fullComment()}>Xem thêm</span></div> }
+                {fullComment === true && comment && comment.length > 0 &&  <div className='see_close'><span onClick={() => this.fullComment()}>Ẩn bớt</span></div>}
                 
                 
-                {fullComment === false ? <div className='see_close'><span onClick={() => this.fullComment()}>Xem thêm</span></div> :
-                <div className='see_close'><span onClick={() => this.fullComment()}>Ẩn bớt</span></div>}
                 <div className='text-comment'>
                     <input type='text' id="texxt" value={this.state.comment_input}
                         onKeyDown={(event) => this.handleOnkeyDown(event)}
@@ -218,6 +299,30 @@ class Comment extends Component
                     />
                     <i onClick={() => this.handleComment()} class="fas fa-share"></i>
                 </div>
+
+                {openReport === true && <div className='form-report'>
+                    <div className='form-report-content'>
+                        <div className='name text-center'>Báo cáo</div>
+                        <div className='form-group'>
+                            <label>Nội dung báo cáo: </label>
+                            <textarea onChange={(event) => this.handleOnchangeInput(event, "content")}></textarea>
+                        </div>
+                        <div className='form-group image' >
+                            <label className='label_upload-img' htmlFor='reviewImg'>Ảnh  <i className='fas fa-upload'></i></label>
+                                <input hidden type='file' className='form-controll-file' id="reviewImg"
+                                    onChange={(event) => this.handleOnchangeImg(event)}
+                            />
+                            <img src={ imageReport} alt='Ảnh'/>
+                        </div>
+                        <p><input onClick={() => this.handleSenReport()} type='checkbox'/> Bạn có chắc chắn rằng nội dung báo cáo của bạn là hoàn toàn chính xác và đáng tin cậy?</p>
+                        <div className='btn-submit'>
+                            {senReport === true ? <div className='btn btn-primary'
+                            onClick={() => this.handleOnsaveReport()}
+                            >Gửi</div> : <div className='btn btn-secondary'>Gửi</div>}
+                            <div className='btn btn-secondary btn-cancel' onClick={() => this.handlereport()}>Hủy</div>
+                        </div>
+                       </div>
+                </div>}
                 
             </>
         );

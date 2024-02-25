@@ -2,35 +2,37 @@
 module.exports = {
     up: async ( queryInterface, Sequelize ) =>
     {
-        await queryInterface.createTable( 'posts', {
+        await queryInterface.createTable( 'reports', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-            adminId: {
+            type: {
                 allowNull: false,
                 type: Sequelize.STRING
             },
-            name: {
-                allowNull: false,
+            userId: {
+                type: Sequelize.STRING
+            },
+            userId: {
+                type: Sequelize.STRING
+            },
+            userrportId: {
+                type: Sequelize.STRING
+            },
+            content: {
+                type: Sequelize.STRING
+            },
+            comment: {
                 type: Sequelize.STRING
             },
             image: {
                 type: Sequelize.STRING
             },
-            descMarkdown: {
+            status: {
                 type: Sequelize.STRING
-            },
-            descHTML: {
-                type: Sequelize.STRING
-            },
-            catId: {
-                type: Sequelize.STRING
-            },
-            count: {
-                type: Sequelize.INTEGER
             },
             createdAt: {
                 allowNull: false,
@@ -44,6 +46,6 @@ module.exports = {
     },
     down: async ( queryInterface, Sequelize ) =>
     {
-        await queryInterface.dropTable( 'posts' );
+        await queryInterface.dropTable( 'reports' );
     }
 };

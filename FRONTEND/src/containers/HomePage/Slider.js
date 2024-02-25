@@ -38,13 +38,16 @@ class Slider extends Component
 
     getPost = async () => {
         let res = await getAllpost();
-        let reverse = res.data.reverse();
-    let slicedData = reverse.slice(0, 5); // Lấy 5 phần tử đầu tiên
-    this.setState({
+        if (res && res.data && res.data.length > 0) { 
+            let reverse = res.data.reverse();
+        let slicedData = reverse.slice(0, 5); // Lấy 5 phần tử đầu tiên
+        this.setState({
         listPost: slicedData
     });
         this.getbg();
-        this.setbg();
+        this.setbg();   
+        }
+        
     }
 
     setbg = () => {

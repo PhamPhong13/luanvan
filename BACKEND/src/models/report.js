@@ -4,7 +4,7 @@ const {
 } = require( 'sequelize' );
 module.exports = ( sequelize, DataTypes ) =>
 {
-    class Post extends Model
+    class Report extends Model
     {
         /**
          * Helper method for defining associations.
@@ -14,20 +14,23 @@ module.exports = ( sequelize, DataTypes ) =>
         static associate ( models )
         {
             // define association here
+            Report.belongsTo(models.User, { foreignKey: "userId" })
+
         }
     };
-    Post.init( {
-        adminId: DataTypes.STRING,
-        name: DataTypes.STRING,
+    Report.init( {
+        type: DataTypes.STRING,
+        userId: DataTypes.STRING,
+        postId: DataTypes.STRING,
+        userrportId: DataTypes.STRING,
+        content: DataTypes.STRING,
+        comment: DataTypes.STRING,
         image: DataTypes.STRING,
-        descMarkdown: DataTypes.STRING,
-        descHTML: DataTypes.STRING,
-        catId: DataTypes.STRING,
-        count: DataTypes.INTEGER,
+        status: DataTypes.STRING,
         
     }, {
         sequelize,
-        modelName: 'Post',
+        modelName: 'Report',
     } );
-    return Post;
+    return Report;
 };

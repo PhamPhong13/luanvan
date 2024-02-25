@@ -107,9 +107,10 @@ class EditPost extends Component
     }
 
     handleSave = async () => {
+        console.log(this.state)
         let res = await updatepost({
                 name: this.state.name,
-                catId: this.state.catId,
+                catId: this.state.catId.value,
                 descHTML: this.state.descHTML,
                 descMarkdown: this.state.descMarkdown,
                 image: this.state.image,

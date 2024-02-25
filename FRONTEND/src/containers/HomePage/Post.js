@@ -220,7 +220,10 @@ class Post extends Component
                                     <p className='content-p' dangerouslySetInnerHTML={ { __html: post.descHTML } }>
                                     </p>
                                 </div>
-
+                                <div>-------------------------------------------------------</div>
+                                <div className='btn btn-primary'>
+                                Id bài viết: {post.id}   Báo cáo 
+                                </div>
                                 <Comment postId = {id} />
 
                             </div>
@@ -241,6 +244,7 @@ class Post extends Component
                                     <span>-- Xem thêm -- </span>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
                 </div>

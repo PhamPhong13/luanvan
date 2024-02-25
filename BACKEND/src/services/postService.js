@@ -21,7 +21,8 @@ let createpost = ( data ) =>
                 descMarkdown: data.descMarkdown,
                 descHTML: data.descHTML,
                 catId: data.catId,
-                count: 0
+                count: 0,
+                adminId: data.adminId
             } );
 
             resolve( {
@@ -151,10 +152,12 @@ let getpostById = ( id ) =>
 //get patient by id
 let getAllpostById = ( id ) =>
 {
+   
     return new Promise( async ( resolve, reject ) =>
     {
         try
         {
+             
             let patients = await db.Post.findAll( {
                 where: {
                     catId: id
@@ -165,7 +168,7 @@ let getAllpostById = ( id ) =>
                 resolve( {
                     errCode: 0,
                     message: "get post successfully!",
-                    data: patients
+                    data: patients,
                 } )
             }
             else
@@ -183,6 +186,50 @@ let getAllpostById = ( id ) =>
         }
     } )
 }
+
+let getAllpostBypage = (id, page) =>
+{
+    const limit = 3; // Số lượng bài viết mỗi trang
+    const offset = (page - 1) * limit; // Vị trí bắt đầu của trang hiện tại
+    
+    return new Promise(async (resolve, reject) =>
+    {
+        try
+        {
+            let totalPosts = await db.Post.count({ where: { catId: id } }); // Đếm tổng số bài viết theo điều kiện
+            let totalPages = Math.ceil(totalPosts / limit); // Tính tổng số trang
+
+            let patients = await db.Post.findAll({
+                where: {
+                    catId: id
+                },
+                order: [['createdAt', 'DESC']], // Sắp xếp theo ngày tạo giảm dần (ngược lại)
+                offset: offset,
+                limit: limit
+            });
+
+            if (patients.length > 0) {
+                resolve({
+                    errCode: 0,
+                    message: "get post successfully!",
+                    data: patients,
+                    total: totalPosts,
+                    totalPages: totalPages // Thêm thông tin về số trang vào đối tượng kết quả
+                });
+            } else {
+                resolve({
+                    errCode: 1,
+                    message: "No posts found for this category and page"
+                });
+            }
+        }
+        catch (err)
+        {
+            reject(err);
+        }
+    });
+}
+
 // delete patient
 let deletepost = ( id ) =>
 {
@@ -243,7 +290,8 @@ let updatepost = ( data ) =>
                 patient.catId = data.catId;
                 patient.descMarkdown = data.descMarkdown;
                 patient.descHTML = data.descHTML,
-                patient.count = data.count
+                patient.count = data.count,
+                patient.adminId = data.adminId,
                 await patient.save();
 
                 resolve( {
@@ -274,5 +322,6 @@ module.exports = {
     deletepost: deletepost,
     updatepost: updatepost,
     getAllpostById: getAllpostById,
-    getpostbypage: getpostbypage
+    getpostbypage: getpostbypage,
+    getAllpostBypage: getAllpostBypage
 }

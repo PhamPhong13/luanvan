@@ -20,7 +20,7 @@ class ManagePost extends Component
     }
 
     async componentDidMount() {
-        await this.getAllPosts(1);
+        await this.getAllPosts("1");
     }
 
     getAllPosts = async (page) => {

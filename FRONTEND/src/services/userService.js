@@ -114,6 +114,12 @@ const getpostById = (id) => {
 const getAllpostById = (id) => {
   return axios.get(`api/get-post-all-by-id?id=${id}`);
 }
+
+const getAllpostBypage = (id, page) => {
+  console.log("check -: ", id, page)
+  
+  return axios.get(`api/get-all-post-by-page?id=${id}&page=${page}`);
+}
 const updatepost = (data) => {
   return axios.put(`api/update-post`, data);
 }
@@ -310,6 +316,31 @@ const getconnectById = (id) => {
 }
 
 
+// ---------------------- bg -------------------
+
+const getAllreport = () => {
+  return axios.get(`/api/get-report`);
+};
+
+const createreport = (data) => {
+  return axios.post(`/api/create-report`, data);
+}
+
+const deletereport = (id) => {
+  return axios.delete(`/api/delete-report`, {
+    data: { id: id }
+  })
+}
+
+const getreportById = (id) => {
+  return axios.get(`api/get-report-by-id?id=${id}`);
+}
+
+const updatereport = (data) => {
+  return axios.put(`api/update-report`, data);
+}
+
+
 export {
   handleLoginApi,   getAllcode, handleLoginUser,
 
@@ -324,13 +355,15 @@ export {
   /* category */
   getAllcat, createcat, deletecat, getcatById, updatecat,
   /* posts */
-  getAllpost, createpost, deletepost, getpostById, updatepost, getAllpostById,getpostbypage,
+  getAllpost, createpost, deletepost, getpostById, updatepost, getAllpostById,getpostbypage, getAllpostBypage,
   /* comments */
   getAllcomment, createcomment, deletecomment, getcommentById, updatecomment,
    /* rep comment */
   getAllrepcomment, createrepcomment, deleterepcomment, getrepcommentById, updaterepcomment, deleterepcommentbycomment,
-  /* comments */
+  /* backround */
   getAllbg, createbg, deletebg, getbgById, updatebg,
+  /* report */
+  getAllreport, createreport, deletereport, getreportById, updatereport,
    /* admin */
   createlikepost, deletelikepost, getlikepostById,
   /* admin */

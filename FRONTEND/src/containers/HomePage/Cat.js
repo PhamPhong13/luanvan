@@ -6,9 +6,11 @@ import * as actions from '../../store/actions'
 import logo from "../../assets/logo.jpg"
 import avatar from "../../assets/410251206_697829015774464_3697217710754640905_n.jpg"
 import { withRouter } from 'react-router';
-import {getAllpostById,   getcatById, getpostById} from '../../services/userService';
+import {getAllpostById,   getcatById, getAllpostBypage} from '../../services/userService';
 import Header from './Header';
 import Footer from './Footer';
+import ReactPaginate from 'react-paginate';
+
 class Cat extends Component
 {
 
@@ -16,7 +18,8 @@ class Cat extends Component
         super(props);
         this.state = {
             listPost: [],
-            name: ""
+            name: "",
+            totalpage: 0,
         }
     }
 
@@ -30,11 +33,14 @@ class Cat extends Component
         if (res && res.errCode === 0 ) {
             this.setState({
                 name: res.data.name,
+
             })
         }
         else this.setState({
             name: ""
         })
+
+        await this.getpost(1);
     }
 
     async componentDidUpdate(prevProps) {
@@ -42,16 +48,17 @@ class Cat extends Component
             this.setState({
                 id: this.props.match.params.id
             })
-            await this.getpost();
+            await this.getcat();
         } 
     }
 
-    getpost = async () => {
-        let res = await getAllpostById(this.props.match.params.id);
+    getpost = async (page) => {
+        let res = await getAllpostBypage(this.props.match.params.id, page);
+        console.log("check ", res);
         if (res && res.errCode === 0 ) {
-            let reverse = res.data.reverse();
             this.setState({
-                listPost: reverse
+                listPost: res.data,
+                totalpage: res.totalPages
             })
         }
         else this.setState({
@@ -65,10 +72,14 @@ class Cat extends Component
             this.props.history.push( `/post/${id}` );
         }
     }
+
+    handlePageClick = async (event) => {
+        await this.getpost(event.selected + 1);
+     }
     
     render ()
     {
-        let { listPost, name } = this.state;
+        let { listPost, name , totalpage} = this.state;
         return (
             <>
                 <title>
@@ -79,8 +90,9 @@ class Cat extends Component
                     <div className='manage_container-content' >
                         <div className='title'>chuyên mục { name}</div>
                     </div>
+
                     <div className='cat_content'>
-                        {listPost && listPost.map((item, index) => {
+                        {listPost.map((item, index) => {
                             return (
                             <li onClick={() => this.linktopost(item.id)}  className='cat_content-ietm'>
                             <img src={item.image} />
@@ -92,6 +104,31 @@ class Cat extends Component
                             
                         })}
                     </div>
+                    {listPost && listPost.length > 0 && 
+                        <div className='ReactPaginate mt-2'>
+                        <ReactPaginate
+                            breakLabel="..."
+                            nextLabel="Tiếp >"
+                            onPageChange={this.handlePageClick}
+                            pageRangeDisplayed={totalpage}
+                            pageCount={totalpage}
+                            previousLabel="< Trước"
+                            renderOnZeroPageCount={null}
+                            pageClassName='page-item'
+                            pageLinkClassName='page-link'
+                            previousClassName='page-item'
+                            previousLinkClassName='page-link'
+                            nextClassName='page-item'
+                            nextLinkClassName='page-link'
+                            breakClassName='page-item'
+                            breakLinkClassName='page-link'
+                            containerClassName='pagination'
+                            activeClassName='active'
+                            marginPagesDisplayed={10}
+                        />
+                    </div>
+                    }
+                    
                 </div>
 
                 <Footer />
