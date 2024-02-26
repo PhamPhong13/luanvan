@@ -4,7 +4,8 @@
     "homepage": "Trang chủ",
     "welcome": "Xin chào, ",
     "manage": {
-      "manage-user": "Người dùng",
+      "user": "Người dùng",
+      "manage-user": "Quản lý người dùng",
       "cat": "Danh mục",
       "manage-cat": "Quản lý danh mục",
       "manage-category": "Quản lý danh mục",
@@ -21,7 +22,10 @@
       "manage-post": "Quản lý bài viết",
       "add-post": "Thêm bài viết",
       "edit-post": "Sửa bài viết",
-      "post": "Bài viết"
+      "post": "Bài viết",
+      "report": "Báo Cáo",
+      "manage-report-user": "Quản lý báo cáo người dùng",
+      "manage-report-post": "quản lý báo cáo bài viết"
 
     },
     "nhiemky": "Nhiệm kỳ",

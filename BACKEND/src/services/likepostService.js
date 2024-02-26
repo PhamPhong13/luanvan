@@ -94,6 +94,42 @@ let getlikepostById = ( userId, postId ) =>
     } )
 }
 
+let getlikepostBypostId = ( postId ) =>
+{
+    return new Promise( async ( resolve, reject ) =>
+    {
+        try
+        {
+            let patients = await db.Likepost.findOne( {
+                where: {
+                    
+                    postId: postId,
+                }
+            } );
+            if ( patients )
+            {
+                resolve( {
+                    errCode: 0,
+                    message: "get likepost successfully!",
+                    data: patients
+                } )
+            }
+            else
+            {
+                resolve( {
+                    errCode: 1,
+                    message: "get likepost failed!"
+                } )
+            }
+
+        }
+        catch ( err )
+        {
+            reject( err );
+        }
+    } )
+}
+
 /* //get patient by id
 let getAlllikepostById = ( id ) =>
 {
@@ -164,4 +200,5 @@ module.exports = {
     createlikepost: createlikepost,
     getlikepostById: getlikepostById,
     deletelikepost: deletelikepost,
+    getlikepostBypostId: getlikepostBypostId
 }

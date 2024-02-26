@@ -6,7 +6,7 @@ import * as actions from '../../store/actions'
 import logo from "../../assets/logo.jpg"
 import avatar from "../../assets/410251206_697829015774464_3697217710754640905_n.jpg"
 import { withRouter } from 'react-router';
-import { getAllbg,  getAllpost} from '../../services/userService';
+import { getAllbg,  getpost} from '../../services/userService';
 
 class Slider extends Component
 {
@@ -22,13 +22,20 @@ class Slider extends Component
     }
 
     async componentDidMount() {
-        await this.getPost();
+        await this.getPosts();
     }
 
     getbg = async () => {
         let res = await getAllbg();
-        this.setState({
+        if (res && res.errCode === 0 && res.data.length > 0) {
+            this.setState({
             bg: res.data[res.data.length - 1].image,
+            name:""
+
+        })
+        }
+        else this.setState({
+            bg: logo,
             name:""
 
         })
@@ -36,16 +43,14 @@ class Slider extends Component
     }
 
 
-    getPost = async () => {
-        let res = await getAllpost();
-        if (res && res.data && res.data.length > 0) { 
-            let reverse = res.data.reverse();
-        let slicedData = reverse.slice(0, 5); // Lấy 5 phần tử đầu tiên
-        this.setState({
-        listPost: slicedData
-    });
-        this.getbg();
-        this.setbg();   
+    getPosts = async () => {
+        let res = await getpost();
+        if (res && res.data) { 
+                    this.setState({
+                    listPost: res.data
+                });
+                this.getbg();
+                this.setbg();   
         }
         
     }

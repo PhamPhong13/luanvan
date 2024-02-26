@@ -36,9 +36,17 @@ let createAdmin = async ( req, res ) =>
 // get all patient
 let getAdmin = async ( req, res ) =>
 {
-    let admin = await adminService.getAdmin();
-    return res.status( 200 ).json( admin );
+    let User = await adminService.getAdmin(req.query.page);
+    return res.status( 200 ).json( User );
 }
+
+// get all patient
+let getAllAdmin = async ( req, res ) =>
+{
+    let User = await adminService.getAllAdmin(req.query.page, req.query.word);
+    return res.status( 200 ).json( User );
+}
+
 
 // get patient by id
 let getAdminById = async ( req, res ) =>
@@ -65,5 +73,6 @@ module.exports = {
     getAdminById: getAdminById,
     deleteAdmin: deleteAdmin,
     updateAdmin: updateAdmin,
-    login: login
+  login: login,
+    getAllAdmin: getAllAdmin
 }

@@ -10,10 +10,16 @@ let createcat = async ( req, res ) =>
 // get all patient
 let getcat = async ( req, res ) =>
 {
-    let cat = await catService.getcat();
-    return res.status( 200 ).json( cat );
+    let User = await catService.getcat(req.query.page);
+    return res.status( 200 ).json( User );
 }
 
+// get all patient
+let getAllcat = async ( req, res ) =>
+{
+    let User = await catService.getAllcat(req.query.page, req.query.word);
+    return res.status( 200 ).json( User );
+}
 // get patient by id
 let getcatById = async ( req, res ) =>
 {
@@ -57,5 +63,6 @@ module.exports = {
     deletecat: deletecat,
   updatecat: updatecat, 
     getAllCode: getAllCode,
+    getAllcat: getAllcat
     /* login: login */
 }

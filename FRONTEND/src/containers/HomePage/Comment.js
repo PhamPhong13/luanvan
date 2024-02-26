@@ -216,7 +216,7 @@ class Comment extends Component
         
         if (this.checkcontentreport()) {
             let res = await createreport({
-                type: "pcomment",
+                type: "repcomment",
                 userId: this.state.userId,
                 userrportId: this.state.userReport.userId,
                 postId: this.state.postId,

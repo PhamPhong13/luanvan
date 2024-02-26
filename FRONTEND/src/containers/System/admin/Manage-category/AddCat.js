@@ -67,6 +67,12 @@ class AddCat extends Component
         }
     }
 
+    handleOnkeyDown = (e) => {
+        if (e.keyCode === 13 || e.keyCode === "Enter") {
+            this.handleSave();
+        }
+    }
+
     render ()
     {
         return (
@@ -86,6 +92,7 @@ class AddCat extends Component
                             <label><FormattedMessage id="system.manage.cat"></FormattedMessage>:</label>
                             <input type='text'
                                 onChange={(event) => this.handleOnchangeInput(event, "name")}
+                                onKeyDown={(event) => this.handleOnkeyDown(event)}
                             />
                         </div>
 

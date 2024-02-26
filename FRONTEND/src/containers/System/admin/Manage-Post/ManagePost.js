@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
-import {getpostbypage, deletepost, getAllpost } from "../../../../services/userService"
+import {getpost, deletepost, getAllpost, gethistoryById } from "../../../../services/userService"
 
 import { withRouter } from 'react-router';
 import { toast } from 'react-toastify';
@@ -20,20 +20,38 @@ class ManagePost extends Component
     }
 
     async componentDidMount() {
-        await this.getAllPosts("1");
+        await this.getposts("1");
     }
 
-    getAllPosts = async (page) => {
-        let res = await getpostbypage(page);
-        console.log(res);
-        this.setState({
-            listPost: res.data,
-            totalpage: res.totalPages
-
+    
+    getposts = async (page) => {
+        let res = await getpost(page);
+        console.log(res)
+        if (res && res.data.length > 0) {
+            this.setState({
+                listPost: res.data,
+                totalpage: res.totalPages
+            })
+        }
+        else this.setState({
+            listPost: []
         })
     }
 
-   
+    getAllpost= async (page, word) => {
+
+        let res = await getAllpost(page, word);
+        console.log(res)
+        if (res && res.data.length > 0) {
+            this.setState({
+                listPost: res.data,
+                totalpage: res.totalPages
+            })
+        }
+        else this.setState({
+            listPost: []
+        })
+    }
 
     linkToAddAdmin = () => {
         if ( this.props.history )
@@ -211,11 +229,11 @@ class ManagePost extends Component
                     <div className='ReactPaginate mt-2'>
                         <ReactPaginate
                             breakLabel="..."
-                            nextLabel="next >"
+                            nextLabel="sau >"
                             onPageChange={this.handlePageClick}
                             pageRangeDisplayed={totalpage}
                             pageCount={totalpage}
-                            previousLabel="< previous"
+                            previousLabel="< trước"
                             renderOnZeroPageCount={null}
                             pageClassName='page-item'
                             pageLinkClassName='page-link'

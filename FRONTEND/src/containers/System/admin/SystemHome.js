@@ -23,8 +23,14 @@ class SystemHome extends Component
 
     getAllBackground = async () => {
         let res = await getAllbg();
-        this.setState({
+        console.log(res)
+        if (res && res.errCode === 0 && res.data.length > 0) {
+            this.setState({
             image: res.data[res.data.length - 1].image
+            })
+        }
+        else this.setState({
+            image: ""
         })
         
     }

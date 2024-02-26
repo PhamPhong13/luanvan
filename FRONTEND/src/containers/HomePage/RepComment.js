@@ -143,7 +143,7 @@ class RepComment extends Component
         
         if (this.checkcontentreport()) {
             let res = await createreport({
-                type: "pcomment",
+                type: "repcomment",
                 userId: this.props.userInfo.id,
                 userrportId: this.state.userReport.userId,
                 postId: this.props.match.params.id,

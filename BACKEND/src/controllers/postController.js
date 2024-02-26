@@ -12,16 +12,15 @@ let createpost = async ( req, res ) =>
 // get all patient
 let getpost = async ( req, res ) =>
 {
-    let post = await postService.getpost();
-    return res.status( 200 ).json( post );
+    let User = await postService.getpost(req.query.page);
+    return res.status( 200 ).json( User );
 }
 
-
 // get all patient
-let getpostbypage = async ( req, res ) =>
+let getAllpost = async ( req, res ) =>
 {
-    let post = await postService.getpostbypage(req.query.page);
-    return res.status( 200 ).json( post );
+    let User = await postService.getAllpost(req.query.page, req.query.word);
+    return res.status( 200 ).json( User );
 }
 
 
@@ -59,22 +58,6 @@ let updatepost = async ( req, res ) =>
     return res.status( 200 ).json( post );
 }
 
-// get all code table
-let getAllCode = async (req, res) => {
-    try {
-        let data = await postService.getAllCode(req.query.type);
-        return res.status(200).json(data);
-
-    }
-    catch (err) {
-        console.log("Get all code error", err);
-        return res.status(200).json({
-            errCode: -1,
-            errMessage: "Error from server!"
-        })
-    }
-}
-
  
 module.exports = {
     createpost: createpost,
@@ -83,6 +66,6 @@ module.exports = {
     deletepost: deletepost,
   updatepost: updatepost, 
     getAllpostById: getAllpostById,
-    getpostbypage: getpostbypage,
+    getAllpost: getAllpost,
     getAllpostBypage: getAllpostBypage
 }

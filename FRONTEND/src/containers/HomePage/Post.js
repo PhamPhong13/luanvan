@@ -6,10 +6,12 @@ import * as actions from '../../store/actions'
 import logo from "../../assets/logo.jpg"
 import avatar from "../../assets/410251206_697829015774464_3697217710754640905_n.jpg"
 import { withRouter } from 'react-router';
-import {getAllpostById,   getcatById, getpostById, getlikepostById, createlikepost, deletelikepost, updatepost, createhistory} from '../../services/userService';
+import {getAllpostById,   getcatById, getpostById, getlikepostById, createlikepost, deletelikepost, updatepost, createhistory,createreport} from '../../services/userService';
 import Header from './Header';
 import Comment from './Comment';
 import Footer from './Footer';
+import { CommonUtils } from '../../utils'; // vi or en
+import { toast } from 'react-toastify';
 class Post extends Component
 {
 
@@ -24,7 +26,12 @@ class Post extends Component
             day: "",
             postbycat: [],
             userId: "",
-            likepost: false
+            likepost: false,
+            openReport: false,
+            senReport: false,
+            imageReport: "",
+            content: "",
+            userReport: []
         }
     }
 
@@ -180,9 +187,79 @@ class Post extends Component
         }
     }
 
+     handleOnchangeInput = ( event, id ) =>
+    {
+        let stateCopy = { ...this.state };
+        stateCopy[ id ] = event.target.value;
+        this.setState( {
+            ...stateCopy
+        } )
+    }
+    
+    handlereport = async (id) => { 
+        this.setState({
+            openReport: !this.state.openReport,
+            userReport: id,
+            imageReport: "",
+            content: "",
+        })
+    }
+    
+    checkcontentreport = () => {
+        if (this.state.content.length <= 0) {
+            alert("Vui lòng nhập nội dung báo cáo!");
+            return false;
+        }
+        return true;
+    }
+
+    handleOnsaveReport = async () => {
+        if (this.checkcontentreport()) {
+            let res = await createreport({
+                type: "postcomment",
+                userId: this.props.userInfo.id,
+                userrportId: this.state.userReport.adminId,
+                postId: this.state.userReport.id,
+                content: this.state.content,
+                image: this.state.imageReport,
+                comment: "",
+                status: "S1"
+            })
+            if (res && res.errCode === 0) { 
+                this.setState({
+                    openReport: false,
+                    senReport: false,
+                    content: '',
+                    imageReport: ''
+                })
+                toast.success("Báo cáo của bạn sẽ được xử lý sớm!");
+            }
+            else {
+                
+                toast.error("Có lỗi xảy ra, vui lòng thử lại!");
+            }
+        }
+    }
+    handleSenReport = () => {
+        this.setState({
+            senReport:!this.state.senReport
+        })
+    }
+
+    handleOnchangeImg = async (event) => {
+        let file = event.target.files[0];
+        if (file) {
+            let getBase64 = await CommonUtils.getBase64(file);
+            this.setState({
+                imageReport: getBase64
+            })
+        }
+
+    }
+
     render ()
     {
-        let { post, cat, thu, day, postbycat, id, likepost } = this.state;
+        let { post, cat, thu, day, postbycat, id, likepost, openReport , senReport, imageReport } = this.state;
         return (
             <>
                 <title>
@@ -221,7 +298,8 @@ class Post extends Component
                                     </p>
                                 </div>
                                 <div>-------------------------------------------------------</div>
-                                <div className='btn btn-primary'>
+                                <div className='btn btn-primary'
+                                onClick={() => this.handlereport(post)}>
                                 Id bài viết: {post.id}   Báo cáo 
                                 </div>
                                 <Comment postId = {id} />
@@ -247,6 +325,29 @@ class Post extends Component
                             
                         </div>
                     </div>
+                    {openReport === true && <div className='form-report'>
+                    <div className='form-report-content'>
+                        <div className='name text-center'>Báo cáo</div>
+                        <div className='form-group'>
+                            <label>Nội dung báo cáo: </label>
+                            <textarea onChange={(event) => this.handleOnchangeInput(event, "content")}></textarea>
+                        </div>
+                        <div className='form-group image' >
+                            <label className='label_upload-img' htmlFor='reviewImg'>Ảnh  <i className='fas fa-upload'></i></label>
+                                <input hidden type='file' className='form-controll-file' id="reviewImg"
+                                    onChange={(event) => this.handleOnchangeImg(event)}
+                            />
+                            <img src={ imageReport} alt='Ảnh'/>
+                        </div>
+                        <p><input onClick={() => this.handleSenReport()} type='checkbox'/> Bạn có chắc chắn rằng nội dung báo cáo của bạn là hoàn toàn chính xác và đáng tin cậy?</p>
+                        <div className='btn-submit'>
+                            {senReport === true ? <div className='btn btn-primary'
+                            onClick={() => this.handleOnsaveReport()}
+                            >Gửi</div> : <div className='btn btn-secondary'>Gửi</div>}
+                            <div className='btn btn-secondary btn-cancel' onClick={() => this.handlereport()}>Hủy</div>
+                        </div>
+                       </div>
+                </div>}
                 </div>
 
                 <Footer />

@@ -26,6 +26,7 @@ let initWebRoutes = (app) => {
   // route admin
   router.post("/api/create-admin", admin.createAdmin); // create admin
   router.get("/api/get-admin", admin.getAdmin); // get admin
+  router.get("/api/get-all-admin", admin.getAllAdmin); // get admin
   router.get("/api/get-admin-by-id", admin.getAdminById); // get admin by id
   router.delete("/api/delete-admin", admin.deleteAdmin); // delete admin
   router.put("/api/update-admin", admin.updateAdmin); // update admin
@@ -33,6 +34,7 @@ let initWebRoutes = (app) => {
   // route user
   router.post("/api/create-user", user.createUser); // create User
   router.get("/api/get-user", user.getUser); // get User
+  router.get("/api/get-all-user", user.getAllUser); // get User
   router.get("/api/get-user-by-id", user.getUserById); // get User by id
   router.delete("/api/delete-user", user.deleteUser); // delete User
   router.put("/api/update-user", user.updateUser); // update User
@@ -54,6 +56,7 @@ let initWebRoutes = (app) => {
   // route cat
   router.post("/api/create-cat", cat.createcat); // create cat
   router.get("/api/get-cat", cat.getcat); // get cat
+  router.get("/api/get-all-cat", cat.getAllcat); // get cat
   router.get("/api/get-cat-by-id", cat.getcatById); // get cat by id
   router.delete("/api/delete-cat", cat.deletecat); // delete cat
   router.put("/api/update-cat", cat.updatecat); // update cat
@@ -68,7 +71,7 @@ let initWebRoutes = (app) => {
   // route post
   router.post("/api/create-post", post.createpost); // create post
   router.get("/api/get-post", post.getpost); // get post
-  router.get("/api/get-post-by-page", post.getpostbypage); // get post
+  router.get("/api/get-all-post", post.getAllpost); // get post
   router.get("/api/get-post-by-id", post.getpostById); // get post by id
   router.get("/api/get-all-post-by-page", post.getAllpostBypage); // get post by id
   router.get("/api/get-post-all-by-id", post.getAllpostById); // get post by id
@@ -101,6 +104,7 @@ let initWebRoutes = (app) => {
   router.post("/api/create-likepost", likepost.createlikepost); // create likepost
   router.get("/api/get-likepost", likepost.getlikepost); // get likepost
   router.get("/api/get-likepost-by-id", likepost.getlikepostById); // get likepost by id
+  router.get("/api/get-likepost-by-post-id", likepost.getlikepostBypostId); // get likepost by id
   router.delete("/api/delete-likepost", likepost.deletelikepost); // delete likepost
   router.put("/api/update-likepost", likepost.updatelikepost); // update likepost
 

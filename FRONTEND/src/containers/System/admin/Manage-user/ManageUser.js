@@ -2,28 +2,47 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
-import { getAllUser, deleteUser } from "../../../../services/userService"
+import { getAllUser, deleteUser,getUser } from "../../../../services/userService"
 
 import { withRouter } from 'react-router';
+import ReactPaginate from 'react-paginate';
 import { toast } from 'react-toastify';
 class ManageUser extends Component
 {
     constructor(props) {
         super(props);
         this.state = {
-            listAdmin: []
+            listAdmin: [],
+            totalpage: 0,
         }
     }
 
     async componentDidMount() {
-        await this.getAllUsers();
+        await this.getuser();
+        /* await this.getAllUsers(); */
     }
 
-    getAllUsers = async () => {
-        let res = await getAllUser();
+    getuser = async (page) => {
+        let res = await getUser(page);
         if (res && res.data.length > 0) {
             this.setState({
-                listAdmin: res.data
+                listAdmin: res.data,
+                totalpage: res.totalPages
+            })
+        }
+        else this.setState({
+            listAdmin: []
+        })
+    }
+
+    getAllUsers = async (page, word) => {
+
+        let res = await getAllUser(page, word);
+        console.log(res)
+        if (res && res.data.length > 0) {
+            this.setState({
+                listAdmin: res.data,
+                totalpage: res.totalPages
             })
         }
         else this.setState({
@@ -48,11 +67,10 @@ class ManageUser extends Component
     handleDeleteUser = async (id) => {
         let res = await deleteUser(id);
         if (res && res.errCode === 0) {
+            toast.success("Xóa nười dùng mới thành công!");
             await this.getAllUsers();
-                toast.success("Xóa nười dùng mới thành công!");
-                
-            }
-            else toast.error("Xóa người dùng mới không thành công!");
+        }
+        else toast.error("Xóa người dùng mới không thành công!");
     }
 
     // bỏ dấu trong chuổi
@@ -95,83 +113,34 @@ class ManageUser extends Component
 
 
 
-    handleOchangeToSearch = async(event) => {
+    handleOchangeToSearch = async (event) => {
+        console.log(event.target.value)
 
         if (event.target.value.length <= 0) {
-            this.getAllUsers();
+            this.getuser();
         }
         else {
-            let key = this.removedau(event.target.value).toLowerCase();
-            let res =  await getAllUser();
-            let result = [];
-            res.data.map((item, index) => {
-                let fullName = item.fullName.toLowerCase()
-                let name = this.removedau(fullName);
-                if (name.includes(key) === true) {
-                    result.push(item);
-                }
-            })
-
-            if (result.length > 0) {
-                this.setState({
-                    listAdmin: result
-                })
-            
-            }
-            else {
-
-                res.data.map((item, index) => {
-                let name = this.removedau(item.phone);
-                    if (name.includes(key) === true) {
-                        result.push(item);
-                    }
-                })
-                if (result.length > 0) {
-                    this.setState({
-                        listAdmin: result
-                    })            
-                }
-                else {
-
-                    res.data.map((item, index) => {
-                        let email = item.email.toLowerCase()
-                        let name = this.removedau(email);
-                        if (name.includes(key) === true) {
-                            result.push(item);
-                        }
-                    })
-
-                    if (result.length > 0) {
-                        this.setState({
-                            listAdmin: result
-                        })
-            
-                    }  
-                    else {
-                        this.setState({
-                            listAdmin: []
-                        })
-                    }
-
-                }
-                
+            await this.getAllUsers("1", event.target.value);
             }
 
         }
-    }
+
+    handlePageClick = async (event) => {
+        await this.getAllUsers(event.selected + 1);
+     }
 
     render ()
     {
 
-        let { listAdmin } = this.state;
+        let { listAdmin, totalpage } = this.state;
         return (
             <>
                 <title>
-                    <FormattedMessage id="system.manage.manage-admin"></FormattedMessage>
+                    <FormattedMessage id="system.manage.manage-user"></FormattedMessage>
                 </title>
                 <div className='container manage'>
 
-                    <div className='title'><FormattedMessage id="system.manage.manage-admin"></FormattedMessage></div>
+                    <div className='title'><FormattedMessage id="system.manage.manage-user"></FormattedMessage></div>
 
                     <div className='search'>
                         <div className='form-search'>
@@ -195,7 +164,6 @@ class ManageUser extends Component
                         <table class="table table-striped">
                     <thead>
                         <tr>
-                        <th scope="col ">STT</th>
                         <th scope="col"><FormattedMessage id="key.email"></FormattedMessage></th>
                         <th scope="col"><FormattedMessage id="key.fullname"></FormattedMessage></th>
                         <th scope="col"><FormattedMessage id="key.phone"></FormattedMessage></th>
@@ -203,10 +171,9 @@ class ManageUser extends Component
                         </tr>
                     </thead>
                         <tbody>
-                            {listAdmin && listAdmin.length > 0 && listAdmin.reverse().map((item, index) => {
+                            {listAdmin && listAdmin.length > 0 && listAdmin.map((item, index) => {
                                 return (
                                         <tr>
-                                        <th scope="row stt">{index+1}</th>
                                         <td>{ item.email}</td>
                                         <td>{ item.fullName}</td>
                                         <td>{ item.phone}</td>
@@ -231,6 +198,29 @@ class ManageUser extends Component
                     </tbody>
                     </table>
                     </div>
+
+                     <div className='ReactPaginate mt-2'>
+                        <ReactPaginate
+                            breakLabel="..."
+                            nextLabel="sau >"
+                            onPageChange={this.handlePageClick}
+                            pageRangeDisplayed={totalpage}
+                            pageCount={totalpage}
+                            previousLabel="< trước"
+                            renderOnZeroPageCount={null}
+                            pageClassName='page-item'
+                            pageLinkClassName='page-link'
+                            previousClassName='page-item'
+                            previousLinkClassName='page-link'
+                            nextClassName='page-item'
+                            nextLinkClassName='page-link'
+                            breakClassName='page-item'
+                            breakLinkClassName='page-link'
+                            containerClassName='pagination'
+                            activeClassName='active'
+                            marginPagesDisplayed={10}
+                        />
+                    </div> 
                 </div>
             </>
         );

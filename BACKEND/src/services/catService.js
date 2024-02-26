@@ -1,5 +1,6 @@
 import db from '../models/index';
-
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op;
 // create a new patient
 let createcat = ( data ) =>
 {
@@ -35,19 +36,35 @@ let createcat = ( data ) =>
     } )
 }
 // get all patient
-let getcat = () =>
+let getcat = (page) =>
 {
+    
+    if (page === "undefined") page = 1; // nếu page = undefined
     return new Promise( async ( resolve, reject ) =>
     {
+         const limit = 5; // Số lượng bài viết mỗi trang
+        const offset = (page - 1) * limit; // Vị trí bắt đầu của trang hiện tại
         try
         {
-            let patients = await db.Cat.findAll();
+            let totalPosts = await db.Cat.count(); // Đếm tổng số bài viết
+            let totalPages = Math.ceil(totalPosts / limit); // Tính tổng số trang
+            let patients = await db.Cat.findAll( {
+                attributes: {
+                    exclude: [ 'password' ]
+                },
+                order: [['createdAt', 'DESC']], // Sắp xếp theo ngày tạo giảm dần (ngược lại)
+                offset: offset,
+                limit: limit
+                
+            } );
             if ( patients )
             {
                 resolve( {
                     errCode: 0,
                     message: "get list cat successfully!",
-                    data: patients
+                    data: patients,
+                    total: totalPosts,
+                    totalPages: totalPages // Thêm thông tin về số trang vào đối tượng kết quả
                 } )
             }
             else
@@ -65,6 +82,61 @@ let getcat = () =>
         }
     } )
 }
+
+let getAllcat = (page, word) => {
+    if (page === "undefined") page = 1; // nếu page = undefined
+    return new Promise(async (resolve, reject) => {
+        const limit = 5; // Số lượng bài viết mỗi trang
+        const offset = (page - 1) * limit; // Vị trí bắt đầu của trang hiện tại
+        try {
+            let findOptions = {
+                attributes: {
+                    exclude: ['password']
+                },
+                order: [['createdAt', 'DESC']], // Sắp xếp theo ngày tạo giảm dần (ngược lại)
+                offset: offset,
+                limit: limit
+            };
+
+            let whereClause = {}; // Điều kiện tìm kiếm
+
+            // Nếu có từ khóa tìm kiếm, thêm điều kiện vào whereClause
+            if (word && word !== "undefined") {
+                whereClause = {
+                    [Op.or]: [
+                        { name: { [Op.like]: '%' + word + '%' } }, // Tìm kiếm theo username
+                    ]
+                };
+
+                findOptions.where = whereClause;
+            }
+
+            let totalPosts = await db.Cat.count({ where: whereClause }); // Đếm tổng số bài viết phù hợp
+            let totalPages = Math.ceil(totalPosts / limit); // Tính tổng số trang
+
+            // Lấy danh sách người dùng
+            let patients = await db.Cat.findAll(findOptions);
+
+            if (patients) {
+                resolve({
+                    errCode: 0,
+                    message: "get list cat successfully!",
+                    data: patients,
+                    total: totalPosts,
+                    totalPages: totalPages
+                });
+            } else {
+                resolve({
+                    errCode: 1,
+                    message: "get list cat failed!"
+                });
+            }
+
+        } catch (err) {
+            reject(err);
+        }
+    });
+};
 
 //get patient by id
 let getcatById = ( id ) =>
@@ -192,4 +264,5 @@ module.exports = {
     getcatById: getcatById,
     deletecat: deletecat,
     updatecat: updatecat,
+    getAllcat: getAllcat
 }

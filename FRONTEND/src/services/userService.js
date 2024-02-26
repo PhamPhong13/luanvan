@@ -16,8 +16,12 @@ const getAllcode = (inputData) => {
 
 // ---------------------- admin -------------------
 
-const getAllAdmin = () => {
-  return axios.get(`/api/get-admin`);
+const getAllAdmin = (page, word) => {
+  return axios.get(`/api/get-all-admin?page=${page}&word=${word}`);
+};
+
+const getAdmin = (page) => {
+  return axios.get(`/api/get-admin?page=${page}`);
 };
 
 const createAdmin = (data) => {
@@ -40,8 +44,12 @@ const updateAdmin = (data) => {
 
 // ---------------------- user -------------------
 
-const getAllUser = () => {
-  return axios.get(`/api/get-user`);
+const getAllUser = (page, word) => {
+  return axios.get(`/api/get-all-user?page=${page}&word=${word}`);
+};
+
+const getUser = (page) => {
+  return axios.get(`/api/get-user?page=${page}`);
 };
 
 const createUser = (data) => {
@@ -65,8 +73,12 @@ const updateUser = (data) => {
 
 // ---------------------- cat -------------------
 
-const getAllcat = () => {
-  return axios.get(`/api/get-cat`);
+const getAllcat = (page, word) => {
+  return axios.get(`/api/get-all-cat?page=${page}&word=${word}`);
+};
+
+const getcat = (page) => {
+  return axios.get(`/api/get-cat?page=${page}`);
 };
 
 const createcat = (data) => {
@@ -89,8 +101,12 @@ const updatecat = (data) => {
 
 // ---------------------- post -------------------
 
-const getAllpost = (page) => {
-  return axios.get(`/api/get-post`);
+const getAllpost = (page, word) => {
+  return axios.get(`/api/get-all-post?page=${page}&word=${word}`);
+};
+
+const getpost = (page) => {
+  return axios.get(`/api/get-post?page=${page}`);
 };
 
 const getpostbypage = (page) => {
@@ -271,6 +287,10 @@ const getlikepostById = (userId, postId) => {
   return axios.get(`api/get-likepost-by-id?userId=${userId}&postId=${postId}`);
 }
 
+const getlikepostBypostId = (postId) => {
+  return axios.get(`api/get-likepost-by-post-id?postId=${postId}`);
+}
+
 
 const userSendEmail = (data) => {
   return axios.post(`/api/usersendemail`, data);
@@ -345,17 +365,17 @@ export {
   handleLoginApi,   getAllcode, handleLoginUser,
 
   /* admin */
-  getAllAdmin, createAdmin, deleteAdmin, getAdminById, updateAdmin,
+  getAllAdmin, createAdmin, deleteAdmin, getAdminById, updateAdmin, getAdmin,
   /* user */
-  getAllUser, createUser, deleteUser, getUserById, updateUser,
+  getAllUser, createUser, deleteUser, getUserById, updateUser,getUser,
   /* nhiemky */
   getAllnhiemky, createnhiemky, deletenhiemky, getnhiemkyById, updatenhiemky,
     /* menber */
   getAllmenber, createmenber, deletemenber, getmenberById, updatemenber,
   /* category */
-  getAllcat, createcat, deletecat, getcatById, updatecat,
+  getAllcat, getcat, createcat, deletecat, getcatById, updatecat,
   /* posts */
-  getAllpost, createpost, deletepost, getpostById, updatepost, getAllpostById,getpostbypage, getAllpostBypage,
+  getAllpost, getpost, createpost, deletepost, getpostById, updatepost, getAllpostById,getpostbypage, getAllpostBypage, 
   /* comments */
   getAllcomment, createcomment, deletecomment, getcommentById, updatecomment,
    /* rep comment */
@@ -365,7 +385,7 @@ export {
   /* report */
   getAllreport, createreport, deletereport, getreportById, updatereport,
    /* admin */
-  createlikepost, deletelikepost, getlikepostById,
+  createlikepost, deletelikepost, getlikepostById,getlikepostBypostId,
   /* admin */
   createhistory, deletehistory, gethistoryById,
   /* connect */

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
-import {getpostById, getcatById } from "../../../../services/userService"
+import {getpostById, getcatById, getlikepostBypostId } from "../../../../services/userService"
 
 import { withRouter } from 'react-router';
 import { toast } from 'react-toastify';
@@ -18,11 +18,25 @@ class InforPost extends Component
             cat: '',
             thu: "",
             day: "",
+            likepost: 0,
         }
     }
 
     async componentDidMount() {
+        await this.getlikeport();
         await this.getPostByIds();
+    }
+
+    getlikeport = async() => {
+        let res = await getlikepostBypostId(this.props.match.params.id);
+        if (res && res.errCode === 0) {
+            this.setState({
+                likepost: res.data.length
+            })
+        }
+        else this.setState({
+                likepost: 0
+            })
     }
 
     
@@ -74,6 +88,7 @@ class InforPost extends Component
     
     render ()
     {
+        let { post, likepost } = this.state;
         return (
             <>
                 <title>
@@ -93,7 +108,7 @@ class InforPost extends Component
                                 </span>
                             </div>
                             <span className='date'> <i>Ngày đăng: {this.state.thu} - { this.state.day}</i></span>
-                            <span className='like'>Lược thích: 500 ❤️</span>
+                            <span className='like'>Lược thích: {likepost} ❤️</span>
                             {this.state.post.image && this.state.post.image !== null &&
                             <p className='img'>
                                 <img src={this.state.post.image} />
@@ -103,7 +118,7 @@ class InforPost extends Component
                             </p>
 
                             <p className='see'>
-                                <b>Lược xem: 5000</b>
+                                <b>Lược xem: {post.count}</b>
                             </p>
                         </div>
 

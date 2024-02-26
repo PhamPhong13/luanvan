@@ -4,6 +4,7 @@
     "home": "Hello Go to the admin page of Binh Tan Student Union",
     "homepage": "Home page",
     "manage": {
+      "user": "Manage user",
       "manage-user": "Manage user",
       "cat": "Category",
       "manage-cat": "Manage category",
@@ -22,7 +23,10 @@
       "manage-post": "Manage post",
       "add-post": "Add post",
       "edit-post": "Edit post",
-      "post": "Post"
+      "post": "Post",
+      "report": "Report",
+      "manage-report-user": "Manage user report",
+      "manage-report-post": "Manage post report"
     },
     "nhiemky": "Tunure",
     "manage-nhiemky": "Tenure Management",

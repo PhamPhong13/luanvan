@@ -1,5 +1,7 @@
 import db from '../models/index';
 import bcrypt from 'bcryptjs';
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op;
 
 import sendEmail from "./sendEmail"
 
@@ -138,23 +140,35 @@ let createUser = ( data ) =>
     } )
 }
 // get all patient
-let getUser = () =>
+let getUser = (page) =>
 {
+    
+    if (page === "undefined") page = 1; // nếu page = undefined
     return new Promise( async ( resolve, reject ) =>
     {
+         const limit = 5; // Số lượng bài viết mỗi trang
+        const offset = (page - 1) * limit; // Vị trí bắt đầu của trang hiện tại
         try
         {
+            let totalPosts = await db.User.count(); // Đếm tổng số bài viết
+            let totalPages = Math.ceil(totalPosts / limit); // Tính tổng số trang
             let patients = await db.User.findAll( {
                 attributes: {
                     exclude: [ 'password' ]
-                }
+                },
+                order: [['createdAt', 'DESC']], // Sắp xếp theo ngày tạo giảm dần (ngược lại)
+                offset: offset,
+                limit: limit
+                
             } );
             if ( patients )
             {
                 resolve( {
                     errCode: 0,
                     message: "get list User successfully!",
-                    data: patients
+                    data: patients,
+                    total: totalPosts,
+                    totalPages: totalPages // Thêm thông tin về số trang vào đối tượng kết quả
                 } )
             }
             else
@@ -172,6 +186,64 @@ let getUser = () =>
         }
     } )
 }
+
+let getAllUser = (page, word) => {
+    if (page === "undefined") page = 1; // nếu page = undefined
+    return new Promise(async (resolve, reject) => {
+        const limit = 5; // Số lượng bài viết mỗi trang
+        const offset = (page - 1) * limit; // Vị trí bắt đầu của trang hiện tại
+        try {
+            let findOptions = {
+                attributes: {
+                    exclude: ['password']
+                },
+                order: [['createdAt', 'DESC']], // Sắp xếp theo ngày tạo giảm dần (ngược lại)
+                offset: offset,
+                limit: limit
+            };
+
+            let whereClause = {}; // Điều kiện tìm kiếm
+
+            // Nếu có từ khóa tìm kiếm, thêm điều kiện vào whereClause
+            if (word && word !== "undefined") {
+                whereClause = {
+                    [Op.or]: [
+                        { email: { [Op.like]: '%' + word + '%' } }, // Tìm kiếm theo email, bạn có thể thêm các trường khác nếu cần
+                        { fullName: { [Op.like]: '%' + word + '%' } }, // Tìm kiếm theo username
+                        { phone: { [Op.like]: '%' + word + '%' } }, // Tìm kiếm theo username
+                    ]
+                };
+
+                findOptions.where = whereClause;
+            }
+
+            let totalPosts = await db.User.count({ where: whereClause }); // Đếm tổng số bài viết phù hợp
+            let totalPages = Math.ceil(totalPosts / limit); // Tính tổng số trang
+
+            // Lấy danh sách người dùng
+            let patients = await db.User.findAll(findOptions);
+
+            if (patients) {
+                resolve({
+                    errCode: 0,
+                    message: "get list User successfully!",
+                    data: patients,
+                    total: totalPosts,
+                    totalPages: totalPages
+                });
+            } else {
+                resolve({
+                    errCode: 1,
+                    message: "get list User failed!"
+                });
+            }
+
+        } catch (err) {
+            reject(err);
+        }
+    });
+};
+
 
 //get patient by id
 let getUserById = ( id ) =>
@@ -353,5 +425,6 @@ module.exports = {
     updateUser: updateUser,
     getAllCode: getAllCode,
     login: login,
-    usersendemail: usersendemail
+    usersendemail: usersendemail,
+    getAllUser: getAllUser
 }

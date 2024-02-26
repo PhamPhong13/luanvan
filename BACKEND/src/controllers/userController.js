@@ -10,7 +10,14 @@ let createUser = async ( req, res ) =>
 // get all patient
 let getUser = async ( req, res ) =>
 {
-    let User = await userService.getUser();
+    let User = await userService.getUser(req.query.page);
+    return res.status( 200 ).json( User );
+}
+
+// get all patient
+let getAllUser = async ( req, res ) =>
+{
+    let User = await userService.getAllUser(req.query.page, req.query.word);
     return res.status( 200 ).json( User );
 }
 
@@ -93,5 +100,6 @@ module.exports = {
     updateUser: updateUser, 
     getAllCode: getAllCode,
     login: login,
-    usersendemail: usersendemail
+    usersendemail: usersendemail,
+    getAllUser: getAllUser
 }

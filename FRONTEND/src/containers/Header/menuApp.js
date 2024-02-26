@@ -1,7 +1,7 @@
 export const adminMenu = [
   {
     //quản lý người dùng
-    name: "system.manage.manage-user",
+    name: "system.manage.user",
     menus: [
     {
         name: "system.manage.manage-user",
@@ -40,7 +40,19 @@ export const adminMenu = [
     ],
   },
   {
-    //quản lý bài viết
+    //quản lý report
+    name: "system.manage.report",
+    menus: [
+      {
+        name: "system.manage.manage-report-user",        link: "/system/report-user",
+      },
+      {
+        name: "system.manage.manage-report-post",        link: "/system/report-post",
+      }
+    ],
+  },
+  {
+    //quản lý nhiệm kỳ
     name: "system.nhiemky",
     menus: [
     {
@@ -49,7 +61,7 @@ export const adminMenu = [
     ],
   },
   {
-    //quản lý bài viết
+    //quản lý thống kê
     name: "system.thongke",
     menus: [
     {
@@ -65,7 +77,7 @@ export const adminMenu = [
 export const menberMenu = [
   {
     //quản lý người dùng
-    name: "system.manage.manage-user",
+    name: "system.manage.user",
     menus: [
     {
         name: "system.manage.manage-user",
