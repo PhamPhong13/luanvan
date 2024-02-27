@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import './HomePage.scss';
 import _ from 'lodash';
 import { FormattedMessage } from 'react-intl';
-import { getAllpost, getAllcat, createconnect } from '../../services/userService';
+import { getpost, getcat, createconnect } from '../../services/userService';
 import Header from './Header';
 import Slider from './Slider';
 import PostOnCat from './PostOnCat';
@@ -35,11 +35,10 @@ class HomePage extends Component
     }
 
     getAllposts = async () => {
-        let res = await getAllpost();
+        let res = await getpost('1');
         if (res && res.errCode === 0 && res.data.length > 0) { 
-            let reverse  = res.data.reverse();
             this.setState({
-                listPost: reverse
+                listPost: res.data
             })
         }
         else this.setState({
@@ -48,7 +47,7 @@ class HomePage extends Component
     }
 
     getCat = async () => {
-        let res = await getAllcat();
+        let res = await getcat("ALL");
         this.setState({
             listCat: res.data
         })
@@ -83,7 +82,7 @@ class HomePage extends Component
                                     <div className='thongbao'>Tin mới nhất</div>
                                 </div>
                                 <div className='new'>
-                                    {this.state.listPost && this.state.listPost.slice(0, 5).map((item, index) => {
+                                    {this.state.listPost && this.state.listPost.map((item, index) => {
                                     return (
                                         <li onClick={() => this.linktopost(item.id)}>
                                             <p>{ item.name}</p>

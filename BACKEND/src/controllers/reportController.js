@@ -10,7 +10,7 @@ let createreport = async ( req, res ) =>
 // get all patient
 let getreport = async ( req, res ) =>
 {
-    let report = await reportService.getreport();
+    let report = await reportService.getreport(req.query.id, req.query.status, req.query.page );
     return res.status( 200 ).json( report );
 }
 

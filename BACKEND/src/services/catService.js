@@ -38,8 +38,39 @@ let createcat = ( data ) =>
 // get all patient
 let getcat = (page) =>
 {
-    
-    if (page === "undefined") page = 1; // nếu page = undefined
+    if (page === "ALL") {
+    return new Promise( async ( resolve, reject ) =>
+    {
+        try
+        {
+            let patients = await db.Cat.findAll( {
+                order: [['createdAt', 'DESC']], // Sắp xếp theo ngày tạo giảm dần (ngược lại)
+            } );
+            if ( patients )
+            {
+                resolve( {
+                    errCode: 0,
+                    message: "get list cat successfully!",
+                    data: patients,
+                } )
+            }
+            else
+            {
+                resolve( {
+                    errCode: 1,
+                    message: "get list cat failed!"
+                } )
+            }
+
+        }
+        catch ( err )
+        {
+            reject( err );
+        }
+    } )
+    }
+    else {
+        if (page === "undefined") page = 1; // nếu page = undefined
     return new Promise( async ( resolve, reject ) =>
     {
          const limit = 5; // Số lượng bài viết mỗi trang
@@ -81,6 +112,8 @@ let getcat = (page) =>
             reject( err );
         }
     } )
+    }
+    
 }
 
 let getAllcat = (page, word) => {

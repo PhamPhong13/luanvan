@@ -20,6 +20,7 @@ class Signup extends Component
             phone: "",
             image: "",
             fullName: "",
+            openSign: false
         }
     }
     handleOnchangeInput = ( event, id ) =>
@@ -64,8 +65,16 @@ class Signup extends Component
             this.props.history.push( `/login-user` );
         }
     }
+
+    handleOpenSign = () => {
+        this.setState({
+            openSign: !this.state.openSign
+        })
+    }
+
     render ()
     {
+        let { openSign } = this.state;
         return (
             <>
                  <title>
@@ -78,10 +87,20 @@ class Signup extends Component
                             <div className='title text-center'>
                                 Đăng ký
                             </div>
+                            <p className='dieukhoan'>
+                                Bằng việc đăng ký tài khoản, bạn phải đồng ý với một số điều khoản sử dụng của chúng tôi.
+                                <ol>
+                                    <li>Yêu cầu phải thể hiện hành vi lịch sự, tôn trọng người khách trên cộng đồng.</li>
+                                    <li>Không chia sẻ bất kỳ thông tin nhạy cảm trên cổng thông tin.</li>
+                                    <li>Chụi trách nhiệm về những thông tin bạn chia sẻ.</li>
+                                    <li>Bạn có thể báo cáo các hành vi vi phạm trên cộng đồng.</li>
+                                    <li>Bạn có thể bị vô hiệu hóa hoặc bị xóa tài khoản nếu bạn vi phạm điều khoản nhiều lần.</li>
+                                </ol>
+                            </p>
                             <div className='form'>
                                 <div className='form-group'>
                                 <lable>Email: </lable>
-                                <input type='text'
+                                <input type='email'
                                 onChange={(event) => this.handleOnchangeInput(event, 'email')}/>
                             </div>
 
@@ -114,13 +133,21 @@ class Signup extends Component
                                 <label className='label_upload-img' htmlFor='reviewImg'>Tải ảnh <i className='fas fa-upload'></i></label>
                                 </div>
                             </div>
+                            <p className='mt-3'><input type='checkbox'
+                            onClick={() => this.handleOpenSign()}
+                            /> Bạn đồng ý với điều khoản của chúng tôi.</p>
 
-                            <div className='btn-submit'>
+                            {openSign === true ? <div className='btn-submit'>
                                 <div className='btn btn-primary'
                                     onClick={() => this.Signup()} 
                                     
                              >Đăng ký</div>
+                            </div>: 
+                            <div className='btn-submit'>
+                                <div className='btn btn-secondary'
+                             >Đăng ký</div>
                             </div>
+                        }
                             <div className='logintosignup'>
                                 Bạn đã có tài khoản! <span onClick={() => this.linktoLogin()}>Đăng nhập tại đây</span>
                             </div>

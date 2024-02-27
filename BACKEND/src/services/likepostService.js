@@ -100,9 +100,8 @@ let getlikepostBypostId = ( postId ) =>
     {
         try
         {
-            let patients = await db.Likepost.findOne( {
+            let patients = await db.Likepost.findAll( {
                 where: {
-                    
                     postId: postId,
                 }
             } );

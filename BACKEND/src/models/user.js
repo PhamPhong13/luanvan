@@ -16,6 +16,8 @@ module.exports = ( sequelize, DataTypes ) =>
             // define association here
              User.hasOne(models.Comment, { foreignKey: 'userId' })
              User.hasOne(models.Repcomment, { foreignKey: 'userId' })
+             User.hasOne(models.Report, { foreignKey: 'userrportId', as: "userreport" })
+             User.hasOne(models.Report, { foreignKey: 'userId' , as: "user"})
         }
     };
     User.init( {

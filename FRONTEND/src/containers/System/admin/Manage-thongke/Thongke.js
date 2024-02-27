@@ -4,7 +4,7 @@ import _, { isEmpty } from "lodash";
 import { FormattedMessage } from "react-intl";
 import "./manage.scss";
 import { withRouter } from "react-router";
-import { getAllpost, getAllconnect } from "../../../../services/userService";
+import { getpost, getAllconnect } from "../../../../services/userService";
 class Thongke extends Component {
   constructor(props) {
     super(props);
@@ -54,18 +54,21 @@ class Thongke extends Component {
   }
     
     getpost = async () => {
-        let res = await getAllpost();
-      let result = [];
-      res.data.map((item, index) => {
-        if (this.getpostbyday(item.createdAt, 3)) {
-          result.push(item);
-        }
-      })
-      let sort = result.sort((a, b) => b.count - a.count)
-      this.setState({
-        listpost: sort
-      })
-  }
+  let res = await getpost("ALL");
+  let result = [];
+  res.data.map((item, index) => {
+    if (this.getpostbyweek(item.createdAt)) {
+      result.push(item);
+    }
+  })
+  let sort = result.sort((a, b) => a.count - b.count) // Thay đổi ở đây
+  .reverse().slice(0, 3); // Sau khi sắp xếp tăng dần, đảo ngược để thành sắp xếp giảm dần
+  console.log(sort);
+  this.setState({
+    listpost: sort
+  })
+}
+
   
   /* quickSort = (arr) => {
     if (arr.length <= 1) return arr;
@@ -165,7 +168,7 @@ class Thongke extends Component {
 
 
   render() {
-    let {selectltc, connect,  listpost} = this.state
+    let { selectltc, connect, listpost } = this.state;
     return (
       <>
         <title>

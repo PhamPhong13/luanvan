@@ -7,7 +7,7 @@ import logo from "../../assets/logo.jpg"
 import avatar from "../../assets/user.jpg"
 import top from "../../assets/top.png"
 import { withRouter } from 'react-router';
-import { getAllcat } from '../../services/userService';
+import { getAllcat , getcat} from '../../services/userService';
 
 class Header extends Component
 {
@@ -24,7 +24,8 @@ class Header extends Component
     }
 
     getAllCats = async () => { 
-        let res = await getAllcat();
+        let res = await getcat("ALL");
+        console.log(res)
         this.setState({
             listCat: res.data
         })
@@ -141,6 +142,7 @@ class Header extends Component
 
                     <a href='#top'><img className='top_image' src={ top} /></a>
                 </div>
+                
             </>
         );
     }

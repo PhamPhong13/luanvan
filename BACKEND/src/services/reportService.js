@@ -34,19 +34,41 @@ let createreport = ( data ) =>
     } )
 }
 // get all patient
-let getreport = () =>
+let getreport = (id, status, page) =>
 {
     return new Promise( async ( resolve, reject ) =>
     {
-        try
-        {
-            let patients = await db.Report.findAll();
+       try
+       {
+            if (page === "undefined") page = 1;
+            const limit = 5; // Số lượng bài viết mỗi trang
+            const offset = (page - 1) * limit;
+            let totalPosts = await db.Report.count(); // Đếm tổng số bài viết
+            let totalPages = Math.ceil(totalPosts / limit);
+            let patients = await db.Report.findAll({
+                where: {
+                    type: id,
+                    status: status
+                },
+                 order: [['createdAt', 'DESC']], // Sắp xếp theo ngày tạo giảm dần (ngược lại)
+                offset: offset,
+                limit: limit,
+                include: [
+                    { model: db.User , as: "userreport" },
+                    { model: db.User , as: "user" }
+                ],
+                raw: true,
+                nest: true,
+               
+            });
             if ( patients )
             {
                 resolve( {
                     errCode: 0,
                     message: "get list report successfully!",
-                    data: patients
+                    data: patients,
+                    total: totalPosts,
+                    totalPages: totalPages
                 } )
             }
             else
@@ -61,7 +83,7 @@ let getreport = () =>
         catch ( err )
         {
             reject( err );
-        }
+        } 
     } )
 }
 

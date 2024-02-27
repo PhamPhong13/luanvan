@@ -2,13 +2,26 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './HomePage.scss';
 import logo from "../../assets/logo.jpg"
+import chatimage from "../../assets/chat.png"
 
 class Footer extends Component
 {
-     
+    constructor(props) {
+        super(props);
+        this.state = {
+            chat: false
+        }
+     }
 
+    handleChat = () => {
+        this.setState({
+            chat:!this.state.chat
+        })
+    }
     render ()
     {
+        let { chat } = this.state;
+        console.log(this.state)
         return (
             <>
                 <div className='container footer'>
@@ -25,7 +38,28 @@ class Footer extends Component
                         </div>
                     <p>&copy; CopyRight website được thực hiện bởi <a href='https://www.facebook.com/profile.php?id=100029485897703'>Phạm Phong</a></p>
                     </div>
+
                 </div>
+                {chat === true &&
+                <div className='chatbox'>
+                    <iframe
+                    allow="microphone;"
+                    width="350"
+                    height="430"
+                    src="https://console.dialogflow.com/api-client/demo/embedded/7888c03c-760c-420a-ac59-b7fa42fd99f3">
+                </iframe>
+
+                        <span onClick={() => this.handleChat()}>x</span>
+                </div>
+                }
+
+                {chat === false && 
+                    <div className='iconchat' onClick={() => this.handleChat()}>
+                        <img src={chatimage} />
+                    </div>
+                }
+
+                
             </>
         );
     }

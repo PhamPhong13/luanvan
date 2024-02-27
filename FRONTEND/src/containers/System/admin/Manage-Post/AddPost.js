@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
-import { getAllcat , createpost} from "../../../../services/userService"
+import { getcat , createpost} from "../../../../services/userService"
 import { CommonUtils } from '../../../../utils'; // vi or en
 import Select from 'react-select';
 import { toast } from 'react-toastify';
@@ -36,7 +36,7 @@ class AddPost extends Component
     }
 
     getAllCategory = async () => {
-        let res = await getAllcat();
+        let res = await getcat("ALL");
         let result = [];
         res.data.forEach(element => {
             result.push( { value: element.id, label: element.name } );

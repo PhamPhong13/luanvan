@@ -231,6 +231,8 @@
             .logintosignup{
                 text-align: center;
                 font-size: 12px;
+
+                
                 span{
                     color: blue;
                     cursor: pointer;
@@ -249,6 +251,10 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+
+                .dieukhoan {
+                        font-size: 12px;
+                    }
     .form-content{
         width: 50%;
         padding: 10px 20px;
@@ -758,11 +764,16 @@
                 .down{
                     margin-top: 10px;
                     .down-content{
+                        &:hover {
+                            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+                            color: blue;
+                        }
                         display: flex;
                         margin-top: 10px;
                         padding-right: 20px;
                         cursor: pointer;
                         justify-content: space-between;
+                        height: 100%;
                         .name{
                             p{
                                 display: -webkit-box;
@@ -778,7 +789,7 @@
                         }
                         img{
                             width: 40%;
-                            height: 100px;
+                            height: 114px;
                         }
                     }
                 }
@@ -868,6 +879,7 @@
         p{
             text-align: center;
             padding: 10px;
+
         }
     .top{
                 display: flex;
@@ -891,6 +903,7 @@
                     p {
                         margin: 0;
                         padding: 5px;
+                        text-align: left;
         
                         img {
                             width: 20px;
@@ -950,5 +963,37 @@
                 margin-left: 10px;
             }
         }
+    }
+}
+
+
+.chatbox{
+    position: fixed;
+    right: 10%;
+    bottom: 10%;
+    z-index: 1000;
+    width: 350px;
+    height: 430px;
+    span{
+        position: absolute;
+        top: 5%;
+        right: 5%;
+        font-size: 18px;
+        color: white;
+        border: 1px solid white;
+        border-radius: 50%;
+        padding: 0 8px;
+    }
+}
+
+.iconchat{
+    position: fixed;
+        right: 15%;
+        bottom: 10%;
+    width: 60px;
+    height: 60px;
+    img{
+        width: 100%;
+        height: 100%;
     }
 }

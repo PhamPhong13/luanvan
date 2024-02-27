@@ -28,6 +28,9 @@ import EditTunure from "../containers/System/admin/Manage-Tunure/EditTunure";
 
 import Thongke from "../containers/System/admin/Manage-thongke/Thongke";
 
+import ReportPost from "../containers/System/admin/Manage-report/ReportPost";
+import ReportUser from "../containers/System/admin/Manage-report/ReportUser";
+
 class System extends Component {
   render() {
     const { systemMenuPath, isLoggedIn } = this.props;
@@ -65,6 +68,8 @@ class System extends Component {
 
               <Route path="/system/home" component={SystemHome} />
 
+              <Route path="/system/report-post" component={ReportPost} />
+              <Route path="/system/report-user" component={ReportUser} />
               <Route
                 component={() => {
                   return <Redirect to={systemMenuPath} />;

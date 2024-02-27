@@ -338,8 +338,8 @@ const getconnectById = (id) => {
 
 // ---------------------- bg -------------------
 
-const getAllreport = () => {
-  return axios.get(`/api/get-report`);
+const getallreport = (id, status, page) => {
+  return axios.get(`/api/get-report?id=${id}&status=${status}&page=${page}`);
 };
 
 const createreport = (data) => {
@@ -383,7 +383,7 @@ export {
   /* backround */
   getAllbg, createbg, deletebg, getbgById, updatebg,
   /* report */
-  getAllreport, createreport, deletereport, getreportById, updatereport,
+  getallreport, createreport, deletereport, getreportById, updatereport,
    /* admin */
   createlikepost, deletelikepost, getlikepostById,getlikepostBypostId,
   /* admin */

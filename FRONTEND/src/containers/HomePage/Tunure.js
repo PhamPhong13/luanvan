@@ -38,7 +38,7 @@ class Tunure extends Component
    
     getnhiemky = async () => {
         let res = await getAllnhiemky();
-        if (res && res.errCode === 0) { 
+        if (res && res.errCode === 0 && res.data.length > 0) { 
             this.setState({
                 nhiemky: res.data[res.data.length - 1]
             })
@@ -85,7 +85,7 @@ class Tunure extends Component
         return (
             <>
                 <title>
-                    Thông tin nhiệm kỳ {nhiemky.name}
+                    Thông tin nhiệm kỳ {nhiemky && nhiemky.name}
             </title>
                 <Header />
 
