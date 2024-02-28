@@ -62,7 +62,7 @@ class Thongke extends Component {
     }
   })
   let sort = result.sort((a, b) => a.count - b.count) // Thay đổi ở đây
-  .reverse().slice(0, 3); // Sau khi sắp xếp tăng dần, đảo ngược để thành sắp xếp giảm dần
+  .reverse().slice(0, 5); // Sau khi sắp xếp tăng dần, đảo ngược để thành sắp xếp giảm dần
   console.log(sort);
   this.setState({
     listpost: sort
@@ -70,16 +70,6 @@ class Thongke extends Component {
 }
 
   
-  /* quickSort = (arr) => {
-    if (arr.length <= 1) return arr;
-    
-    const pivot = arr.pop();
-    return [
-        ...quickSort(arr.filter(item => item >= pivot)),
-        pivot,
-        ...quickSort(arr.filter(item => item < pivot))
-    ];
-  } */
 
     getpostbyweek = (dateString) => {// Chuỗi thời gian cần kiểm tra
       // Chuyển đổi chuỗi thời gian thành đối tượng thời gian

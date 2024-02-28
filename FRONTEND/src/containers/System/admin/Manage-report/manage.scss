@@ -36,3 +36,74 @@
     }
   }
 }
+
+.modal-report{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0 ;
+  background-color: #8f727229;
+  z-index: 1000;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .content-rpt{
+    width: 40%;
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+
+    .btn-submit {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px;
+        margin-top: 20px;
+        .btn-secondary{
+          margin-left: 10px;
+        }
+
+        .btn-danger{
+          margin-right: 10px;
+        }
+      }
+    .content-rpt-row{
+
+      display: flex;
+      flex-wrap: wrap;
+
+      .listuserreport{
+        width: 100%;
+        padding: 5px;
+        .name{
+          padding: 5px 0;
+          a{
+            color: blue;
+            cursor: pointer;
+          }
+        }
+        img{
+          width: 100%;
+          height: 150px;
+        }
+      }
+
+      
+    }
+  }
+}
+
+.loading{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0 ;
+  background-color: #8f727229;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

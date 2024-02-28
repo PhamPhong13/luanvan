@@ -33,11 +33,25 @@ let updatereport = async ( req, res ) =>
     return res.status( 200 ).json( report );
 }
 
+let sendEmailReport = async ( req, res ) =>
+{
+    let report = await reportService.sendEmailReport( req.body );
+    return res.status( 200 ).json( report );
+}
+
+let sendEmailReportPost = async ( req, res ) =>
+{
+    let report = await reportService.sendEmailReportPost( req.body );
+    return res.status( 200 ).json( report );
+}
+
  
 module.exports = {
     createreport: createreport,
     getreport: getreport,
     getreportById: getreportById,
     deletereport: deletereport,
-  updatereport: updatereport, 
+    updatereport: updatereport, 
+    sendEmailReport: sendEmailReport,
+  sendEmailReportPost: sendEmailReportPost
 }

@@ -1,5 +1,5 @@
 import db from '../models/index';
-
+import sendEmail from "./sendEmail"
 // create a new patient
 let createreport = ( data ) =>
 {
@@ -55,7 +55,13 @@ let getreport = (id, status, page) =>
                 limit: limit,
                 include: [
                     { model: db.User , as: "userreport" },
-                    { model: db.User , as: "user" }
+                    { model: db.User, as: "user" },
+                    {
+                        model: db.Post,
+                        include: [{ model: db.Admin, attributes: ['email', "fullName"] }],
+                        raw: true,
+                        nest: true,
+                    }
                 ],
                 raw: true,
                 nest: true,
@@ -94,14 +100,22 @@ let getreportById = ( id ) =>
     {
         try
         {
-            let patients = await db.Report.findOne( {
+            let patients = await db.Report.findAll( {
                 where: {
-                    id: id
+                    userrportId: id
                 },
-                attributes: {
-                    exclude: [ 'password' ]
-                },
-                raw: true
+                include: [
+                    { model: db.User , as: "userreport" },
+                    { model: db.User, as: "user" },
+                    {
+                        model: db.Post,
+                        include: [{ model: db.Admin, attributes: ['email', "fullName"] }],
+                        raw: true,
+                        nest: true,
+                    }
+                ],
+                raw: true,
+                nest: true,
             } );
             if ( patients )
             {
@@ -182,7 +196,7 @@ let updatereport = ( data ) =>
             } )
             if ( patient )
             {
-                patient.name = data.name,
+                patient.status = data.status,
                 await patient.save();
 
                 resolve( {
@@ -205,6 +219,67 @@ let updatereport = ( data ) =>
         }
     } )
 }
+
+let sendEmailReport = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let image;
+            if (!data.image) {
+                image = "null"
+            }
+            else {
+                image = data.image
+            }
+           let send = await sendEmail.senReport({
+               emailreport: data.emailreport,
+               userreport: data.userreport,
+               comment: data.comment,
+               content: data.content,
+               post: data.post,
+               time: data.time,
+               image: image
+            })
+            resolve({
+                errCode: 0,
+                errMessage: 'Send email successfully!',
+                data : send
+            })
+        }
+        catch (e) {
+            reject(e);
+        }
+    })
+}
+ 
+
+let sendEmailReportPost = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let image;
+            if (!data.image) {
+                image = "null"
+            }
+            else {
+                image = data.image
+            }
+           let send = await sendEmail.senReportPost({
+               email: data.email,
+               user: data.user,
+               post: data.post,
+               time: data.time,
+               image: image
+            })
+            resolve({
+                errCode: 0,
+                errMessage: 'Send email successfully!',
+                data : send
+            })
+        }
+        catch (e) {
+            reject(e);
+        }
+    })
+}
  
 
 module.exports = {
@@ -213,4 +288,6 @@ module.exports = {
     getreportById: getreportById,
     deletereport: deletereport,
     updatereport: updatereport,
+    sendEmailReport: sendEmailReport,
+    sendEmailReportPost: sendEmailReportPost
 }

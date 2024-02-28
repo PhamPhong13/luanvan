@@ -117,6 +117,8 @@ let initWebRoutes = (app) => {
 
   // route report
   router.post("/api/create-report", report.createreport); // create report
+  router.post("/api/sendreport", report.sendEmailReport); // create report
+  router.post("/api/sendreportpost", report.sendEmailReportPost); // create report
   router.get("/api/get-report", report.getreport); // get report
   router.get("/api/get-report-by-id", report.getreportById); // get report by id
   router.delete("/api/delete-report", report.deletereport); // delete report

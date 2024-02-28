@@ -361,6 +361,17 @@ const updatereport = (data) => {
 }
 
 
+const sendEmailReport = (data) => {
+  return axios.post(`api/sendreport`, data);
+}
+
+const sendEmailReportPost = (data) => {
+  return axios.post(`api/sendreportpost`, data);
+}
+
+
+
+
 export {
   handleLoginApi,   getAllcode, handleLoginUser,
 
@@ -391,7 +402,7 @@ export {
   /* connect */
   createconnect, deleteconnect, getconnectById,getAllconnect,
 
-  userSendEmail,
+  userSendEmail,sendEmailReport, sendEmailReportPost,
 
   
 };

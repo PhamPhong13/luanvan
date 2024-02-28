@@ -16,6 +16,7 @@ module.exports = ( sequelize, DataTypes ) =>
             // define association here
             Report.belongsTo(models.User, { foreignKey: "userrportId" , as: "userreport"})
             Report.belongsTo(models.User, { foreignKey: "userId" , as: "user"})
+            Report.belongsTo(models.Post, { foreignKey: "postId"})
 
         }
     };
