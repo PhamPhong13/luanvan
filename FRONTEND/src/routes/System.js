@@ -31,6 +31,8 @@ import Thongke from "../containers/System/admin/Manage-thongke/Thongke";
 import ReportPost from "../containers/System/admin/Manage-report/ReportPost";
 import ReportUser from "../containers/System/admin/Manage-report/ReportUser";
 
+import Form from "../containers/System/admin/Manage-Post/Form";
+
 class System extends Component {
   render() {
     const { systemMenuPath, isLoggedIn } = this.props;
@@ -70,6 +72,8 @@ class System extends Component {
 
               <Route path="/system/report-post" component={ReportPost} />
               <Route path="/system/report-user" component={ReportUser} />
+
+              <Route path="/system/form/:id" component={Form} />
               <Route
                 component={() => {
                   return <Redirect to={systemMenuPath} />;

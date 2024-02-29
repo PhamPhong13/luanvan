@@ -143,6 +143,13 @@ class EditPost extends Component
 
     }
 
+    linktoform = () => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `/system/form/${this.props.match.params.id}` );
+        }
+    }
+
     render ()
     {
         return (
@@ -200,6 +207,10 @@ class EditPost extends Component
                                 <FormattedMessage id="key.change"></FormattedMessage></div>
                         </div>
 
+                    </div>
+
+                    <div className='icon-form' onClick={() => this.linktoform()}>
+                        Tạo form
                     </div>
                </div>
             </>

@@ -369,8 +369,38 @@ const sendEmailReportPost = (data) => {
   return axios.post(`api/sendreportpost`, data);
 }
 
+/// form
+
+const createform = (data) => {
+  return axios.post(`/api/create-form`, data);
+}
 
 
+const createkeyform = (data) => {
+  return axios.post(`/api/create-keyform`, data);
+}
+
+const getformbyid = (id) => {
+  return axios.get(`api/get-form-by-id?postId=${id}`);
+}
+
+const updateform = (data) => {
+  return axios.put(`api/update-form`, data);
+}
+
+const updatekeyform = (data) => {
+  return axios.put(`api/update-keyform`, data);
+}
+
+const getkeyform = (id) => {
+  return axios.get(`/api/get-keyform?id=${id}`);
+};
+
+const deletekeyform = (id) => {
+  return axios.delete(`/api/delete-keyform`, {
+    data: { id: id }
+  })
+}
 
 export {
   handleLoginApi,   getAllcode, handleLoginUser,
@@ -402,7 +432,10 @@ export {
   /* connect */
   createconnect, deleteconnect, getconnectById,getAllconnect,
 
-  userSendEmail,sendEmailReport, sendEmailReportPost,
+  userSendEmail, sendEmailReport, sendEmailReportPost,
+  
+  /** form */
+  createform,getformbyid, updateform, createkeyform, getkeyform, updatekeyform, deletekeyform
 
   
 };

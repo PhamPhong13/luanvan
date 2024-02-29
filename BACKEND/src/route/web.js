@@ -12,6 +12,7 @@ import menber from "../controllers/menberController";
 import history from "../controllers/historyController";
 import connect from "../controllers/connectController";
 import report from "../controllers/reportController";
+import form from "../controllers/formController";
 
 let router = express.Router();
 
@@ -123,6 +124,18 @@ let initWebRoutes = (app) => {
   router.get("/api/get-report-by-id", report.getreportById); // get report by id
   router.delete("/api/delete-report", report.deletereport); // delete report
   router.put("/api/update-report", report.updatereport); // update report
+
+
+  //form
+  router.post("/api/create-form", form.createform); // create form
+  router.post("/api/create-userform", form.createuserform); // create report
+  router.post("/api/create-keyform", form.createkeyform); // create report
+  router.get("/api/get-form-by-id", form.getformbyid); // get report
+  router.get("/api/get-keyform", form.getkeyform); // get report
+  router.put("/api/update-form", form.updateform); // update report
+  router.put("/api/update-keyform", form.updatekeyform); // update report
+  router.delete("/api/delete-keyform", form.deletekeyform); // delete report
+
 
  return app.use("/", router);
 };
