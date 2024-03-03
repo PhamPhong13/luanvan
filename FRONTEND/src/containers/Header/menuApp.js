@@ -76,28 +76,6 @@ export const adminMenu = [
 
 export const menberMenu = [
   {
-    //quản lý người dùng
-    name: "system.manage.user",
-    menus: [
-    {
-        name: "system.manage.manage-user",
-        link: "/system/manage-user",
-        /* subMenus: [
-                    { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
-                    { name: 'menu.system.system-administrator.user-redux', link: '/system/manage-patient' },
-                ] */
-      },
-      {
-        name: "system.manage.manage-admin",
-        link: "/system/manage-admin",
-        /* subMenus: [
-                    { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
-                    { name: 'menu.system.system-administrator.user-redux', link: '/system/manage-patient' },
-                ] */
-      },
-    ],
-  },
-  {
     //quản lý danh mục
     name: "system.manage.manage-cat",
     menus: [

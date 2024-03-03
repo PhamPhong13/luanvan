@@ -1,5 +1,5 @@
 import db from '../models/index';
-
+const { Op } = require('sequelize');
 // create a new patient
 let createpost = ( data ) =>
 {
@@ -38,10 +38,10 @@ let createpost = ( data ) =>
 
     } )
 }
-let getpost = (page) =>
+let getpost = (page, userId) =>
 {
-    
-    if (page === "ALL") {
+    if (userId === "1") {
+        if (page === "ALL") {
     return new Promise( async ( resolve, reject ) =>
     {
         try
@@ -49,6 +49,11 @@ let getpost = (page) =>
             let patients = await db.Post.findAll( {
                 
                 order: [['createdAt', 'DESC']], // Sắp xếp theo ngày tạo giảm dần (ngược lại)
+                include: [
+                    { model: db.Admin},
+                ], 
+                raw: true,
+                nest: true,
                 
             } );
             if ( patients )
@@ -90,7 +95,12 @@ let getpost = (page) =>
                 },
                 order: [['createdAt', 'DESC']], // Sắp xếp theo ngày tạo giảm dần (ngược lại)
                 offset: offset,
-                limit: limit
+                limit: limit,
+                include: [
+                    { model: db.Admin},
+                ], 
+                raw: true,
+                nest: true,
                 
             } );
             if ( patients )
@@ -118,64 +128,222 @@ let getpost = (page) =>
         }
     } )
     }
-}
+    }
+    else {
+        if (page === "ALL") {
+    return new Promise( async ( resolve, reject ) =>
+    {
+        try
+        {
+            let patients = await db.Post.findAll( {
+                
+                order: [['createdAt', 'DESC']], // Sắp xếp theo ngày tạo giảm dần (ngược lại)
+                where: { adminId: userId },
+                include: [
+                    { model: db.Admin },
+                ],
+                raw: true,
+                nest: true
+                
+            } );
+            if ( patients )
+            {
+                resolve( {
+                    errCode: 0,
+                    message: "get list post successfully!",
+                    data: patients,
+                } )
+            }
+            else
+            {
+                resolve( {
+                    errCode: 1,
+                    message: "get list post failed!"
+                } )
+            }
 
-let getAllpost = (page, word) => {
-    if (page === "undefined") page = 1; // nếu page = undefined
-    return new Promise(async (resolve, reject) => {
-        const limit = 5; // Số lượng bài viết mỗi trang
+        }
+        catch ( err )
+        {
+            reject( err );
+        }
+    } )
+    }
+    else {
+        if (page === "undefined") page = 1; // nếu page = undefined
+    return new Promise( async ( resolve, reject ) =>
+    {
+         const limit = 5; // Số lượng bài viết mỗi trang
         const offset = (page - 1) * limit; // Vị trí bắt đầu của trang hiện tại
-        try {
-            let findOptions = {
+        try
+        {
+            let totalPosts = await db.Post.count(); // Đếm tổng số bài viết
+            let totalPages = Math.ceil(totalPosts / limit); // Tính tổng số trang
+            let patients = await db.Post.findAll( {
                 attributes: {
-                    exclude: ['password']
+                    exclude: [ 'password' ]
                 },
                 order: [['createdAt', 'DESC']], // Sắp xếp theo ngày tạo giảm dần (ngược lại)
                 offset: offset,
-                limit: limit
-            };
-
-            let whereClause = {}; // Điều kiện tìm kiếm
-
-            // Nếu có từ khóa tìm kiếm, thêm điều kiện vào whereClause
-            if (word && word !== "undefined") {
-                whereClause = {
-                    [Op.or]: [
-                        { email: { [Op.like]: '%' + word + '%' } }, // Tìm kiếm theo email, bạn có thể thêm các trường khác nếu cần
-                        { fullName: { [Op.like]: '%' + word + '%' } }, // Tìm kiếm theo username
-                        { phone: { [Op.like]: '%' + word + '%' } }, // Tìm kiếm theo username
-                    ]
-                };
-
-                findOptions.where = whereClause;
-            }
-
-            let totalPosts = await db.User.count({ where: whereClause }); // Đếm tổng số bài viết phù hợp
-            let totalPages = Math.ceil(totalPosts / limit); // Tính tổng số trang
-
-            // Lấy danh sách người dùng
-            let patients = await db.User.findAll(findOptions);
-
-            if (patients) {
-                resolve({
+                limit: limit,
+                where: { adminId: userId },
+                include: [
+                    { model: db.Admin },
+                    ],
+                    raw: true,
+                    nest: true
+                
+            } );
+            if ( patients )
+            {
+                resolve( {
                     errCode: 0,
-                    message: "get list User successfully!",
+                    message: "get list post successfully!",
                     data: patients,
                     total: totalPosts,
-                    totalPages: totalPages
-                });
-            } else {
-                resolve({
+                    totalPages: totalPages // Thêm thông tin về số trang vào đối tượng kết quả
+                } )
+            }
+            else
+            {
+                resolve( {
                     errCode: 1,
-                    message: "get list User failed!"
-                });
+                    message: "get list post failed!"
+                } )
             }
 
-        } catch (err) {
-            reject(err);
         }
-    });
+        catch ( err )
+        {
+            reject( err );
+        }
+    } )
+    }
+    }
+}
+
+let getAllpost = (page, word, userId) => {
+    if (userId === 1) {
+        console.log(page, word, userId);
+        if (page === undefined) page = 1; // nếu page = undefined
+        return new Promise(async (resolve, reject) => {
+            const limit = 5; // Số lượng bài viết mỗi trang
+            const offset = (page - 1) * limit; // Vị trí bắt đầu của trang hiện tại
+            try {
+                let findOptions = {
+                    attributes: {
+                        exclude: ['password']
+                    },
+                    order: [['createdAt', 'DESC']], // Sắp xếp theo ngày tạo giảm dần (ngược lại)
+                    offset: offset,
+                    limit: limit,
+                    include: [
+                    { model: db.Admin },
+                    ],
+                    raw: true,
+                    nest: true
+                };
+
+                let whereClause = {}; // Điều kiện tìm kiếm
+
+                // Nếu có từ khóa tìm kiếm, thêm điều kiện vào whereClause
+                if (word && word !== undefined) {
+                    whereClause = {
+                        [Op.or]: [
+                            { name: { [Op.like]: '%' + word + '%' } }, // Tìm kiếm theo email, bạn có thể thêm các trường khác nếu cần
+                        ]
+                    };
+
+                    findOptions.where = whereClause;
+                }
+
+                let totalPosts = await db.Post.count({ where: whereClause }); // Đếm tổng số bài viết phù hợp
+                let totalPages = Math.ceil(totalPosts / limit); // Tính tổng số trang
+
+                // Lấy danh sách người dùng
+                let patients = await db.Post.findAll(findOptions);
+
+                if (patients) {
+                    resolve({
+                        errCode: 0,
+                        message: "get list User successfully!",
+                        data: patients,
+                        total: totalPosts,
+                        totalPages: totalPages
+                    });
+                } else {
+                    resolve({
+                        errCode: 1,
+                        message: "get list User failed!"
+                    });
+                }
+
+            } catch (err) {
+                reject(err);
+            }
+        });
+    } else {
+        if (page === undefined) page = 1; // nếu page = undefined
+        return new Promise(async (resolve, reject) => {
+            const limit = 5; // Số lượng bài viết mỗi trang
+            const offset = (page - 1) * limit; // Vị trí bắt đầu của trang hiện tại
+            try {
+                let findOptions = {
+                    attributes: {
+                        exclude: ['password']
+                    },
+                    order: [['createdAt', 'DESC']], // Sắp xếp theo ngày tạo giảm dần (ngược lại)
+                    offset: offset,
+                    limit: limit,
+                    where: { adminId: userId },
+                    include: [
+                    { model: db.Admin },
+                    ],
+                    raw: true,
+                    nest: true
+                };
+
+                let whereClause = {}; // Điều kiện tìm kiếm
+
+                // Nếu có từ khóa tìm kiếm, thêm điều kiện vào whereClause
+                if (word && word !== undefined) {
+                    whereClause = {
+                        [Op.or]: [
+                            { name: { [Op.like]: '%' + word + '%' } }, // Tìm kiếm theo email, bạn có thể thêm các trường khác nếu cần
+                        ]
+                    };
+
+                    findOptions.where = whereClause;
+                }
+
+                let totalPosts = await db.Post.count({ where: whereClause }); // Đếm tổng số bài viết phù hợp
+                let totalPages = Math.ceil(totalPosts / limit); // Tính tổng số trang
+
+                // Lấy danh sách người dùng
+                let patients = await db.Post.findAll(findOptions);
+
+                if (patients) {
+                    resolve({
+                        errCode: 0,
+                        message: "get list User successfully!",
+                        data: patients,
+                        total: totalPosts,
+                        totalPages: totalPages
+                    });
+                } else {
+                    resolve({
+                        errCode: 1,
+                        message: "get list User failed!"
+                    });
+                }
+
+            } catch (err) {
+                reject(err);
+            }
+        });
+    }
 };
+
 
 
 //get patient by id

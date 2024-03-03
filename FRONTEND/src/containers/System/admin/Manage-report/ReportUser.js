@@ -139,6 +139,7 @@ getday = (date) => {
     {
         let { listreport, listreportold, reportNew,
             reportOld, openModal, listuserreport, openloading } = this.state;
+        console.log(listreport);
         return (
             <>
                 <title>
@@ -147,6 +148,9 @@ getday = (date) => {
 
                 <div className='container report'>
                     <div className='title'>Danh sách người dùng báo cáo</div>
+
+                    {listreport.length === 0 && listreportold.length === 0 &&
+                        <div className='report-content'><span style={{ color: "red", textAlign: "center"}}>Danh sách rổng!</span></div>}
 
                     {listreport && listreport.length > 0 && 
                     

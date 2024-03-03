@@ -16,6 +16,7 @@ class ManagePost extends Component
         this.state = {
             listPost: [],
             totalpage: 0,
+            userPost: false
         }
     }
 
@@ -25,7 +26,17 @@ class ManagePost extends Component
 
     
     getposts = async (page) => {
-        let res = await getpost(page);
+        if (this.props.userInfo.id === "1") {
+            this.setState({
+            userPost: true,
+            })
+        }
+        else {
+            this.setState({
+            userPost: false,
+            })
+        }
+        let res = await getpost(page, this.props.userInfo.id);
         console.log(res)
         if (res && res.data.length > 0) {
             this.setState({
@@ -38,10 +49,18 @@ class ManagePost extends Component
         })
     }
 
-    getAllpost= async (page, word) => {
-
-        let res = await getAllpost(page, word);
-        console.log(res)
+    getAllposts = async (page, word) => {
+        if (this.props.userInfo.id === "1") {
+            this.setState({
+            userPost: true,
+            })
+        }
+        else {
+            this.setState({
+            userPost: false,
+            })
+        }
+        let res = await getAllpost(page, word, this.props.userInfo.id);
         if (res && res.data.length > 0) {
             this.setState({
                 listPost: res.data,
@@ -77,7 +96,7 @@ class ManagePost extends Component
     handleDeleteUser = async (id) => {
         let res = await deletepost(id);
         if (res && res.errCode === 0) {
-            await this.getposts();
+            await this.getposts("1");
                 toast.success("Xóa bài viết thành công!");
                 
             }
@@ -90,16 +109,18 @@ class ManagePost extends Component
         if (event.target.value.length <= 0) {
            await this.getposts();
         }
-        else await this.getAllPosts("1", event.target.value);
+        else await this.getAllposts("1", event.target.value);
     }
 
     handlePageClick = async (event) => {
-        await this.getAllPosts(event.selected + 1);
-     }
+        await this.getAllposts(event.selected + 1);
+    }
+    
 
     render ()
     {
-        let { listPost, totalpage } = this.state;
+        let { listPost, totalpage, userPost } = this.state;
+        console.log(this.state);
         return (
             <>
                 <title>
@@ -136,9 +157,18 @@ class ManagePost extends Component
                                 return (
 
                                     <div className='cat-content'>
-                            <div className='content-left'>
-                               {item.name}
-                            </div>
+                                        {userPost === true ? 
+                                        <div className='content-left cat-post-item' >
+                                            <div className='top'>
+                                                 {item.name}
+                                            </div>
+                                            {userPost && userPost === true && <div className='bottom'>Bài viết của <b>{item.Admin.fullName}</b></div>}
+                                            </div> : 
+                                            <div className='content-left' >
+                                                 {item.name}
+                                        </div>
+                                        }
+                            
                             <div className='content-right'>
                                 
                                             <div className='btn btn-primary'
@@ -195,7 +225,8 @@ class ManagePost extends Component
 const mapStateToProps = state =>
 {
     return {
-        language: state.app.language
+        language: state.app.language,
+        userInfo: state.user.userInfo,
     };
 };
 

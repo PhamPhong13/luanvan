@@ -55,7 +55,7 @@ class Comment extends Component
             
         }else {
                 this.setState({
-                    userId: '4'
+                    userId: '1'
                 });
             }
     }

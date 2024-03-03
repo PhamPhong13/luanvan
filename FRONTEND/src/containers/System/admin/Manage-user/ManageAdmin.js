@@ -18,8 +18,7 @@ class ManageAdmin extends Component
     }
 
     async componentDidMount() {
-        await this.getuser();
-        /* await this.getAllUsers(); */
+        await this.getuser("1");
     }
 
     getuser = async (page) => {
@@ -68,17 +67,16 @@ class ManageAdmin extends Component
         let res = await deleteUser(id);
         if (res && res.errCode === 0) {
             toast.success("Xóa nười dùng mới thành công!");
-            await this.getAllUsers();
+            await this.getAllUsers("1");
         }
         else toast.error("Xóa người dùng mới không thành công!");
     }
 
 
     handleOchangeToSearch = async (event) => {
-        console.log(event.target.value)
 
         if (event.target.value.length <= 0) {
-            this.getuser();
+            this.getuser("1");
         }
         else {
             await this.getAllUsers("1", event.target.value);
@@ -107,6 +105,7 @@ class ManageAdmin extends Component
                         <div className='form-search'>
                             <input type="text"
                                 onChange={(event) => this.handleOchangeToSearch(event)}
+                                placeholder='Nhập để tìm kiếm'
                             />
                             <i className='fas fa-search'></i>
                         </div>
@@ -127,6 +126,7 @@ class ManageAdmin extends Component
                         <th scope="col"><FormattedMessage id="key.email"></FormattedMessage></th>
                         <th scope="col"><FormattedMessage id="key.fullname"></FormattedMessage></th>
                         <th scope="col"><FormattedMessage id="key.phone"></FormattedMessage></th>
+                        <th scope="col"><FormattedMessage id="key.position"></FormattedMessage></th>
                         <th scope="col"><FormattedMessage id="key.action"></FormattedMessage></th>
                         </tr>
                     </thead>
@@ -137,6 +137,7 @@ class ManageAdmin extends Component
                                         <td>{ item.email}</td>
                                         <td>{ item.fullName}</td>
                                         <td>{ item.phone}</td>
+                                        <td>{ this.props.language === "vi" ? item.positionAdmin.valueVi : item.positionAdmin.valueEn}</td>
                                         <td className='action'>
                                             <div className='btn btn-warning btn-edit'
                                             onClick={() => this.linkToEditAdmin(item.id)}

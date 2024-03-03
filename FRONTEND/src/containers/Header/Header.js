@@ -36,9 +36,7 @@ class Header extends Component
                 menu = adminMenu;
             }
 
-            if (role === "P1") {
-                menu = menberMenu;
-            }
+            else menu = menberMenu;
         }
         else { }
         this.setState({

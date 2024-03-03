@@ -12,14 +12,14 @@ let createpost = async ( req, res ) =>
 // get all patient
 let getpost = async ( req, res ) =>
 {
-    let User = await postService.getpost(req.query.page);
+    let User = await postService.getpost(req.query.page, req.query.userId);
     return res.status( 200 ).json( User );
 }
 
 // get all patient
 let getAllpost = async ( req, res ) =>
 {
-    let User = await postService.getAllpost(req.query.page, req.query.word);
+    let User = await postService.getAllpost(req.query.page, req.query.word, req.query.userId);
     return res.status( 200 ).json( User );
 }
 

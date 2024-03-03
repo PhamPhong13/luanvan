@@ -156,7 +156,13 @@ let getAdmin = (page) =>
                 },
                 order: [['createdAt', 'DESC']], // Sắp xếp theo ngày tạo giảm dần (ngược lại)
                 offset: offset,
-                limit: limit
+                limit: limit,
+                include: [
+                    { model: db.Allcode , as: "positionAdmin" },
+                ], 
+                raw: true,
+                nest: true,
+                
                 
             } );
             if ( patients )
@@ -197,7 +203,12 @@ let getAllAdmin = (page, word) => {
                 },
                 order: [['createdAt', 'DESC']], // Sắp xếp theo ngày tạo giảm dần (ngược lại)
                 offset: offset,
-                limit: limit
+                limit: limit,
+                include: [
+                    { model: db.Allcode , as: "positionAdmin" },
+                ], 
+                raw: true,
+                nest: true,
             };
 
             let whereClause = {}; // Điều kiện tìm kiếm

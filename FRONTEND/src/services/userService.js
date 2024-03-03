@@ -101,12 +101,12 @@ const updatecat = (data) => {
 
 // ---------------------- post -------------------
 
-const getAllpost = (page, word) => {
-  return axios.get(`/api/get-all-post?page=${page}&word=${word}`);
+const getAllpost = (page, word, userId) => {
+  return axios.get(`/api/get-all-post?page=${page}&word=${word}&userId=${userId}`);
 };
 
-const getpost = (page) => {
-  return axios.get(`/api/get-post?page=${page}`);
+const getpost = (page, userId) => {
+  return axios.get(`/api/get-post?page=${page}&userId=${userId}`);
 };
 
 const getpostbypage = (page) => {

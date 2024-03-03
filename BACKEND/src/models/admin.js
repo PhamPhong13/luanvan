@@ -14,7 +14,7 @@ module.exports = ( sequelize, DataTypes ) =>
         static associate ( models )
         {
             // define association here
-            Admin.belongsTo(models.Allcode, { foreignKey: 'position', targetKey: 'keyMap', as: 'positionAdmin' });
+            Admin.belongsTo(models.Allcode, { foreignKey: 'position' , targetKey: 'keyMap', as: 'positionAdmin' });
              Admin.hasOne(models.Post, { foreignKey: 'adminId'})
             
         }
