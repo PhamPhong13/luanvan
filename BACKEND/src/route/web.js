@@ -134,7 +134,10 @@ let initWebRoutes = (app) => {
   router.get("/api/get-keyform", form.getkeyform); // get report
   router.put("/api/update-form", form.updateform); // update report
   router.put("/api/update-keyform", form.updatekeyform); // update report
+  router.delete("/api/delete-form", form.deleteform); // delete report
   router.delete("/api/delete-keyform", form.deletekeyform); // delete report
+  router.post("/api/create-answerquestion", form.createanswerquestion); // create form
+
 
 
  return app.use("/", router);

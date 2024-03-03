@@ -18,6 +18,13 @@ let createkeyform = async ( req, res ) =>
     return res.status( 200 ).json( form );
 }
 
+let createanswerquestion = async ( req, res ) =>
+{
+    let form = await formService.createanswerquestion( req.body );
+    return res.status( 200 ).json( form );
+}
+
+
 
 let getformbyid = async ( req, res ) =>
 {
@@ -50,6 +57,12 @@ let deletekeyform = async ( req, res ) =>
     return res.status( 200 ).json( form );
 }
 
+let deleteform = async ( req, res ) =>
+{
+    let form = await formService.deleteform(  req.body.id );
+    return res.status( 200 ).json( form );
+}
+
 module.exports = {
     createform: createform,
     createuserform: createuserform,
@@ -58,5 +71,7 @@ module.exports = {
     updateform: updateform,
     getkeyform: getkeyform,
     updatekeyform: updatekeyform,
-    deletekeyform: deletekeyform
+    deletekeyform: deletekeyform,
+    createanswerquestion: createanswerquestion,
+    deleteform: deleteform
 }

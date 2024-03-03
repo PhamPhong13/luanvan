@@ -402,6 +402,12 @@ const deletekeyform = (id) => {
   })
 }
 
+const deleteform = (id) => {
+  return axios.delete(`/api/delete-form`, {
+    data: { id: id }
+  })
+}
+
 export {
   handleLoginApi,   getAllcode, handleLoginUser,
 
@@ -435,7 +441,7 @@ export {
   userSendEmail, sendEmailReport, sendEmailReportPost,
   
   /** form */
-  createform,getformbyid, updateform, createkeyform, getkeyform, updatekeyform, deletekeyform
+  createform,getformbyid, updateform, createkeyform, getkeyform, updatekeyform, deletekeyform, deleteform
 
   
 };

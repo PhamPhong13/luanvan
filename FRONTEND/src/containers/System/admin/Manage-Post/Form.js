@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { createform, getformbyid, updateform } from "../../../../services/userService"
+import { createform, getformbyid, updateform, deleteform } from "../../../../services/userService"
 import QuestionForm from './QuestionForm';
 class Form extends Component {
     constructor(props) {
@@ -10,9 +10,10 @@ class Form extends Component {
             textareaHeight: 'auto', // Chiều cao ban đầu của textarea
             nameForm: '',
             descForm: '',
-            form: "",
             key: 'create',
-            formId: ""
+            formId: "",
+            openClose: false,
+
         };
     }
 
@@ -33,14 +34,21 @@ class Form extends Component {
                 key: 'update',
                 nameForm: res.data.name,
                 descForm: res.data.desc,
-                textareaHeight: newHeight + 'px'
+                textareaHeight: newHeight + 'px',
+                openClose: true,
             })
         }
         else this.setState({
-            form: [],
-            key: 'create'
+            nameForm: '',
+            descForm: '',
+            key: 'create',
+            formId: "",
+            openClose: false
         })
     }
+
+
+
 
     // Hàm này được gọi mỗi khi nội dung trong textarea thay đổi
     handleTextareaChange = (event, id) => {
@@ -65,49 +73,25 @@ class Form extends Component {
         })
     }
 
-    handleOnblurName = async (event) => {
-        if (this.state.key === 'create') {
-            if (event.target.value.length > 0) {
-                await this.handleCreateFormbyname();
-            
-                }
-        }
-        else {
-            if (event.target.value.length > 0) {
-                await this.handleUpdateFormbyname();
-                }
-        }
-        
-        
-    }
     
-    handleOnblurdesc = async (event) => {
+    handleOnblurdesc = async () => {
         if (this.state.key === 'create') {
-            if (event.target.value.length > 0) {
+            if (this.state.nameForm.length > 0 && this.state.descForm.length > 0) {
                 await this.handleCreateFormbydesc();
                 }
         }
         else {
-            if (event.target.value.length > 0) {
+            if (this.state.nameForm.length > 0 && this.state.descForm.length > 0) {
                 await this.handleUpdateFormbydesc();
                 }
         }
         
     }
-    
-    handleUpdateFormbyname = async () => {
-        let res = await updateform({
-            id: this.state.form.id,
-            name: this.state.nameForm,
-        })
-        if (res && res.errCode === 0) { 
-            await this.getform();
-        }
-    }
 
     handleUpdateFormbydesc = async () => { 
         let res = await updateform({
             id: this.state.form.id,
+            name: this.state.nameForm,
             desc: this.state.descForm,
         })
         if (res && res.errCode === 0) { 
@@ -115,19 +99,11 @@ class Form extends Component {
         }
     }
 
-    handleCreateFormbyname = async () => { 
-        let res = await createform({
-            postId: this.state.postId,
-            name: this.state.nameForm,
-        })
-        if (res && res.errCode === 0) { 
-           await this.getform();
-        }
-    }
 
     handleCreateFormbydesc = async () => { 
         let res = await createform({
-            postId: this.state.postId,
+            postId: this.props.match.params.id,
+            name: this.state.nameForm,
             desc: this.state.descForm,
         })
         if (res && res.errCode === 0) { 
@@ -136,10 +112,16 @@ class Form extends Component {
     }
 
 
+    handleDeleteForm = async (id) => {
+        let res = await deleteform(id);
+        if (res && res.errCode === 0) { 
+            await this.getform();
+        }
+    }
 
 
     render() {
-        const { textareaHeight, nameForm, descForm, form, formId } = this.state;
+        const { textareaHeight, nameForm, descForm, formId } = this.state;
         console.log(formId)
         return (
             <>
@@ -151,7 +133,6 @@ class Form extends Component {
                             <textarea
                                 placeholder='Tiêu đề'
                                 value={nameForm}
-                                onBlur={(event) => this.handleOnblurName(event)}
                                 onChange={(event) => this.handleTextareaChange(event, "nameForm")} 
                             ></textarea>
                         </div>
@@ -160,7 +141,7 @@ class Form extends Component {
                                 style={{ height: textareaHeight }}
                                 placeholder='Mô tả'
 
-                                onBlur={(event) => this.handleOnblurdesc(event)}
+                                onBlur={() => this.handleOnblurdesc()}
                                 onChange={(event) => this.handleTextareaChange(event, "descForm")} // Sự kiện onChange thay đổi
                                 value={descForm}
                             >
@@ -169,7 +150,10 @@ class Form extends Component {
                         </div>
                     </div>
 
-                    {formId && <QuestionForm formId={ formId} /> }
+                    {formId && <QuestionForm formId={formId}
+                        openClose={ this.state.openClose} />}
+
+                    <div onClick={() => this.handleDeleteForm(formId)}>Xoa bieu mau</div>
                 </div>
             </>
         );

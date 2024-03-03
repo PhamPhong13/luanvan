@@ -6,7 +6,12 @@ import * as actions from '../../store/actions'
 import logo from "../../assets/logo.jpg"
 import avatar from "../../assets/410251206_697829015774464_3697217710754640905_n.jpg"
 import { withRouter } from 'react-router';
-import {getAllpostById,   getcatById, getpostById, getlikepostById, createlikepost, deletelikepost, updatepost, createhistory,createreport} from '../../services/userService';
+import {
+    getAllpostById, getcatById, getpostById,
+    getlikepostById, createlikepost, deletelikepost,
+    updatepost, createhistory, createreport, getformbyid
+
+} from '../../services/userService';
 import Header from './Header';
 import Comment from './Comment';
 import Footer from './Footer';
@@ -31,15 +36,28 @@ class Post extends Component
             senReport: false,
             imageReport: "",
             content: "",
-            userReport: []
+            userReport: [],
+            form: ""
         }
     }
 
     async componentDidMount() {
         await this.getpost();
-        await this.setCount();        
+        await this.setCount();    
+        await this.getform(this.props.match.params.id)
     }
 
+    getform = async (id) => {
+        let res = await getformbyid(id);
+        if (res && res.errCode === 0) {
+            this.setState({
+                form: res.data
+            })
+        }
+        else this.setState({
+            form: ""
+        })
+    }
     setCount = async () => {
         let count = this.state.post.count + 1;
         let res = await updatepost({
@@ -259,7 +277,7 @@ class Post extends Component
 
     render ()
     {
-        let { post, cat, thu, day, postbycat, id, likepost, openReport , senReport, imageReport } = this.state;
+        let { post,form, cat, thu, day, postbycat, id, likepost, openReport , senReport, imageReport } = this.state;
         return (
             <>
                 <title>
@@ -349,6 +367,12 @@ class Post extends Component
                        </div>
                 </div>}
                 </div>
+
+                {form !== '' && 
+                <div className='formgooglepost'>
+                    link đăng ký
+                </div>
+                }
 
                 <Footer />
             </>

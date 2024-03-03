@@ -988,7 +988,7 @@
 
 .iconchat{
     position: fixed;
-        right: 15%;
+        right: 29.5%;
         bottom: 10%;
     width: 60px;
     height: 60px;
@@ -996,4 +996,22 @@
         width: 100%;
         height: 100%;
     }
+}
+
+
+.formgooglepost{
+    position: fixed;
+        bottom: 20%;
+        right: 29%;
+        width: 80px;
+        height: 82px;
+        border: 4px solid #ab9ac5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        font-size: 12px;
+        background: white;
+        color: blue;
+        cursor: pointer;
 }

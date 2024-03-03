@@ -2,29 +2,24 @@
 module.exports = {
     up: async ( queryInterface, Sequelize ) =>
     {
-        await queryInterface.createTable( 'forms', {
+        await queryInterface.createTable( 'anwers', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-            postId: {
+            kerformId: {
                 type: Sequelize.STRING
             },
-            adminId: {
+            userId: {
                 type: Sequelize.STRING
             },
-            name: {
-                type: Sequelize.STRING
-            },
-            desc: {
-                type: Sequelize.STRING
-            },
-            status: {
+            answer: {
                 type: Sequelize.STRING
             },
             createdAt: {
+                allowNull: false,
                 type: Sequelize.DATE
             },
             updatedAt: {
@@ -35,6 +30,6 @@ module.exports = {
     },
     down: async ( queryInterface, Sequelize ) =>
     {
-        await queryInterface.dropTable( 'forms' );
+        await queryInterface.dropTable( 'anwers' );
     }
 };

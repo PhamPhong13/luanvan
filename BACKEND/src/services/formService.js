@@ -11,6 +11,7 @@ let createform = ( data ) =>
                 postId: data.postId,
                 name: data.name,
                 desc: data.desc,
+                status: "open"
             } );
 
             resolve( {
@@ -64,6 +65,32 @@ let createkeyform = ( data ) =>
                 formId: data.formId,
                 key: data.key,
                 desc: data.desc,
+            } );
+
+            resolve( {
+                errCode: 0,
+                message: "Create a new comment successfully!"
+            } )
+        }
+        catch ( err )
+        {
+            reject( err );
+        }
+
+
+    } )
+}
+
+let createanswerquestion = ( data ) =>
+{
+    return new Promise( async ( resolve, reject ) =>
+    {
+        try
+        {
+            await db.Answer.create( {
+                keyformId: data.keyformId,
+                userId: data.userId,
+                answer: data.answer,
             } );
 
             resolve( {
@@ -242,7 +269,7 @@ let getkeyform = (id) =>
     } )
 }
 
-let deletekeyform = ( id, postId ) =>
+let deletekeyform = ( id ) =>
 {
     return new Promise( async ( resolve, reject ) =>
     {
@@ -269,6 +296,38 @@ let deletekeyform = ( id, postId ) =>
         } );
     } )
 }
+
+let deleteform = ( id ) =>
+{
+    return new Promise( async ( resolve, reject ) =>
+    {
+        let Patient = await db.Form.findOne( {
+            where: {
+                id: id,
+            },
+        } );
+
+        if ( !Patient )
+        {
+            resolve( {
+                errCode: 2,
+                errMessage: 'history not found!'
+            } );
+        }
+
+        await db.Form.destroy( {
+            where: { id: id },
+        });
+        
+        await db.Keyform.destroy({
+            where: { formId: id },
+        })
+        resolve( {
+            errCode: 0,
+            errMessage: 'Delete history succeed!'
+        } );
+    } )
+}
  
 module.exports = {
     createform: createform,
@@ -278,5 +337,7 @@ module.exports = {
     updateform: updateform,
     getkeyform: getkeyform,
     updatekeyform: updatekeyform,
-    deletekeyform: deletekeyform
+    deletekeyform: deletekeyform,
+    createanswerquestion: createanswerquestion,
+    deleteform: deleteform
 }
