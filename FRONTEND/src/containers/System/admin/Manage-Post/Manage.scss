@@ -533,7 +533,6 @@
             
                         &.suggestion {
                             font-size: 14px;
-                            color: red;
                             font-style: italic;
                             /* Thêm in nghiêng */
                         }
@@ -582,7 +581,6 @@
             
                         &.suggestion {
                             font-size: 14px;
-                            color: red;
                             font-style: italic;
                             /* Thêm in nghiêng */
                         }
@@ -605,5 +603,24 @@
             border: 2px solid #5f6368;
             cursor: pointer;
     }
+
+}
+
+.removeform{
+    border: 1px solid black;
+        width: 30px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: gray;
+        margin-top: 10px;
+        cursor: pointer;
+
+        &:hover{
+            color: red;
+            border-color: red;
+        }
 
 }

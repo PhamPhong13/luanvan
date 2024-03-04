@@ -99,7 +99,7 @@ class QuestionForm extends Component {
                         </div>
                     </div>
                 }
-                <div className='addform' onClick={() => this.handleOpenkeyForm()}>+</div>
+                <div className='addform' title='Thêm câu hỏi' onClick={() => this.handleOpenkeyForm()}>+</div>
             </>
         );
     }

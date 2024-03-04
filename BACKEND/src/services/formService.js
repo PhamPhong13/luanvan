@@ -116,7 +116,7 @@ let getformbyid = ( postId ) =>
         {
             let patients = await db.Form.findOne( {
                 where: {
-                    postId: postId,
+                    id: postId,
                 }
             } );
             if ( patients )

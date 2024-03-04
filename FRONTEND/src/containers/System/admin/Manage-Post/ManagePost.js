@@ -23,17 +23,20 @@ class ManagePost extends Component
     async componentDidMount() {
         await this.getposts("1");
     }
-
+    
     
     getposts = async (page) => {
-        if (this.props.userInfo.id === "1") {
+        let id = this.props.userInfo.id;
+        console.log(id)
+
+        if (id === 1) {
             this.setState({
-            userPost: true,
+                userPost: true,
             })
         }
         else {
             this.setState({
-            userPost: false,
+                userPost: false,
             })
         }
         let res = await getpost(page, this.props.userInfo.id);
@@ -50,14 +53,15 @@ class ManagePost extends Component
     }
 
     getAllposts = async (page, word) => {
-        if (this.props.userInfo.id === "1") {
+        let id = this.props.userInfo.id;
+        if (id === 1) {
             this.setState({
-            userPost: true,
+                userPost: true,
             })
         }
         else {
             this.setState({
-            userPost: false,
+                userPost: false,
             })
         }
         let res = await getAllpost(page, word, this.props.userInfo.id);
@@ -162,7 +166,7 @@ class ManagePost extends Component
                                             <div className='top'>
                                                  {item.name}
                                             </div>
-                                            {userPost && userPost === true && <div className='bottom'>Bài viết của <b>{item.Admin.fullName}</b></div>}
+                                            <div className='bottom'>Bài viết của <b>{item.Admin.fullName}</b></div>
                                             </div> : 
                                             <div className='content-left' >
                                                  {item.name}

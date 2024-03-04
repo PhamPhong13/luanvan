@@ -6,6 +6,7 @@ import QuestionForm from './QuestionForm';
 class Form extends Component {
     constructor(props) {
         super(props);
+        this.textareaRef = React.createRef();
         this.state = {
             textareaHeight: 'auto', // Chiều cao ban đầu của textarea
             nameForm: '',
@@ -13,12 +14,26 @@ class Form extends Component {
             key: 'create',
             formId: "",
             openClose: false,
+            removeForm: false,
 
         };
     }
 
     async componentDidMount() {
         await this.getform();
+        this.adjustTextareaHeight();
+    }
+
+    componentDidUpdate() {
+        this.adjustTextareaHeight();
+    }
+
+    adjustTextareaHeight() {
+        const textarea = this.textareaRef.current;
+        if (textarea) {
+            textarea.style.height = 'auto'; // Đặt lại chiều cao thành 'auto' trước khi tính toán lại chiều cao thực tế
+            textarea.style.height = `${textarea.scrollHeight + 10}px`; // Đặt chiều cao của textarea thành chiều cao thực tế của nội dung
+        }
     }
 
     getform = async () => {
@@ -34,8 +49,8 @@ class Form extends Component {
                 key: 'update',
                 nameForm: res.data.name,
                 descForm: res.data.desc,
-                textareaHeight: newHeight + 'px',
                 openClose: true,
+                removeForm: true
             })
         }
         else this.setState({
@@ -43,7 +58,8 @@ class Form extends Component {
             descForm: '',
             key: 'create',
             formId: "",
-            openClose: false
+            openClose: false,
+            removeForm: false
         })
     }
 
@@ -57,12 +73,6 @@ class Form extends Component {
         this.setState( {
             ...stateCopy
         })
-        const textareaLineHeight = 28; // Độ cao của mỗi dòng trong textarea
-        const textareaRows = event.target.value.split('\n').length+2; // Số hàng trong textarea
-        const newHeight = textareaRows * textareaLineHeight; // Chiều cao mới
-
-        // Đặt state mới cho textareaHeight để render lại component với chiều cao mới
-        this.setState({ textareaHeight: newHeight + 'px' });
     }
 
     handleOnchangeForm = async (event, id) => {
@@ -76,15 +86,11 @@ class Form extends Component {
     
     handleOnblurdesc = async () => {
         if (this.state.key === 'create') {
-            if (this.state.nameForm.length > 0 && this.state.descForm.length > 0) {
+            if (this.state.nameForm.length > 0 ) {
                 await this.handleCreateFormbydesc();
                 }
         }
-        else {
-            if (this.state.nameForm.length > 0 && this.state.descForm.length > 0) {
-                await this.handleUpdateFormbydesc();
-                }
-        }
+        else await this.handleUpdateFormbydesc();
         
     }
 
@@ -121,8 +127,7 @@ class Form extends Component {
 
 
     render() {
-        const { textareaHeight, nameForm, descForm, formId } = this.state;
-        console.log(formId)
+        const { textareaHeight, nameForm, descForm, formId , removeForm} = this.state;
         return (
             <>
                 <title>Tạo Form</title>
@@ -133,14 +138,15 @@ class Form extends Component {
                             <textarea
                                 placeholder='Tiêu đề'
                                 value={nameForm}
-                                onChange={(event) => this.handleTextareaChange(event, "nameForm")} 
+                                ref={this.textareaRef}
+x                                onChange={(event) => this.handleTextareaChange(event, "nameForm")} 
+                                onBlur={() => this.handleOnblurdesc()}
                             ></textarea>
                         </div>
                         <div className='desc'>
                             <textarea 
-                                style={{ height: textareaHeight }}
+                                ref={this.textareaRef}
                                 placeholder='Mô tả'
-
                                 onBlur={() => this.handleOnblurdesc()}
                                 onChange={(event) => this.handleTextareaChange(event, "descForm")} // Sự kiện onChange thay đổi
                                 value={descForm}
@@ -153,7 +159,10 @@ class Form extends Component {
                     {formId && <QuestionForm formId={formId}
                         openClose={ this.state.openClose} />}
 
-                    <div onClick={() => this.handleDeleteForm(formId)}>Xoa bieu mau</div>
+                    {removeForm && 
+                    <div className='removeform' title='Xóa biểu mẫu' onClick={() => this.handleDeleteForm(formId)}>
+                        <i className='fas fa-trash'></i>
+                    </div>}
                 </div>
             </>
         );

@@ -18,7 +18,6 @@ module.exports = ( sequelize, DataTypes ) =>
     };
     Form.init( {
         postId: DataTypes.STRING,
-        adminId: DataTypes.STRING,
         name: DataTypes.STRING,
         desc: DataTypes.STRING,
         status: DataTypes.STRING,

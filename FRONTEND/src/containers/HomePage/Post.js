@@ -4,7 +4,7 @@ import './HomePage.scss';
 import _, { isEmpty } from 'lodash';
 import * as actions from '../../store/actions'
 import logo from "../../assets/logo.jpg"
-import avatar from "../../assets/410251206_697829015774464_3697217710754640905_n.jpg"
+import formicon from "../../assets/form.jpg"
 import { withRouter } from 'react-router';
 import {
     getAllpostById, getcatById, getpostById,
@@ -15,8 +15,10 @@ import {
 import Header from './Header';
 import Comment from './Comment';
 import Footer from './Footer';
+import FormAnswer from './FromAnswer';
 import { CommonUtils } from '../../utils'; // vi or en
 import { toast } from 'react-toastify';
+
 class Post extends Component
 {
 
@@ -167,6 +169,13 @@ class Post extends Component
         }
     }
 
+    linktoform = (id) => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `/formanswer/${id}` );
+        }
+    }
+
     linktocat = (id) => {
         if ( this.props.history )
         {
@@ -277,7 +286,9 @@ class Post extends Component
 
     render ()
     {
-        let { post,form, cat, thu, day, postbycat, id, likepost, openReport , senReport, imageReport } = this.state;
+        let { post, form, cat, thu, day, postbycat,
+            id, likepost, openReport, senReport, imageReport } = this.state;
+        console.log(form);
         return (
             <>
                 <title>
@@ -369,8 +380,10 @@ class Post extends Component
                 </div>
 
                 {form !== '' && 
-                <div className='formgooglepost'>
-                    link đăng ký
+                    <div className='formgooglepost'
+                                onClick={() => this.linktoform(form.id)}
+                        title='Đăng ký form tại đây!'>
+                        <img src={ formicon} />
                 </div>
                 }
 

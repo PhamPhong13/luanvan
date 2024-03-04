@@ -12,9 +12,7 @@ module.exports = {
             postId: {
                 type: Sequelize.STRING
             },
-            adminId: {
-                type: Sequelize.STRING
-            },
+            
             name: {
                 type: Sequelize.STRING
             },
