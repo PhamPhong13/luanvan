@@ -97,6 +97,7 @@ class Form extends Component {
     handleUpdateFormbydesc = async () => { 
         let res = await updateform({
             id: this.state.form.id,
+            adminId: this.props.userInfo.id,
             name: this.state.nameForm,
             desc: this.state.descForm,
         })
@@ -109,6 +110,7 @@ class Form extends Component {
     handleCreateFormbydesc = async () => { 
         let res = await createform({
             postId: this.props.match.params.id,
+            adminId: this.props.userInfo.id,
             name: this.state.nameForm,
             desc: this.state.descForm,
         })

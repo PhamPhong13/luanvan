@@ -109,6 +109,12 @@ const getpost = (page, userId) => {
   return axios.get(`/api/get-post?page=${page}&userId=${userId}`);
 };
 
+
+const getpostslide = () => {
+  return axios.get(`/api/get-post-slide`);
+};
+
+
 const getpostbypage = (page) => {
   return axios.get(`/api/get-post-by-page?page=${page}`);
 };
@@ -375,6 +381,10 @@ const createform = (data) => {
   return axios.post(`/api/create-form`, data);
 }
 
+const createformusersubmit = (data) => {
+  return axios.post(`/api/create-formusersubmit`, data);
+}
+
 
 const createkeyform = (data) => {
   return axios.post(`/api/create-keyform`, data);
@@ -408,6 +418,37 @@ const deleteform = (id) => {
   })
 }
 
+const createanswerform = (data) => {
+  return axios.post(`/api/create-answerform`, data);
+}
+
+const getanswerform = (id, userId) => {
+  return axios.get(`api/get-answerform?id=${id}&userId=${userId}`);
+}
+
+
+const updateanswerform = (data) => {
+  return axios.put(`api/update-answerform`, data);
+}
+
+const deleteanswerform = (id, userId) => {
+  return axios.delete(`/api/delete-answerform`, {
+    data: {
+      id: id,
+      userId: userId
+    }
+  })
+}
+
+const getformusersubmit = (formId, userId) => {
+  return axios.get(`api/get-formusersubmit?formId=${formId}&userId=${userId}`);
+}
+
+
+const updateformusersubmit = (data) => {
+  return axios.put(`api/update-formusersubmit`, data);
+}
+
 export {
   handleLoginApi,   getAllcode, handleLoginUser,
 
@@ -422,7 +463,8 @@ export {
   /* category */
   getAllcat, getcat, createcat, deletecat, getcatById, updatecat,
   /* posts */
-  getAllpost, getpost, createpost, deletepost, getpostById, updatepost, getAllpostById,getpostbypage, getAllpostBypage, 
+  getAllpost, getpost, createpost, deletepost, getpostById, updatepost,
+  getAllpostById, getpostbypage, getAllpostBypage,  getpostslide,
   /* comments */
   getAllcomment, createcomment, deletecomment, getcommentById, updatecomment,
    /* rep comment */
@@ -441,7 +483,10 @@ export {
   userSendEmail, sendEmailReport, sendEmailReportPost,
   
   /** form */
-  createform,getformbyid, updateform, createkeyform, getkeyform, updatekeyform, deletekeyform, deleteform
+  createform, getformbyid, updateform, createkeyform, getkeyform,
+  updatekeyform, deletekeyform, deleteform, createanswerform, getanswerform,
+  updateanswerform, deleteanswerform, createformusersubmit, updateformusersubmit,
+  getformusersubmit
 
   
 };

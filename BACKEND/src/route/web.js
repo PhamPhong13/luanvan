@@ -72,6 +72,7 @@ let initWebRoutes = (app) => {
   // route post
   router.post("/api/create-post", post.createpost); // create post
   router.get("/api/get-post", post.getpost); // get post
+  router.get("/api/get-post-slide", post.getpostslide); // get post
   router.get("/api/get-all-post", post.getAllpost); // get post
   router.get("/api/get-post-by-id", post.getpostById); // get post by id
   router.get("/api/get-all-post-by-page", post.getAllpostBypage); // get post by id
@@ -130,14 +131,21 @@ let initWebRoutes = (app) => {
   router.post("/api/create-form", form.createform); // create form
   router.post("/api/create-userform", form.createuserform); // create report
   router.post("/api/create-keyform", form.createkeyform); // create report
+  router.post("/api/create-answerform", form.createanswerform); // create report
   router.get("/api/get-form-by-id", form.getformbyid); // get report
   router.get("/api/get-keyform", form.getkeyform); // get report
+  router.get("/api/get-answerform", form.getanswerform); // get report
   router.put("/api/update-form", form.updateform); // update report
   router.put("/api/update-keyform", form.updatekeyform); // update report
+  router.put("/api/update-answerform", form.updateanswerform); // update report
   router.delete("/api/delete-form", form.deleteform); // delete report
   router.delete("/api/delete-keyform", form.deletekeyform); // delete report
+  router.delete("/api/delete-answerform", form.deleteanswerform); // delete report
   router.post("/api/create-answerquestion", form.createanswerquestion); // create form
 
+  router.post("/api/create-formusersubmit", post.createformusersubmit); // create post
+  router.put("/api/update-formusersubmit", form.updateformusersubmit); // update report
+  router.get("/api/get-formusersubmit", form.getformusersubmit); // get report
 
 
  return app.use("/", router);

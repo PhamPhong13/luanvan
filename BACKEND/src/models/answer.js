@@ -17,7 +17,7 @@ module.exports = ( sequelize, DataTypes ) =>
         }
     };
     Answer.init( {
-        keyformId: DataTypes.STRING,
+        kerformId: DataTypes.STRING,
         userId: DataTypes.STRING,
         answer: DataTypes.STRING,
     }, {

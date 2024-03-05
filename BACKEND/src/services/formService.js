@@ -9,6 +9,7 @@ let createform = ( data ) =>
         {
             await db.Form.create( {
                 postId: data.postId,
+                adminId: data.adminId,
                 name: data.name,
                 desc: data.desc,
                 status: "open"
@@ -116,7 +117,7 @@ let getformbyid = ( postId ) =>
         {
             let patients = await db.Form.findOne( {
                 where: {
-                    id: postId,
+                 postId: postId,
                 }
             } );
             if ( patients )
@@ -165,6 +166,7 @@ let updateform = (data) =>
             if ( patient )
             {
                 patient.name = data.name,
+                patient.adminId = data.adminId,
                 patient.desc = data.desc,
                 await patient.save();
 
@@ -328,16 +330,241 @@ let deleteform = ( id ) =>
         } );
     } )
 }
+
+
+let createanswerform = ( data ) =>
+{
+    return new Promise( async ( resolve, reject ) =>
+    {
+        try
+        {
+            await db.Answer.create( {
+                kerformId: data.key,
+                userId: data.userId,
+                answer: data.answer,
+            } );
+
+            resolve( {
+                errCode: 0,
+                message: "Create a new Form successfully!"
+            } )
+        }
+        catch ( err )
+        {
+            reject( err );
+        }
+
+
+    } )
+}
+
+let getanswerform = ( id , userId) =>
+{
+    return new Promise( async ( resolve, reject ) =>
+    {
+        try
+        {
+            let patients = await db.Answer.findOne( {
+                where: {
+                    kerformId: id,
+                    userId: userId,
+                }
+            } );
+            if ( patients )
+            {
+                resolve( {
+                    errCode: 0,
+                    message: "get Form successfully!",
+                    data: patients
+                } )
+            }
+            else
+            {
+                resolve( {
+                    errCode: 1,
+                    message: "get connect failed!"
+                } )
+            }
+
+        }
+        catch ( err )
+        {
+            reject( err );
+        }
+    } )
+}
+
+// update 
+let updateanswerform = (data) =>
+{
+    return new Promise( async ( resolve, reject ) =>
+    {
+        try
+        {
+            if ( !data.id  )
+            {
+                resolve( {
+                    errCode: 2,
+                    errMessage: 'Missing required parameter!'
+                } )
+            }
+            let patient = await db.Answer.findOne( {
+                where: {
+                    kerformId: data.id,
+                    userId: data.userId,
+                },
+                raw: false
+
+            } )
+            if ( patient )
+            {
+                patient.answer = data.answer,
+                await patient.save();
+
+                resolve( {
+                    errCode: 0,
+                    errMessage: 'Update Form succeed!'
+                } );
+
+            } else
+            {
+                resolve( {
+                    errCode: 2,
+                    errMessage: 'Form not found!'
+                } );
+
+            }
+        }
+        catch ( e )
+        {
+            reject( e );
+        }
+    } )
+}
+
+
+// update 
+let updateformusersubmit = (data) =>
+{
+    console
+    return new Promise( async ( resolve, reject ) =>
+    {
+        try
+        {
+            let patient = await db.FormUserSubmit.findOne( {
+                where: {
+                    formId: data.formId,
+                userId: data.userId},
+                raw: false
+
+            } )
+            if ( patient )
+            {
+                patient.formId = data.formId,
+                patient.userId = data.userId,
+                await patient.save();
+
+                resolve( {
+                    errCode: 0,
+                    errMessage: 'Update Form succeed!'
+                } );
+
+            } else
+            {
+                resolve( {
+                    errCode: 2,
+                    errMessage: 'Form not found!'
+                } );
+
+            }
+        }
+        catch ( e )
+        {
+            reject( e );
+        }
+    } )
+}
+
+let getformusersubmit = (id, userId) =>
+{
+    return new Promise( async ( resolve, reject ) =>
+    {
+        try
+        {
+            let patients = await db.FormUserSubmit.findAll({
+                where: {
+                    formId: id,
+                    userId: userId
+                },
+                raw: true
+            } );
+            if ( patients )
+            {
+                resolve( {
+                    errCode: 0,
+                    message: "get list history successfully!",
+                    data: patients
+                } )
+            }
+            else
+            {
+                resolve( {
+                    errCode: 1,
+                    message: "get list history failed!"
+                } )
+            }
+
+        }
+        catch ( err )
+        {
+            reject( err );
+        }
+    } )
+}
+
+
+
+let deleteanswerform = ( id , userId) =>
+{
+    return new Promise( async ( resolve, reject ) =>
+    {
+        let Patient = await db.Answer.findOne( {
+            where: {
+                kerformId: id,
+                userId: userId,
+            },
+        } );
+
+        if ( !Patient )
+        {
+            resolve( {
+                errCode: 2,
+                errMessage: 'history not found!'
+            } );
+        }
+
+        await db.Answer.destroy( {
+           where: {
+                kerformId: id,
+                userId: userId,
+            },
+        });
+        
+        resolve( {
+            errCode: 0,
+            errMessage: 'Delete history succeed!'
+        } );
+    } )
+}
+
  
 module.exports = {
-    createform: createform,
-    createuserform: createuserform,
-    createkeyform: createkeyform,
-    getformbyid: getformbyid,
-    updateform: updateform,
-    getkeyform: getkeyform,
-    updatekeyform: updatekeyform,
-    deletekeyform: deletekeyform,
-    createanswerquestion: createanswerquestion,
-    deleteform: deleteform
+    createform: createform,    createuserform: createuserform,
+    createkeyform: createkeyform,    getformbyid: getformbyid,
+    updateform: updateform,    getkeyform: getkeyform,
+    updatekeyform: updatekeyform,    deletekeyform: deletekeyform,
+    createanswerquestion: createanswerquestion,    deleteform: deleteform,
+    createanswerform: createanswerform,    getanswerform: getanswerform,
+    updateanswerform: updateanswerform,    deleteanswerform: deleteanswerform,
+    getformusersubmit: getformusersubmit,    updateformusersubmit: updateformusersubmit
 }

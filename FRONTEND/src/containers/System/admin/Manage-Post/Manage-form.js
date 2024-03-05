@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import { isEmpty } from 'lodash';
 
 import ReactPaginate from 'react-paginate';
-class ManagePost extends Component
+class ManageForm extends Component
 {
     constructor(props) {
         super(props);
@@ -241,4 +241,4 @@ const mapDispatchToProps = dispatch =>
     };
 };
 
-export default withRouter(connect( mapStateToProps, mapDispatchToProps )( ManagePost ));
+export default withRouter(connect( mapStateToProps, mapDispatchToProps )( ManageForm ));

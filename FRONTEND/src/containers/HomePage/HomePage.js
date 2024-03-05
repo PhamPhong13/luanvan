@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import './HomePage.scss';
 import _ from 'lodash';
 import { FormattedMessage } from 'react-intl';
-import { getpost, getcat, createconnect } from '../../services/userService';
+import { getpost, getcat, createconnect, getpostslide } from '../../services/userService';
 import Header from './Header';
 import Slider from './Slider';
 import PostOnCat from './PostOnCat';
@@ -35,7 +35,7 @@ class HomePage extends Component
     }
 
     getAllposts = async () => {
-        let res = await getpost('1');
+        let res = await getpostslide();
         if (res && res.errCode === 0 && res.data.length > 0) { 
             this.setState({
                 listPost: res.data

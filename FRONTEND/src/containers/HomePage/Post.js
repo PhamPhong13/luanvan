@@ -46,11 +46,11 @@ class Post extends Component
     async componentDidMount() {
         await this.getpost();
         await this.setCount();    
-        await this.getform(this.props.match.params.id)
+        await this.getform()
     }
 
-    getform = async (id) => {
-        let res = await getformbyid(id);
+    getform = async () => {
+        let res = await getformbyid(this.props.match.params.id);
         if (res && res.errCode === 0) {
             this.setState({
                 form: res.data
@@ -124,7 +124,6 @@ class Post extends Component
             catId: res.data.catId
         })
         this.getcat();
-        console.log(this.state.post)
         this.getday(this.state.post.updatedAt);
         await this.getpostbycat();
         this.setState({
@@ -288,7 +287,6 @@ class Post extends Component
     {
         let { post, form, cat, thu, day, postbycat,
             id, likepost, openReport, senReport, imageReport } = this.state;
-        console.log(form);
         return (
             <>
                 <title>
@@ -379,9 +377,9 @@ class Post extends Component
                 </div>}
                 </div>
 
-                {form !== '' && 
+                {form  && 
                     <div className='formgooglepost'
-                                onClick={() => this.linktoform(form.id)}
+                                onClick={() => this.linktoform(form.postId)}
                         title='Đăng ký form tại đây!'>
                         <img src={ formicon} />
                 </div>

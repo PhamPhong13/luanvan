@@ -1029,7 +1029,7 @@ position: fixed;
 
 
 .formanswer{
-    background-color: #bbbbbb59;
+    background-color: #f0ebf8;
     width: 100%;
     display: flex;
     z-index: 1000;
@@ -1097,5 +1097,45 @@ position: fixed;
                 }
             }
         }
+    }
+}
+
+
+.sendform{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .btn-cancel{
+        margin-left: 10px;
+    }
+}
+
+.formSuccess{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #00000029;
+    display: flex;
+    justify-content: center;
+    z-index: 1100;
+    padding: 20px;
+
+    .formSuccess-content{
+        width: 50%;
+            background-color: white;
+            border-radius: 5px;
+            border-top: 5px solid #673ab7;
+            padding: 25px;
+            height: 145px;
+            p{
+                margin: 0;
+                margin-bottom: 5px;
+            }
+            div{
+                margin-top: 10px;
+            }
     }
 }

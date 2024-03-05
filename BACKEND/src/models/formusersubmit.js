@@ -4,7 +4,7 @@ const {
 } = require( 'sequelize' );
 module.exports = ( sequelize, DataTypes ) =>
 {
-    class Form extends Model
+    class FormUserSubmit extends Model
     {
         /**
          * Helper method for defining associations.
@@ -13,18 +13,14 @@ module.exports = ( sequelize, DataTypes ) =>
          */
         static associate ( models )
         {
-            // define association here
         }
     };
-    Form.init( {
-        postId: DataTypes.STRING,
-        adminId: DataTypes.STRING,
-        name: DataTypes.STRING,
-        desc: DataTypes.STRING,
-        status: DataTypes.STRING,
+    FormUserSubmit.init( {
+        formId: DataTypes.STRING,
+        userId: DataTypes.STRING
     }, {
         sequelize,
-        modelName: 'Form',
+        modelName: 'FormUserSubmit',
     } );
-    return Form;
+    return FormUserSubmit;
 };

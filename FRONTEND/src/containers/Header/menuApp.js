@@ -91,6 +91,9 @@ export const menberMenu = [
     {
         name: "system.manage.manage-post",        link: "/system/manage-post",
       },
+      {
+        name: "system.manage.manage-form",        link: "/system/manage-form",
+      },
     ],
   },
   {

@@ -63,6 +63,44 @@ let deleteform = async ( req, res ) =>
     return res.status( 200 ).json( form );
 }
 
+let createanswerform = async ( req, res ) =>
+{
+    let form = await formService.createanswerform( req.body );
+    return res.status( 200 ).json( form );
+}
+
+let getanswerform = async ( req, res ) =>
+{
+    let form = await formService.getanswerform( req.query.id, req.query.userId );
+    return res.status( 200 ).json( form );
+}
+
+let updateanswerform = async ( req, res ) =>
+{
+    let form = await formService.updateanswerform( req.body );
+    return res.status( 200 ).json( form );
+}
+
+let deleteanswerform = async ( req, res ) =>
+{
+    let form = await formService.deleteanswerform(  req.body.id, req.body.userId );
+    return res.status( 200 ).json( form );
+}
+
+
+
+let getformusersubmit = async ( req, res ) =>
+{
+    let form = await formService.getformusersubmit( req.query.formId, req.query.userId );
+    return res.status( 200 ).json( form );
+}
+
+let updateformusersubmit = async ( req, res ) =>
+{
+    let form = await formService.updateformusersubmit( req.body );
+    return res.status( 200 ).json( form );
+}
+
 module.exports = {
     createform: createform,
     createuserform: createuserform,
@@ -73,5 +111,11 @@ module.exports = {
     updatekeyform: updatekeyform,
     deletekeyform: deletekeyform,
     createanswerquestion: createanswerquestion,
-    deleteform: deleteform
+    deleteform: deleteform,
+    createanswerform: createanswerform,
+    getanswerform: getanswerform,
+    updateanswerform: updateanswerform,
+    deleteanswerform: deleteanswerform,
+    getformusersubmit: getformusersubmit, 
+    updateformusersubmit: updateformusersubmit
 }

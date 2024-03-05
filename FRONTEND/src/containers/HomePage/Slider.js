@@ -6,7 +6,7 @@ import * as actions from '../../store/actions'
 import logo from "../../assets/logo.jpg"
 import avatar from "../../assets/410251206_697829015774464_3697217710754640905_n.jpg"
 import { withRouter } from 'react-router';
-import { getAllbg,  getpost} from '../../services/userService';
+import { getAllbg,  getpostslide} from '../../services/userService';
 
 class Slider extends Component
 {
@@ -44,7 +44,7 @@ class Slider extends Component
 
 
     getPosts = async () => {
-        let res = await getpost();
+        let res = await getpostslide();
         if (res && res.data) { 
                     this.setState({
                     listPost: res.data
