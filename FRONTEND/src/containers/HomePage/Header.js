@@ -14,7 +14,8 @@ class Header extends Component
     constructor(props) {
         super(props);
         this.state = {
-            listCat: []
+            listCat: [],
+            openInput: false
         }
     
     }
@@ -72,6 +73,8 @@ class Header extends Component
         }
     }
 
+
+    
     render ()
     {
         let { processLogout_U } = this.props;
@@ -113,6 +116,10 @@ class Header extends Component
                                 </li>
                                 <li onClick={() => this.linktoTunure()}>
                                     Thông tin
+                                </li>
+                                <li className='iconserach' >
+                                    <input type='text' placeholder='Nhập để tìm kiếm ...'/>
+                                    <i className='fas fa-search'                                    ></i>
                                 </li>
                             </div>
                             <div className='right'>

@@ -146,6 +146,17 @@ let initWebRoutes = (app) => {
   router.post("/api/create-formusersubmit", post.createformusersubmit); // create post
   router.put("/api/update-formusersubmit", form.updateformusersubmit); // update report
   router.get("/api/get-formusersubmit", form.getformusersubmit); // get report
+  router.get("/api/get-form", form.getform); // get report
+
+  router.get("/api/get-keyform-by-id", form.getkeyformbyid); // get report
+  router.get("/api/get-form-by-key", form.getformbykey); // get report
+
+
+  router.get("/api/handle-search-header", cat.handleSearchHeader); // search
+
+
+
+
 
 
  return app.use("/", router);

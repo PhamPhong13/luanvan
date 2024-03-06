@@ -55,6 +55,12 @@ let getAllCode = async (req, res) => {
     }
 }
 
+let handleSearchHeader = async ( req, res ) =>
+{
+    let cat = await catService.handleSearchHeader( req.query.search );
+    return res.status( 200 ).json( cat );
+}
+
  
 module.exports = {
     createcat: createcat,
@@ -63,6 +69,6 @@ module.exports = {
     deletecat: deletecat,
   updatecat: updatecat, 
     getAllCode: getAllCode,
-    getAllcat: getAllcat
-    /* login: login */
+    getAllcat: getAllcat,
+    handleSearchHeader: handleSearchHeader
 }

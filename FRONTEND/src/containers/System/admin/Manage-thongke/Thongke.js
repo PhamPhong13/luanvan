@@ -54,7 +54,7 @@ class Thongke extends Component {
   }
     
     getpost = async () => {
-  let res = await getpost("ALL");
+  let res = await getpost("ALL", 1);
   let result = [];
   res.data.map((item, index) => {
     if (this.getpostbyweek(item.createdAt)) {
@@ -159,6 +159,7 @@ class Thongke extends Component {
 
   render() {
     let { selectltc, connect, listpost } = this.state;
+    console.log(listpost);
     return (
       <>
         <title>

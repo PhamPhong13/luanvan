@@ -56,6 +56,37 @@
                 display: flex;
                 justify-content: left;
                 align-items: center;
+
+                .iconserach{
+                    border: none;
+                    display: flex;
+                    justify-content: left;
+                    align-items: center;
+                    padding-left: 20px;
+                    width: 250px;
+                    position: relative;
+
+                    input{
+                        width: 250px;
+                        border: none;
+                        border-radius: 2px;
+                        border-bottom: 1px solid#ccc;
+                        outline: none;
+                        background-color: transparent;
+                        padding: 0 15px;
+                        padding-left: 5px;
+                        color: white;
+
+                    }
+
+                    i{
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                    }
+                }
+
+
                 .li-home{
                     width: 50px;
                     i{

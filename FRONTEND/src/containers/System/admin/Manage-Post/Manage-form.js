@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
-import {getpost, deletepost, getAllpost, gethistoryById } from "../../../../services/userService"
+import {getform } from "../../../../services/userService"
 
 import { withRouter } from 'react-router';
 import { toast } from 'react-toastify';
@@ -14,173 +14,80 @@ class ManageForm extends Component
     constructor(props) {
         super(props);
         this.state = {
-            listPost: [],
-            totalpage: 0,
-            userPost: false
+            listForm: [],
+            totalPage: 0,
         }
     }
 
     async componentDidMount() {
-        await this.getposts("1");
+        await this.getForms();
     }
-    
-    
-    getposts = async (page) => {
-        let id = this.props.userInfo.id;
-        console.log(id)
 
-        if (id === 1) {
-            this.setState({
-                userPost: true,
-            })
-        }
-        else {
-            this.setState({
-                userPost: false,
-            })
-        }
-        let res = await getpost(page, this.props.userInfo.id);
+    getForms = async () => {
+        let res = await getform("1", this.props.userInfo.id)
         console.log(res)
-        if (res && res.data.length > 0) {
+        if (res && res.errCode === 0 && res.data.length > 0) { 
             this.setState({
-                listPost: res.data,
-                totalpage: res.totalPages
+                listForm: res.data,
+                totalPage: res.totalPages
             })
         }
-        else this.setState({
-            listPost: []
-        })
     }
+    
 
-    getAllposts = async (page, word) => {
-        let id = this.props.userInfo.id;
-        if (id === 1) {
-            this.setState({
-                userPost: true,
-            })
-        }
-        else {
-            this.setState({
-                userPost: false,
-            })
-        }
-        let res = await getAllpost(page, word, this.props.userInfo.id);
-        if (res && res.data.length > 0) {
-            this.setState({
-                listPost: res.data,
-                totalpage: res.totalPages
-            })
-        }
-        else this.setState({
-            listPost: []
-        })
-    }
-
-    linkToAddAdmin = () => {
+    linkToInforForm = (id) => {
         if ( this.props.history )
         {
-            this.props.history.push( `/system/add-post` );
+            this.props.history.push( `/system/resultform/${id}` );
         }
-    }
-
-    linkToEditAdmin = (id) => {
-        if ( this.props.history )
-        {
-            this.props.history.push( `/system/edit-post/${id}` );
-        }
-    }
-
-    linkToInforPost = (id) => {
-        if ( this.props.history )
-        {
-            this.props.history.push( `/system/infor-post/${id}` );
-        }
-    }
-
-    handleDeleteUser = async (id) => {
-        let res = await deletepost(id);
-        if (res && res.errCode === 0) {
-            await this.getposts("1");
-                toast.success("Xóa bài viết thành công!");
-                
-            }
-            else toast.error("Xóa bài viết không thành công!");
-    }
-
-
-    handleOchangeToSearch = async (event) => {
-
-        if (event.target.value.length <= 0) {
-           await this.getposts();
-        }
-        else await this.getAllposts("1", event.target.value);
-    }
-
-    handlePageClick = async (event) => {
-        await this.getposts(event.selected + 1);
     }
     
 
     render ()
     {
-        let { listPost, totalpage, userPost } = this.state;
+        let { listForm, totalPage } = this.state;
         console.log(this.state);
         return (
             <>
                 <title>
-                    <FormattedMessage id="system.manage.manage-post"></FormattedMessage>
+                    Quản lý biểu mẫu
                 </title>
+
                 <div className='container manage'>
 
-                    <div className='title'><FormattedMessage id="system.manage.manage-post"></FormattedMessage></div>
+                    <div className='title'><FormattedMessage id="system.manage.manage-form"></FormattedMessage></div>
 
                     <div className='search'>
                         <div className='form-search'>
                             <input type="text"
-                                placeholder={this.props.language === 'vi' ? "Nhập để tìm bài viết" : "Type to find the post"}
-                                onChange={(event) => this.handleOchangeToSearch(event)}
+                                placeholder={this.props.language === 'vi' ? "Nhập để tìm biểu mẫu" : "Type to find the form"}
+                                /* onChange={(event) => this.handleOchangeToSearch(event)} */
                             />
                             <i className='fas fa-search'></i>
                         </div>
                     </div>
 
-                    <div className='btn-add'>
-                        <div className='btn btn-primary'
-                            onClick={() => this.linkToAddAdmin()}
-                        >
-                            + Thêm bài viết
-                        </div>
-                    </div>
-
                     <div className='cat'>
                         {
-                            listPost && isEmpty(listPost) && <span>Danh sách rổng!</span>
+                            listForm && isEmpty(listForm) && <span>Danh sách rổng!</span>
                         }
                         {
-                            listPost && !isEmpty(listPost) && listPost.map((item, index) => {
+                            listForm && !isEmpty(listForm) && listForm.map((item, index) => {
                                 return (
 
                                     <div className='cat-content'>
-                                        {userPost === true ? 
-                                        <div className='content-left cat-post-item' >
+                                       <div className='content-left cat-post-item' >
                                             <div className='top'>
                                                  <p>{item.name}</p>
                                             </div>
-                                            <div className='bottom'>Bài viết của <b>{item.Admin.fullName}</b></div>
-                                            </div> : 
-                                            <div className='content-left' >
-                                                 {item.name}
-                                        </div>
-                                        }
+                                            </div>
                             
                             <div className='content-right'>
                                 
                                             <div className='btn btn-primary'
-                                                onClick={() => this.linkToInforPost(item.id)}
+                                                onClick={() => this.linkToInforForm(item.id)}
                                             ><FormattedMessage id="key.see"></FormattedMessage></div>
-                                            <div className='btn btn-warning btn-edit'
-                                                onClick={() => this.linkToEditAdmin(item.id)}
-                                            ><FormattedMessage id="key.edit"></FormattedMessage></div>
+                                           
                                             <div className='btn btn-danger btn-delete'
                                             onClick={() => this.handleDeleteUser(item.id)}
                                             ><FormattedMessage id="key.delete"></FormattedMessage></div>
@@ -195,13 +102,14 @@ class ManageForm extends Component
                         
                     </div>
 
+                    {listForm && !isEmpty(listForm) && 
                     <div className='ReactPaginate mt-2'>
                         <ReactPaginate
                             breakLabel="..."
                             nextLabel="sau >"
-                            onPageChange={this.handlePageClick}
-                            pageRangeDisplayed={totalpage}
-                            pageCount={totalpage}
+                            /* onPageChange={this.handlePageClick} */
+                            pageRangeDisplayed={totalPage}
+                            pageCount={totalPage}
                             previousLabel="< trước"
                             renderOnZeroPageCount={null}
                             pageClassName='page-item'
@@ -217,6 +125,7 @@ class ManageForm extends Component
                             marginPagesDisplayed={10}
                         />
                     </div>
+                    }
 
                     
                 </div>

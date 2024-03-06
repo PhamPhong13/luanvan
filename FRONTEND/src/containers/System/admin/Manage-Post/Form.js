@@ -134,7 +134,7 @@ class Form extends Component {
             <>
                 <title>Tạo Form</title>
                 <div className='container formgoogle'>
-                    <div className='title my-3'>Tạo biểu mẫu</div>
+                    <div className='title my-3'>Biểu mẫu</div>
                     <div className='formgoogle-content-name'>
                         <div className='name desc'>
                             <textarea
@@ -158,9 +158,9 @@ x                                onChange={(event) => this.handleTextareaChange(
                         </div>
                     </div>
 
-                    {formId && <QuestionForm formId={formId}
-                        openClose={ this.state.openClose} />}
-
+                        {formId && <QuestionForm formId={formId}
+                        openClose={this.state.openClose} />}
+                    
                     {removeForm && 
                     <div className='removeform' title='Xóa biểu mẫu' onClick={() => this.handleDeleteForm(formId)}>
                         <i className='fas fa-trash'></i>

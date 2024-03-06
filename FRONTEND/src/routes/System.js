@@ -33,6 +33,7 @@ import ReportUser from "../containers/System/admin/Manage-report/ReportUser";
 
 import Form from "../containers/System/admin/Manage-Post/Form";
 import ManageForm from "../containers/System/admin/Manage-Post/Manage-form";
+import ResultForm from "../containers/System/admin/Manage-Post/ResultForm";
 class System extends Component {
   render() {
     const { systemMenuPath, isLoggedIn } = this.props;
@@ -75,6 +76,7 @@ class System extends Component {
 
               <Route path="/system/form/:id" component={Form} />
               <Route path="/system/manage-form" component={ManageForm} />
+              <Route path="/system/resultform/:id" component={ResultForm} />
               <Route
                 component={() => {
                   return <Redirect to={systemMenuPath} />;

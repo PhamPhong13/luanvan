@@ -14,6 +14,7 @@ module.exports = ( sequelize, DataTypes ) =>
         static associate ( models )
         {
             // define association here
+            Keyform.hasOne(models.Answer, { foreignKey: 'kerformId', as: "answerForm" });
         }
     };
     Keyform.init( {

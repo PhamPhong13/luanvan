@@ -633,3 +633,43 @@
         }
 
 }
+
+
+.resultform{
+    padding-top: 120px;
+
+
+    .updateform {
+
+        margin-top: 20px;
+    }
+    .resultform-content-item{
+        display: flex;
+        margin-top: 10px;
+        
+
+        .item{
+            flex: 1;
+            .top{
+                font-weight: bold;
+                display: block;
+                color: white;
+                padding: 5px 10px;
+                width: 100%;
+                background-color: #4285f4;
+                border: 1px solid #cccc;
+
+            }
+
+            .bottom{
+                display: block;
+                color: black;
+                padding: 5px 10px;
+                width: 100%;
+                border: 1px solid #cccc;
+                background-color: white;
+
+            }
+        }
+    }
+}

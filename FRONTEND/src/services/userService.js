@@ -449,6 +449,26 @@ const updateformusersubmit = (data) => {
   return axios.put(`api/update-formusersubmit`, data);
 }
 
+
+
+const getform = (page, adminId) => {
+  return axios.get(`api/get-form?page=${page}&id=${adminId}`);
+}
+
+
+const getkeyformbyid = (id) => {
+  return axios.get(`/api/get-keyform-by-id?id=${id}`);
+};
+
+
+const getformbykey = (id) => {
+  return axios.get(`/api/get-form-by-key?id=${id}`);
+};
+
+const handleSearchHeader = (id) => {
+  return axios.get(`/api/handle-search-header?search=${id}`);
+};
+
 export {
   handleLoginApi,   getAllcode, handleLoginUser,
 
@@ -461,7 +481,7 @@ export {
     /* menber */
   getAllmenber, createmenber, deletemenber, getmenberById, updatemenber,
   /* category */
-  getAllcat, getcat, createcat, deletecat, getcatById, updatecat,
+  getAllcat, getcat, createcat, deletecat, getcatById, updatecat, handleSearchHeader,
   /* posts */
   getAllpost, getpost, createpost, deletepost, getpostById, updatepost,
   getAllpostById, getpostbypage, getAllpostBypage,  getpostslide,
@@ -486,7 +506,10 @@ export {
   createform, getformbyid, updateform, createkeyform, getkeyform,
   updatekeyform, deletekeyform, deleteform, createanswerform, getanswerform,
   updateanswerform, deleteanswerform, createformusersubmit, updateformusersubmit,
-  getformusersubmit
+  getformusersubmit,
+
+  getform, getkeyformbyid, getformbykey
+
 
   
 };

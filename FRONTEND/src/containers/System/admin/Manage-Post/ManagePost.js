@@ -16,7 +16,8 @@ class ManagePost extends Component
         this.state = {
             listPost: [],
             totalpage: 0,
-            userPost: false
+            userPost: false,
+            search: false
         }
     }
 
@@ -44,11 +45,14 @@ class ManagePost extends Component
         if (res && res.data.length > 0) {
             this.setState({
                 listPost: res.data,
-                totalpage: res.totalPages
+                totalpage: res.totalPages,
+                search: false
             })
         }
         else this.setState({
-            listPost: []
+            listPost: [],
+                search: false
+
         })
     }
 
@@ -113,11 +117,22 @@ class ManagePost extends Component
         if (event.target.value.length <= 0) {
            await this.getposts();
         }
-        else await this.getAllposts("1", event.target.value);
+        else {
+            this.setState({
+                search: true
+            })
+
+            await this.getAllposts("1", event.target.value);
+        }
+        console.log(this.state.search)
     }
 
     handlePageClick = async (event) => {
-        await this.getposts(event.selected + 1);
+        console.log()
+        if (this.state.search === true) {
+            await this.getAllposts(event.selected + 1, '');
+        }
+        else  await this.getposts(event.selected + 1);
     }
     
 
@@ -195,6 +210,7 @@ class ManagePost extends Component
                         
                     </div>
 
+                    {listPost && !isEmpty(listPost) && 
                     <div className='ReactPaginate mt-2'>
                         <ReactPaginate
                             breakLabel="..."
@@ -217,6 +233,7 @@ class ManagePost extends Component
                             marginPagesDisplayed={10}
                         />
                     </div>
+                    }
 
                     
                 </div>

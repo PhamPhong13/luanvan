@@ -446,7 +446,6 @@ let updateanswerform = (data) =>
 // update 
 let updateformusersubmit = (data) =>
 {
-    console
     return new Promise( async ( resolve, reject ) =>
     {
         try
@@ -557,7 +556,134 @@ let deleteanswerform = ( id , userId) =>
     } )
 }
 
+
+
+let getform = (page, adminId) => {
+    return new Promise(async (resolve, reject) => {
+        const limit = 5; // Số lượng bài viết mỗi trang
+        let offset = 0;
+
+        if (page === "undefined") page = 1;
+
+        if (page !== "ALL") {
+            offset = (page - 1) * limit; // Vị trí bắt đầu của trang hiện tại
+        }
+
+        try {
+            let whereCondition = {};
+            let totalPosts;
+
+            if (adminId !== "1") {
+                whereCondition = { adminId: adminId };
+            }
+
+            if (page === "ALL") {
+                totalPosts = await db.Form.count();
+            } else {
+                totalPosts = await db.Form.count({ where: whereCondition });
+            }
+
+            const totalPages = Math.ceil(totalPosts / limit); // Tính tổng số trang
+
+            let postsQuery = {
+                order: [["createdAt", "DESC"]], // Sắp xếp theo ngày tạo giảm dần
+            };
+
+            if (adminId !== "1") {
+                postsQuery.where = whereCondition;
+            }
+
+            if (page !== "ALL") {
+                postsQuery.offset = offset;
+                postsQuery.limit = limit;
+            }
+
+            const patients = await db.Form.findAll(postsQuery);
+
+            resolve({
+                errCode: 0,
+                message: "get list post successfully!",
+                data: patients,
+                total: totalPosts,
+                totalPages: totalPages
+            });
+        } catch (err) {
+            reject(err);
+        }
+    });
+};
+
+
+let getkeyformbyid = (id) =>
+{
+    return new Promise( async ( resolve, reject ) =>
+    {
+        try
+        {
+            let patients = await db.Keyform.findAll({
+                where: { id: id },
+                include: [{ model: db.Answer , as: "answerForm"}],
+                raw: true,
+                nest: true
+            } );
+            if ( patients )
+            {
+                resolve( {
+                    errCode: 0,
+                    message: "get list history successfully!",
+                    data: patients
+                } )
+            }
+            else
+            {
+                resolve( {
+                    errCode: 1,
+                    message: "get list history failed!"
+                } )
+            }
+
+        }
+        catch ( err )
+        {
+            reject( err );
+        }
+    } )
+}
  
+
+
+let getformbykey = (id) =>
+{
+    return new Promise( async ( resolve, reject ) =>
+    {
+        try
+        {
+            let patients = await db.Form.findOne({
+                where: { id: id },
+            } );
+            if ( patients )
+            {
+                resolve( {
+                    errCode: 0,
+                    message: "get list history successfully!",
+                    data: patients
+                } )
+            }
+            else
+            {
+                resolve( {
+                    errCode: 1,
+                    message: "get list history failed!"
+                } )
+            }
+
+        }
+        catch ( err )
+        {
+            reject( err );
+        }
+    } )
+}
 module.exports = {
     createform: createform,    createuserform: createuserform,
     createkeyform: createkeyform,    getformbyid: getformbyid,
@@ -566,5 +692,6 @@ module.exports = {
     createanswerquestion: createanswerquestion,    deleteform: deleteform,
     createanswerform: createanswerform,    getanswerform: getanswerform,
     updateanswerform: updateanswerform,    deleteanswerform: deleteanswerform,
-    getformusersubmit: getformusersubmit,    updateformusersubmit: updateformusersubmit
+    getformusersubmit: getformusersubmit, updateformusersubmit: updateformusersubmit,
+    getform: getform, getkeyformbyid: getkeyformbyid, getformbykey: getformbykey
 }

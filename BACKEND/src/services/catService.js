@@ -289,6 +289,65 @@ let updatecat = ( data ) =>
         }
     } )
 }
+
+
+
+
+let handleSearchHeader = (keyword) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            // Tìm kiếm trong bảng category
+            let categories = await db.Cat.findAll({
+                where: {
+                    name: {
+                        [Op.like]: `%${keyword}%` // Tìm kiếm theo tên
+                    }
+                },
+                order: [['createdAt', 'DESC']]
+            });
+
+            // Tìm kiếm trong bảng post
+            let posts = await db.Post.findAll({
+                where: {
+                    name: {
+                        [Op.like]: `%${keyword}%` // Tìm kiếm theo tên
+                    }
+                },
+                order: [['createdAt', 'DESC']]
+            });
+
+            // Tạo một mảng để chứa kết quả từ cả hai bảng
+            let results = [];
+
+            // Thêm các kết quả từ bảng category vào mảng results
+            categories.forEach(category => {
+                results.push({
+                    type: 'category',
+                    data: category
+                });
+            });
+
+            // Thêm các kết quả từ bảng post vào mảng results
+            posts.forEach(post => {
+                results.push({
+                    type: 'post',
+                    data: post
+                });
+            });
+
+            resolve({
+                errCode: 0,
+                message: "Search successfully!",
+                data: results
+            });
+        } catch (err) {
+            reject(err);
+        }
+    });
+};
+
+    
+    
  
 
 module.exports = {
@@ -297,5 +356,7 @@ module.exports = {
     getcatById: getcatById,
     deletecat: deletecat,
     updatecat: updatecat,
-    getAllcat: getAllcat
+    getAllcat: getAllcat,
+    handleSearchHeader: handleSearchHeader
+
 }

@@ -101,21 +101,34 @@ let updateformusersubmit = async ( req, res ) =>
     return res.status( 200 ).json( form );
 }
 
+let getform = async ( req, res ) =>
+{
+    let form = await formService.getform(req.query.page, req.query.id);
+    return res.status( 200 ).json( form );
+}
+
+
+let getkeyformbyid = async ( req, res ) =>
+{
+
+    let form = await formService.getkeyformbyid( req.query.id );
+    return res.status( 200 ).json( form );
+}
+
+let getformbykey = async ( req, res ) =>
+{
+    let form = await formService.getformbykey( req.query.id );
+    return res.status( 200 ).json( form );
+}
+
 module.exports = {
-    createform: createform,
-    createuserform: createuserform,
-    createkeyform: createkeyform,
-    getformbyid: getformbyid,
-    updateform: updateform,
-    getkeyform: getkeyform,
-    updatekeyform: updatekeyform,
-    deletekeyform: deletekeyform,
-    createanswerquestion: createanswerquestion,
-    deleteform: deleteform,
-    createanswerform: createanswerform,
-    getanswerform: getanswerform,
-    updateanswerform: updateanswerform,
-    deleteanswerform: deleteanswerform,
-    getformusersubmit: getformusersubmit, 
-    updateformusersubmit: updateformusersubmit
+    createform: createform,    createuserform: createuserform,
+    createkeyform: createkeyform,    getformbyid: getformbyid,
+    updateform: updateform,    getkeyform: getkeyform,
+    updatekeyform: updatekeyform,    deletekeyform: deletekeyform,
+    createanswerquestion: createanswerquestion,    deleteform: deleteform,
+    createanswerform: createanswerform,    getanswerform: getanswerform,
+    updateanswerform: updateanswerform,    deleteanswerform: deleteanswerform,
+    getformusersubmit: getformusersubmit, updateformusersubmit: updateformusersubmit,
+    getform: getform, getkeyformbyid: getkeyformbyid , getformbykey: getformbykey
 }
