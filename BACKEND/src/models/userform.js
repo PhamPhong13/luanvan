@@ -14,6 +14,7 @@ module.exports = ( sequelize, DataTypes ) =>
         static associate ( models )
         {
             // define association here
+            Userform.belongsTo(models.Admin, { foreignKey: 'adminId' });
         }
     };
     Userform.init( {

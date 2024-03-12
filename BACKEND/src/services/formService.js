@@ -36,11 +36,16 @@ let createuserform = ( data ) =>
     {
         try
         {
-            await db.Comment.create( {
-                postId: data.postId,
-                name: data.name,
-                desc: data.desc,
-            } );
+            await db.Userform.findOrCreate( {
+                    where: { formId: data.formId,
+                             adminId: data.adminId,
+                    },
+                defaults: {
+                            formId: data.formId,
+                             adminId: data.adminId,
+                        }
+
+                    } )
 
             resolve( {
                 errCode: 0,
@@ -53,6 +58,47 @@ let createuserform = ( data ) =>
         }
 
 
+    } )
+}
+
+
+let getuserform = ( formId ) =>
+{
+    return new Promise( async ( resolve, reject ) =>
+    {
+        try
+        {
+            let patients = await db.Userform.findAll( {
+                where: {
+                 formId: formId,
+                },
+                include: [
+                    {model: db.Admin}
+                ],
+                raw: true,
+                nest: true
+            } );
+            if ( patients )
+            {
+                resolve( {
+                    errCode: 0,
+                    message: "get Form successfully!",
+                    data: patients
+                } )
+            }
+            else
+            {
+                resolve( {
+                    errCode: 1,
+                    message: "get connect failed!"
+                } )
+            }
+
+        }
+        catch ( err )
+        {
+            reject( err );
+        }
     } )
 }
 
@@ -686,6 +732,41 @@ let getformbykey = (id) =>
 }
 
 
+let deleteuserform = ( formId , adminId) =>
+{
+    return new Promise( async ( resolve, reject ) =>
+    {
+        let Patient = await db.Userform.findOne( {
+            where: {
+                formId: formId,
+                adminId: adminId,
+            },
+        } );
+
+        if ( !Patient )
+        {
+            resolve( {
+                errCode: 2,
+                errMessage: 'history not found!'
+            } );
+        }
+
+        await db.Userform.destroy( {
+           where: {
+                formId: formId,
+                adminId: adminId,
+            },
+        });
+        
+        resolve( {
+            errCode: 0,
+            errMessage: 'Delete history succeed!'
+        } );
+    } )
+}
+
+
+
 module.exports = {
     createform: createform,    createuserform: createuserform,
     createkeyform: createkeyform,    getformbyid: getformbyid,
@@ -695,5 +776,6 @@ module.exports = {
     createanswerform: createanswerform,    getanswerform: getanswerform,
     updateanswerform: updateanswerform,    deleteanswerform: deleteanswerform,
     getformusersubmit: getformusersubmit, updateformusersubmit: updateformusersubmit,
-    getform: getform, getkeyformbyid: getkeyformbyid, getformbykey: getformbykey
+    getform: getform, getkeyformbyid: getkeyformbyid, getformbykey: getformbykey,
+    getuserform: getuserform, deleteuserform: deleteuserform
 }

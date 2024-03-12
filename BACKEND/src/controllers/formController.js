@@ -107,6 +107,12 @@ let getform = async ( req, res ) =>
     return res.status( 200 ).json( form );
 }
 
+let getuserform = async ( req, res ) =>
+{
+    let form = await formService.getuserform(req.query.formId);
+    return res.status( 200 ).json( form );
+}
+
 
 let getkeyformbyid = async ( req, res ) =>
 {
@@ -121,6 +127,14 @@ let getformbykey = async ( req, res ) =>
     return res.status( 200 ).json( form );
 }
 
+
+let deleteuserform = async ( req, res ) =>
+{
+    let form = await formService.deleteuserform(  req.body.formId, req.body.adminId );
+    return res.status( 200 ).json( form );
+}
+
+
 module.exports = {
     createform: createform,    createuserform: createuserform,
     createkeyform: createkeyform,    getformbyid: getformbyid,
@@ -130,5 +144,6 @@ module.exports = {
     createanswerform: createanswerform,    getanswerform: getanswerform,
     updateanswerform: updateanswerform,    deleteanswerform: deleteanswerform,
     getformusersubmit: getformusersubmit, updateformusersubmit: updateformusersubmit,
-    getform: getform, getkeyformbyid: getkeyformbyid , getformbykey: getformbykey
+    getform: getform, getkeyformbyid: getkeyformbyid, getformbykey: getformbykey,
+    getuserform: getuserform, deleteuserform: deleteuserform
 }

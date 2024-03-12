@@ -133,11 +133,13 @@ let initWebRoutes = (app) => {
   router.post("/api/create-keyform", form.createkeyform); // create report
   router.post("/api/create-answerform", form.createanswerform); // create report
   router.get("/api/get-form-by-id", form.getformbyid); // get report
+  router.get("/api/get-userform", form.getuserform); // get report
   router.get("/api/get-keyform", form.getkeyform); // get report
   router.get("/api/get-answerform", form.getanswerform); // get report
   router.put("/api/update-form", form.updateform); // update report
   router.put("/api/update-keyform", form.updatekeyform); // update report
   router.put("/api/update-answerform", form.updateanswerform); // update report
+  router.delete("/api/delete-userform", form.deleteuserform); // delete report
   router.delete("/api/delete-form", form.deleteform); // delete report
   router.delete("/api/delete-keyform", form.deletekeyform); // delete report
   router.delete("/api/delete-answerform", form.deleteanswerform); // delete report
@@ -153,10 +155,6 @@ let initWebRoutes = (app) => {
 
 
   router.get("/api/handle-search-header", cat.handleSearchHeader); // search
-
-
-
-
 
 
  return app.use("/", router);

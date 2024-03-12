@@ -639,9 +639,58 @@
     padding-top: 120px;
 
 
-    .updateform {
+    .updatetop{
+        display: flex;
+        justify-content: left;
+        align-items: center;
 
-        margin-top: 20px;
+        .share-up{
+            margin-left: 10px;
+                transform: translateY(10px);
+                    padding: 7px;
+                    position: relative;
+        .selectshare{
+            position: absolute;
+            top: 30px;
+            border-radius: 3px;
+            left: 0;
+            width: 300px;
+            border: 1px solid black;
+            select{
+                width: 100%;
+            }
+
+            background-color: white;
+            .namesahre{
+                li{
+                    list-style: none;
+                    text-align: left;
+                    padding: 5px;
+                    display: block;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 1;
+                    height: 25px;
+                    overflow: hidden;
+                    position: relative;
+                    span{
+                            position: absolute;
+                            top: 4px;
+                            right: 6px;
+                            border: 1px solid black;
+                            border-radius: 50%;
+                            padding: 0px 5px;
+                            font-size: 10px;
+                    }
+                }
+            }
+
+        }
+        }
+        .updateform {
+        
+                margin-top: 20px;
+            }
     }
     .resultform-content-item{
         display: flex;

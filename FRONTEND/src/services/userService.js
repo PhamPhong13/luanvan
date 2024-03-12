@@ -469,6 +469,25 @@ const handleSearchHeader = (id) => {
   return axios.get(`/api/handle-search-header?search=${id}`);
 };
 
+
+const createuserform = (data) => {
+  return axios.post(`/api/create-userform`, data);
+}
+
+const getuserform = (formId) => {
+  return axios.get(`/api/get-userform?formId=${formId}`);
+};
+
+
+const deleteuserform = (formId, adminId) => {
+  return axios.delete(`/api/delete-userform`, {
+    data: {
+      formId: formId,
+      adminId: adminId
+    }
+  })
+}
+
 export {
   handleLoginApi,   getAllcode, handleLoginUser,
 
@@ -508,8 +527,8 @@ export {
   updateanswerform, deleteanswerform, createformusersubmit, updateformusersubmit,
   getformusersubmit,
 
-  getform, getkeyformbyid, getformbykey
+  getform, getkeyformbyid, getformbykey,
 
 
-  
+  createuserform, getuserform, deleteuserform
 };
