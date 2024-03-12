@@ -85,41 +85,39 @@ class Thongke extends Component {
       return isInLastWeek;
     }
 
-    getpostbymonth = (dateString) => {// Chuỗi thời gian cần kiểm tra
-      // Chuyển đổi chuỗi thời gian thành đối tượng thời gian
-      var dateObject = new Date(dateString);
+ getpostbymonth = (dateString) => {
+  // Chuỗi thời gian cần kiểm tra
+  var dateObject = new Date(dateString);
 
-      // Xác định thời điểm đầu tiên của tháng trước
-      var today = new Date();
-      var firstDayOfLastMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+  // Xác định thời điểm đầu tiên của tháng hiện tại
+  var today = new Date();
+  var firstDayOfThisMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 
-      // Xác định thời điểm cuối cùng của tháng trước
-      var lastDayOfLastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+  // Xác định thời điểm cuối cùng của tháng hiện tại
+  var lastDayOfThisMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
-      // Kiểm tra xem thời điểm đó có nằm trong tháng trước không
-      var isInLastMonth = dateObject >= firstDayOfLastMonth && dateObject <= lastDayOfLastMonth;
+  // Kiểm tra xem thời điểm đó có nằm trong tháng hiện tại không
+  var isInThisMonth = dateObject >= firstDayOfThisMonth && dateObject <= lastDayOfThisMonth;
 
-      // Hiển thị kết quả
-      return isInLastMonth;
-    }
+  // Hiển thị kết quả
+  return isInThisMonth;
+}
 
-    getpostbyyear = (dateString) => { // Chuỗi thời gian cần kiểm tra
-    // Chuyển đổi chuỗi thời gian thành đối tượng thời gian
+
+   getpostbyyear = (dateString) => { 
+    // Chuỗi thời gian cần kiểm tra
     var dateObject = new Date(dateString);
 
-    // Xác định thời điểm đầu tiên của năm trước
+    // Xác định thời điểm đầu tiên của năm năm nay
     var today = new Date();
-    var firstDayOfLastYear = new Date(today.getFullYear() - 1, 0, 1);
+    var firstDayOfThisYear = new Date(today.getFullYear(), 0, 1);
 
-    // Xác định thời điểm cuối cùng của năm trước
-    var lastDayOfLastYear = new Date(today.getFullYear() - 1, 11, 31);
-
-    // Kiểm tra xem thời điểm đó có nằm trong năm trước không
-    var isInLastYear = dateObject >= firstDayOfLastYear && dateObject <= lastDayOfLastYear;
+    // Kiểm tra xem thời điểm đó có nằm trong khoảng từ đầu năm đến hiện tại không
+    var isInThisYear = dateObject >= firstDayOfThisYear && dateObject <= today;
 
     // Hiển thị kết quả
-      return isInLastYear;
-  }
+    return isInThisYear;
+}
 
 
     getpostbyday = (dateString, day) => {// Chuỗi thời gian cần kiểm tra
@@ -156,10 +154,16 @@ class Thongke extends Component {
         }
     }
 
+  ltc = async(event) => {
+    this.setState({
+      selectltc: event.target.value
+    })
 
+    await this.getConnect();
+  }
+  
   render() {
     let { selectltc, connect, listpost } = this.state;
-    console.log(listpost);
     return (
       <>
         <title>
@@ -169,10 +173,11 @@ class Thongke extends Component {
           <div className="title"><FormattedMessage id="system.thongke" /></div>
           <div className="line"> ----------------------------- . -----------------------------</div>
           <div className="ltc">
-            Lược truy cập vào hệ thống<select > {selectltc}
-              <option onClick={() => this.ltc("Tuần")}>Tuần </option>
-              <option onClick={() => this.ltc("Tháng")}>Tháng </option>
-              <option onClick={() => this.ltc("Năm")}>Năm </option>
+            Lược truy cập vào hệ thống
+            <select onChange={(event) => this.ltc(event)}> {selectltc}
+              <option >Tuần </option>
+              <option >Tháng </option>
+              <option>Năm </option>
             </select>
           </div>
           <div className="ltc-value">
