@@ -79,6 +79,13 @@ class FormAnswer extends Component
         }
     }
 
+    linktopost = (id) => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `/post/${id}` );
+        }
+    }
+
     componentDidUpdate() {
         this.adjustTextareaHeight();
     }
@@ -119,13 +126,11 @@ class FormAnswer extends Component
 
     handlesaveForm = async () => {
         if (this.state.update === true) {
-            console.log("0")
             let res = await updateformusersubmit({
             formId: this.state.formId,
             userId: this.props.userInfo.id
         })
             if (res && res.errCode === 0) {
-            console.log("1")
             await this.getformusersubmitsuccess();
         }
         }
@@ -135,7 +140,6 @@ class FormAnswer extends Component
             userId: this.props.userInfo.id
         })
             if (res && res.errCode === 0) {
-            console.log("2")
             await this.getformusersubmitsuccess();
         }
         }
@@ -151,8 +155,7 @@ class FormAnswer extends Component
 
     render ()
     {
-        let { name, desc, email, listquestion, remove, success } = this.state;
-        console.log(success);
+        let { name, desc, email, listquestion, remove, success, postId } = this.state;
         return (
             <>
                 <title>Biểu mẩu đăng ký </title>
@@ -211,7 +214,8 @@ class FormAnswer extends Component
                     <div className='formSuccess-content'>
                         <p>Bạn vừa đăng ký thành công!</p>
                         <p>Chúc bạn có một ngày tốt lành!</p>
-                        <div className='btn btn-primary' onClick={() => this.handleChangeSuccess()}>Sửa biểu mẫu</div>
+                        <div className='btn btn-warning' onClick={() => this.handleChangeSuccess()}>Sửa biểu mẫu</div>
+                        <div className='btn btn-primary mx-2' onClick={() => this.linktopost(postId)}>Trở về</div>
                     </div>
                 </div>
                 }

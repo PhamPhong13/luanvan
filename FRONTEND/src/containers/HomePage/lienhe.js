@@ -17,7 +17,8 @@ class lienhe extends Component
         this.state = {
             name: "",
             email: "",
-            content: ""
+            content: "",
+            openloading: false
         }
     }
 
@@ -32,6 +33,9 @@ class lienhe extends Component
     }
 
     handleSend = async () => {
+        this.setState({
+            openloading: true
+        })
         let res = await userSendEmail({
             name: this.state.name,
             email: this.state.email,
@@ -48,11 +52,16 @@ class lienhe extends Component
         else {
             toast.error("Gửi mail không thành công!");
         }
+
+        this.setState({
+            openloading: false
+        })
     }
 
     
     render ()
     {
+        let { openloading } = this.state;
         return (
             <>
                 <title>
@@ -97,6 +106,11 @@ class lienhe extends Component
                     </div>
                 </div>
                 <Footer />
+
+                {openloading === true && 
+                <div className='loading'>
+                    <div class="loading-spinner"></div>
+                </div>}
             </>
         );
     }

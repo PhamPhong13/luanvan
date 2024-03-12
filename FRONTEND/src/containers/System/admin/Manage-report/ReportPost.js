@@ -283,7 +283,7 @@ getday = (date) => {
 
                 {openloading === true && 
                 <div className='loading'>
-                    <div className='loading-content'>Đang xử lý...</div>
+                    <div class="loading-spinner"></div>
                 </div>}
                 
             </>

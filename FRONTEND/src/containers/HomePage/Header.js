@@ -7,7 +7,7 @@ import logo from "../../assets/logo.jpg"
 import avatar from "../../assets/user.jpg"
 import top from "../../assets/top.png"
 import { withRouter } from 'react-router';
-import { getAllcat , getcat} from '../../services/userService';
+import { getAllcat , getcat, handleSearchHeader} from '../../services/userService';
 
 class Header extends Component
 {
@@ -15,7 +15,9 @@ class Header extends Component
         super(props);
         this.state = {
             listCat: [],
-            openInput: false
+            openInput: false,
+            listSearch: [],
+            search: ''
         }
     
     }
@@ -73,12 +75,59 @@ class Header extends Component
         }
     }
 
+    linktoItem = (item) => {
+        if (item.type === 'category') {
+            if ( this.props.history )
+            {
+                this.props.history.push( `/cat/${item.data.id}` );
+            }
+        }
+        else {
+            if ( this.props.history )
+            {
+                this.props.history.push( `/post/${item.data.id}` );
+            }
+        }
 
-    
+        this.setState({
+            listSearch: []
+        })
+    }
+
+    handlesearch = async (event) => {
+        let id = 'search';
+        let stateCopy = { ...this.state };
+        stateCopy[ id ] = event.target.value;
+        this.setState( {
+            ...stateCopy
+        } )
+        if (event.target.value.length <= 0) {
+            this.setState({
+                listSearch: []
+            })
+        }
+        else {
+            let res = await handleSearchHeader(event.target.value);
+            if (res && res.errCode === 0) {
+                this.setState({
+                    listSearch: res.data
+                })
+            }
+        }
+    }
+
+    handlesearchBlur = () => {
+        this.setState({
+            listSearch: [],
+            search: ''
+        })
+    }
+
+
     render ()
     {
         let { processLogout_U } = this.props;
-        let {listCat} = this.state;
+        let {listCat, listSearch, search} = this.state;
         return (
             <>
                 <div className=' container header' >
@@ -97,6 +146,8 @@ class Header extends Component
                                 <li className='li-home'
                                 onClick={() => this.linktoHome()}>
                                     <i className='fas fa-home'></i>
+
+                                    
                                 </li>
                                 <li>
                                     Chuyên mục  <i class="fas fa-chevron-down"></i>
@@ -117,9 +168,25 @@ class Header extends Component
                                 <li onClick={() => this.linktoTunure()}>
                                     Thông tin
                                 </li>
-                                <li className='iconserach' >
-                                    <input type='text' placeholder='Nhập để tìm kiếm ...'/>
-                                    <i className='fas fa-search'                                    ></i>
+                                <li className='iconserach'
+                                >
+                                    
+                                    <input type='text'
+                                        onChange={(event) => this.handlesearch(event)}
+                                        value={search}
+                                        placeholder='Nhập để tìm kiếm ...' />
+                                    <i className='fas fa-search'></i>
+                                    <ul className='ulsearch'
+                                        onBlur={() => this.handlesearchBlur()}
+                                    >
+                                    {listSearch && !isEmpty(listSearch) && listSearch.slice(0, 10).map((item) => {
+                                        return (
+                                            <li
+                                                onClick={() => this.linktoItem(item)}
+                                            >{item.type === 'category' ? "Danh mục" : "Bài viết"}: {item.data.name}</li>
+                                        )
+                                    })}
+                                    </ul>
                                 </li>
                             </div>
                             <div className='right'>
