@@ -15,6 +15,7 @@ module.exports = ( sequelize, DataTypes ) =>
         {
             // define association here
             Userform.belongsTo(models.Admin, { foreignKey: 'adminId' });
+            Userform.belongsTo(models.Form, { foreignKey: 'formId' });
         }
     };
     Userform.init( {

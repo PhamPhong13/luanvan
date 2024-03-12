@@ -488,7 +488,15 @@ const deleteuserform = (formId, adminId) => {
   })
 }
 
+const getuserformbyadminid = (adminId, page) => {
+  return axios.get(`/api/get-userform-by-admin-id?adminId=${adminId}&page=${page}`);
+};
+
+
 export {
+
+getuserformbyadminid, 
+
   handleLoginApi,   getAllcode, handleLoginUser,
 
   /* admin */

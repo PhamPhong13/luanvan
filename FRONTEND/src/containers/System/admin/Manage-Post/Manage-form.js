@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
-import {getform } from "../../../../services/userService"
+import {getform, getuserformbyadminid } from "../../../../services/userService"
 
 import { withRouter } from 'react-router';
 import { toast } from 'react-toastify';
@@ -15,16 +15,33 @@ class ManageForm extends Component
         super(props);
         this.state = {
             listForm: [],
+            listformshare: [],
             totalPage: 0,
+            totalshare: 0,
         }
     }
 
     async componentDidMount() {
-        await this.getForms();
+        await this.getForms("1");
+        await this.getformbyadmins("1");
     }
 
-    getForms = async () => {
-        let res = await getform("1", this.props.userInfo.id)
+    getformbyadmins = async (id) => {
+        let res = await getuserformbyadminid(this.props.userInfo.id, id)
+        console.log(res)
+        if (res && res.errCode === 0 && res.data.length > 0) { 
+            this.setState({
+                listformshare: res.data,
+                totalshare: res.totalPages
+            })
+        }
+        else this.setState({
+            listformshare: []
+        })
+    }
+
+    getForms = async (id) => {
+        let res = await getform(id, this.props.userInfo.id)
         console.log(res)
         if (res && res.errCode === 0 && res.data.length > 0) { 
             this.setState({
@@ -41,12 +58,19 @@ class ManageForm extends Component
             this.props.history.push( `/system/resultform/${id}` );
         }
     }
+
+    handlePageClick = async (event) => {
+        await this.getformbyadmins(event.selected + 1);
+    }
+
+    handlePageClickform = async (event) => {
+        await this.getForms(event.selected + 1);
+    }
     
 
     render ()
     {
-        let { listForm, totalPage } = this.state;
-        console.log(this.state);
+        let { listForm, totalPage, listformshare, totalshare } = this.state;
         return (
             <>
                 <title>
@@ -107,9 +131,63 @@ class ManageForm extends Component
                         <ReactPaginate
                             breakLabel="..."
                             nextLabel="sau >"
-                            /* onPageChange={this.handlePageClick} */
+                            onPageChange={this.handlePageClickform}
                             pageRangeDisplayed={totalPage}
                             pageCount={totalPage}
+                            previousLabel="< trước"
+                            renderOnZeroPageCount={null}
+                            pageClassName='page-item'
+                            pageLinkClassName='page-link'
+                            previousClassName='page-item'
+                            previousLinkClassName='page-link'
+                            nextClassName='page-item'
+                            nextLinkClassName='page-link'
+                            breakClassName='page-item'
+                            breakLinkClassName='page-link'
+                            containerClassName='pagination'
+                            activeClassName='active'
+                            marginPagesDisplayed={10}
+                        />
+                    </div>
+                    }
+
+                    <div className='cat'>
+                        <div><b>Danh sách biểu mẫu được chia sẻ:</b></div>
+                        {
+                            listformshare && isEmpty(listformshare) && <span>Danh sách rổng!</span>
+                        }
+                        {
+                            listformshare && !isEmpty(listformshare) && listformshare.map((item, index) => {
+                                return (
+
+                                    <div className='cat-content'>
+                                       <div className='content-left cat-post-item' >
+                                            <div className='top'>
+                                                 <p>{item.Form.name}</p>
+                                            </div>
+                                            </div>
+                            
+                            <div className='content-right'>
+                                
+                                            <div className='btn btn-primary'
+                                                onClick={() => this.linkToInforForm(item.Form.id)}
+                                            ><FormattedMessage id="key.see"></FormattedMessage></div>
+                            </div>
+                        </div>
+                                )
+                            })
+}
+                        
+                    </div>
+
+                    {listForm && !isEmpty(listForm) && 
+                    <div className='ReactPaginate mt-2'>
+                        <ReactPaginate
+                            breakLabel="..."
+                            nextLabel="sau >"
+                            onPageChange={this.handlePageClick}
+                            pageRangeDisplayed={totalshare}
+                            pageCount={totalshare}
                             previousLabel="< trước"
                             renderOnZeroPageCount={null}
                             pageClassName='page-item'

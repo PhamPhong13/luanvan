@@ -52,12 +52,15 @@ class Resultform extends Component
         let resultformat = [];
         if (res && res.errCode === 0 && res.data.length > 0) { 
             res.data.map((item) => {
-                let object = {};
-                object.value = item.id;
-                object.label = `${item.fullName} - ${item.email}`;
-                resultformat.push(object);
+                if (item.id !== this.props.user.id) {
+                    let object = {};
+                    object.value = item.id;
+                    object.label = `${item.fullName} - ${item.email}`;
+                    resultformat.push(object);
+                }
             })
         }
+        console.log(resultformat)
         this.setState({
             selectedAdmins: resultformat
         })

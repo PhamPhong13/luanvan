@@ -14,6 +14,7 @@ module.exports = ( sequelize, DataTypes ) =>
         static associate ( models )
         {
             // define association here
+             Form.hasOne(models.Userform, { foreignKey: 'formId'})
         }
     };
     Form.init( {

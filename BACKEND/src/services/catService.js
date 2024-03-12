@@ -80,9 +80,6 @@ let getcat = (page) =>
             let totalPosts = await db.Cat.count(); // Đếm tổng số bài viết
             let totalPages = Math.ceil(totalPosts / limit); // Tính tổng số trang
             let patients = await db.Cat.findAll( {
-                attributes: {
-                    exclude: [ 'password' ]
-                },
                 order: [['createdAt', 'DESC']], // Sắp xếp theo ngày tạo giảm dần (ngược lại)
                 offset: offset,
                 limit: limit

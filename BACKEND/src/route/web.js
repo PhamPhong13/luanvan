@@ -13,6 +13,7 @@ import history from "../controllers/historyController";
 import connect from "../controllers/connectController";
 import report from "../controllers/reportController";
 import form from "../controllers/formController";
+import userform from "../controllers/userformController";
 
 let router = express.Router();
 
@@ -152,6 +153,8 @@ let initWebRoutes = (app) => {
 
   router.get("/api/get-keyform-by-id", form.getkeyformbyid); // get report
   router.get("/api/get-form-by-key", form.getformbykey); // get report
+
+  router.get("/api/get-userform-by-admin-id", userform.getuserformbyadminid); // get report
 
 
   router.get("/api/handle-search-header", cat.handleSearchHeader); // search
