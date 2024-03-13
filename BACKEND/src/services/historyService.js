@@ -58,40 +58,39 @@ let gethistory = () =>
 }
  */
 //get patient by id
-let gethistoryById = ( postId ) =>
-{
-    return new Promise( async ( resolve, reject ) =>
-    {
-        try
-        {
-            let patients = await db.History.findOne( {
+let gethistoryById = (userId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let history = await db.History.findAll({
                 where: {
-                    postId: postId,
-                }
-            } );
-            if ( patients )
-            {
-                resolve( {
+                    userId: userId,
+                },
+                include: [
+                    { model: db.Post , attributes: ['name']}
+                ],
+                order: [["createdAt", "DESC"]], // Sắp xếp theo ngày tạo giảm dần
+                nest: true,
+                raw: true,
+                group: 'postId' // Thêm điều này để nhóm kết quả theo postId
+            });
+            if (history) {
+                resolve({
                     errCode: 0,
-                    message: "get history successfully!",
-                    data: patients
-                } )
-            }
-            else
-            {
-                resolve( {
+                    message: "Get history successfully!",
+                    data: history
+                });
+            } else {
+                resolve({
                     errCode: 1,
-                    message: "get history failed!"
-                } )
+                    message: "Get history failed!"
+                });
             }
+        } catch (err) {
+            reject(err);
+        }
+    });
+};
 
-        }
-        catch ( err )
-        {
-            reject( err );
-        }
-    } )
-}
 
 /* //get patient by id
 let getAllhistoryById = ( id ) =>

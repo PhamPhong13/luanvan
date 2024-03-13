@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './HomePage.scss';
-import _ from 'lodash';
+import _, { isElement, isEmpty } from 'lodash';
 import Header from './Header';
 import * as actions from '../../store/actions'
-import { handleLoginUser, updateUser, getUserById } from '../../services/userService';
+import { handleLoginUser, updateUser, getUserById, gethistoryById , getlikepostByuserId} from '../../services/userService';
 import { CommonUtils } from '../../utils'; // vi or en
 import pen from "../../assets/pen.png"
+import play from "../../assets/play.png"
 import { toast } from 'react-toastify';
 class Profile extends Component
 {
@@ -21,11 +22,46 @@ class Profile extends Component
             desc: "",
             user: "",
             id: "",
-            openChange: false
+            openChange: false,
+            listseepost: [],
+            listlike: []
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        await this.gethistory()  
+        await this.getlike()
+    }
+
+    getlike = async () => {
+        let res = await getlikepostByuserId(this.props.userInfo.id);
+        console.log(res)
+        if (res && res.errCode === 0 && res.data.length > 0) { 
+            this.setState({
+                listlike: res.data
+            })
+        }
+        else {
+            this.setState({
+                listlike: []
+            })
+        }
+        console.log(this.state.listlike)
+    }
+
+    gethistory = async () => {
+        let res = await gethistoryById(this.props.userInfo.id);
+        console.log(res)
+        if (res && res.errCode === 0 && res.data.length > 0) { 
+            this.setState({
+                listseepost: res.data
+            })
+        }
+        else {
+            this.setState({
+                listseepost: []
+            })
+        }
     }
 
 
@@ -84,12 +120,19 @@ class Profile extends Component
         }
     }
 
+
+     linktopost = (id) => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `/post/${id}` );
+        }
+    }
     
    
     render ()
     {
         let profile = this.props.userInfo;
-        let { user, email, fullName, image, phone, desc } = this.state;
+        let { user, email, fullName, image, phone, desc, listseepost, listlike } = this.state;
         return (
             <>
                  <title>
@@ -127,7 +170,29 @@ class Profile extends Component
                                         
                             </div>
                         </div>
-                        <div className='right'></div>
+                                <div className='right'>
+                                    <div><b>Bài viết vừa xem gần đây</b></div>
+                                    <div className='listseepost'>
+                                        {listseepost && !isEmpty(listseepost) && listseepost.map((item) => {
+                                            return (
+                                                <li onClick={() => this.linktopost(item.postId)}> <img src={ play} />{item.Post.name }</li>
+                                            )
+                                        })}
+                                        {listseepost && isEmpty(listseepost) &&
+                                        "Bạn chưa xem bài viết nào!"}
+                                    </div>
+                                            <div><b>Bài viết vừa xem gần đây</b></div>
+                                    <div className='listseepost mt-3'>
+                                        {listlike && !isEmpty(listlike) && listlike.map((item) => {
+                                            return (
+                                                <li onClick={() => this.linktopost(item.postId)}> <img src={ play} />{item.Post.name }</li>
+                                            )
+                                        })}
+                                        {listlike && isEmpty(listlike) &&
+                                        "Bạn chưa xem bài viết nào!"}
+                                    </div>
+                                    
+                        </div>
                         </div>
                         }
 
@@ -179,7 +244,8 @@ class Profile extends Component
                                     
                             </div>
                         </div>
-                        <div className='right'></div>
+                                <div className='right'>
+                                </div>
                         </div>
                         }
                     </div>

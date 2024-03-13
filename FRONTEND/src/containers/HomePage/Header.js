@@ -28,7 +28,6 @@ class Header extends Component
 
     getAllCats = async () => { 
         let res = await getcat("ALL");
-        console.log(res)
         this.setState({
             listCat: res.data
         })

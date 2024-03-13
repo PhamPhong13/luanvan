@@ -17,7 +17,7 @@ let gethistory = async ( req, res ) =>
 // get patient by id
 let gethistoryById = async ( req, res ) =>
 {
-    let history = await historyService.gethistoryById( req.query.postId );
+    let history = await historyService.gethistoryById( req.query.userId );
     return res.status( 200 ).json( history );
 }
 

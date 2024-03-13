@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import './HomePage.scss';
 import _ from 'lodash';
 import { FormattedMessage } from 'react-intl';
-import { getpost, getcat, createconnect, getpostslide } from '../../services/userService';
+import { getpost, getcat, createconnect, getpostslide, getAllconnect} from '../../services/userService';
 import Header from './Header';
 import Slider from './Slider';
 import PostOnCat from './PostOnCat';
@@ -15,6 +15,7 @@ class HomePage extends Component
         this.state = {
             listPost: [],
             listCat: [],
+            totalconnect: 0,
         }
     }
 
@@ -22,7 +23,21 @@ class HomePage extends Component
         await this.getAllposts();
         await this.getCat();
         await this.createconnection();
+        await this.getconnect();
     }
+
+    getconnect = async () => {
+        let res = await getAllconnect();
+        if (res && res.errCode === 0) {
+            this.setState({
+                totalconnect: res.total
+            })
+        }
+        else this.setState({
+            totalconnect: 0
+        })
+    }
+
     createconnection = async () => { 
         if (this.props.userInfo) {
             await createconnect({
@@ -60,10 +75,15 @@ class HomePage extends Component
         }
     }
 
+    formatnumber = (num) => {
+        let formattedNumber = parseInt(num).toLocaleString('en-US').replace(/,/g, ' ');
+        return formattedNumber; // Kết quả sẽ là "100 000"
+    }
+
     render ()
     {
 
-        let { listCat } = this.state;
+        let { listCat , totalconnect} = this.state;
         return (
             <>
                 <title>
@@ -109,6 +129,8 @@ class HomePage extends Component
                             </div>
                     </div>
                 </div>
+
+                <div className='title'>Số lược truy cập: { this.formatnumber(totalconnect)}</div>
 
                 <Footer />
 

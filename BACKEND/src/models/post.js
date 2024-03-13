@@ -15,6 +15,8 @@ module.exports = ( sequelize, DataTypes ) =>
         {
             // define association here
              Post.hasOne(models.Report, { foreignKey: 'postId'})
+             Post.hasOne(models.History, { foreignKey: 'postId'})
+             Post.hasOne(models.Likepost, { foreignKey: 'postId'})
              Post.belongsTo(models.Admin, { foreignKey: 'adminId'})
         }
     };

@@ -107,6 +107,7 @@ let initWebRoutes = (app) => {
   router.post("/api/create-likepost", likepost.createlikepost); // create likepost
   router.get("/api/get-likepost", likepost.getlikepost); // get likepost
   router.get("/api/get-likepost-by-id", likepost.getlikepostById); // get likepost by id
+  router.get("/api/get-likepost-by-userid", likepost.getlikepostByuserId); // get likepost by id
   router.get("/api/get-likepost-by-post-id", likepost.getlikepostBypostId); // get likepost by id
   router.delete("/api/delete-likepost", likepost.deletelikepost); // delete likepost
   router.put("/api/update-likepost", likepost.updatelikepost); // update likepost

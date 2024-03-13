@@ -94,6 +94,46 @@ let getlikepostById = ( userId, postId ) =>
     } )
 }
 
+let getlikepostByuserId = ( userId) =>
+{
+    return new Promise( async ( resolve, reject ) =>
+    {
+        try
+        {
+            let patients = await db.Likepost.findAll( {
+                where: {
+                    userId: userId,
+                },
+                include: [
+                    { model: db.Post , attributes: ['name']}
+                ],
+                order: [["createdAt", "DESC"]], // Sắp xếp theo ngày tạo giảm dần
+                nest: true,
+                raw: true,
+            } );
+            if ( patients )
+            {
+                resolve( {
+                    errCode: 0,
+                    message: "get likepost successfully!",
+                    data: patients
+                } )
+            }
+            else
+            {
+                resolve( {
+                    errCode: 1,
+                    message: "get likepost failed!"
+                } )
+            }
+
+        }
+        catch ( err )
+        {
+            reject( err );
+        }
+    } )
+}
 let getlikepostBypostId = ( postId ) =>
 {
     return new Promise( async ( resolve, reject ) =>
@@ -199,5 +239,6 @@ module.exports = {
     createlikepost: createlikepost,
     getlikepostById: getlikepostById,
     deletelikepost: deletelikepost,
-    getlikepostBypostId: getlikepostBypostId
+    getlikepostBypostId: getlikepostBypostId,
+    getlikepostByuserId: getlikepostByuserId
 }

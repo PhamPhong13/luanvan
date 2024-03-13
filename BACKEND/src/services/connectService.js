@@ -32,13 +32,15 @@ let getconnect = () =>
     {
         try
         {
+            let total = await db.Connect.count();
             let patients = await db.Connect.findAll( );
             if ( patients )
             {
                 resolve( {
                     errCode: 0,
                     message: "get list connect successfully!",
-                    data: patients
+                    data: patients,
+                    total: total
                 } )
             }
             else

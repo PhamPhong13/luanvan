@@ -21,6 +21,12 @@ let getlikepostById = async ( req, res ) =>
     return res.status( 200 ).json( likepost );
 }
 
+let getlikepostByuserId = async ( req, res ) =>
+{
+    let likepost = await likepostService.getlikepostByuserId( req.query.userId);
+    return res.status( 200 ).json( likepost );
+}
+
 
 let getlikepostBypostId = async ( req, res ) =>
 {
@@ -71,5 +77,6 @@ module.exports = {
     deletelikepost: deletelikepost,
     updatelikepost: updatelikepost, 
     getAlllikepostById: getAlllikepostById,
-    getlikepostBypostId: getlikepostBypostId
+    getlikepostBypostId: getlikepostBypostId,
+    getlikepostByuserId: getlikepostByuserId
 }

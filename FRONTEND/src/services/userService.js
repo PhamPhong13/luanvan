@@ -293,6 +293,10 @@ const getlikepostById = (userId, postId) => {
   return axios.get(`api/get-likepost-by-id?userId=${userId}&postId=${postId}`);
 }
 
+const getlikepostByuserId = (userId) => {
+  return axios.get(`api/get-likepost-by-userid?userId=${userId}`);
+}
+
 const getlikepostBypostId = (postId) => {
   return axios.get(`api/get-likepost-by-post-id?postId=${postId}`);
 }
@@ -316,8 +320,8 @@ const deletehistory = (userId, postId) => {
   })
 }
 
-const gethistoryById = (userId, postId) => {
-  return axios.get(`api/get-history-by-id?userId=${userId}&postId=${postId}`);
+const gethistoryById = (userId) => {
+  return axios.get(`api/get-history-by-id?userId=${userId}`);
 }
 
 
@@ -495,7 +499,7 @@ const getuserformbyadminid = (adminId, page) => {
 
 export {
 
-getuserformbyadminid, 
+getuserformbyadminid, getlikepostByuserId,
 
   handleLoginApi,   getAllcode, handleLoginUser,
 
