@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { withRouter } from 'react-router';
 import logo from "../../../../assets/logo.png";
 import { isEmpty } from 'lodash';
-class cht extends Component
+class chp extends Component
 {
     constructor(props) {
         super(props);
@@ -47,7 +47,7 @@ class cht extends Component
 
     getadmin = async () => {
         console.log(this.props)
-        let res = await getadmintunure(this.props.tunure, "P1");
+        let res = await getadmintunure(this.props.tunure, "P2");
         if (res && res.errCode === 0 && res.data.length > 0) {
             this.setState({
                 admin: res.data
@@ -121,7 +121,7 @@ class cht extends Component
                 password: this.state.password,
                 fullName: this.state.fullName,
                 phone: this.state.phone,
-                position: "P1",
+                position: "P2",
                 image: this.state.image,
                 desc: this.state.desc,
                 tunure: this.props.tunure
@@ -199,10 +199,11 @@ class cht extends Component
         return (
             <>
                 <div className='menber'>
-                    {admin && isEmpty(admin) && 
-                                <>
+                    
+                    {admin && openAdd === false && isEmpty(admin) && 
+                        <>
                         <div className='nameposition'>
-                                    Chi hội trưởng
+                                    Chi hội phó
                                 </div>
                         <div className='btn-add'>
                                         <div className='btn btn-primary'
@@ -211,13 +212,14 @@ class cht extends Component
                                             Thêm thành viên    
                                         </div>
                         </div>
-                        </>} 
+                        </>
+                                } 
                     
                     {admin && openEdit === false && !isEmpty(admin) && admin.map((item) => {
                         return (
                             <div className='position-content screen'>
                                 <div className='nameposition'>
-                                    Chi hội trưởng
+                                    Chi hội phó
                                 </div>
             
                                 
@@ -323,4 +325,4 @@ const mapDispatchToProps = dispatch =>
     };
 };
 
-export default withRouter(connect( mapStateToProps, mapDispatchToProps )( cht ));
+export default withRouter(connect( mapStateToProps, mapDispatchToProps )( chp ));

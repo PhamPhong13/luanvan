@@ -103,14 +103,8 @@
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
         border-radius: 5px;
 
-        &.addM{
-            .name{
-                input {
-                        border: 1px solid black;
-                
-                    }
-            }
-        }
+        
+
         img{
             width: 250px;
                 height: 300px;
@@ -121,10 +115,14 @@
 
         text-align: center;
         font-size: 17px;
+
+        .label_upload-img{
+                transform: translateY(-150px);
+            }
         .name{
             display: flex;
             margin-top: 10px;
-            justify-content: right;
+            justify-content: center;
 
             &.label{
                 flex-direction: column;
@@ -136,29 +134,34 @@
                 width: 21%;
                 text-align: left;
             }
-            input{
-                width: 60%;
-                background-color: transparent;
-                border: none;
-                outline: none;
-            }
+            
+            
 
             label{
                 display: block;
-                    width: 430px;
+                    width: 565px;
                     margin: 0 auto;
                     text-align: left;
             }
 
-            textarea{
-                width: 420px;
-                background: transparent;
-                    border: 1px solid #cccc;
-                    padding: 5px;
-                    border-radius: 5px;
-                    pointer-events: none;
-                    resize: none;
+            textarea {
+                            width: 564px;
+                            background: transparent;
+                            border: 1px solid #cccc;
+                            padding: 5px;
+                            border-radius: 5px;
+                            resize: none;
+                            transform: translateX(2px);
             }
+            
+            input {
+                            width: 60%;
+                            background-color: transparent;
+                            border: 1px solid #cccc;
+                            padding-left: 20px;
+                            pointer-events: all;
+                        }
+
         }
         .btn-sumit{
             margin: 10px;
@@ -166,6 +169,29 @@
                 margin-left: 10px;
             }
         }
+
+
+                &.screen {
+                    textarea {
+                            width: 564px;
+                            background: transparent;
+                            border: 1px solid #cccc;
+                            padding: 5px;
+                            border-radius: 5px;
+                            pointer-events: none;
+                            resize: none;
+                            transform: translateX(2px);
+                        }
+                        input{
+                            width: 60%;
+                            background-color: transparent;
+                            border: none;
+                            outline: none;
+                            pointer-events: none;
+                            padding-left: 30px;
+                            font-weight: bold;
+                        }
+                }
     }
 
     .btn-add{

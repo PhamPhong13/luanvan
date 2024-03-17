@@ -6,6 +6,8 @@ import { CommonUtils } from '../../../../utils'; // vi or en
 import { toast } from 'react-toastify';
 import { withRouter } from 'react-router';
 import CHT from './cht';
+import CHP from './chp';
+import UV from './uv';
 class InforTunure extends Component
 {
     constructor(props) {
@@ -49,6 +51,10 @@ class InforTunure extends Component
                 </div>
 
                 {name && <CHT tunure={name} />}
+
+                {name && <CHP tunure={name} />}
+
+                {name && <UV tunure={name} />}
 
                
             </>

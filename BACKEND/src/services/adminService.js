@@ -351,7 +351,6 @@ let updateAdmin = ( data ) =>
                 patient.email = data.email;
                 patient.fullName = data.fullName;
                 patient.phone = data.phone;
-                patient.position = data.position;
                 patient.image = data.image,
                 patient.desc = data.desc,
                 await patient.save();

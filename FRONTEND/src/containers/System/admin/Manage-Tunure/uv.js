@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { withRouter } from 'react-router';
 import logo from "../../../../assets/logo.png";
 import { isEmpty } from 'lodash';
-class cht extends Component
+class uv extends Component
 {
     constructor(props) {
         super(props);
@@ -47,7 +47,7 @@ class cht extends Component
 
     getadmin = async () => {
         console.log(this.props)
-        let res = await getadmintunure(this.props.tunure, "P1");
+        let res = await getadmintunure(this.props.tunure, "P3");
         if (res && res.errCode === 0 && res.data.length > 0) {
             this.setState({
                 admin: res.data
@@ -114,14 +114,14 @@ class cht extends Component
 
     }
     
-    handlesave = async (id) => {
+    handlesave = async () => {
         if (this.state.openAdd === true) {
             let res = await createAdmin({
                 email: this.state.email,
                 password: this.state.password,
                 fullName: this.state.fullName,
                 phone: this.state.phone,
-                position: "P1",
+                position: "P3",
                 image: this.state.image,
                 desc: this.state.desc,
                 tunure: this.props.tunure
@@ -194,15 +194,16 @@ class cht extends Component
 
     render ()
     {
-        let { admin, openEdit, image, fullName, phone, desc, email, openAdd , password, id} = this.state;
+        let { admin, openEdit, image, fullName, phone, desc, email, openAdd , password} = this.state;
         console.log(this.state)
         return (
             <>
                 <div className='menber'>
-                    {admin && isEmpty(admin) && 
-                                <>
+                    
+                    {admin && openAdd === false && isEmpty(admin) && 
+                        <>
                         <div className='nameposition'>
-                                    Chi hội trưởng
+                                    Chi hội phó
                                 </div>
                         <div className='btn-add'>
                                         <div className='btn btn-primary'
@@ -211,13 +212,14 @@ class cht extends Component
                                             Thêm thành viên    
                                         </div>
                         </div>
-                        </>} 
+                        </>
+                                } 
                     
                     {admin && openEdit === false && !isEmpty(admin) && admin.map((item) => {
                         return (
                             <div className='position-content screen'>
                                 <div className='nameposition'>
-                                    Chi hội trưởng
+                                    Chi hội phó
                                 </div>
             
                                 
@@ -242,8 +244,8 @@ class cht extends Component
                             </textarea>
                         </div>
                         <div className='btn-sumit'>
-                            <div className='btn btn-warning btn-edit' onClick={() => this.handleopenEdit()}>Sửa</div>
-                            <div className='btn btn-danger btn-delete' onClick={() => this.handledeleteAdmin(item.id)}>Xóa</div>
+                            <div className='btn btn-warning btn-edit' onClick={() => this.handleopenEdit(item.id)}>Sửa</div>
+                            <div className='btn btn-danger btn-delete' onClick={() => this.handledeleteAdmin()}>Xóa</div>
                         </div>
                     </div>
                         )
@@ -297,7 +299,7 @@ class cht extends Component
                             </textarea>
                         </div>
                         <div className='btn-sumit'>
-                            <div className='btn btn-warning btn-edit' onClick={() => this.handlesave(id)} >Lưu</div>
+                            <div className='btn btn-warning btn-edit' onClick={() => this.handlesave()} >Lưu</div>
                             <div className='btn btn-danger btn-delete' onClick={() => this.handlecloseEdit()}>Hủy</div>
                         </div>
                     </div>
@@ -323,4 +325,4 @@ const mapDispatchToProps = dispatch =>
     };
 };
 
-export default withRouter(connect( mapStateToProps, mapDispatchToProps )( cht ));
+export default withRouter(connect( mapStateToProps, mapDispatchToProps )( uv ));
