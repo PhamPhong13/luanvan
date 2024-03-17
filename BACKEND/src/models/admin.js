@@ -27,7 +27,8 @@ module.exports = ( sequelize, DataTypes ) =>
         phone: DataTypes.STRING,
         position: DataTypes.STRING,
         image: DataTypes.STRING,
-        desc: DataTypes.STRING
+        desc: DataTypes.STRING,
+        tunure: DataTypes.STRING,
     }, {
         sequelize,
         modelName: 'Admin',

@@ -497,9 +497,13 @@ const getuserformbyadminid = (adminId, page) => {
 };
 
 
+const getadmintunure = (tunure, position) => {
+  return axios.get(`/api/get-admin-tunure?tunure=${tunure}&position=${position}`);
+};
+
 export {
 
-getuserformbyadminid, getlikepostByuserId,
+getuserformbyadminid, getlikepostByuserId, getadmintunure,
 
   handleLoginApi,   getAllcode, handleLoginUser,
 

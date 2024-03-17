@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
-import { createAdmin, getAllcode } from "../../../../services/userService"
+import { createAdmin, getAllcode , getAllnhiemky} from "../../../../services/userService"
 import { CommonUtils } from '../../../../utils'; // vi or en
 import Select from 'react-select';
 import { toast } from 'react-toastify';
@@ -20,20 +20,32 @@ class AddAdmin extends Component
             image: "",
             desc: "",
             listPosition: [],
-            selectedPosition: ""
+            selectedPosition: "",
+            nhiemky: ""
         }
     }
 
     
 
     async componentDidMount() {
+        await this.getnhiemky();
         await this.getAllPosition();
+
         
     }
 
     async componentDidUpdate(prevProps) {
         if (prevProps.language !== this.props.language) { 
             await this.getAllPosition();
+        }
+    }
+
+    getnhiemky = async () => {
+        let res = await getAllnhiemky();
+        if (res && res.errCode === 0 && res.data.length > 0) {
+            this.setState({
+                nhiemky: res.data[res.data.length - 1].name
+            })
         }
     }
 
@@ -91,6 +103,7 @@ class AddAdmin extends Component
                 position: this.state.position,
                 image: this.state.image,
                 desc: this.state.desc,
+                tunure: this.state.nhiemky,
             })
 
             if (res && res.errCode === 0) {

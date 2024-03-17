@@ -122,6 +122,7 @@ let createAdmin = ( data ) =>
                 position: data.position,
                 image: data.image,
                 desc: data.desc,
+                tunure: data.tunure,
             } );
 
             resolve( {
@@ -205,7 +206,7 @@ let getAllAdmin = (page, word) => {
                 offset: offset,
                 limit: limit,
                 include: [
-                    { model: db.Allcode , as: "positionAdmin" },
+                    { model: db.Allcode, as: "positionAdmin" },
                 ], 
                 raw: true,
                 nest: true,
@@ -377,6 +378,48 @@ let updateAdmin = ( data ) =>
 }
 
 
+let getadmintunure = (tunure, position) =>
+{
+    return new Promise( async ( resolve, reject ) =>
+    {
+        try
+        {
+            let patients = await db.Admin.findAll({
+                where: {
+                    tunure: tunure,
+                    position: position
+                },
+                attributes: {
+                    exclude: [ 'password' ]
+                },
+                order: [['createdAt', 'DESC']], // Sắp xếp theo ngày tạo giảm dần (ngược lại)
+                raw: true, //
+            } );
+            if ( patients )
+            {
+                resolve( {
+                    errCode: 0,
+                    message: "get list User successfully!",
+                    data: patients,
+                } )
+            }
+            else
+            {
+                resolve( {
+                    errCode: 1,
+                    message: "get list User failed!"
+                } )
+            }
+
+        }
+        catch ( err )
+        {
+            reject( err );
+        }
+    } )
+}
+
+
 
 module.exports = {
     createAdmin: createAdmin,
@@ -385,5 +428,6 @@ module.exports = {
     deleteAdmin: deleteAdmin,
     updateAdmin: updateAdmin,
     login: login,
-    getAllAdmin: getAllAdmin
+    getAllAdmin: getAllAdmin,
+    getadmintunure:  getadmintunure
 }

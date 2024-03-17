@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
-import { getAllAdmin, deleteUser, getAdmin } from "../../../../services/userService"
+import { getAllAdmin, deleteAdmin, getAdmin } from "../../../../services/userService"
 
 import { withRouter } from 'react-router';
 import ReactPaginate from 'react-paginate';
@@ -63,8 +63,8 @@ class ManageAdmin extends Component
         }
     }
 
-    handleDeleteUser = async (id) => {
-        let res = await deleteUser(id);
+    handledeleteAdmin = async (id) => {
+        let res = await deleteAdmin(id);
         if (res && res.errCode === 0) {
             toast.success("Xóa nười dùng mới thành công!");
             await this.getAllUsers("1");
@@ -92,6 +92,7 @@ class ManageAdmin extends Component
     {
 
         let { listAdmin, totalpage } = this.state;
+        console.log(listAdmin)
         return (
             <>
                 <title>
@@ -127,6 +128,7 @@ class ManageAdmin extends Component
                         <th scope="col"><FormattedMessage id="key.fullname"></FormattedMessage></th>
                         <th scope="col"><FormattedMessage id="key.phone"></FormattedMessage></th>
                         <th scope="col"><FormattedMessage id="key.position"></FormattedMessage></th>
+                        <th scope="col">Nhiệm kỳ</th>
                         <th scope="col"><FormattedMessage id="key.action"></FormattedMessage></th>
                         </tr>
                     </thead>
@@ -138,12 +140,13 @@ class ManageAdmin extends Component
                                         <td>{ item.fullName}</td>
                                         <td>{ item.phone}</td>
                                         <td>{ this.props.language === "vi" ? item.positionAdmin.valueVi : item.positionAdmin.valueEn}</td>
+                                        <td>{ item.tunure}</td>
                                         <td className='action'>
                                             <div className='btn btn-warning btn-edit'
                                             onClick={() => this.linkToEditAdmin(item.id)}
                                             ><FormattedMessage id="key.edit"></FormattedMessage></div>
                                             <div className='btn btn-danger btn-delete'
-                                            onClick={() => this.handleDeleteUser(item.id)}
+                                            onClick={() => this.handledeleteAdmin(item.id)}
                                             ><FormattedMessage id="key.delete"></FormattedMessage></div>
                                         </td>
                                         </tr>

@@ -40,6 +40,12 @@ let getAdmin = async ( req, res ) =>
     return res.status( 200 ).json( User );
 }
 
+let getadmintunure = async ( req, res ) =>
+{
+    let User = await adminService.getadmintunure(req.query.tunure, req.query.position);
+    return res.status( 200 ).json( User );
+}
+
 // get all patient
 let getAllAdmin = async ( req, res ) =>
 {
@@ -74,5 +80,6 @@ module.exports = {
     deleteAdmin: deleteAdmin,
     updateAdmin: updateAdmin,
   login: login,
-    getAllAdmin: getAllAdmin
+  getAllAdmin: getAllAdmin,
+    getadmintunure: getadmintunure
 }

@@ -39,7 +39,7 @@ class Tunure extends Component
     linkToEditAdmin = (id) => {
         if ( this.props.history )
         {
-            this.props.history.push( `/system/edit-tunure/${id}` );
+            this.props.history.push( `/system/infor-tunure/${id}` );
         }
     }
 

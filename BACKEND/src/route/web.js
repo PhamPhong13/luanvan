@@ -161,6 +161,9 @@ let initWebRoutes = (app) => {
   router.get("/api/handle-search-header", cat.handleSearchHeader); // search
 
 
+  router.get("/api/get-admin-tunure", admin.getadmintunure); // get menber
+
+
  return app.use("/", router);
 };
 
