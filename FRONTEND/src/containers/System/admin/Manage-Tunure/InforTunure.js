@@ -8,6 +8,8 @@ import { withRouter } from 'react-router';
 import CHT from './cht';
 import CHP from './chp';
 import UV from './uv';
+import CTV from './ctv';
+
 class InforTunure extends Component
 {
     constructor(props) {
@@ -55,6 +57,9 @@ class InforTunure extends Component
                 {name && <CHP tunure={name} />}
 
                 {name && <UV tunure={name} />}
+
+                {name && <CTV tunure={name} />}
+
 
                
             </>

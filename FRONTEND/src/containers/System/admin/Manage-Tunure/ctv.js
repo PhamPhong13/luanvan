@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { withRouter } from 'react-router';
 import logo from "../../../../assets/logo.png";
 import { isEmpty } from 'lodash';
-class cht extends Component
+class ctv extends Component
 {
     constructor(props) {
         super(props);
@@ -46,8 +46,7 @@ class cht extends Component
     }
 
     getadmin = async () => {
-        console.log(this.props)
-        let res = await getadmintunure(this.props.tunure, "P1");
+        let res = await getadmintunure(this.props.tunure, "P4");
         if (res && res.errCode === 0 && res.data.length > 0) {
             this.setState({
                 admin: res.data
@@ -66,15 +65,15 @@ class cht extends Component
         })
     }
 
-    handleopenEdit = () => {
+    handleopenEdit = (item) => {
         this.setState({
             openEdit: true,
-            fullName: this.state.admin[0].fullName,
-            email: this.state.admin[0].email,
-            phone: this.state.admin[0].phone,
-            desc: this.state.admin[0].desc,
-            image: this.state.admin[0].image,
-            id: this.state.admin[0].id
+            fullName: item.fullName,
+            email: item.email,
+            phone: item.phone,
+            desc: item.desc,
+            image: item.image,
+            id: item.id
         })
     }
 
@@ -114,14 +113,14 @@ class cht extends Component
 
     }
     
-    handlesave = async (id) => {
+    handlesave = async () => {
         if (this.state.openAdd === true) {
             let res = await createAdmin({
                 email: this.state.email,
                 password: this.state.password,
                 fullName: this.state.fullName,
                 phone: this.state.phone,
-                position: "P1",
+                position: "P4",
                 image: this.state.image,
                 desc: this.state.desc,
                 tunure: this.props.tunure
@@ -192,36 +191,45 @@ class cht extends Component
         }
     }
 
+    handleOnchangeInput = ( event, id ) =>
+    {
+        let stateCopy = { ...this.state };
+        stateCopy[ id ] = event.target.value;
+        this.setState( {
+            ...stateCopy
+        } )
+    }
+
+    handleOnchangeImg = async (event) => {
+        let file = event.target.files[0];
+        if (file) {
+            let getBase64 = await CommonUtils.getBase64(file);
+            this.setState({
+                image: getBase64
+            })
+        }
+
+    }
+
     render ()
     {
-        let { admin, openEdit, image, fullName, phone, desc, email, openAdd , password, id} = this.state;
+        let { admin, openEdit, image, fullName, phone, desc, email, openAdd, password, id } = this.state;
+        console.log(this.state)
         return (
             <>
                 <div className='menber'>
+                    
                     {admin && isEmpty(admin) && 
                     <div className='nameposition'>
-                                    Chi hội trưởng
+                                    Cộng tác viên
                                 </div>
                     }
-                    {admin && isEmpty(admin) && 
-                                <>
-                        <div className='nameposition'>
-                                    Chi hội trưởng
-                                </div>
-                        <div className='btn-add'>
-                                        <div className='btn btn-primary'
-                                        onClick={() => this.openAdd()}
-                                        >
-                                            Thêm thành viên    
-                                        </div>
-                        </div>
-                        </>} 
                     
                     {admin && openEdit === false && !isEmpty(admin) && admin.map((item) => {
                         return (
                             <div className='position-content screen'>
                                 <div className='nameposition'>
-                                    Chi hội trưởng
+                                    Cộng tác viên
                                 </div>
             
                                 
@@ -246,17 +254,19 @@ class cht extends Component
                             </textarea>
                         </div>
                         <div className='btn-sumit'>
-                            <div className='btn btn-warning btn-edit' onClick={() => this.handleopenEdit()}>Sửa</div>
+                            <div className='btn btn-warning btn-edit' onClick={() => this.handleopenEdit(item)}>Sửa</div>
                             <div className='btn btn-danger btn-delete' onClick={() => this.handledeleteAdmin(item.id)}>Xóa</div>
-                        </div>
-                    </div>
+                                    </div>
+                            </div>
                         )
                     })}
+                        
+                        
 
                     {(openEdit === true || openAdd === true) && 
                      <div className='position-content '>
                                 <div className='nameposition'>
-                                    Chi hội trưởng
+                                    Cộng tác viên 
                                 </div>
             
                                 
@@ -301,11 +311,22 @@ class cht extends Component
                             </textarea>
                         </div>
                         <div className='btn-sumit'>
-                            <div className='btn btn-warning btn-edit' onClick={() => this.handlesave(id)} >Lưu</div>
+                            <div className='btn btn-warning btn-edit' onClick={() => this.handlesave()} >Lưu</div>
                             <div className='btn btn-danger btn-delete' onClick={() => this.handlecloseEdit()}>Hủy</div>
                         </div>
                     </div>
                     }
+
+                    {
+                        openAdd === false && <div className='btn-add'>
+                                        <div className='btn btn-primary'
+                                        onClick={() => this.openAdd()}
+                                        >
+                                            Thêm thành viên    
+                                        </div>
+                        </div>
+                    }
+
                 </div>
             </>
         );
@@ -327,4 +348,4 @@ const mapDispatchToProps = dispatch =>
     };
 };
 
-export default withRouter(connect( mapStateToProps, mapDispatchToProps )( cht ));
+export default withRouter(connect( mapStateToProps, mapDispatchToProps )( ctv ));

@@ -6,7 +6,7 @@ import * as actions from '../../store/actions'
 import logo from "../../assets/logo.jpg"
 import avatar from "../../assets/410251206_697829015774464_3697217710754640905_n.jpg"
 import { withRouter } from 'react-router';
-import { getAllbg, getAllnhiemky, getmenberById } from '../../services/userService';
+import { getAllbg, getAllnhiemky, getmenberById, getadmintunure } from '../../services/userService';
 import Header from './Header';
 import Footer from './Footer';
 class Tunure extends Component
@@ -24,18 +24,9 @@ class Tunure extends Component
     }
 
     async componentDidMount() {
-        await this.getbgs();
         await this.getnhiemky();
     }
 
-    getbgs = async () => {
-        let res = await getAllbg();
-        this.setState({
-            bg: res.data[res.data.length - 1].image
-        })
-    }
-
-   
     getnhiemky = async () => {
         let res = await getAllnhiemky();
         if (res && res.errCode === 0 && res.data.length > 0) { 
@@ -53,9 +44,9 @@ class Tunure extends Component
     }
 
     getmenber = async () => {
-        let res = await getmenberById(this.state.nhiemky.id, '0');
-        let res1 = await getmenberById(this.state.nhiemky.id, '1');
-        let res2 = await getmenberById(this.state.nhiemky.id, '2');
+        let res = await getadmintunure(this.state.nhiemky.name, 'P1');
+        let res1 = await getadmintunure(this.state.nhiemky.name, 'P2');
+        let res2 = await getadmintunure(this.state.nhiemky.name, 'P3');
         if (res && res.errCode === 0) {
             this.setState({
                 menber: res.data
@@ -80,7 +71,7 @@ class Tunure extends Component
 
     render ()
     {
-        let { nhiemky, menber, menber1, menber2, bg } = this.state;
+        let { nhiemky, menber, menber1, menber2} = this.state;
         
         return (
             <>
@@ -96,37 +87,49 @@ class Tunure extends Component
                         <div className='text-center'>Nhiệm kỳ 2020-2021</div>
                         <div className='text-center'>-------------------- * --------------------</div>
 
-                        {menber && 
-                        <div className='menber'>
+                            {menber && !isEmpty(menber) && menber.map((item) => {
+                                return (
+                                <div className='menber'>
                             <div className='title'>Chi hội trưởng</div>
-                                <img src={menber.image} />
-                                <div className='name'>Họ tên: { menber.fullName}</div>
-                                <div className='name'>Email: { menber.email}</div>
-                                <div className='name'>Ngày vào đoàn:{ menber.inunion}</div>
-                                <div className='name'>Điện thoại: { menber.phone}</div>
+                                <img src={item.image} />
+                                <div className='name'>Họ tên: { item.fullName}</div>
+                                <div className='name'>Email: { item.email}</div>
+                                <div className='name'>Ngày vào đoàn:{ item.inunion}</div>
+                                <div className='name'>Điện thoại: { item.phone}</div>
                         </div>
+                            )
+                        })
+                        
                         }
 
-                        {menber1 && 
-                        <div className='menber'>
+                            {menber1 && !isEmpty(menber1) && menber1.map((item) => {
+                                return (
+                                <div className='menber'>
                             <div className='title'>Chi hội phó</div>
-                                <img src={menber1.image} />
-                                <div className='name'>Họ tên: { menber1.fullName}</div>
-                                <div className='name'>Email: { menber1.email}</div>
-                                <div className='name'>Ngày vào đoàn:{ menber1.inunion}</div>
-                                <div className='name'>Điện thoại: { menber1.phone}</div>
+                                <img src={item.image} />
+                                <div className='name'>Họ tên: { item.fullName}</div>
+                                <div className='name'>Email: { item.email}</div>
+                                <div className='name'>Ngày vào đoàn:{ item.inunion}</div>
+                                <div className='name'>Điện thoại: { item.phone}</div>
                         </div>
+                            )
+                        })
+                        
                         }
 
-                        {menber2 && 
-                        <div className='menber'>
+                            {menber2 && !isEmpty(menber2) && menber2.map((item) => {
+                                return (
+                                <div className='menber'>
                             <div className='title'>ủy viên ban chấp hành</div>
-                                <img src={menber2.image} />
-                                <div className='name'>Họ tên: { menber2.fullName}</div>
-                                <div className='name'>Email: { menber2.email}</div>
-                                <div className='name'>Ngày vào đoàn:{ menber2.inunion}</div>
-                                <div className='name'>Điện thoại: { menber2.phone}</div>
+                                <img src={item.image} />
+                                <div className='name'>Họ tên: { item.fullName}</div>
+                                <div className='name'>Email: { item.email}</div>
+                                <div className='name'>Ngày vào đoàn:{ item.inunion}</div>
+                                <div className='name'>Điện thoại: { item.phone}</div>
                         </div>
+                            )
+                        })
+                        
                         }
                         </div>
                     </div>

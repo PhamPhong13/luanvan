@@ -46,7 +46,6 @@ class uv extends Component
     }
 
     getadmin = async () => {
-        console.log(this.props)
         let res = await getadmintunure(this.props.tunure, "P3");
         if (res && res.errCode === 0 && res.data.length > 0) {
             this.setState({
@@ -66,15 +65,15 @@ class uv extends Component
         })
     }
 
-    handleopenEdit = () => {
+    handleopenEdit = (item) => {
         this.setState({
             openEdit: true,
-            fullName: this.state.admin[0].fullName,
-            email: this.state.admin[0].email,
-            phone: this.state.admin[0].phone,
-            desc: this.state.admin[0].desc,
-            image: this.state.admin[0].image,
-            id: this.state.admin[0].id
+            fullName: item.fullName,
+            email: item.email,
+            phone: item.phone,
+            desc: item.desc,
+            image: item.image,
+            id: item.id
         })
     }
 
@@ -192,34 +191,45 @@ class uv extends Component
         }
     }
 
+    handleOnchangeInput = ( event, id ) =>
+    {
+        let stateCopy = { ...this.state };
+        stateCopy[ id ] = event.target.value;
+        this.setState( {
+            ...stateCopy
+        } )
+    }
+
+    handleOnchangeImg = async (event) => {
+        let file = event.target.files[0];
+        if (file) {
+            let getBase64 = await CommonUtils.getBase64(file);
+            this.setState({
+                image: getBase64
+            })
+        }
+
+    }
+
     render ()
     {
-        let { admin, openEdit, image, fullName, phone, desc, email, openAdd , password} = this.state;
+        let { admin, openEdit, image, fullName, phone, desc, email, openAdd, password, id } = this.state;
         console.log(this.state)
         return (
             <>
                 <div className='menber'>
                     
-                    {admin && openAdd === false && isEmpty(admin) && 
-                        <>
-                        <div className='nameposition'>
-                                    Chi hội phó
+                    {admin && isEmpty(admin) && 
+                    <div className='nameposition'>
+                                    Ủy viên ban chấp hành
                                 </div>
-                        <div className='btn-add'>
-                                        <div className='btn btn-primary'
-                                        onClick={() => this.openAdd()}
-                                        >
-                                            Thêm thành viên    
-                                        </div>
-                        </div>
-                        </>
-                                } 
+                    }
                     
                     {admin && openEdit === false && !isEmpty(admin) && admin.map((item) => {
                         return (
                             <div className='position-content screen'>
                                 <div className='nameposition'>
-                                    Chi hội phó
+                                    Ủy viên ban chấp hành
                                 </div>
             
                                 
@@ -244,17 +254,19 @@ class uv extends Component
                             </textarea>
                         </div>
                         <div className='btn-sumit'>
-                            <div className='btn btn-warning btn-edit' onClick={() => this.handleopenEdit(item.id)}>Sửa</div>
-                            <div className='btn btn-danger btn-delete' onClick={() => this.handledeleteAdmin()}>Xóa</div>
-                        </div>
-                    </div>
+                            <div className='btn btn-warning btn-edit' onClick={() => this.handleopenEdit(item)}>Sửa</div>
+                            <div className='btn btn-danger btn-delete' onClick={() => this.handledeleteAdmin(item.id)}>Xóa</div>
+                                    </div>
+                            </div>
                         )
                     })}
+                        
+                        
 
                     {(openEdit === true || openAdd === true) && 
                      <div className='position-content '>
                                 <div className='nameposition'>
-                                    Chi hội trưởng
+                                    Ủy viên 
                                 </div>
             
                                 
@@ -304,6 +316,17 @@ class uv extends Component
                         </div>
                     </div>
                     }
+
+                    {
+                        openAdd === false && <div className='btn-add'>
+                                        <div className='btn btn-primary'
+                                        onClick={() => this.openAdd()}
+                                        >
+                                            Thêm thành viên    
+                                        </div>
+                        </div>
+                    }
+
                 </div>
             </>
         );

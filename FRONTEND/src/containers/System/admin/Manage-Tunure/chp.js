@@ -195,11 +195,14 @@ class chp extends Component
     render ()
     {
         let { admin, openEdit, image, fullName, phone, desc, email, openAdd , password, id} = this.state;
-        console.log(this.state)
         return (
             <>
                 <div className='menber'>
-                    
+                    {admin && isEmpty(admin) && 
+                    <div className='nameposition'>
+                                    Chi hội phó
+                                </div>
+                    }
                     {admin && openAdd === false && isEmpty(admin) && 
                         <>
                         <div className='nameposition'>
