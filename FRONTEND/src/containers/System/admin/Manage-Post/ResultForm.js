@@ -51,7 +51,7 @@ class Resultform extends Component
         let resultformat = [];
         if (res && res.errCode === 0 && res.data.length > 0) { 
             res.data.map((item) => {
-                if (item.id !== this.props.user.id) {
+                if (item.id !== this.props.user.id && item.id !== 5) {
                     let object = {};
                     object.value = item.id;
                     object.label = `${item.fullName} - ${item.email}`;
