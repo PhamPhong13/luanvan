@@ -51,7 +51,6 @@ class QuestionKey extends Component
 
     async componentDidUpdate(prevProps) { 
         if (this.props.removes !== prevProps.removes) {
-            console.log(this.props.removes)
             this.setState({
                 answer: "",
             })

@@ -46,7 +46,6 @@ class chp extends Component
     }
 
     getadmin = async () => {
-        console.log(this.props)
         let res = await getadmintunure(this.props.tunure, "P2");
         if (res && res.errCode === 0 && res.data.length > 0) {
             this.setState({

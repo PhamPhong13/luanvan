@@ -28,7 +28,6 @@ class ManageForm extends Component
 
     getformbyadmins = async (id) => {
         let res = await getuserformbyadminid(this.props.userInfo.id, id)
-        console.log(res)
         if (res && res.errCode === 0 && res.data.length > 0) { 
             this.setState({
                 listformshare: res.data,
@@ -42,7 +41,6 @@ class ManageForm extends Component
 
     getForms = async (id) => {
         let res = await getform(id, this.props.userInfo.id)
-        console.log(res)
         if (res && res.errCode === 0 && res.data.length > 0) { 
             this.setState({
                 listForm: res.data,
@@ -92,6 +90,8 @@ class ManageForm extends Component
                     </div>
 
                     <div className='cat'>
+                        <div><b>Biểu mẫu của bạn:</b></div>
+
                         {
                             listForm && isEmpty(listForm) && <span>Danh sách rổng!</span>
                         }
@@ -152,7 +152,7 @@ class ManageForm extends Component
                     }
 
                     <div className='cat'>
-                        <div><b>Danh sách biểu mẫu được chia sẻ:</b></div>
+                        <div><b>Biểu mẫu được chia sẻ:</b></div>
                         {
                             listformshare && isEmpty(listformshare) && <span>Danh sách rổng!</span>
                         }

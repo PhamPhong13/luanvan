@@ -21,7 +21,6 @@ class Footer extends Component
     render ()
     {
         let { chat } = this.state;
-        console.log(this.state)
         return (
             <>
                 <div className='container footer'>

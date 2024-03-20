@@ -18,7 +18,6 @@ let createformusersubmit = async ( req, res ) =>
 // get all patient
 let getpost = async ( req, res ) =>
 {
-    console.log(req.query.userId)
     let User = await postService.getpost(req.query.page, req.query.userId);
     return res.status( 200 ).json( User );
 }

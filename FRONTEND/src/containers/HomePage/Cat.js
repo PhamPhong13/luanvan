@@ -54,7 +54,6 @@ class Cat extends Component
 
     getpost = async (page) => {
         let res = await getAllpostBypage(this.props.match.params.id, page);
-        console.log("check ", res);
         if (res && res.errCode === 0 ) {
             this.setState({
                 listPost: res.data,

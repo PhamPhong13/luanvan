@@ -27,10 +27,9 @@ class ManagePost extends Component
     
     
     getposts = async (page) => {
-        let id = this.props.userInfo.id;
-        console.log(id)
+        let id = this.props.userInfo.position;
 
-        if (id === 1) {
+        if (id === 'P0' || id === 'P1') {
             this.setState({
                 userPost: true,
             })
@@ -41,7 +40,6 @@ class ManagePost extends Component
             })
         }
         let res = await getpost(page, this.props.userInfo.id);
-        console.log(res)
         if (res && res.data.length > 0) {
             this.setState({
                 listPost: res.data,
@@ -124,11 +122,9 @@ class ManagePost extends Component
 
             await this.getAllposts("1", event.target.value);
         }
-        console.log(this.state.search)
     }
 
     handlePageClick = async (event) => {
-        console.log()
         if (this.state.search === true) {
             await this.getAllposts(event.selected + 1, '');
         }
@@ -139,7 +135,6 @@ class ManagePost extends Component
     render ()
     {
         let { listPost, totalpage, userPost } = this.state;
-        console.log(this.state);
         return (
             <>
                 <title>

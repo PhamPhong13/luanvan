@@ -61,7 +61,6 @@ class Thongke extends Component {
         }
         result.push(item);
       })
-      console.log(result)
     let sort = result.sort((a, b) => a.count - b.count) // Thay đổi ở đây
     .reverse().slice(0, 5); // Sau khi sắp xếp tăng dần, đảo ngược để thành sắp xếp giảm dần
     this.setState({

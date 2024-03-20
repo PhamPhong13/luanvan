@@ -43,7 +43,6 @@ class ReportPost extends Component
 
     getallreports = async () => {
         let res = await getallreport("postcomment", "S1");
-        console.log(res)
         if (res && res.errCode === 0 && res.data.length > 0) { 
             this.setState({
                 listreport: res.data,
@@ -85,7 +84,6 @@ getday = (date) => {
 }
 
     handleOpenModal = async (item) => {
-        console.log(item);
         this.setState({
             openModal: !this.state.openModal, 
             listuserreport: item

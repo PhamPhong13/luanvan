@@ -26,7 +26,6 @@ class FormAnswer extends Component
 
     getformusersubmitsuccess = async () => {
         let res = await getformusersubmit(this.state.formId, this.props.userInfo.id)
-        console.log(res)
         if (res && res.errCode === 0 && res.data.length > 0) {
             this.setState({
                 success: true,

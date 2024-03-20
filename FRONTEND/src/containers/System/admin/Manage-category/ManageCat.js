@@ -25,7 +25,6 @@ class ManageCat extends Component
     
     getcats = async (page) => {
         let res = await getcat(page);
-        console.log(res)
         if (res && res.data.length > 0) {
             this.setState({
                 listCat: res.data,
@@ -40,7 +39,6 @@ class ManageCat extends Component
     getAllCats = async (page, word) => {
 
         let res = await getAllcat(page, word);
-        console.log(res)
         if (res && res.data.length > 0) {
             this.setState({
                 listCat: res.data,

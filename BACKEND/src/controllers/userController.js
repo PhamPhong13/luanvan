@@ -48,7 +48,6 @@ let getAllCode = async (req, res) => {
 
     }
     catch (err) {
-        console.log("Get all code error", err);
         return res.status(200).json({
             errCode: -1,
             errMessage: "Error from server!"
@@ -84,7 +83,6 @@ let usersendemail = async (req, res) => {
         return res.status(200).json(patient);
     }
     catch (e) {
-        console.log(e);
         return res.status(200).json({
             errCode: -1,
             errMessage: "Error from the serser!"

@@ -138,7 +138,6 @@ const getAllpostById = (id) => {
 }
 
 const getAllpostBypage = (id, page) => {
-  console.log("check -: ", id, page)
   
   return axios.get(`api/get-all-post-by-page?id=${id}&page=${page}`);
 }

@@ -214,7 +214,6 @@ class ctv extends Component
     render ()
     {
         let { admin, openEdit, image, fullName, phone, desc, email, openAdd, password, id } = this.state;
-        console.log(this.state)
         return (
             <>
                 <div className='menber'>

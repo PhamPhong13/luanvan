@@ -38,7 +38,6 @@ class ManageUser extends Component
     getAllUsers = async (page, word) => {
 
         let res = await getAllUser(page, word);
-        console.log(res)
         if (res && res.data.length > 0) {
             this.setState({
                 listAdmin: res.data,
@@ -114,7 +113,6 @@ class ManageUser extends Component
 
 
     handleOchangeToSearch = async (event) => {
-        console.log(event.target.value)
 
         if (event.target.value.length <= 0) {
             this.getuser();

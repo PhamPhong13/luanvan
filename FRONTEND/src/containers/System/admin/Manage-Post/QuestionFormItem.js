@@ -16,7 +16,6 @@ class QuestionFormItem extends Component {
     }
 
     async componentDidMount() {
-        console.log(this.props)
         this.setState({
           key: this.props.keyform.key,
             desc: this.props.keyform.desc,
@@ -32,7 +31,6 @@ class QuestionFormItem extends Component {
         this.setState({
             ...stateCopy
         })
-        console.log(this.state)
     }
 
     handleDeleteKeyform = async (id) => { 

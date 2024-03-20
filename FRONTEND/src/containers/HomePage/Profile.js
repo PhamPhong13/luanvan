@@ -35,7 +35,6 @@ class Profile extends Component
 
     getlike = async () => {
         let res = await getlikepostByuserId(this.props.userInfo.id);
-        console.log(res)
         if (res && res.errCode === 0 && res.data.length > 0) { 
             this.setState({
                 listlike: res.data
@@ -46,12 +45,10 @@ class Profile extends Component
                 listlike: []
             })
         }
-        console.log(this.state.listlike)
     }
 
     gethistory = async () => {
         let res = await gethistoryById(this.props.userInfo.id);
-        console.log(res)
         if (res && res.errCode === 0 && res.data.length > 0) { 
             this.setState({
                 listseepost: res.data

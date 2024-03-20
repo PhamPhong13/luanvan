@@ -32,7 +32,6 @@ class Resultform extends Component
 
     getuserforms = async () => {
         let res = await getuserform(this.props.match.params.id);
-        console.log(res);
         let resultformat = [];
         if (res && res.errCode === 0 && res.data.length > 0) { 
             res.data.map((item) => {
@@ -60,7 +59,6 @@ class Resultform extends Component
                 }
             })
         }
-        console.log(resultformat)
         this.setState({
             selectedAdmins: resultformat
         })

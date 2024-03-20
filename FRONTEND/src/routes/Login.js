@@ -79,7 +79,6 @@ class Login extends Component
             adminService.login( loginBody )
         } catch ( e )
         {
-            console.log( 'error login : ', e )
         }
 
     }

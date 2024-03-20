@@ -4,7 +4,6 @@ const path = require('path');
 const app = express();
 
 const buildDir = path.join(__dirname, '../build');
-console.log('Using files in ' + buildDir);
 
 const subDir = '/';
 const logRequests = false;
@@ -16,7 +15,6 @@ if (subDir === '/') {
 }
 
 if (logRequests) {
-    console.log('The server will log all incoming request. It\'s not recommended for production use.');
 }
 
 // Serve the static files from the React app

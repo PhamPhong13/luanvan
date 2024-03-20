@@ -37,7 +37,6 @@ class ManageAdmin extends Component
     getAllUsers = async (page, word) => {
 
         let res = await getAllAdmin(page, word);
-        console.log(res)
         if (res && res.data.length > 0) {
             this.setState({
                 listAdmin: res.data,
@@ -92,7 +91,6 @@ class ManageAdmin extends Component
     {
 
         let { listAdmin, totalpage } = this.state;
-        console.log(listAdmin)
         return (
             <>
                 <title>

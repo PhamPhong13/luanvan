@@ -40,18 +40,6 @@ export const adminMenu = [
     ],
   },
   {
-    //quản lý report
-    name: "system.manage.report",
-    menus: [
-      {
-        name: "system.manage.manage-report-user",        link: "/system/report-user",
-      },
-      {
-        name: "system.manage.manage-report-post",        link: "/system/report-post",
-      }
-    ],
-  },
-  {
     //quản lý nhiệm kỳ
     name: "system.nhiemky",
     menus: [
@@ -110,6 +98,9 @@ export const chtMenu = [
     menus: [
     {
         name: "system.manage.manage-post",        link: "/system/manage-post",
+      },
+      {
+        name: "system.manage.manage-form",        link: "/system/manage-form",
       },
     ],
   },
@@ -177,14 +168,8 @@ export const chpMenu = [
     {
         name: "system.manage.manage-post",        link: "/system/manage-post",
       },
-    ],
-  },
-  {
-    //quản lý nhiệm kỳ
-    name: "system.nhiemky",
-    menus: [
-    {
-        name: "system.manage-nhiemky",        link: "/system/manage-nhiemky",
+      {
+        name: "system.manage.manage-form",        link: "/system/manage-form",
       },
     ],
   },
@@ -193,15 +178,6 @@ export const chpMenu = [
 
 
 export const menberMenu = [
-  {
-    //quản lý danh mục
-    name: "system.manage.manage-cat",
-    menus: [
-    {
-        name: "system.manage.manage-category",        link: "/system/manage-cat",
-      },
-    ],
-  },
   {
     //quản lý bài viết
     name: "system.manage.essay",
@@ -214,16 +190,6 @@ export const menberMenu = [
       },
     ],
   },
-  {
-    //quản lý bài viết
-    name: "system.nhiemky",
-    menus: [
-    {
-        name: "system.manage-nhiemky",        link: "/system/manage-nhiemky",
-      },
-    ],
-  },
-  
 
 ];
 
