@@ -45,11 +45,14 @@ class Post extends Component
 
     async componentDidMount() {
         await this.getpost();
-        await this.setCount();    
         await this.getform()
+        await this.setCount();    
     }
 
+    
+
     getform = async () => {
+        console.log(this.props.match.params.id)
         let res = await getformbyid(this.props.match.params.id);
         if (res && res.errCode === 0) {
             this.setState({
@@ -87,6 +90,8 @@ class Post extends Component
             this.setState({
                 id: this.props.match.params.id
             })
+            await this.getpost();
+            await this.getform()
             await this.setCount();
         } 
     }

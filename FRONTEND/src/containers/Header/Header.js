@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import * as actions from "../../store/actions";
 import Navigator from '../../components/Navigator';
-import { adminMenu, menberMenu } from './menuApp';
+import { adminMenu, menberMenu, chpMenu, chtMenu } from './menuApp';
 import './Header.scss';
 import { FormattedMessage } from 'react-intl'; // fomat language
 import { LANGUAGE, USER_ROLE } from '../../utils';
@@ -34,6 +34,14 @@ class Header extends Component
             let role = userInfo.position;
             if (role === "P0") {
                 menu = adminMenu;
+            }
+            else
+            if (role === "P1") {
+                menu = chtMenu;
+            }
+            else
+            if (role === "P2" || role === "P3") {
+                menu = chpMenu;
             }
 
             else menu = menberMenu;
