@@ -727,3 +727,59 @@ display: -webkit-box;
         }
     }
 }
+
+.bieumau{
+    padding: 120px 100px 100px 100px;
+    .addbieumau{
+        position: fixed;
+            bottom: 10%;
+            right: 10%;
+            border: 3px solid #0051ff;
+            padding: 18px;
+            border-radius: 50%;
+            background: white;
+    }
+    .bieumau_content{
+        border: 1px solid black;
+        padding: 20px;
+    }
+
+    .openform{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom:0;
+        background-color: rgba(0, 0, 0, 0.6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .openformContent{
+            width: 40%;
+            background-color: white;
+            border-radius: 5px;
+            padding: 10px 20px;
+
+            .form-group{
+                display: flex;
+                flex-direction: column;
+                margin-top: 10px;
+                input{
+                    width: 100%;
+                    padding: 5px;
+                }
+            }
+
+            .button-sumit{
+                display: flex;
+                justify-content: center;
+                padding: 20px 10px 10px 10px;
+
+                .btn-submit{
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+}

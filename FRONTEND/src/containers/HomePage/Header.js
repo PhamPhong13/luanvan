@@ -74,6 +74,13 @@ class Header extends Component
         }
     }
 
+    linktoForm = () => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `/forms` );
+        }
+    }
+
     linktoItem = (item) => {
         if (item.type === 'category') {
             if ( this.props.history )
@@ -166,6 +173,9 @@ class Header extends Component
                                 </li>
                                 <li onClick={() => this.linktoTunure()}>
                                     Thông tin
+                                </li>
+                                <li onClick={() => this.linktoForm()}>
+                                    Biểu mẫu
                                 </li>
                                 <li className='iconserach'
                                 >

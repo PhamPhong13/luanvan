@@ -124,6 +124,15 @@ export const chtMenu = [
       },
     ],
   },
+  {
+    //quản lý thống kê
+    name: "Biểu mẫu",
+    menus: [
+    {
+        name: "Quản lý biểu mẫu",        link: "/system/bieumau",
+      },
+    ],
+  },
 
 ];
 
@@ -160,6 +169,15 @@ export const chpMenu = [
       },
       {
         name: "system.manage.manage-form",        link: "/system/manage-form",
+      },
+    ],
+  },
+  {
+    //quản lý thống kê
+    name: "Biểu mẫu",
+    menus: [
+    {
+        name: "Quản lý biểu mẫu",        link: "/system/bieumau",
       },
     ],
   },

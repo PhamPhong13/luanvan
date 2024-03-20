@@ -29,6 +29,8 @@ import Tunure from './HomePage/Tunure';
 import lienhe from './HomePage/lienhe';
 import FromAnswer from './HomePage/FromAnswer';
 
+import Forms from './HomePage/Forms';
+
 class App extends Component
 {
 
@@ -78,6 +80,7 @@ class App extends Component
                                 <Route path={'/formanswer/:id'} component={FromAnswer} />
                                 <Route path={'/Tunure'} component={Tunure} />
                                 <Route path={'/lienhe'} component={lienhe} />
+                                <Route path={'/forms'} component={Forms} />
                             </Switch>
                         </span>
 

@@ -14,6 +14,7 @@ import connect from "../controllers/connectController";
 import report from "../controllers/reportController";
 import form from "../controllers/formController";
 import userform from "../controllers/userformController";
+import bieumau from "../controllers/bieumauController";
 
 let router = express.Router();
 
@@ -162,6 +163,13 @@ let initWebRoutes = (app) => {
 
 
   router.get("/api/get-admin-tunure", admin.getadmintunure); // get menber
+
+
+  // route bieumau
+  router.post("/api/create-bieumau", bieumau.createbieumau); // create bieumau
+  router.get("/api/get-bieumau", bieumau.getbieumau); // get bieumau
+  router.delete("/api/delete-bieumau", bieumau.deletebieumau); // delete bieumau
+  router.put("/api/update-bieumau", bieumau.updatebieumau); // update bieumau
 
 
  return app.use("/", router);

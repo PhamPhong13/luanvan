@@ -500,9 +500,13 @@ const getadmintunure = (tunure, position) => {
   return axios.get(`/api/get-admin-tunure?tunure=${tunure}&position=${position}`);
 };
 
+const createbieumau = (data) => {
+  return axios.post(`/api/create-bieumau`, data);
+}
+
 export {
 
-getuserformbyadminid, getlikepostByuserId, getadmintunure,
+getuserformbyadminid, getlikepostByuserId, getadmintunure, createbieumau,
 
   handleLoginApi,   getAllcode, handleLoginUser,
 
