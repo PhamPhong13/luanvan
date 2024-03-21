@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
-import { createbieumau} from "../../../../services/userService"
+import { createbieumau, getbieumau, deletebieumau, updatebieumau} from "../../../../services/userService"
 import { CommonUtils } from '../../../../utils'; // vi or en
 import Select from 'react-select';
 import { toast } from 'react-toastify';
@@ -15,6 +15,7 @@ import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 // import style manually
 import 'react-markdown-editor-lite/lib/index.css';
+import { isEmpty } from 'lodash';
 const mdParser = new MarkdownIt(/* Markdown-it options */ );
 class Bieumau extends Component
 {
@@ -24,25 +25,99 @@ class Bieumau extends Component
             name: "",
             image: '',
             openform: false, 
+            action: "create",
+            listBieumau: [],
+            id: ''
         }
     }
 
     
 
     async componentDidMount() {
-        
+        await this.getbieumaus();
     }
 
-    handlesave = async () => {
-        let res = await createbieumau({
+    getbieumaus = async () => {
+        let res = await getbieumau();
+        if (res && res.errCode === 0 && res.data.length > 0) {
+            this.setState({
+                listBieumau: res.data
+            })
+        }
+        else this.setState({
+            listBieumau: []
+        })
+    }
+
+    handleSave = async () => {
+        if (this.state.action === "create") {
+            let res = await createbieumau({
             name: this.state.name,
             image: this.state.image,
-        });
-        if (res && res.errCode === 0) {
-            toast.success("Thêm biểu mẫu thành công!");
-        }
+            });
+            if (res && res.errCode === 0) {
+                toast.success("Thêm biểu mẫu thành công!");
+                this.setState({
+                    action: "create",
+                    openform: false,
+                    name: "",
+                    image: "",
+                    id: ''
+                })
+                await this.getbieumaus();
+            }
         else
-            toast.error("Thêm biểu mẫu không thành công!");
+            {
+                toast.error("Thêm biểu mẫu không thành công!");
+                this.setState({
+                    action: "create",
+                    openform: false,
+                    name: "",
+                    image: "",
+                    id: ''
+                })
+
+            }
+         }
+        else {
+            let res = await updatebieumau({
+            name: this.state.name,
+                image: this.state.image,
+            id: this.state.id
+            });
+            if (res && res.errCode === 0) {
+                toast.success("Thêm biểu mẫu thành công!");
+                this.setState({
+                    action: "create",
+                    openform: false,
+                    name: "",
+                    image: "",
+                    id: ''
+                })
+                await this.getbieumaus();
+            }
+        else
+            {
+                toast.error("Thêm biểu mẫu không thành công!");
+                this.setState({
+                    action: "create",
+                    openform: false,
+                    name: "",
+                    image: "",
+                    id: ''
+                })
+
+            }
+        }
+    }
+
+    handleOnchangeInput = ( event, id ) =>
+    {
+        let stateCopy = { ...this.state };
+        stateCopy[ id ] = event.target.value;
+        this.setState( {
+            ...stateCopy
+        } )
     }
 
     handleopenform = () => {
@@ -51,9 +126,35 @@ class Bieumau extends Component
         })
     }
 
+    handleOnchangeImg = async (event) => {
+        let file = event.target.files[0];
+        if (file) {
+            let getBase64 = await CommonUtils.getBase64(file);
+            this.setState({
+                image: getBase64
+            })
+        }
+
+    }
+
+    handleDeleteBieumau = async (id) => {
+        await deletebieumau(id);
+        await this.getbieumaus();
+    }
+
+    handleEdit = (item) => {
+        this.setState({
+            name: item.name,
+            image: item.image,
+            id: item.id,
+            action: "edit",
+            openform: true
+        })
+    }
+    
     render ()
     {
-        let { openform } = this.state;
+        let { openform, listBieumau , name} = this.state;
         return (
             <>
                 <title>
@@ -61,36 +162,52 @@ class Bieumau extends Component
                 </title>
                 <div className='container bieumau'>
                     <div className='addbieumau' onClick={() => this.handleopenform()}>Thêm</div>
-                    <div className='bieumau_content'>
-                        <div className='name'>lkffifh</div>
-                        <img src={ logo} />
-                        <div className='title'>hqkfqfhqfqi</div>
-                    </div>
-
+                    {listBieumau && isEmpty(listBieumau) && "Không có biểu mẫu nào!"}
+                    {listBieumau && !isEmpty(listBieumau) && listBieumau.map((item) => {
+                        return (
+                            <div className='bieumau_content'>
+                                 <a href={item.image} download>- {item.name}</a>
+                                
+                                <div className='button-sumit'>
+                            <div className='btn btn-primary btn-submit'
+                            onClick={() => this.handleEdit(item)}
+                            >
+                                    <FormattedMessage id="key.change"></FormattedMessage></div>
+                                <div className='btn btn-danger mx-2'
+                            onClick={() => this.handleDeleteBieumau(item.id)}
+                            >
+                                <FormattedMessage id="key.delete"></FormattedMessage></div>
+                        </div>
+                            </div>
+                        )
+                    })}
                     {openform === true &&
                     <div className='openform'>
                         <div className='openformContent'>
                             <div className='title'>Thêm biểu mẫu</div>
                             <div className='form-group'>
                                 <label>Tên biểu mẫu</label>
-                                <input type="text" />
+                                    <input type="text" value={name}
+                                    onChange={(event) => this.handleOnchangeInput(event, "name")}
+                                    />
                             </div>
                             <div className='form-group image'>
                                 <label className='label_upload-img' htmlFor='reviewImg'>Tải ảnh </label>
-                                <input type='file' className='form-controll-file'
+                                <input type='file' className='form-controll-file' 
                                     onChange={(event) => this.handleOnchangeImg(event)}
                                 />
                             </div>
                             <div className='button-sumit'>
                             <div className='btn btn-primary btn-submit'
-                            /* onClick={() => this.handleSave()} */
+                            onClick={() => this.handleSave()}
                             >
-                                    <FormattedMessage id="key.add"></FormattedMessage></div>
+                                    <FormattedMessage id="key.save"></FormattedMessage></div>
                                 <div className='btn btn-secondary '
                             onClick={() => this.handleopenform()}
                             >
                                 <FormattedMessage id="key.cancel"></FormattedMessage></div>
-                        </div>
+                                </div>
+                                
                         </div>
                     </div>
                     }

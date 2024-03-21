@@ -10,7 +10,7 @@ let createbieumau = async ( req, res ) =>
 // get all patient
 let getbieumau = async ( req, res ) =>
 {
-    let User = await bieumauService.getbieumau(req.query.page);
+    let User = await bieumauService.getbieumau();
     return res.status( 200 ).json( User );
 }
 

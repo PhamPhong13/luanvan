@@ -19,6 +19,7 @@ let createbieumau = ( data ) =>
         {
             await db.Bieumau.create( {
                 name: data.name,
+                image: data.image,
             } );
             
 
@@ -36,9 +37,8 @@ let createbieumau = ( data ) =>
     } )
 }
 // get all patient
-let getbieumau = (page) =>
+let getbieumau = () =>
 {
-    if (page === "ALL") {
     return new Promise( async ( resolve, reject ) =>
     {
         try
@@ -68,48 +68,6 @@ let getbieumau = (page) =>
             reject( err );
         }
     } )
-    }
-    else {
-        if (page === "undefined") page = 1; // nếu page = undefined
-    return new Promise( async ( resolve, reject ) =>
-    {
-         const limit = 5; // Số lượng bài viết mỗi trang
-        const offset = (page - 1) * limit; // Vị trí bắt đầu của trang hiện tại
-        try
-        {
-            let totalPosts = await db.Bieumau.count(); // Đếm tổng số bài viết
-            let totalPages = Math.ceil(totalPosts / limit); // Tính tổng số trang
-            let patients = await db.Bieumau.findAll( {
-                order: [['createdAt', 'DESC']], // Sắp xếp theo ngày tạo giảm dần (ngược lại)
-                offset: offset,
-                limit: limit
-                
-            } );
-            if ( patients )
-            {
-                resolve( {
-                    errCode: 0,
-                    message: "get list bieumau successfully!",
-                    data: patients,
-                    total: totalPosts,
-                    totalPages: totalPages // Thêm thông tin về số trang vào đối tượng kết quả
-                } )
-            }
-            else
-            {
-                resolve( {
-                    errCode: 1,
-                    message: "get list bieumau failed!"
-                } )
-            }
-
-        }
-        catch ( err )
-        {
-            reject( err );
-        }
-    } )
-    }
     
 }
 
@@ -169,6 +127,7 @@ let updatebieumau = ( data ) =>
             if ( patient )
             {
                 patient.name = data.name,
+                patient.image = data.image,
                 await patient.save();
 
                 resolve( {

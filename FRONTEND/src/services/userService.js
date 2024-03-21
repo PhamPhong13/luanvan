@@ -504,11 +504,27 @@ const createbieumau = (data) => {
   return axios.post(`/api/create-bieumau`, data);
 }
 
+const getbieumau = () => {
+  return axios.get(`/api/get-bieumau`);
+};
+
+const deletebieumau = (id) => {
+  return axios.delete(`/api/delete-bieumau`, {
+    data: {
+      id: id
+    }
+  })
+}
+
+const updatebieumau = (data) => {
+  return axios.put(`api/update-bieumau`, data);
+}
+
 export {
 
-getuserformbyadminid, getlikepostByuserId, getadmintunure, createbieumau,
+  getuserformbyadminid, getlikepostByuserId, getadmintunure, createbieumau, getbieumau, deletebieumau,
 
-  handleLoginApi,   getAllcode, handleLoginUser,
+  handleLoginApi,   getAllcode, handleLoginUser,updatebieumau,
 
   /* admin */
   getAllAdmin, createAdmin, deleteAdmin, getAdminById, updateAdmin, getAdmin,
