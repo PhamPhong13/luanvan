@@ -113,7 +113,7 @@ let getpost = (page, userId) => {
             let includeAdmin = [{ model: db.Admin }];
             let totalPosts;
 
-            if (userId !== "5" && userId !== "10") {
+            if (userId !== "2") {
                 whereCondition = { adminId: userId };
             }
             
@@ -188,7 +188,7 @@ let getAllpost = async (page, word, userId) => {
         findOptions.where = whereClause;
     }
 
-    if (/* userId !== "5" ||  */userId !== "10") {
+    if (userId !== "2") {
         whereClause.adminId = userId;
     }
 

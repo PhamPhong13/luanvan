@@ -29,7 +29,7 @@ class ManagePost extends Component
     getposts = async (page) => {
         let id = this.props.userInfo.position;
 
-        if (id === 'P0' /* || id === 'P1' */) {
+        if (id === 'P1' ) {
             this.setState({
                 userPost: true,
             })
@@ -56,8 +56,8 @@ class ManagePost extends Component
 
     getAllposts = async (page, word) => {
         let id = this.props.userInfo.position;
-
-        if (id === 'P0' /* || id === 'P1' */) {
+        
+        if (id === 'P1' ) {
             this.setState({
                 userPost: true,
             })
@@ -136,6 +136,7 @@ class ManagePost extends Component
     render ()
     {
         let { listPost, totalpage, userPost } = this.state;
+        console.log(listPost)
         return (
             <>
                 <title>
