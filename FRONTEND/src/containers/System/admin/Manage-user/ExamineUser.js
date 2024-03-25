@@ -222,7 +222,7 @@ class ExamineUser extends Component
 
                 {openloading === true && 
                 <div className='loading'>
-                    <div className='loading-content'>Đang xử lý...</div>
+                    <div className="loading-spinner"></div>
                 </div>}
             </>
         );

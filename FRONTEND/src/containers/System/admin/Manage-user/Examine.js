@@ -89,7 +89,7 @@ class Examine extends Component
                     <div className='search'>
                         <div className='form-search'>
                             <input type="text"
-                                placeholder={this.props.language === 'vi' ? "Nhập để tìm tên nhiệm kỳ" : "Type to find the category name"}
+                                placeholder={this.props.language === 'vi' ? "Nhập để tìm kiếm" : "Type to search"}
                                  onChange={(event) => this.handleOchangeToSearch(event)} 
                             />
                             <i className='fas fa-search'></i>

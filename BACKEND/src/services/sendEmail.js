@@ -14,9 +14,9 @@ let sendCreateUserSuccess = async ( dataSend ) =>
     } );
 
     let infor = await transporter.sendMail( {
-        from: "From BookingCare",
+        from: "Chi hội Sinh viên Bình Tân",
         to: dataSend.email,
-        subject: 'Thông tin đặt lịch khám bệnh',
+        subject: 'Chấp nhận yêu cầu tạo tài khoản',
         html: getBodyHTMLEmail( dataSend ),
     } );
 }
