@@ -57,9 +57,11 @@ class Signup extends Component
                 openLog: !this.state.openLog
             })
         }
-        else {
-            toast.error("Đăng ký tài khoản không thành công!");
-        }
+        else if (res && res.errCode === 3) {
+            toast.error("Email đã tồn tại!");
+            }
+        else toast.error("Đăng ký tài khoản không thành công!");
+    
     }
 
     linktohome = () => {

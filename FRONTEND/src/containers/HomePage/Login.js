@@ -15,7 +15,8 @@ class Login extends Component
         super(props);
         this.state = {
             email: "",
-            password: ""
+            password: "",
+            checkstatus: "",
         }
     }
     handleOnchangeInput = ( event, id ) =>
@@ -29,7 +30,7 @@ class Login extends Component
 
 
     login = async () => {
-        let res = await handleLoginUser(this.state.email, this.state.password);
+        /* let res = await handleLoginUser(this.state.email, this.state.password);
         if (res && res.errCode === 0) {
             this.props.userLoginSuccess_U(res.user);
             toast.success("Đăng nhập thành công!");
@@ -37,7 +38,7 @@ class Login extends Component
         }
         else {
             toast.error("Đăng nhập không thành công!");
-        }
+        } */
     }
 
     linktoProfile = () => {

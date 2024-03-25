@@ -131,7 +131,7 @@ let createUser = ( data ) =>
                 phone: data.phone,
                 image: data.image,
                 desc: data.desc,
-                status: data.status
+                status: '1'
             } );
 
             resolve( {
