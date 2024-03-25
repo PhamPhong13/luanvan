@@ -38,6 +38,7 @@ let initWebRoutes = (app) => {
   router.post("/api/create-user", user.createUser); // create User
   router.get("/api/get-user", user.getUser); // get User
   router.get("/api/get-user-by-status", user.getuserbystatus); // get User
+  router.get("/api/get-user-status", user.getuserstatus); // get User
   router.get("/api/get-all-user", user.getAllUser); // get User
   router.get("/api/get-user-by-id", user.getUserById); // get User by id
   router.delete("/api/delete-user", user.deleteUser); // delete User

@@ -4,7 +4,7 @@ import './HomePage.scss';
 import _ from 'lodash';
 import Header from './Header';
 import * as actions from '../../store/actions'
-import { handleLoginUser } from '../../services/userService';
+import { handleLoginUser , getuserstatus} from '../../services/userService';
 import { toast } from 'react-toastify';
 import { withRouter } from 'react-router';
 
@@ -17,6 +17,7 @@ class Login extends Component
             email: "",
             password: "",
             checkstatus: "",
+            opencheck: false
         }
     }
     handleOnchangeInput = ( event, id ) =>
@@ -29,16 +30,42 @@ class Login extends Component
     }
 
 
+
+
     login = async () => {
-        /* let res = await handleLoginUser(this.state.email, this.state.password);
-        if (res && res.errCode === 0) {
-            this.props.userLoginSuccess_U(res.user);
-            toast.success("Đăng nhập thành công!");
-            this.linktoProfile();
+        let res = await getuserstatus(this.state.email);
+        if (res && res.errCode === 1) {
+            this.setState({
+                checkstatus: '3',
+                opencheck: true
+            })
         }
-        else {
-            toast.error("Đăng nhập không thành công!");
-        } */
+        else  if (res && res.errCode === 0) {
+            if (res.data && res.data.status === '0') {
+                this.setState({
+                checkstatus: '0',
+                opencheck: true
+            })
+            }
+            else if (res.data && res.data.status === '2') {
+                this.setState({
+                checkstatus: '2',
+                opencheck: true
+            })
+            }
+            else if (res.data && res.data.status === '1') {
+                let res = await handleLoginUser(this.state.email, this.state.password);
+            if (res && res.errCode === 0) {
+                this.props.userLoginSuccess_U(res.user);
+                toast.success("Đăng nhập thành công!");
+                this.linktoProfile();
+            }
+            else {
+                toast.error("Đăng nhập không thành công!");
+            } 
+                }
+                
+        }
     }
 
     linktoProfile = () => {
@@ -54,14 +81,81 @@ class Login extends Component
             this.props.history.push( `/signup` );
         }
     }
+    opencheck = () => {
+        this.setState({
+            opencheck: !this.state.opencheck
+        })
+    }
+
+    linktolienhe = () => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `/lienhe` );
+        }
+    }
     render ()
     {
+        let {checkstatus , opencheck} = this.state;
         return (
             <>
                 <title>
                     Đăng nhập
                 </title>
                 <Header />
+
+                {checkstatus && checkstatus === '3' && opencheck === true &&
+                    <div className='checkstatususer'>
+                        <div className='checkstatususer-content'>
+                            <div className='my-2'>
+                                <p>Tài khoản không tồn tại!</p>
+                            </div>
+                            <div className='btn-submit'>
+                                <div className='btn btn-primary'
+                                    onClick={() => this.opencheck()} 
+                                    
+                             >Ok</div>
+                            </div>
+                        </div>
+
+                        
+                </div>
+                }
+
+                {checkstatus && checkstatus === '0' && opencheck === true &&
+                    <div className='checkstatususer'>
+                        <div className='checkstatususer-content'>
+                            <div className='my-2'>Tài khoản của bạn chưa được phê duyệt!</div>
+                            <div className='btn-submit'>
+                                <div className='btn btn-primary'
+                                    onClick={() => this.opencheck()} 
+                                    
+                             >Ok</div>
+                            </div>
+                        </div>
+
+                        
+                </div>
+                }
+
+                {checkstatus && checkstatus === '2' && opencheck === true &&
+                    <div className='checkstatususer'>
+                        <div className='checkstatususer-content'>
+                            <div className='my-2'>
+                                <p>Tài khoản của bạn đã bị khóa!</p>
+                                <p>Bạn có thể phản hồi với người quản trị để mở khóa!
+                                    <span onClick={() => this.linktolienhe()}> Tại đây</span>  </p>
+                            </div>
+                            <div className='btn-submit'>
+                                <div className='btn btn-primary'
+                                    onClick={() => this.opencheck()} 
+                                    
+                             >Ok</div>
+                            </div>
+                        </div>
+
+                        
+                </div>
+                }
 
                 <div className='container login-user'>
                     <div className='login-user-content'>

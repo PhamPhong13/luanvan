@@ -530,11 +530,15 @@ const examineUser = (data) => {
   return axios.put(`api/examine-user`, data);
 }
 
+const getuserstatus = (email) => {
+  return axios.get(`/api/get-user-status?email=${email}`);
+};
+
 export {
 
   getuserformbyadminid, getlikepostByuserId, getadmintunure, createbieumau, getbieumau, deletebieumau,
 
-  handleLoginApi,   getAllcode, handleLoginUser,updatebieumau, getuserbystatus, examineUser,
+  handleLoginApi,   getAllcode, handleLoginUser,updatebieumau, getuserbystatus, examineUser, getuserstatus, 
 
   /* admin */
   getAllAdmin, createAdmin, deleteAdmin, getAdminById, updateAdmin, getAdmin,

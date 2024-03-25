@@ -1297,3 +1297,33 @@ position: fixed;
 
     }
 }
+
+.checkstatususer{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #00000029;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    .checkstatususer-content{
+        width: 30%;
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        font-size: 18px;
+        text-align: center;
+        .btn-submit{
+            display: flex;
+            justify-content: center;
+        }
+
+        span{
+            color: blue;
+            cursor: pointer;
+        }
+    }
+}

@@ -35,6 +35,12 @@ let getUserById = async ( req, res ) =>
     return res.status( 200 ).json( User );
 }
 
+let getuserstatus = async ( req, res ) =>
+{
+    let User = await userService.getuserstatus( req.query.email );
+    return res.status( 200 ).json( User );
+}
+
 let deleteUser = async ( req, res ) =>
 {
     let User = await userService.deleteUser( req.body.id );
@@ -104,7 +110,7 @@ let usersendemail = async (req, res) => {
 }
  
 module.exports = {
-    createUser: createUser,
+    createUser: createUser, getuserstatus: getuserstatus,
     getUser: getUser,
     getUserById: getUserById,
     deleteUser: deleteUser,

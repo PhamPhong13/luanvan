@@ -342,6 +342,46 @@ let getUserById = ( id ) =>
     } )
 }
 
+//get patient by id
+let getuserstatus = ( email ) =>
+{
+    return new Promise( async ( resolve, reject ) =>
+    {
+        try
+        {
+            let patients = await db.User.findOne( {
+                where: {
+                    email: email
+                },
+                attributes: {
+                    exclude: [ 'password' , 'image']
+                },
+                raw: true
+            } );
+            if ( patients )
+            {
+                resolve( {
+                    errCode: 0,
+                    message: "get User successfully!",
+                    data: patients
+                } )
+            }
+            else
+            {
+                resolve( {
+                    errCode: 1,
+                    message: "get User failed!"
+                } )
+            }
+
+        }
+        catch ( err )
+        {
+            reject( err );
+        }
+    } )
+}
+
 // delete patient
 let deleteUser = ( id ) =>
 {
@@ -531,7 +571,7 @@ let usersendemail = (data) => {
 
 
 module.exports = {
-    createUser: createUser,
+    createUser: createUser, getuserstatus: getuserstatus,
     getUser: getUser,
     getUserById: getUserById,
     deleteUser: deleteUser,
