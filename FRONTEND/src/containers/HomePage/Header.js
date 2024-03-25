@@ -156,7 +156,7 @@ class Header extends Component
                                     
                                 </li>
                                 <li>
-                                    Chuyên mục  <i class="fas fa-chevron-down"></i>
+                                    Chuyên mục  <i className="fas fa-chevron-down"></i>
                                     <ul>
                                         {listCat && listCat.map((item, index) => {
                                             return (

@@ -102,11 +102,12 @@
 
     form{
         width: 70%;
-        border: 1px solid black;
         padding: 15px 10px;
         border-radius: 3px;
         display: flex;
         justify-content: space-between;
+        background-color: white;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
         flex-wrap: wrap;
         .form-group{
@@ -178,6 +179,43 @@
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+    }
+}
+
+
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #8f727229;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .loading-spinner {
+        border: 8px solid #f3f3f3;
+        /* Light grey */
+        border-top: 8px solid #3498db;
+        /* Blue */
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 2s linear infinite;
+        margin: 50px auto;
+        /* Center the spinner */
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
         }
     }
 }

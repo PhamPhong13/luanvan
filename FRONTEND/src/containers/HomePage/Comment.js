@@ -266,7 +266,7 @@ class Comment extends Component
                                         <span>{this.timecreated(item.updatedAt)} </span>
                                         <span><b>Thích</b></span>
                                         <span onClick={() => this.handleChangeKey(item.id)}><b><label for="texxt">Trả lời</label></b></span>
-                                        <span onClick={() => this.handlereport(item)} title='Báo cáo bài viết'><i class="fas fa-bug"></i></span>
+                                        <span onClick={() => this.handlereport(item)} title='Báo cáo bài viết'><i className="fas fa-bug"></i></span>
         
                         </div>
                         </div>
@@ -292,7 +292,7 @@ class Comment extends Component
                         onKeyDown={(event) => this.handleOnkeyDown(event)}
                         onChange={(event) => this.handleOnchangeInput(event, "comment_input")}
                     />
-                    <i onClick={() => this.handleComment()} class="fas fa-share"></i>
+                    <i onClick={() => this.handleComment()} className="fas fa-share"></i>
                 </div>
 
                 {openReport === true && <div className='form-report'>

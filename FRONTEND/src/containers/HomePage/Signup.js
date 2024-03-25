@@ -20,7 +20,8 @@ class Signup extends Component
             phone: "",
             image: "",
             fullName: "",
-            openSign: false
+            openSign: false,
+            openLog: false,
         }
     }
     handleOnchangeInput = ( event, id ) =>
@@ -47,22 +48,24 @@ class Signup extends Component
             password: this.state.password,
             phone: this.state.phone,
             fullName: this.state.fullName,
-            image: this.state.image
+            image: this.state.image,
+            status: '0'
         })
 
         if (res && res.errCode === 0) {
-            toast.success("Đăng ký tài khoản thành công!");
-            this.linktoLogin();
+            this.setState({
+                openLog: !this.state.openLog
+            })
         }
         else {
             toast.error("Đăng ký tài khoản không thành công!");
         }
     }
 
-    linktoLogin = () => {
+    linktohome = () => {
         if ( this.props.history )
         {
-            this.props.history.push( `/login-user` );
+            this.props.history.push( `/home` );
         }
     }
 
@@ -74,7 +77,7 @@ class Signup extends Component
 
     render ()
     {
-        let { openSign } = this.state;
+        let { openSign , openLog} = this.state;
         return (
             <>
                  <title>
@@ -154,8 +157,26 @@ class Signup extends Component
                         </div>
                         
                     </div>
-                    </div>
+                </div>
                 
+                {openLog === true &&
+                <div className='signupsuccess'>
+                    <div className='signupsuccess-content'>
+                        <div className='     text-center'>
+                            Bạn vừa đăng ký tài khoản để truy cập vào cổng điện
+                            tử của chúng tôi! Nhưng bạn chưa có thể đăng nhập 
+                            trước khi quản trị viên duyệt yêu cầu đăng ký của bạn.
+                            Giờ bạn có thể truy cập vào bằng tài khoản khách.
+                        </div>
+                        <div className='btn-submit mt-3'>
+                            <div className='btn btn-primary'
+                                onClick={() => this.linktohome()} 
+                                
+                             >Ok</div>
+                        </div>
+                    </div>
+                </div>
+                }
             </>
         );
     }

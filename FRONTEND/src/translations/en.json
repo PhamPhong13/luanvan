@@ -6,6 +6,7 @@
     "manage": {
       "user": "Manage user",
       "manage-user": "Manage user",
+      "examine": "Manage approvals",
       "cat": "Category",
       "manage-cat": "Manage category",
       "manage-category": "Manage category",
@@ -58,5 +59,7 @@
     "see": "See"
 
 
-  }
+  },
+  "form": "Form",
+  "Manage-form": "Manage form"
 }

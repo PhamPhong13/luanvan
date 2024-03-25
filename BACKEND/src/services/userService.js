@@ -5,6 +5,13 @@ const Op = Sequelize.Op;
 
 import sendEmail from "./sendEmail"
 
+let builURLEmail = () =>
+{
+    let result = '';
+    result = `${ process.env.URL_REACT }/login-user`
+    return result;
+}
+
 const salt = bcrypt.genSaltSync( 10 );
 // hash password
 let hashUserPassword = ( password ) =>
@@ -124,6 +131,7 @@ let createUser = ( data ) =>
                 phone: data.phone,
                 image: data.image,
                 desc: data.desc,
+                status: data.status
             } );
 
             resolve( {
@@ -158,7 +166,9 @@ let getUser = (page) =>
                 },
                 order: [['createdAt', 'DESC']], // Sắp xếp theo ngày tạo giảm dần (ngược lại)
                 offset: offset,
-                limit: limit
+                limit: limit,
+                where: { status: '1' },
+                raw: true
                 
             } );
             if ( patients )
@@ -186,6 +196,53 @@ let getUser = (page) =>
         }
     } )
 }
+
+// get all patient
+let getuserbystatus = (page, word, st) => {
+    return new Promise(async (resolve, reject) => {
+        const limit = 5; // Số lượng bài viết mỗi trang
+        const offset = (page - 1) * limit; // Vị trí bắt đầu của trang hiện tại
+        try {
+            let condition = { status: '0' }; // Điều kiện ban đầu để lấy người dùng có trạng thái '0'
+            if (word !== '') {
+                condition.fullName = { [Op.like]: `%${word}%` }; // Thêm điều kiện tìm kiếm tên người dùng nếu từ khóa không rỗng
+            }
+            if (st !== undefined) {
+                condition.status = st; // Thêm điều kiện trạng thái nếu nó được cung cấp
+            }
+
+            let totalPosts = await db.User.count({ where: condition }); // Đếm tổng số bài viết theo điều kiện
+            let totalPages = Math.ceil(totalPosts / limit); // Tính tổng số trang
+            let patients = await db.User.findAll({
+                attributes: {
+                    exclude: ['password']
+                },
+                offset: offset,
+                limit: limit,
+                where: condition,
+                raw: true
+            });
+            if (patients) {
+                resolve({
+                    errCode: 0,
+                    message: "get list User successfully!",
+                    data: patients,
+                    total: totalPosts,
+                    totalPages: totalPages // Thêm thông tin về số trang vào đối tượng kết quả
+                })
+            } else {
+                resolve({
+                    errCode: 1,
+                    message: "get list User failed!"
+                })
+            }
+
+        } catch (err) {
+            reject(err);
+        }
+    })
+}
+
 
 let getAllUser = (page, word) => {
     if (page === "undefined") page = 1; // nếu page = undefined
@@ -345,8 +402,9 @@ let updateUser = ( data ) =>
                 patient.phone = data.phone;
                 patient.image = data.image,
                 patient.desc = data.desc,
-                await patient.save();
-
+                patient.status = data.status,
+                    await patient.save();
+                
                 resolve( {
                     errCode: 0,
                     errMessage: 'Update User succeed!'
@@ -368,6 +426,61 @@ let updateUser = ( data ) =>
     } )
 }
  
+let examineUser = ( data ) =>
+{
+    return new Promise( async ( resolve, reject ) =>
+    {
+        try
+        {
+            if ( !data.id || !data.email || !data.fullName )
+            {
+                resolve( {
+                    errCode: 2,
+                    errMessage: 'Missing required parameter!'
+                } )
+            }
+            let patient = await db.User.findOne( {
+                where: { id: data.id },
+                raw: false
+
+            } )
+            if ( patient )
+            {
+                patient.email = data.email;
+                patient.fullName = data.fullName;
+                patient.phone = data.phone;
+                patient.image = data.image,
+                patient.desc = data.desc,
+                patient.status = data.status,
+                    await patient.save();
+                
+                await sendEmail.sendCreateUserSuccess({
+                    email: patient.email,
+                    name: patient.fullName,
+                    phone: patient.phone,
+                    redirectLink: builURLEmail( )
+                })
+
+                resolve( {
+                    errCode: 0,
+                    errMessage: 'Update User succeed!'
+                } );
+
+            } else
+            {
+                resolve( {
+                    errCode: 2,
+                    errMessage: 'User not found!'
+                } );
+
+            }
+        }
+        catch ( e )
+        {
+            reject( e );
+        }
+    } )
+}
 
 let getAllCode = (typeInput) => {
     return new Promise(async (resolve, reject) => {
@@ -426,5 +539,8 @@ module.exports = {
     getAllCode: getAllCode,
     login: login,
     usersendemail: usersendemail,
-    getAllUser: getAllUser
+    getAllUser: getAllUser,
+    getuserbystatus: getuserbystatus,
+    builURLEmail: builURLEmail,
+    examineUser: examineUser
 }

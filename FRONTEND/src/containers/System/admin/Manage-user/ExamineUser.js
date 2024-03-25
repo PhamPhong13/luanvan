@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
-import { getUserById, updateUser } from "../../../../services/userService"
+import { getUserById, examineUser, deleteUser } from "../../../../services/userService"
 import { CommonUtils } from '../../../../utils'; // vi or en
 import Select from 'react-select';
 import { toast } from 'react-toastify';
 import { withRouter } from 'react-router';
-class EditUser extends Component
+class ExamineUser extends Component
 {
     constructor(props) {
         super(props);
@@ -17,11 +17,10 @@ class EditUser extends Component
             fullName: "",
             phone: "",
             image: "",
-            desc: ""
+            desc: "",
+            openloading: false,
         }
     }
-
-    
 
     async componentDidMount() {
         await this.getUserById();
@@ -42,11 +41,6 @@ class EditUser extends Component
 
     }
 
-    async componentDidUpdate(prevProps) {
-       
-    }
-
-
     handleOnchangeImg = async (event) => {
         let file = event.target.files[0];
         if (file) {
@@ -66,24 +60,31 @@ class EditUser extends Component
         } )
     }
 
-     handleSave = async () => {
+    handleSave = async () => {
+        this.setState({
+             openloading: true,
+         })
         if (this.checkstate() === true) {
-            let res = await updateUser({
+            let res = await examineUser({
                 email: this.state.email,
                 fullName: this.state.fullName,
                 phone: this.state.phone,
                 image: this.state.image,
                 desc: this.state.desc,
+                status: '1',
                 id: this.props.match.params.id
             })
 
             if (res && res.errCode === 0) {
-                this.linkToManageAdmin();
-                toast.success("Sửa người dùng thành công!");
+                this.linkToManageExamine();
+                toast.success("Duyệt yêu cầu người dùng thành công!");
                 
             }
-            else toast.error("Sửa người dùng không thành công!");
+            else toast.error("Duyệt yêu cầu người dùng không thành công!");
         }
+        this.setState({
+             openloading: false,
+         })
     } 
 
     checkstate = () => { 
@@ -112,23 +113,32 @@ class EditUser extends Component
         return result;
     }
 
-    linkToManageAdmin = () => {
+    linkToManageExamine = () => {
         if ( this.props.history )
         {
-            this.props.history.push( `/system/manage-user` );
+            this.props.history.push( `/system/examine` );
         }
+    }
+
+    handleDeleteUser = async () => {
+        alert("Bạn có chắc rằng bạn không chấp nhận yêu cầu duyệt đăng ký tài khoàn này phải không?");
+        this.linkToManageExamine();
+        await deleteUser(this.props.match.params.id);
+        toast.success("Bạn vừa hủy yêu cầu duyệt thành viên thành công!");
+
     }
 
     render ()
     {
+        let {openloading} = this.state;
         return (
             <>
                 <title>
-                    <FormattedMessage id="system.manage.edit-user"></FormattedMessage>
+                    Duyệt yêu cầu đăng ký tài khoản
                 </title>
                 <div className='container manage'>
 
-                    <div className='title'><FormattedMessage id="system.manage.edit-user"></FormattedMessage></div>
+                    <div className='title'>Duyệt yêu cầu đăng ký tài khoản</div>
 
                 </div>
 
@@ -171,15 +181,6 @@ class EditUser extends Component
                                     
                                     />
                                 </div>
-                                <div className='form-group'>
-                                    <label><FormattedMessage id="key.position"></FormattedMessage>:</label>
-                                    <Select
-                                        value={ this.state.selectedPosition }
-                                        onChange={ this.handleChangeSelect }
-                                        options={ this.state.listPosition }
-                                        placeholder={ <FormattedMessage id="key.position" /> }
-                                    />
-                                    </div>
                                     
                                 </div>
                                     <div className='form-group'>
@@ -193,7 +194,6 @@ class EditUser extends Component
                             <div className='right'>
                                 <input type="file" className="form-control" id="reviewImg" hidden
                                                 onChange={(event) => this.handleOnchangeImg(event)} />
-                                <label className='label_upload-img' htmlFor='reviewImg'>Tải ảnh <i className='fas fa-upload'></i></label>
                                 <div className='reviewImage'
                                                 style={{ backgroundImage: `url(${this.state.image})` }}
                                                 ></div>
@@ -204,10 +204,26 @@ class EditUser extends Component
                             <div className='btn btn-primary btn-submit'
                              onClick={() => this.handleSave()} 
                             >
-                                <FormattedMessage id="key.change"></FormattedMessage></div>
+                                Chấp nhận
+                            </div>
+                            <div className='btn btn-danger mx-3'
+                             onClick={() => this.handleDeleteUser()} 
+                            >
+                                Không duyệt
+                            </div>
+                            <div className='btn btn-secondary'
+                             onClick={() => this.linkToManageExamine()} 
+                            >
+                                Hủy
+                            </div>
                         </div>
                     </form>
                 </div>
+
+                {openloading === true && 
+                <div className='loading'>
+                    <div className='loading-content'>Đang xử lý...</div>
+                </div>}
             </>
         );
     }
@@ -228,4 +244,4 @@ const mapDispatchToProps = dispatch =>
     };
 };
 
-export default withRouter(connect( mapStateToProps, mapDispatchToProps )( EditUser ));
+export default withRouter(connect( mapStateToProps, mapDispatchToProps )( ExamineUser ));

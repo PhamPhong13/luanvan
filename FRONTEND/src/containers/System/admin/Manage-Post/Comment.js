@@ -238,7 +238,7 @@ class Commnent extends Component
                         onKeyDown={(event) => this.handleOnkeyDown(event)}
                         onChange={(event) => this.handleOnchangeInput(event, "comment_input")}
                     />
-                    <i onClick={() => this.handleComment()} class="fas fa-share"></i>
+                    <i onClick={() => this.handleComment()} className="fas fa-share"></i>
                 </div>
 
             </div>

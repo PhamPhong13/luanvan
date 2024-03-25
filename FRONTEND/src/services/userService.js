@@ -520,11 +520,21 @@ const updatebieumau = (data) => {
   return axios.put(`api/update-bieumau`, data);
 }
 
+const getuserbystatus = (page, word, status) => {
+  console.log(status);
+  return axios.get(`/api/get-user-by-status?page=${page}&word=${word}&status=${status}`);
+};
+
+
+const examineUser = (data) => {
+  return axios.put(`api/examine-user`, data);
+}
+
 export {
 
   getuserformbyadminid, getlikepostByuserId, getadmintunure, createbieumau, getbieumau, deletebieumau,
 
-  handleLoginApi,   getAllcode, handleLoginUser,updatebieumau,
+  handleLoginApi,   getAllcode, handleLoginUser,updatebieumau, getuserbystatus, examineUser,
 
   /* admin */
   getAllAdmin, createAdmin, deleteAdmin, getAdminById, updateAdmin, getAdmin,

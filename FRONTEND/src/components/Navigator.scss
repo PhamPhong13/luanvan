@@ -60,14 +60,28 @@
                 }
 
                 .sub-menu-list {
+                    &::after{
+                        content: '';
+                         width: 0;
+                        height: 0;
+                        border-top: 10px solid transparent;
+                        border-right: 15px solid #f5f5f5f5;
+                        border-bottom: 10px solid transparent;
+                        position: absolute;
+                        top: 0;
+                        left: -10px;
+                    }
+                    z-index: 10;
+                    position: relative;
                     display: none;
                     background-color: $bg-menu-color;
                     box-shadow: 2px 2px 4px 0 $box-shadow-color;
                     -webkit-box-shadow: 2px 2px 4px 0 $box-shadow-color;
                     position: absolute;
                     top: 0;
-                    left: 205px;
+                    left: 180px;
                     padding: 0;
+
 
                     .sub-menu {
                         padding: 0 15px;
@@ -78,6 +92,7 @@
                         &:hover {
                             background-color: darken($bg-menu-color, 5);
                         }
+                        
 
                         .sub-menu-link {
                             text-decoration: none;

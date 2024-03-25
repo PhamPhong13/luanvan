@@ -148,15 +148,15 @@ class Profile extends Component
                                 <div className='down'>
                                     <div className='form-group'>
                                         <label>Họ tên: </label>
-                                        <input type='text' value={profile.fullName} readonly class="no-cursor" />
+                                        <input type='text' value={profile.fullName} readonly className="no-cursor" />
                                     </div>
                                     <div className='form-group'>
                                         <label>Email: </label>
-                                        <input type='text' value={profile.email} readonly class="no-cursor email" />
+                                        <input type='text' value={profile.email} readonly className="no-cursor email" />
                                     </div>
                                     <div className='form-group'>
                                         <label>Điện thoại:</label>
-                                        <input type='text' value={profile.phone} readonly class="no-cursor" />
+                                        <input type='text' value={profile.phone} readonly className="no-cursor" />
                                     </div>
                                     <div className='form-group bio'>
                                         <label>Tiểu sử:</label>
@@ -178,7 +178,7 @@ class Profile extends Component
                                         {listseepost && isEmpty(listseepost) &&
                                         "Bạn chưa xem bài viết nào!"}
                                     </div>
-                                            <div><b>Bài viết vừa xem gần đây</b></div>
+                                            <div><b>Bài viết bạn thích gần đây</b></div>
                                     <div className='listseepost mt-3'>
                                         {listlike && !isEmpty(listlike) && listlike.map((item) => {
                                             return (

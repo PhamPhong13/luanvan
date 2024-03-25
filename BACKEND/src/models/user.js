@@ -27,7 +27,8 @@ module.exports = ( sequelize, DataTypes ) =>
         phone: DataTypes.STRING,
         image: DataTypes.STRING,
         desc: DataTypes.STRING,
-        tunure: DataTypes.STRING    
+        tunure: DataTypes.STRING,
+        status: DataTypes.STRING,
     }, {
         sequelize,
         modelName: 'User',

@@ -1,7 +1,7 @@
 require( 'dotenv' ).config();
 import nodemailer from 'nodemailer';
 
-let sendSimpleEmail = async ( dataSend ) =>
+let sendCreateUserSuccess = async ( dataSend ) =>
 {
     let transporter = nodemailer.createTransport( {
         host: 'smtp.gmail.com',
@@ -15,7 +15,7 @@ let sendSimpleEmail = async ( dataSend ) =>
 
     let infor = await transporter.sendMail( {
         from: "From BookingCare",
-        to: dataSend.recieverEmail,
+        to: dataSend.email,
         subject: 'Thông tin đặt lịch khám bệnh',
         html: getBodyHTMLEmail( dataSend ),
     } );
@@ -24,39 +24,18 @@ let sendSimpleEmail = async ( dataSend ) =>
 let getBodyHTMLEmail = ( dataSend ) =>
 {
     let result = '';
-    if ( dataSend.language === 'vi' )
-    {
-        result =
-            `<h3>Xin chào ${ dataSend.patientName }!</h3>
-        <p>Bạn đã nhận được Email này vì đã đặt lịch khám bệnh online trên trang BookingCare!</p>
-        <p>Thông tin đặt lịch khám bệnh:</p>
-        <div>
-        <b>Thời gian: ${ dataSend.time }</b>
-        </div>
-        <div>
-        <b>Bác sĩ: ${ dataSend.doctorName }</b>
-        </div>
-        <p>Nếu thôn tin trên là đúng sự thật, Vui lòng nhấn vào đường link để xác nhận và hoàn tất thủ tục!
+    result =
+            `<h3>Chi hội Sinh viên Bình Tân xin chào ${ dataSend.name }!</h3>
+        <p>Chi hội Sinh viên Bình Tân vừa nhận được yêu cầu tạo tài khoản hội viên. Chúng tôi đã xét duyệt yêu cầu đăng ký của bạn.</p>
+        <p>Với nội dung xét duyệt: </p>
+        <p><b>Email: ${ dataSend.email }</b></p>
+        <p><b>Họ tên: ${ dataSend.name }</b></p>
+        <p><b>Điện thoại: ${ dataSend.phone }</b></p>
+        <p><b>... </b></p>
+        <p>Giờ bạn có thể đăng nhập vào hệ thống của chúng tôi với tài khoản bạn đã đăng ký!
         <span><a href="${ dataSend.redirectLink }" target="_blank"> Tại đây!</a></span></p>
-        <div>Xin chân thành cảm ơn!</div>
+        <div>Chi hội Sinh viên Bình Tân xin chân thành cảm ơn!</div>
         `
-    }
-    if ( dataSend.language === 'en' )
-    {
-        result = `<h3>Dear ${ dataSend.patientName },</h3>
-        <p>You received this email because you booked an online consultation on BookingCare!</p>
-        <p>Medical appointment booking information:</p>
-        <div>
-        <b>Time: ${ dataSend.time }</b>
-        </div>
-        <div>
-        <b>Doctor: ${ dataSend.doctorName }</b>
-        </div>
-        <p>If the above information is true, please click on the link to confirm and complete the procedure!
-        <div><a href="${ dataSend.redirectLink }" target="_blank"> Click here!</a></div></p>
-        <div>Thank you very much!</div>
-        `
-    }
 
     return result;
 }
@@ -240,7 +219,7 @@ let getBodyEmailReportPost = ( dataSend ) =>
 }
 
 module.exports = {
-    sendSimpleEmail: sendSimpleEmail,
+    sendCreateUserSuccess: sendCreateUserSuccess,
     getBodyHTMLEmail: getBodyHTMLEmail,
     sendAttachment: sendAttachment,
     getBodyHTMLEmailRemedy: getBodyHTMLEmailRemedy,

@@ -119,7 +119,7 @@ class ManageAdmin extends Component
                     </div>
 
                     <div className='table-list'>
-                        <table class="table table-striped">
+                        <table className="table table-striped">
                     <thead>
                         <tr>
                         <th scope="col"><FormattedMessage id="key.email"></FormattedMessage></th>

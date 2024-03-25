@@ -187,7 +187,7 @@ class RepComment extends Component
                                 <div className='comment-main-content-bottom'>
                                     <span> {this.timecreated(item.updatedAt)} </span>
                                     <span><b>Thích</b></span> <span onClick={() => this.handleOnchangeKey()}><b><label for="texxt">Trả lời</label></b></span>
-                                    <span onClick={() => this.handlereport(item)} title='Báo cáo bài viết'><i class="fas fa-bug"></i></span>
+                                    <span onClick={() => this.handlereport(item)} title='Báo cáo bài viết'><i className="fas fa-bug"></i></span>
         
                     </div>
                 </div>

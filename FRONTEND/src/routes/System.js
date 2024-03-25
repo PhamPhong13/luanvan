@@ -36,6 +36,10 @@ import ManageForm from "../containers/System/admin/Manage-Post/Manage-form";
 import ResultForm from "../containers/System/admin/Manage-Post/ResultForm";
 
 import Bieumau from "../containers/System/admin/Manage-Post/Bieumau";
+import Examine from "../containers/System/admin/Manage-user/Examine";
+
+import ExamineUser from "../containers/System/admin/Manage-user/ExamineUser";
+
 class System extends Component {
   render() {
     const { systemMenuPath, isLoggedIn } = this.props;
@@ -76,6 +80,9 @@ class System extends Component {
               <Route path="/system/report-post" component={ReportPost} />
               <Route path="/system/report-user" component={ReportUser} />
               <Route path="/system/bieumau" component={Bieumau} />
+              <Route path="/system/examine" component={Examine} />
+
+              <Route path="/system/examimeuser/:id" component={ExamineUser} />
 
               <Route path="/system/form/:id" component={Form} />
               <Route path="/system/manage-form" component={ManageForm} />

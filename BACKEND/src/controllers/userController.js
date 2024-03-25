@@ -15,6 +15,13 @@ let getUser = async ( req, res ) =>
 }
 
 // get all patient
+let getuserbystatus = async ( req, res ) =>
+{
+    let User = await userService.getuserbystatus(req.query.page, req.query.word, req.query.status);
+    return res.status( 200 ).json( User );
+}
+
+// get all patient
 let getAllUser = async ( req, res ) =>
 {
     let User = await userService.getAllUser(req.query.page, req.query.word);
@@ -40,6 +47,12 @@ let updateUser = async ( req, res ) =>
     return res.status( 200 ).json( User );
 }
 
+
+let examineUser = async ( req, res ) =>
+{
+    let User = await userService.examineUser( req.body );
+    return res.status( 200 ).json( User );
+}
 // get all code table
 let getAllCode = async (req, res) => {
     try {
@@ -99,5 +112,7 @@ module.exports = {
     getAllCode: getAllCode,
     login: login,
     usersendemail: usersendemail,
-    getAllUser: getAllUser
+    getAllUser: getAllUser,
+    getuserbystatus: getuserbystatus,
+    examineUser: examineUser
 }

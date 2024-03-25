@@ -6,6 +6,7 @@
     "manage": {
       "user": "Người dùng",
       "manage-user": "Quản lý người dùng",
+      "examine": "Quản lý phê duyệt",
       "cat": "Danh mục",
       "manage-cat": "Quản lý danh mục",
       "manage-category": "Quản lý danh mục",
@@ -56,7 +57,9 @@
     "image-post": "Ảnh bài viết",
     "content-post": "Nội dung bài viết",
     "see": "Xem"
-  }
+  },
+  "form": "Biểu mẫu",
+  "manage-form": "Quản lý biểu mẫu"
 
 
 }

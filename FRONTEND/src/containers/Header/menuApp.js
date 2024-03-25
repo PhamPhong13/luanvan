@@ -57,11 +57,11 @@ export const chtMenu = [
     menus: [
     {
         name: "system.manage.manage-user",
-        link: "/system/manage-user",
-        /* subMenus: [
-                    { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
-                    { name: 'menu.system.system-administrator.user-redux', link: '/system/manage-patient' },
-                ] */
+        
+        subMenus: [
+                    { name: 'system.manage.manage-user',link: "/system/manage-user" },
+                    { name: 'system.manage.examine', link: '/system/examine' },
+                ]
       },
       {
         name: "system.manage.manage-admin",
@@ -126,10 +126,10 @@ export const chtMenu = [
   },
   {
     //quản lý thống kê
-    name: "Biểu mẫu",
+    name: "form",
     menus: [
     {
-        name: "Quản lý biểu mẫu",        link: "/system/bieumau",
+        name: "manage-form",        link: "/system/bieumau",
       },
     ],
   },
