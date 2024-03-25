@@ -39,7 +39,8 @@ class Post extends Component
             imageReport: "",
             content: "",
             userReport: [],
-            form: ""
+            form: "",
+            checkUserform: false,
         }
     }
 
@@ -173,9 +174,14 @@ class Post extends Component
     }
 
     linktoform = (id) => {
-        if ( this.props.history )
+        if (this.props.userInfo === null) {
+            this.setState({ checkUserform: true })
+        }
+        else {
+            if ( this.props.history )
         {
             this.props.history.push( `/formanswer/${id}` );
+        } 
         }
     }
 
@@ -287,16 +293,49 @@ class Post extends Component
 
     }
 
+    closeLogin = () => {
+        this.setState({
+            checkUserform:!this.state.checkUserform
+        })
+    }
+
+    linktologin = () => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `/login-user` );
+        }
+    }
+
     render ()
     {
         let { post, form, cat, thu, day, postbycat,
-            id, likepost, openReport, senReport, imageReport } = this.state;
+            id, likepost, openReport, senReport, imageReport, checkUserform } = this.state;
         return (
             <>
                 <title>
                      {post.name}
                 </title>
-                <Header /> 
+                <Header />
+                
+                {checkUserform === true &&
+                    <div className='checkstatususer'>
+                        <div className='checkstatususer-content'>
+                            <div className='my-2'>Bạn cần phải đăng nhập để có thể điền biểu mẫu đăng ký!</div>
+                            <div className='btn-submit'>
+                                <div className='btn btn-primary mx-2'
+                                    onClick={() => this.linktologin()} 
+                                    
+                                >Đăng nhập</div>
+                                <div className='btn btn-secondary'
+                                    onClick={() => this.closeLogin()} 
+                                    
+                             >Hủy</div>
+                            </div>
+                        </div>
+
+                        
+                </div>
+                }
                 
                 <div className='container manage_container' id='top'>
                     <div className='manage_container-content' >
