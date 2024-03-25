@@ -28,7 +28,8 @@ class Comment extends Component
             senReport: false,
             imageReport: "",
             content: "",
-            userReport: []
+            userReport: [],
+            checkUserComment: false,
         }
     }
 
@@ -53,11 +54,7 @@ class Comment extends Component
                     userId: this.props.userInfo.id
                 });
             
-        }else {
-                this.setState({
-                    userId: '1'
-                });
-            }
+        }
     }
 
     
@@ -115,8 +112,14 @@ class Comment extends Component
     }
 
 
+
+
     handleComment = async () => {
-        if (this.checkInputComment(this.state.comment_input) === true) {
+        if (this.props.userInfo === null) {
+            this.setState({ checkUserComment: true })
+        }
+        else {
+            if (this.checkInputComment(this.state.comment_input) === true) {
             if (this.state.commentkey === 'comment') { 
                 let res = await createcomment({
                     postId: this.state.postId,
@@ -146,6 +149,8 @@ class Comment extends Component
 
             }
         }
+        }
+        
     }
 
    
@@ -240,14 +245,46 @@ class Comment extends Component
             }
         }
     }
+
+    closeLogin = () => {
+        this.setState({
+            checkUserComment:!this.state.checkUserComment
+        })
+    }
+
+    linktologin = () => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `/login-user` );
+        }
+    }
     
     render ()
     {
-        let { comment, fullComment, openReport , senReport, imageReport} = this.state;
+        let { comment, fullComment, openReport , senReport, imageReport, checkUserComment} = this.state;
 
         return (
             <>
                 <div>Bình luận bài viết: </div>
+                {checkUserComment === true &&
+                    <div className='checkstatususer'>
+                        <div className='checkstatususer-content'>
+                            <div className='my-2'>Bạn cần phải đăng nhập để có thể bình luận!</div>
+                            <div className='btn-submit'>
+                                <div className='btn btn-primary mx-2'
+                                    onClick={() => this.linktologin()} 
+                                    
+                                >Đăng nhập</div>
+                                <div className='btn btn-secondary'
+                                    onClick={() => this.closeLogin()} 
+                                    
+                             >Hủy</div>
+                            </div>
+                        </div>
+
+                        
+                </div>
+                }
                 
                 {comment && comment.length <= 0 && "Hãy bình luận cho bài viết!"} 
 
