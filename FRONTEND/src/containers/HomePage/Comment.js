@@ -253,9 +253,13 @@ class Comment extends Component
     }
 
     linktologin = () => {
-        if ( this.props.history )
-        {
-            this.props.history.push( `/login-user` );
+         if (this.props.history) {
+            // Lưu trang hiện tại trước khi chuyển hướng
+            const currentLocation = this.props.history.location.pathname;
+            // Chuyển hướng đến trang profile
+            this.props.history.push(`/login-user`);
+            // Lưu trang hiện tại vào local storage hoặc state (nếu cần)
+            localStorage.setItem('previousLocation', currentLocation);
         }
     }
     

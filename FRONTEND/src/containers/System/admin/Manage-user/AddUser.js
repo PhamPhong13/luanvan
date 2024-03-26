@@ -59,6 +59,7 @@ class AddUser extends Component
                 phone: this.state.phone,
                 image: this.state.image,
                 desc: this.state.desc,
+                status: '1',
 
             })
 

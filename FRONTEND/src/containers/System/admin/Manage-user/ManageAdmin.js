@@ -121,7 +121,9 @@ class ManageAdmin extends Component
                     <div className='table-list'>
                         <table className="table table-striped">
                     <thead>
-                        <tr>
+                                <tr>
+                                    
+                        <th scope="col">STT</th>
                         <th scope="col"><FormattedMessage id="key.email"></FormattedMessage></th>
                         <th scope="col"><FormattedMessage id="key.fullname"></FormattedMessage></th>
                         <th scope="col"><FormattedMessage id="key.phone"></FormattedMessage></th>
@@ -134,6 +136,7 @@ class ManageAdmin extends Component
                             {listAdmin && listAdmin.length > 0 && listAdmin.map((item, index) => {
                                 return (
                                         <tr>
+                                        <td>{ index + 1}</td>
                                         <td>{ item.email}</td>
                                         <td>{ item.fullName}</td>
                                         <td>{ item.phone}</td>

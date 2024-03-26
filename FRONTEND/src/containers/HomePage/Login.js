@@ -20,6 +20,10 @@ class Login extends Component
             opencheck: false
         }
     }
+
+    componentDidMount() {
+        console.log(this.props);
+    }
     handleOnchangeInput = ( event, id ) =>
     {
         let stateCopy = { ...this.state };
@@ -69,10 +73,11 @@ class Login extends Component
     }
 
     linktoProfile = () => {
-        if ( this.props.history )
+        /* if ( this.props.history )
         {
             this.props.history.push( `/profile` );
-        }
+        } */
+        this.props.history.goBack();
     }
 
     linktoSignup = () => {

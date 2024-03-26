@@ -193,25 +193,37 @@ let updatereport = ( data ) =>
                 where: { id: data.id },
                 raw: false
 
-            } )
-            if ( patient )
-            {
-                patient.status = data.status,
+            })
+            
+            if (patient.status === 'S1') {
+                patient.status = 'S2',
                 await patient.save();
+            }
 
-                resolve( {
+            // Đếm số lượng bản ghi có trạng thái 'S1' với id
+                const countS1 = await db.Report.count({
+                    where: {
+                        userrportId: patient.userrportId,
+                        status: 'S2'
+                    }
+                });
+            if (countS1 === 3) {
+                let user = await db.User.findOne( {
+                where: { id: patient.userrportId },
+                raw: false
+
+            } )
+            if ( user )
+            {
+                user.status = 2,
+                    await user.save();
+            }
+            }
+            resolve( {
                     errCode: 0,
                     errMessage: 'Update report succeed!'
-                } );
-
-            } else
-            {
-                resolve( {
-                    errCode: 2,
-                    errMessage: 'report not found!'
-                } );
-
-            }
+            } );
+                
         }
         catch ( e )
         {

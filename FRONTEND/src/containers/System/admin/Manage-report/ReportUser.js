@@ -119,18 +119,15 @@ getday = (date) => {
 
             let update = await updatereport({
                 id: item.id,
-                status: "S2",
             })
 
-            if (update && update.errCode === 0) {
-                await this.getallreports();
-            }
+            await this.getallreports();
+            await this.getallreportolds();
 
             toast.success("Báo cáo người dùng thành công!");
         }
         else toast.error("Báo cáo người dùng không thành công!");
 
-        
     }
 
     render ()
