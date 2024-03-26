@@ -70,8 +70,15 @@
             width: 20%;
             height: 100%;
             display: flex;
-            justify-content: center;
             align-items: center;
+            &.form{
+            justify-content: right;
+            margin-right: 40px;
+            }
+            img{
+                width: 25px;
+                margin-right: 10px;
+            }
 
             .btn-delete{
                 margin-left: 10px;
@@ -722,6 +729,31 @@
 
             }
         }
+
+        .stt{
+            width: 40px;
+            .top{
+                font-weight: bold;
+                display: block;
+                color: white;
+                padding: 5px 10px;
+                width: 100%;
+                background-color: #4285f4;
+                border: 1px solid #cccc;
+
+            }
+
+            .bottom{
+                display: block;
+                color: black;
+                padding: 5px 10px;
+                width: 100%;
+                border: 1px solid #cccc;
+                background-color: white;
+                text-align: center;
+
+            }
+        }
     }
 }
 
@@ -782,5 +814,19 @@
                 }
             }
         }
+    }
+}
+
+.date_quantity{
+    margin-top: 10px;
+    display: flex;
+    justify-content: left;
+    .date{
+        width: 20%;
+        display: inline-block;
+        input{
+            padding: 5px;
+        }
+        margin-right: 10px;
     }
 }

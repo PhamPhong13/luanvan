@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { createform, getformbyid, updateform, deleteform } from "../../../../services/userService"
 import QuestionForm from './QuestionForm';
+import DatePicker from '../../../../components/Input/DatePicker';
 class Form extends Component {
     constructor(props) {
         super(props);
@@ -15,6 +16,8 @@ class Form extends Component {
             formId: "",
             openClose: false,
             removeForm: false,
+            currentDate: '',
+            quantity: '0'
 
         };
     }
@@ -38,17 +41,15 @@ class Form extends Component {
 
     getform = async () => {
         let res = await getformbyid(this.props.match.params.id)
-
         if (res && res.errCode === 0) {
-            const textareaLineHeight = 28; // Độ cao của mỗi dòng trong textarea
-            const textareaRows = res.data.desc.split('\n').length+2; // Số hàng trong textarea
-            const newHeight = textareaRows * textareaLineHeight; // Chiều cao mới
             this.setState({
                 form: res.data,
                 formId: res.data.id,
                 key: 'update',
                 nameForm: res.data.name,
                 descForm: res.data.desc,
+                currentDate: res.data.date,
+                quantity: res.data.quantity,
                 openClose: true,
                 removeForm: true
             })
@@ -100,6 +101,8 @@ class Form extends Component {
             adminId: this.props.userInfo.id,
             name: this.state.nameForm,
             desc: this.state.descForm,
+            date: this.state.currentDate,
+            quantity: this.state.quantity,
         })
         if (res && res.errCode === 0) { 
             await this.getform();
@@ -113,6 +116,8 @@ class Form extends Component {
             adminId: this.props.userInfo.id,
             name: this.state.nameForm,
             desc: this.state.descForm,
+            date: this.state.currentDate,
+            quantity: this.state.quantity,
         })
         if (res && res.errCode === 0) { 
            await this.getform();
@@ -127,9 +132,16 @@ class Form extends Component {
         }
     }
 
+    handleOnchangeDatePicker = ( date ) =>
+    {
+        this.setState( {
+            currentDate: date[ 0 ],
+        } )
+    }
+
 
     render() {
-        const { textareaHeight, nameForm, descForm, formId , removeForm} = this.state;
+        const { textareaHeight, nameForm, descForm, formId, removeForm, quantity } = this.state;
         return (
             <>
                 <title>Tạo Form</title>
@@ -155,6 +167,26 @@ x                                onChange={(event) => this.handleTextareaChange(
                             >
                                 
                             </textarea>
+                        </div>
+                    </div>
+
+                    <div className='date_quantity'>
+                        <div className='date'>
+                            <label>Ngày hết hạn </label>
+                            <DatePicker className="form-control"
+                                            onChange={ this.handleOnchangeDatePicker }
+                                            value={this.state.currentDate}
+                                            selected={ this.state.currentDate }
+                                minDate={new Date(new Date().setDate(new Date().getDate() - 1))}
+                                onBlur={() => this.handleOnblurdesc()}
+                                        />
+                        </div>
+                        <div className='date'>
+                            <label>Số lượng:  </label>
+                            <input type='text'
+                                onBlur={() => this.handleOnblurdesc()}
+                                value={this.state.quantity}
+                               onChange={(event) => this.handleTextareaChange(event, "quantity")}  />
                         </div>
                     </div>
 

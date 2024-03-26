@@ -49,7 +49,6 @@ class ResultFormItem extends Component
                     
                     {listKey && !isEmpty(listKey) && listKey.map((item) => {
                         return (
-
                             <div className='bottom'>{item.answerForm.answer }</div>
                         )
                     })}

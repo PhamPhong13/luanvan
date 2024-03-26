@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
-import {getformbykey , getkeyform, getAdmin, createuserform, getuserform, deleteuserform} from "../../../../services/userService"
+import {getformbykey , getkeyform, getAdmin, createuserform, getuserform, deleteuserform, getkeyformbyid} from "../../../../services/userService"
 
 import { withRouter } from 'react-router';
 
@@ -20,12 +20,14 @@ class Resultform extends Component
             selected: "",
             selectedAdmins: [],
             userform: [],
-            openselect: false
+            openselect: false,
+            listUser: []
         }
     }
 
     async componentDidMount() {
         await this.getkey()
+        await this.getkeybyid()
         await this.getAdmins()
         await this.getuserforms()
     }
@@ -79,6 +81,15 @@ class Resultform extends Component
         await this.getform(res.data[0].formId);
     }
 
+    getkeybyid = async () => {
+       let res = await getkeyformbyid(this.state.listkeys[0].id);
+        if (res && res.errCode === 0 && res.data.length > 0) { 
+            this.setState({
+            listUser: res.data
+        })
+        } 
+    }
+
     getform = async (id) => {
         let res = await getformbykey(id);
         if (res && res.errCode === 0 ) { 
@@ -128,7 +139,7 @@ class Resultform extends Component
     render ()
     {
         let { selectedAdmins } = this.state;
-        let { listkeys, postId, userform, openselect } = this.state;
+        let { listkeys, postId, userform, openselect , listUser} = this.state;
         return (
             <>
                 <title>Kết quả biểu mẩu đăng ký</title>
@@ -153,7 +164,9 @@ class Resultform extends Component
                                     <div className='namesahre'>
                                         {userform && userform.map((item) => {
                                             return (
-                                                <li>{ item.name} <span onClick={() => this.hadledeleteuserform(item.id)}>x</span></li>
+                                                <>
+                                                    <li>{item.name} <span onClick={() => this.hadledeleteuserform(item.id)}>x</span></li>
+                                                </>
                                             )
                                         })
                                         }
@@ -164,7 +177,19 @@ class Resultform extends Component
                         </div>
                        
                         <div className='resultform-content-item'>
-                        {listkeys && !isEmpty(listkeys) && listkeys.map((item) => {
+                            
+                            <div className='stt'>
+                                <div className='top'>stt</div>
+                                {listUser && !isEmpty(listUser) && listUser.map((item, index) => {
+                                return (
+                                    <div className='bottom'>{ index + 1}</div>
+                                    )
+                                 })
+                            
+                            }
+                                
+                            </div>
+                        {listkeys && !isEmpty(listkeys) && listkeys.map((item, index) => {
                             return (
                                 <ResulFormItem keyform = {item} />
                                 )

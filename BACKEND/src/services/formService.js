@@ -12,6 +12,8 @@ let createform = ( data ) =>
                 adminId: data.adminId,
                 name: data.name,
                 desc: data.desc,
+                date: data.date,
+                quatity: data.quatity,
                 status: "open"
             } );
 
@@ -155,41 +157,103 @@ let createanswerquestion = ( data ) =>
 }
 
 
-let getformbyid = ( postId ) =>
-{
-    return new Promise( async ( resolve, reject ) =>
+let getformbyid = (postId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let patients = await db.Form.findOne({
+                where: {
+                    postId: postId,
+                }
+            });
+
+            if (!patients) {
+                resolve({
+                    errCode: 1,
+                    message: "No form found for the provided postId."
+                });
+                return;
+            }
+            let currentDate = new Date();
+            let date = new Date(patients.date);
+            if (date <= currentDate) {
+                await updatestatusFrom(patients.id, "close");
+                
+            } 
+            else {
+                    await updatestatusFrom(patients.id, 'close');
+                let keyForm = await db.Keyform.findOne({
+                where: {
+                    formId: patients.id
+                }
+            });
+
+            if (keyForm) {
+                let answerCount = await db.Answer.count({
+                    where: {
+                        kerformId: keyForm.id
+                    }
+                });
+
+                if (+answerCount === +patients.quantity) {
+                    await updatestatusFrom(patients.id, 'close');
+                        
+                }
+                else {
+                    await updatestatusFrom(patients.id, 'open');
+                }
+            }
+            }
+
+            
+            
+
+            resolve({
+                errCode: 0,
+                message: "Form retrieved successfully!",
+                data: patients
+            });
+        } catch (err) {
+            reject(err);
+        }
+    });
+}
+
+let updatestatusFrom = (id, status) => {
+     return new Promise( async ( resolve, reject ) =>
     {
         try
         {
-            let patients = await db.Form.findOne( {
-                where: {
-                 postId: postId,
-                }
-            } );
-            if ( patients )
+            
+            let patient = await db.Form.findOne( {
+                where: { id: id },
+                raw: false
+
+            } )
+            if ( patient )
             {
+                patient.status = status,
+                await patient.save();
+
                 resolve( {
                     errCode: 0,
-                    message: "get Form successfully!",
-                    data: patients
-                } )
-            }
-            else
+                    errMessage: 'Update Form succeed!'
+                } );
+
+            } else
             {
                 resolve( {
-                    errCode: 1,
-                    message: "get connect failed!"
-                } )
-            }
+                    errCode: 2,
+                    errMessage: 'Form not found!'
+                } );
 
+            }
         }
-        catch ( err )
+        catch ( e )
         {
-            reject( err );
+            reject( e );
         }
     } )
 }
-
 // update 
 let updateform = (data) =>
 {
@@ -214,6 +278,8 @@ let updateform = (data) =>
                 patient.name = data.name,
                 patient.adminId = data.adminId,
                 patient.desc = data.desc,
+                patient.date = data.date,
+                patient.quantity = data.quantity,
                 await patient.save();
 
                 resolve( {
@@ -777,5 +843,5 @@ module.exports = {
     updateanswerform: updateanswerform,    deleteanswerform: deleteanswerform,
     getformusersubmit: getformusersubmit, updateformusersubmit: updateformusersubmit,
     getform: getform, getkeyformbyid: getkeyformbyid, getformbykey: getformbykey,
-    getuserform: getuserform, deleteuserform: deleteuserform
+    getuserform: getuserform, deleteuserform: deleteuserform , updatestatusFrom: updatestatusFrom
 }

@@ -41,6 +41,7 @@ class Post extends Component
             userReport: [],
             form: "",
             checkUserform: false,
+            openCloseform: false,
         }
     }
 
@@ -174,6 +175,12 @@ class Post extends Component
     }
 
     linktoform = (id) => {
+        if (this.state.form.status === 'close') {
+            this.setState({
+                openCloseform: true
+            })
+        }
+        else
         if (this.props.userInfo === null) {
             this.setState({ checkUserform: true })
         }
@@ -306,9 +313,15 @@ class Post extends Component
         }
     }
 
+    closeFormopen = () => {
+        this.setState({
+            openCloseform:false
+        })
+    }
+
     render ()
     {
-        let { post, form, cat, thu, day, postbycat,
+        let { post, form, cat, thu, day, postbycat, openCloseform,
             id, likepost, openReport, senReport, imageReport, checkUserform } = this.state;
         return (
             <>
@@ -316,6 +329,22 @@ class Post extends Component
                      {post.name}
                 </title>
                 <Header />
+
+                {openCloseform === true &&
+                    <div className='checkstatususer'>
+                        <div className='checkstatususer-content'>
+                            <div className='my-2'>Biểu mẫu đăng ký đã đóng!</div>
+                            <div className='btn-submit'>
+                                <div className='btn btn-primary mx-2'
+                                    onClick={() => this.closeFormopen()} 
+                                    
+                                >Ok</div>
+                            </div>
+                        </div>
+
+                        
+                </div>
+                }
                 
                 {checkUserform === true &&
                     <div className='checkstatususer'>

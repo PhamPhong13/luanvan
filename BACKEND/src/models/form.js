@@ -22,6 +22,8 @@ module.exports = ( sequelize, DataTypes ) =>
         adminId: DataTypes.STRING,
         name: DataTypes.STRING,
         desc: DataTypes.STRING,
+        date: DataTypes.STRING,
+        quantity: DataTypes.STRING,
         status: DataTypes.STRING,
     }, {
         sequelize,

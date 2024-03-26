@@ -21,6 +21,12 @@ module.exports = {
             desc: {
                 type: Sequelize.STRING
             },
+            date: {
+                type: Sequelize.STRING
+            },
+            quantity: {
+                type: Sequelize.STRING
+            },
             status: {
                 type: Sequelize.STRING
             },

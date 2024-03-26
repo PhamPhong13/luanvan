@@ -8,6 +8,8 @@ import { withRouter } from 'react-router';
 import { toast } from 'react-toastify';
 import { isEmpty } from 'lodash';
 
+import lock from "../../../../assets/lock.png"
+
 import ReactPaginate from 'react-paginate';
 class ManageForm extends Component
 {
@@ -106,7 +108,8 @@ class ManageForm extends Component
                                             </div>
                                             </div>
                             
-                            <div className='content-right'>
+                                        <div className='content-right form'>
+                                            {item.status === 'close' && <img src={ lock} />}
                                 
                                             <div className='btn btn-primary'
                                                 onClick={() => this.linkToInforForm(item.id)}
@@ -168,6 +171,7 @@ class ManageForm extends Component
                                             </div>
                             
                             <div className='content-right'>
+                                            {item.Form.status === 'close' && <img src={ lock} />}
                                 
                                             <div className='btn btn-primary'
                                                 onClick={() => this.linkToInforForm(item.Form.id)}
