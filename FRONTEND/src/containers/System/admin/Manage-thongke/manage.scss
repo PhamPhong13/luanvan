@@ -57,3 +57,80 @@
 
   }
 }
+
+
+.chart{
+  padding: 10px 250px;
+  .chart-content{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 10px;
+    height: 400px;
+    border-radius: 5px;
+    
+    .top{
+      height: 300px;
+      width: 100%;
+      display: flex;
+      .chart-content-left {
+        width: 50px;
+        height: 100%;
+        li{
+          list-style: none;
+          height: calc(100% * 1 / 11);
+          text-align: center;
+          transform: translateY(17px);
+        }
+      }
+      
+      .chart-content-center {
+          border: 1px solid black;
+          border-top: none;
+          border-right: none;
+          width: 94%;
+          height: 100%;
+          display: flex;
+
+          li{
+            height: 100%;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            .chart-item{
+              width: 40px;
+              background-color: #0c70eb;
+              position: relative;
+              transform: translateX(-25px);
+              span{
+                position: absolute;
+                top: -20px;
+                left: 10px;
+                font-size: 16px;
+              }
+            }
+          }
+        }
+      
+        .chart-content-right {
+          width: 3%;
+          height: 100%;
+          background-color: aquamarine;
+        }
+    }
+      .bottom{
+        height: 20px; 
+        padding: 0 27px;
+        width: 100%;
+        display: flex;
+  
+        li{
+          list-style: none;
+          flex: 1;
+          border-top: none;
+          border-bottom: none;
+          text-align: center;
+  
+        }
+      }
+    }
+}

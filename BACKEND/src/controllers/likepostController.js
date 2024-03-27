@@ -68,6 +68,14 @@ let getAllCode = async (req, res) => {
     }
 }
 
+
+// get all patient
+let getlikepostcount = async ( req, res ) =>
+{
+    let likepost = await likepostService.getlikepostcount();
+    return res.status( 200 ).json( likepost );
+}
+
  
 module.exports = {
     createlikepost: createlikepost,
@@ -77,5 +85,6 @@ module.exports = {
     updatelikepost: updatelikepost, 
     getAlllikepostById: getAlllikepostById,
     getlikepostBypostId: getlikepostBypostId,
-    getlikepostByuserId: getlikepostByuserId
+    getlikepostByuserId: getlikepostByuserId,
+    getlikepostcount: getlikepostcount
 }

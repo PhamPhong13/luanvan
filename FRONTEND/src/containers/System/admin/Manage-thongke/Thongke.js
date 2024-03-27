@@ -4,20 +4,36 @@ import _, { isEmpty } from "lodash";
 import { FormattedMessage } from "react-intl";
 import "./manage.scss";
 import { withRouter } from "react-router";
-import { getpost, getAllconnect } from "../../../../services/userService";
+import { getpost, getAllconnect, getlikepostcount } from "../../../../services/userService";
+
+import Chartday from "./chartday";
 class Thongke extends Component {
   constructor(props) {
     super(props);
     this.state = {
       listpost: [],
       connect: '',
-      selectltc: "Tuần"
+      selectltc: "Tuần",
+      listLike: []
     };
   }
 
   async componentDidMount() {
     await this.getConnect();
     await this.getpost();
+    await this.getlikepost();
+  }
+
+  getlikepost = async () => { 
+    let res = await getlikepostcount();
+    if (res && res.errCode === 0 && res.data && res.data.length > 0) {
+      this.setState({
+        listLike: res.data
+      })
+    }
+    else this.setState({
+      listLike: []
+    })
   }
   
   getConnect = async () => {
@@ -162,7 +178,7 @@ class Thongke extends Component {
   }
   
   render() {
-    let { selectltc, connect, listpost } = this.state;
+    let { selectltc, connect, listpost, listLike } = this.state;
     return (
       <>
         <title>
@@ -183,9 +199,9 @@ class Thongke extends Component {
           {connect}
           </div>
 
-
+          <Chartday />
           <div className="ltc">
-            Top bài viết có lược truy cập nhiều nhất
+            Bài viết có lược truy cập nhiều nhất
           </div>
 
           <div className="post-value">
@@ -198,9 +214,24 @@ class Thongke extends Component {
               );
             })}
           </div>
+
+
+          <div className="ltc">
+            Bài viết có lược thích nhiều nhất
+          </div>
+
+          <div className="post-value">
+            {listLike && listLike.map((item, index) => {
+              return (
+                <div className="ltc-value-item" key={index} onClick={() => this.linkToInforPost(item.Post.id)}>
+                  <img src={ item.Post.image} />
+                  <div className="name">{item.Post.name}</div>
+                </div>
+              );
+            })}
+          </div>
+          
         </div>
-
-
         
       </>
     );

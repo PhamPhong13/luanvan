@@ -25,38 +25,38 @@ let createlikepost = ( data ) =>
 
     } )
 }
-/* // get all patient
-let getlikepost = () =>
+// get all patient
+let getlikepostcount = () =>
 {
     return new Promise( async ( resolve, reject ) =>
     {
         try
         {
-            let patients = await db.Likepost.findAll( );
-            if ( patients )
-            {
-                resolve( {
-                    errCode: 0,
-                    message: "get list likepost successfully!",
-                    data: patients
-                } )
-            }
-            else
-            {
-                resolve( {
-                    errCode: 1,
-                    message: "get list likepost failed!"
-                } )
-            }
-
+            let likepostCounts = await db.Likepost.findAll({
+                attributes: ['postId', [db.sequelize.fn('count', db.sequelize.col('postId')), 'likecount']],
+                group: ['postId'],
+                include: [{ model: db.Post }],
+                order: [[db.sequelize.literal('likecount'), 'DESC']], // Sắp xếp từ lớn đến bé theo số lượng likecount
+                limit: 5, // Chỉ lấy 5 kết quả
+                raw: true,
+                nest: true
+            });
+            resolve( {
+                errCode: 0,
+                message: "get likepost count successfully!",
+                data: likepostCounts
+            });
         }
         catch ( err )
         {
             reject( err );
         }
-    } )
+    });
 }
- */
+
+
+
+
 //get patient by id
 let getlikepostById = ( userId, postId ) =>
 {
@@ -235,10 +235,14 @@ let deletelikepost = ( userId, postId ) =>
     } )
 }
 
+
+
+
 module.exports = {
     createlikepost: createlikepost,
     getlikepostById: getlikepostById,
     deletelikepost: deletelikepost,
     getlikepostBypostId: getlikepostBypostId,
-    getlikepostByuserId: getlikepostByuserId
+    getlikepostByuserId: getlikepostByuserId,
+    getlikepostcount: getlikepostcount
 }

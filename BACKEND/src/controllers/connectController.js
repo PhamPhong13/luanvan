@@ -14,6 +14,12 @@ let getconnect = async ( req, res ) =>
     return res.status( 200 ).json( connect );
 }
 
+let getconnecttochart = async ( req, res ) =>
+{
+    let connect = await connectService.getconnecttochart();
+    return res.status( 200 ).json( connect );
+}
+
 // get patient by id
 let getconnectById = async ( req, res ) =>
 {
@@ -61,5 +67,5 @@ module.exports = {
     getconnectById: getconnectById,
     deleteconnect: deleteconnect,
     updateconnect: updateconnect, 
-    getAllconnectById: getAllconnectById
+    getAllconnectById: getAllconnectById, getconnecttochart: getconnecttochart
 }

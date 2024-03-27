@@ -59,6 +59,49 @@ let getconnect = () =>
     } )
 }
 
+const { Op } = require('sequelize');
+
+let getconnecttochart = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            // Lấy ngày hiện tại
+            const today = new Date();
+            // Lấy ngày 7 ngày trước
+            const sevenDaysAgo = new Date(today.getTime() - 6 * 24 * 60 * 60 * 1000);
+
+            const connectCounts = await db.Connect.findAll({
+                attributes: [
+                    [db.sequelize.fn('DATE', db.sequelize.col('createdAt')), 'date'],
+                    [db.sequelize.fn('COUNT', '*'), 'count']
+                ],
+                where: {
+                    createdAt: {
+                        [Op.between]: [sevenDaysAgo, today] // Lọc theo khoảng thời gian từ 7 ngày trước tới hiện tại
+                    }
+                },
+                group: [db.sequelize.fn('DATE', db.sequelize.col('createdAt'))]
+            });
+
+            if (connectCounts) {
+                resolve({
+                    errCode: 0,
+                    message: "Get connect count by date successfully!",
+                    data: connectCounts
+                });
+            } else {
+                resolve({
+                    errCode: 1,
+                    message: "Failed to get connect count by date!"
+                });
+            }
+        } catch (err) {
+            reject(err);
+        }
+    });
+};
+
+
+
 //get patient by id
 let getconnectById = ( postId ) =>
 {
@@ -161,7 +204,7 @@ let deleteconnect = ( userId, postId ) =>
 }
 
 module.exports = {
-    createconnect: createconnect,
+    createconnect: createconnect, getconnecttochart: getconnecttochart,
     getconnectById: getconnectById,
     deleteconnect: deleteconnect,
     getconnect: getconnect

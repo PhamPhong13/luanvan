@@ -534,14 +534,24 @@ const getuserstatus = (email) => {
   return axios.get(`/api/get-user-status?email=${email}`);
 };
 
+const getconnecttochart = () => {
+  return axios.get(`/api/get-connect-to-chart`);
+};
+
+const getlikepostcount = () => {
+  return axios.get(`/api/get-likepost-count`);
+};
+
 export {
 
-  getuserformbyadminid, getlikepostByuserId, getadmintunure, createbieumau, getbieumau, deletebieumau,
+  getuserformbyadminid, getlikepostByuserId, getadmintunure, createbieumau, getbieumau, deletebieumau, getconnecttochart,
 
-  handleLoginApi,   getAllcode, handleLoginUser,updatebieumau, getuserbystatus, examineUser, getuserstatus, 
+  handleLoginApi, getAllcode, handleLoginUser, updatebieumau, getuserbystatus, examineUser, getuserstatus, 
+  
+  getlikepostcount,
 
   /* admin */
-  getAllAdmin, createAdmin, deleteAdmin, getAdminById, updateAdmin, getAdmin,
+  getAllAdmin, createAdmin, deleteAdmin, getAdminById, updateAdmin, getAdmin, 
   /* user */
   getAllUser, createUser, deleteUser, getUserById, updateUser,getUser,
   /* nhiemky */

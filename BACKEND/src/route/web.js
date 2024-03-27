@@ -55,6 +55,7 @@ let initWebRoutes = (app) => {
    // route connect
   router.post("/api/create-connect", connect.createconnect); // create connect
   router.get("/api/get-connect", connect.getconnect); // get connect
+  router.get("/api/get-connect-to-chart", connect.getconnecttochart); // get connect
   router.get("/api/get-connect-by-id", connect.getconnectById); // get connect by id
   router.delete("/api/delete-connect", connect.deleteconnect); // delete connect
   router.put("/api/update-connect", connect.updateconnect); // update connect
@@ -110,11 +111,13 @@ let initWebRoutes = (app) => {
   // route likepost
   router.post("/api/create-likepost", likepost.createlikepost); // create likepost
   router.get("/api/get-likepost", likepost.getlikepost); // get likepost
+  router.get("/api/get-likepost-count", likepost.getlikepostcount); // get likepost
   router.get("/api/get-likepost-by-id", likepost.getlikepostById); // get likepost by id
   router.get("/api/get-likepost-by-userid", likepost.getlikepostByuserId); // get likepost by id
   router.get("/api/get-likepost-by-post-id", likepost.getlikepostBypostId); // get likepost by id
   router.delete("/api/delete-likepost", likepost.deletelikepost); // delete likepost
   router.put("/api/update-likepost", likepost.updatelikepost); // update likepost
+
 
     // route menber
   router.post("/api/create-menber", menber.createmenber); // create menber
