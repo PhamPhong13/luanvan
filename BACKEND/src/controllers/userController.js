@@ -108,6 +108,12 @@ let usersendemail = async (req, res) => {
         })
     }
 }
+
+let getUserlock = async ( req, res ) =>
+{
+    let User = await userService.getUserlock(req.query.page );
+    return res.status( 200 ).json( User );
+}
  
 module.exports = {
     createUser: createUser, getuserstatus: getuserstatus,
@@ -120,5 +126,6 @@ module.exports = {
     usersendemail: usersendemail,
     getAllUser: getAllUser,
     getuserbystatus: getuserbystatus,
-    examineUser: examineUser
+    examineUser: examineUser,
+    getUserlock: getUserlock
 }

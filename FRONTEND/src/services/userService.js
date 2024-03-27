@@ -542,13 +542,17 @@ const getlikepostcount = () => {
   return axios.get(`/api/get-likepost-count`);
 };
 
+const getUserlock = (page) => {
+  return axios.get(`/api/get-user-lock?page=${page}`);
+};
+
 export {
 
   getuserformbyadminid, getlikepostByuserId, getadmintunure, createbieumau, getbieumau, deletebieumau, getconnecttochart,
 
   handleLoginApi, getAllcode, handleLoginUser, updatebieumau, getuserbystatus, examineUser, getuserstatus, 
   
-  getlikepostcount,
+  getlikepostcount, getUserlock, 
 
   /* admin */
   getAllAdmin, createAdmin, deleteAdmin, getAdminById, updateAdmin, getAdmin, 

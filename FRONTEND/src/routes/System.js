@@ -39,6 +39,7 @@ import Bieumau from "../containers/System/admin/Manage-Post/Bieumau";
 import Examine from "../containers/System/admin/Manage-user/Examine";
 
 import ExamineUser from "../containers/System/admin/Manage-user/ExamineUser";
+import UserReport from "../containers/System/admin/Manage-user/UserReport";
 
 class System extends Component {
   render() {
@@ -57,6 +58,7 @@ class System extends Component {
 
               {/* admin */}
               <Route path="/system/manage-user" component={ManageUser} />
+              <Route path="/system/user-report" component={UserReport} />
               <Route path="/system/add-user" component={AddUser} />      
               <Route path="/system/edit-user/:id" component={EditUser} />
 

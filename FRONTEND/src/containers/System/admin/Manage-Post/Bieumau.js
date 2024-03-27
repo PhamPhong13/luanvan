@@ -126,16 +126,6 @@ class Bieumau extends Component
         })
     }
 
-    handleOnchangeImg = async (event) => {
-        let file = event.target.files[0];
-        if (file) {
-            let getBase64 = await CommonUtils.getBase64(file);
-            this.setState({
-                image: getBase64
-            })
-        }
-
-    }
 
     handleDeleteBieumau = async (id) => {
         await deletebieumau(id);
@@ -192,9 +182,9 @@ class Bieumau extends Component
                                     />
                             </div>
                             <div className='form-group image'>
-                                <label className='label_upload-img' htmlFor='reviewImg'>Tải ảnh </label>
-                                <input type='file' className='form-controll-file' 
-                                    onChange={(event) => this.handleOnchangeImg(event)}
+                                <label className='label_upload-img' htmlFor='reviewImg'>Link biểu mẫu </label>
+                                <input type='text' className='form-controll-file' 
+                                    onChange={(event) => this.handleOnchangeInput(event, 'image')}
                                 />
                             </div>
                             <div className='button-sumit'>

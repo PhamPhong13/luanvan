@@ -61,7 +61,6 @@ export const chtMenu = [
         subMenus: [
                     { name: 'system.manage.manage-user',link: "/system/manage-user" },
                     { name: 'system.manage.examine', link: '/system/examine' },
-                    { name: 'report', link: '/system/user-report' },
                 ]
       },
       {

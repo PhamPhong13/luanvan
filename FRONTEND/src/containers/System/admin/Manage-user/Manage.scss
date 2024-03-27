@@ -43,6 +43,7 @@
 
         table {
 
+            border: 1px solid #cccc;
             
                 thead {
                     tr {
@@ -51,6 +52,16 @@
         
                         th {
                             text-align: left;
+                            padding-left: 10px;
+                        }
+                        .stt{
+                            text-align: center;
+                            width: 30px;
+                            padding-left: 5px;
+                        }
+                        .phone{
+                            text-align: center;
+                            padding-left: 5px;
                         }
                     }
                 }
@@ -58,20 +69,63 @@
                 tbody {
                     tr {
                         th{
-                            text-align: left;
+                            text-align: center;
                         }
                         td {
                             text-align: left;
-                            padding-left: 10px;
+                            padding: 0;
+                            p{
+                                margin: 0;
+                                height: 50px;
+                                display: flex;
+                                align-items: center;
+                                padding-left: 10px;
+                            }
+                            
+                        }
+
+                        .tdstt{
+                            text-align: center;
+                            padding: 0;
+                            p{
+                                margin: 0;
+                                width: 100%;
+                                height: 50px;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                padding-left: 0;
+                            }
+                        }
+
+                        .tdphone{
+                            text-align: center;
+                            width: 150px;
+                            padding: 0;
+                            p{
+                                text-align: center;
+                                padding: 0;
+                                width: 100%;
+                                display: flex;
+                                justify-content: center;
+                            }
                         }
         
                         .action {
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-        
-                            .btn-delete {
-                                margin-left: 5px;
+                            p{
+                                display: flex;
+                                    justify-content: left;
+                                    align-items: center;
+                                
+                                    img {
+                                        width: 25px;
+                                        margin-left: 10px;
+                                        cursor: pointer;
+                                    }
+                                
+                                    .btn-delete {
+                                        margin-left: 5px;
+                                    }
                             }
         
                         }

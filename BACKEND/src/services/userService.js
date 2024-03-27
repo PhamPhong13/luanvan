@@ -158,7 +158,15 @@ let getUser = (page) =>
         const offset = (page - 1) * limit; // Vị trí bắt đầu của trang hiện tại
         try
         {
-            let totalPosts = await db.User.count(); // Đếm tổng số bài viết
+            let totalPosts = await db.User.count({
+                  where: { 
+                     [db.Sequelize.Op.or]: [
+                        { status: '1' },
+                        { status: '2' }
+                     ]
+                 },
+                raw: true
+            }); // Đếm tổng số bài viết
             let totalPages = Math.ceil(totalPosts / limit); // Tính tổng số trang
             let patients = await db.User.findAll( {
                 attributes: {
@@ -167,7 +175,12 @@ let getUser = (page) =>
                 order: [['createdAt', 'DESC']], // Sắp xếp theo ngày tạo giảm dần (ngược lại)
                 offset: offset,
                 limit: limit,
-                where: { status: '1' },
+                 where: { 
+                     [db.Sequelize.Op.or]: [
+                        { status: '1' },
+                        { status: '2' }
+                     ]
+                 },
                 raw: true
                 
             } );
@@ -256,6 +269,10 @@ let getAllUser = (page, word) => {
                 },
                 order: [['createdAt', 'DESC']], // Sắp xếp theo ngày tạo giảm dần (ngược lại)
                 offset: offset,
+                where: { [db.Sequelize.Op.or]: [
+                        { status: '1' },
+                        { status: '2' }
+                     ] },
                 limit: limit
             };
 
@@ -417,7 +434,8 @@ let deleteUser = ( id ) =>
 }
 
 // update 
-let updateUser = ( data ) =>
+let updateUser = (data) =>
+
 {
     return new Promise( async ( resolve, reject ) =>
     {
@@ -440,9 +458,9 @@ let updateUser = ( data ) =>
                 patient.email = data.email;
                 patient.fullName = data.fullName;
                 patient.phone = data.phone;
-                patient.image = data.image,
-                patient.desc = data.desc,
-                patient.status = data.status,
+                patient.image = data.image;
+                patient.desc = data.desc;
+                patient.status = data.status;
                     await patient.save();
                 
                 resolve( {
@@ -569,6 +587,56 @@ let usersendemail = (data) => {
 }
 
 
+let getUserlock = (page) =>
+{
+    
+    if (page === "undefined") page = 1; // nếu page = undefined
+    return new Promise( async ( resolve, reject ) =>
+    {
+         const limit = 5; // Số lượng bài viết mỗi trang
+        const offset = (page - 1) * limit; // Vị trí bắt đầu của trang hiện tại
+        try
+        {
+            let totalPosts = await db.User.count(); // Đếm tổng số bài viết
+            let totalPages = Math.ceil(totalPosts / limit); // Tính tổng số trang
+            let patients = await db.User.findAll( {
+                attributes: {
+                    exclude: [ 'password' ]
+                },
+                order: [['createdAt', 'DESC']], // Sắp xếp theo ngày tạo giảm dần (ngược lại)
+                offset: offset,
+                limit: limit,
+                where: { status: '1' },
+                raw: true
+                
+            } );
+            if ( patients )
+            {
+                resolve( {
+                    errCode: 0,
+                    message: "get list User successfully!",
+                    data: patients,
+                    total: totalPosts,
+                    totalPages: totalPages // Thêm thông tin về số trang vào đối tượng kết quả
+                } )
+            }
+            else
+            {
+                resolve( {
+                    errCode: 1,
+                    message: "get list User failed!"
+                } )
+            }
+
+        }
+        catch ( err )
+        {
+            reject( err );
+        }
+    } )
+}
+
+
 
 module.exports = {
     createUser: createUser, getuserstatus: getuserstatus,
@@ -582,5 +650,6 @@ module.exports = {
     getAllUser: getAllUser,
     getuserbystatus: getuserbystatus,
     builURLEmail: builURLEmail,
-    examineUser: examineUser
+    examineUser: examineUser,
+    getUserlock: getUserlock
 }

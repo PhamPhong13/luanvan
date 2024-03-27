@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
-import { getAllAdmin, deleteAdmin, getAdmin } from "../../../../services/userService"
+import { getAllUser, deleteUser,getUserlock } from "../../../../services/userService"
 
 import { withRouter } from 'react-router';
 import ReactPaginate from 'react-paginate';
 import { toast } from 'react-toastify';
-class ManageAdmin extends Component
+class UserReport extends Component
 {
     constructor(props) {
         super(props);
@@ -18,11 +18,11 @@ class ManageAdmin extends Component
     }
 
     async componentDidMount() {
-        await this.getuser("1");
+        await this.getuser();
     }
 
     getuser = async (page) => {
-        let res = await getAdmin(page);
+        let res = await getUserlock(page);
         if (res && res.data.length > 0) {
             this.setState({
                 listAdmin: res.data,
@@ -36,7 +36,7 @@ class ManageAdmin extends Component
 
     getAllUsers = async (page, word) => {
 
-        let res = await getAllAdmin(page, word);
+        let res = await getAllUser(page, word);
         if (res && res.data.length > 0) {
             this.setState({
                 listAdmin: res.data,
@@ -51,31 +51,30 @@ class ManageAdmin extends Component
     linkToAddAdmin = () => {
         if ( this.props.history )
         {
-            this.props.history.push( `/system/add-admin` );
+            this.props.history.push( `/system/add-user` );
         }
     }
 
     linkToEditAdmin = (id) => {
         if ( this.props.history )
         {
-            this.props.history.push( `/system/edit-admin/${id}` );
+            this.props.history.push( `/system/edit-user/${id}` );
         }
     }
 
-    handledeleteAdmin = async (id) => {
-        let res = await deleteAdmin(id);
+    handleDeleteUser = async (id) => {
+        let res = await deleteUser(id);
         if (res && res.errCode === 0) {
             toast.success("Xóa nười dùng mới thành công!");
-            await this.getAllUsers("1");
+            await this.getAllUsers();
         }
         else toast.error("Xóa người dùng mới không thành công!");
     }
 
-
     handleOchangeToSearch = async (event) => {
 
         if (event.target.value.length <= 0) {
-            this.getuser("1");
+            this.getuser();
         }
         else {
             await this.getAllUsers("1", event.target.value);
@@ -94,17 +93,17 @@ class ManageAdmin extends Component
         return (
             <>
                 <title>
-                    <FormattedMessage id="system.manage.manage-admin"></FormattedMessage>
+                    <FormattedMessage id="system.manage.manage-user"></FormattedMessage>
                 </title>
                 <div className='container manage'>
 
-                    <div className='title'><FormattedMessage id="system.manage.manage-admin"></FormattedMessage></div>
+                    <div className='title'><FormattedMessage id="system.manage.manage-user"></FormattedMessage></div>
 
                     <div className='search'>
                         <div className='form-search'>
                             <input type="text"
+                                placeholder={this.props.language === 'vi' ? "Tên người dùng" : "User Name"}
                                 onChange={(event) => this.handleOchangeToSearch(event)}
-                                placeholder='Nhập để tìm kiếm'
                             />
                             <i className='fas fa-search'></i>
                         </div>
@@ -119,16 +118,13 @@ class ManageAdmin extends Component
                     </div>
 
                     <div className='table-list'>
-                        <table className="table table-striped table-bordered">
+                        <table className="table table-striped">
                     <thead>
-                                <tr>
-                                    
-                        <th scope="col" className='stt'>STT</th>
+                        <tr>
+                        <th scope="col">STT</th>
                         <th scope="col"><FormattedMessage id="key.email"></FormattedMessage></th>
                         <th scope="col"><FormattedMessage id="key.fullname"></FormattedMessage></th>
-                        <th scope="col" className='phone'><FormattedMessage id="key.phone"></FormattedMessage></th>
-                        <th scope="col"><FormattedMessage id="key.position"></FormattedMessage></th>
-                        <th scope="col">Nhiệm kỳ</th>
+                        <th scope="col"><FormattedMessage id="key.phone"></FormattedMessage></th>
                         <th scope="col"><FormattedMessage id="key.action"></FormattedMessage></th>
                         </tr>
                     </thead>
@@ -136,21 +132,17 @@ class ManageAdmin extends Component
                             {listAdmin && listAdmin.length > 0 && listAdmin.map((item, index) => {
                                 return (
                                         <tr>
-                                        <td className='tdstt'><p>{ index + 1}</p></td>
-                                        <td><p>{ item.email}</p></td>
-                                        <td><p>{ item.fullName}</p></td>
-                                        <td className='tdphone'><p>{ item.phone}</p></td>
-                                        <td><p>{ this.props.language === "vi" ? item.positionAdmin.valueVi : item.positionAdmin.valueEn}</p></td>
-                                        <td><p>{ item.tunure}</p></td>
+                                        <td>{ index + 1}</td>
+                                        <td>{ item.email}</td>
+                                        <td>{ item.fullName}</td>
+                                        <td>{ item.phone}</td>
                                         <td className='action'>
-                                            <p>
-                                                <div className='btn btn-warning btn-edit'
+                                            <div className='btn btn-warning btn-edit'
                                             onClick={() => this.linkToEditAdmin(item.id)}
                                             ><FormattedMessage id="key.edit"></FormattedMessage></div>
                                             <div className='btn btn-danger btn-delete'
-                                            onClick={() => this.handledeleteAdmin(item.id)}
+                                            onClick={() => this.handleDeleteUser(item.id)}
                                             ><FormattedMessage id="key.delete"></FormattedMessage></div>
-                                            </p>
                                         </td>
                                         </tr>
                                 )
@@ -188,7 +180,6 @@ class ManageAdmin extends Component
                             marginPagesDisplayed={10}
                         />
                     </div> 
-                    
                 </div>
             </>
         );
@@ -210,4 +201,4 @@ const mapDispatchToProps = dispatch =>
     };
 };
 
-export default withRouter(connect( mapStateToProps, mapDispatchToProps )( ManageAdmin ));
+export default withRouter(connect( mapStateToProps, mapDispatchToProps )( UserReport ));

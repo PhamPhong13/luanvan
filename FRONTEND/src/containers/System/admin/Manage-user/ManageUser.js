@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
-import { getAllUser, deleteUser,getUser } from "../../../../services/userService"
+import { getAllUser, deleteUser,getUser, updateUser } from "../../../../services/userService"
 
 import { withRouter } from 'react-router';
 import ReactPaginate from 'react-paginate';
+import lock from "../../../../assets/lock.png"
 import { toast } from 'react-toastify';
 class ManageUser extends Component
 {
@@ -24,6 +25,7 @@ class ManageUser extends Component
 
     getuser = async (page) => {
         let res = await getUser(page);
+        console.log(res)
         if (res && res.data.length > 0) {
             this.setState({
                 listAdmin: res.data,
@@ -67,7 +69,7 @@ class ManageUser extends Component
         let res = await deleteUser(id);
         if (res && res.errCode === 0) {
             toast.success("Xóa nười dùng mới thành công!");
-            await this.getAllUsers();
+            await this.getuser();
         }
         else toast.error("Xóa người dùng mới không thành công!");
     }
@@ -86,6 +88,21 @@ class ManageUser extends Component
     handlePageClick = async (event) => {
         await this.getAllUsers(event.selected + 1);
      }
+
+    unlock = async (item) => {
+        alert("Bạn có chắc rằng bạn muốn mở khóa tài khoản này không!");
+        await updateUser({
+            email : item.email,
+            fullName : item.fullName,
+            phone : item.phone,
+            image : item.image,
+            desc : item.desc,
+            status: "1", 
+            id: item.id
+        });
+        toast.success("Mở khóa tài khoản thành công!");
+        await this.getuser();
+    }
 
     render ()
     {
@@ -119,13 +136,13 @@ class ManageUser extends Component
                     </div>
 
                     <div className='table-list'>
-                        <table className="table table-striped">
+                        <table className="table table-striped table-bordered">
                     <thead>
                         <tr>
-                        <th scope="col">STT</th>
+                        <th scope="col" className='stt'>STT</th>
                         <th scope="col"><FormattedMessage id="key.email"></FormattedMessage></th>
                         <th scope="col"><FormattedMessage id="key.fullname"></FormattedMessage></th>
-                        <th scope="col"><FormattedMessage id="key.phone"></FormattedMessage></th>
+                        <th scope="col" className='phone'><FormattedMessage id="key.phone"></FormattedMessage></th>
                         <th scope="col"><FormattedMessage id="key.action"></FormattedMessage></th>
                         </tr>
                     </thead>
@@ -133,17 +150,22 @@ class ManageUser extends Component
                             {listAdmin && listAdmin.length > 0 && listAdmin.map((item, index) => {
                                 return (
                                         <tr>
-                                        <td>{ index + 1}</td>
-                                        <td>{ item.email}</td>
-                                        <td>{ item.fullName}</td>
-                                        <td>{ item.phone}</td>
+                                        <td className='tdstt'><p>{ index + 1}</p></td>
+                                        <td><p>{ item.email}</p></td>
+                                        <td><p>{ item.fullName}</p></td>
+                                        <td className='tdphone'><p>{ item.phone}</p></td>
                                         <td className='action'>
-                                            <div className='btn btn-warning btn-edit'
+                                            <p>
+                                                <div className='btn btn-warning btn-edit'
                                             onClick={() => this.linkToEditAdmin(item.id)}
                                             ><FormattedMessage id="key.edit"></FormattedMessage></div>
                                             <div className='btn btn-danger btn-delete'
                                             onClick={() => this.handleDeleteUser(item.id)}
                                             ><FormattedMessage id="key.delete"></FormattedMessage></div>
+                                                {item.status === '2' && <img src={lock}
+                                            onClick={() => this.unlock(item)}
+                                                />}
+                                            </p>
                                         </td>
                                         </tr>
                                 )
