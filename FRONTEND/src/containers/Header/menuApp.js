@@ -53,34 +53,11 @@ export const adminMenu = [
 export const chtMenu = [
   {
     //quản lý người dùng
-    name: "system.manage.user",
-    menus: [
-    {
-        name: "system.manage.manage-user",
-        
-        subMenus: [
-                    { name: 'system.manage.manage-user',link: "/system/manage-user" },
-                    { name: 'system.manage.examine', link: '/system/examine' },
-                ]
-      },
-      {
-        name: "system.manage.manage-admin",
-        link: "/system/manage-admin",
-        /* subMenus: [
-                    { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
-                    { name: 'menu.system.system-administrator.user-redux', link: '/system/manage-patient' },
-                ] */
-      },
-    ],
+    name: "system.manage.user",link: "/system/manage-admin",
   },
   {
     //quản lý danh mục
-    name: "system.manage.manage-cat",
-    menus: [
-    {
-        name: "system.manage.manage-category",        link: "/system/manage-cat",
-      },
-    ],
+    name: "system.manage.manage-cat",link: "/system/manage-cat",
   },
   {
     //quản lý bài viết

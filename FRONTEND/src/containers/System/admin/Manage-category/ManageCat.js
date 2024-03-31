@@ -93,7 +93,12 @@ class ManageCat extends Component
         await this.getAllCats(event.selected + 1);
      }
 
-
+linkTouser = (link) => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `${link}` );
+        }
+    }
     render ()
     {
         let { listCat, totalpage } = this.state;
@@ -102,9 +107,14 @@ class ManageCat extends Component
                 <title>
                     <FormattedMessage id="system.manage.manage-category"></FormattedMessage>
                 </title>
-                <div className='container manage'>
+                <div className='manage manage-cat'>
 
-                    <div className='title'><FormattedMessage id="system.manage.manage-category"></FormattedMessage></div>
+                    <div className='left'>
+                        <li onClick={() => this.linkTouser("/system/manage-cat")}><span><i className='fas fa-list'></i><FormattedMessage id="system.manage.manage-category"></FormattedMessage></span></li>
+                        <li onClick={() => this.linkTouser("/system/add-cat")}><span><i className='fas fa-plus'></i><FormattedMessage id="system.manage.add-cat"></FormattedMessage></span></li>
+                    </div>
+                    <div className='right'>
+                        <div className='title'><FormattedMessage id="system.manage.manage-category"></FormattedMessage></div>
 
                     <div className='search'>
                         <div className='form-search'>
@@ -124,7 +134,8 @@ class ManageCat extends Component
                         </div>
                     </div>
 
-                    <div className='cat'>
+                        <div className='list-user'>
+                            <div className='cat'>
                         {
                             listCat && isEmpty(listCat) && <span>Danh sách rổng!</span>
                         }
@@ -173,6 +184,9 @@ class ManageCat extends Component
                         />
                     </div> 
 
+                        
+                        </div>
+                    </div>
                         
                     </div>
 

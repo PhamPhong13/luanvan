@@ -119,6 +119,13 @@ class EditUser extends Component
         }
     }
 
+     linkTouser = (link) => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `${link}` );
+        }
+    }
+
     render ()
     {
         return (
@@ -126,13 +133,21 @@ class EditUser extends Component
                 <title>
                     <FormattedMessage id="system.manage.edit-user"></FormattedMessage>
                 </title>
-                <div className='container manage'>
-
+                <div className=' manage'>
+                    <div className='left'>
+                        <div className='content'>
+                            <li onClick={() => this.linkTouser("/system/manage-admin")}><span><i className='fas fa-user-tie'></i><FormattedMessage id="system.manage.manage-admin"></FormattedMessage></span></li>
+                            <li ><span><i className='fas fa-user'></i><FormattedMessage id="system.manage.manage-user"></FormattedMessage></span>
+                                <ul className='ul-link'>
+                                    <li onClick={() => this.linkTouser("/system/manage-user")}><span>Quản lý hội viên</span></li>
+                                    <li onClick={() => this.linkTouser("/system/examine")}><span>Duyệt hội viên</span></li>
+                            </ul>
+                            </li>
+                        </div>
+                    </div>
+                    <div className='right'>
                     <div className='title'><FormattedMessage id="system.manage.edit-user"></FormattedMessage></div>
-
-                </div>
-
-                <div className='container form-add'>
+<div className='container form-add'>
                     <form>
                         <div className='form-group'>
                             <label><FormattedMessage id="key.email"></FormattedMessage>:</label>
@@ -208,6 +223,12 @@ class EditUser extends Component
                         </div>
                     </form>
                 </div>
+                    </div>
+
+
+                </div>
+
+                
             </>
         );
     }

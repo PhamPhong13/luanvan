@@ -1087,6 +1087,7 @@
         bottom: 12%;
     width: 50px;
     height: 50px;
+    z-index: 1000;
     img{
         width: 100%;
         height: 100%;
@@ -1141,7 +1142,6 @@ position: fixed;
     cursor: pointer;
     width: 50px;
     height: 50px;
-    overflow: hidden;
     padding: 10px;
     padding-top: 10px;
     padding-right: 10px;
@@ -1151,6 +1151,37 @@ position: fixed;
         img{
             width: 100%;
             height: 100%;
+        }
+
+        .formgooglepost_title{
+            position: absolute;
+            top: 11%;
+            right: 110%;
+            width: 275px;
+            background-color: #fdfeff;
+            padding: 10px 5px;
+            border-radius: 5px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+            display: inline-block;
+                /* Thiết lập chiều dài và chiều rộng tối thiểu */
+                min-width: 0;
+                /* Áp dụng hiệu ứng chuyển động */
+                animation: moveRightToLeft 0.4s linear forwards;
+                /* Đảm bảo văn bản không bị tràn ra khỏi div */
+                white-space: nowrap;
+            
+                @keyframes moveRightToLeft {
+                    0% {
+                        /* Tại thời điểm ban đầu, div sẽ ở vị trí ban đầu (trái) */
+                        transform: translateX(20%);
+                    }
+            
+                    100% {
+                        /* Tại thời điểm cuối cùng, div sẽ dịch chuyển sang phải */
+                        transform: translateX(-0%);
+                    }
+                }
         }
 }
 

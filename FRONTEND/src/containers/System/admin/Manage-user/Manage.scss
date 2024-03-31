@@ -1,161 +1,259 @@
 .manage{
-    padding-top: 120px;
-
-    .search{
+    padding-top: 110px;
+    display: flex;
+    justify-content: space-between;
+.left{
+    width: 15%;
+    padding: 30px 0;
+    .content {
+        background-color: white;
         width: 100%;
-        height: 50px;
-        margin: 20px 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        margin: 0;
+        height: 550px;
+        border-radius: 5px;
+        overflow: hidden;
+        li {
+                list-style: none;
+                padding: 10px;
+                font-size: 17px;
+                cursor: pointer;
+                position: relative;
         
-        .form-search{
-            border: 1px solid black;
-            width: 50%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            border-radius: 30px;
-            overflow: hidden;
-            i{
-                position: absolute;
-                top: 13px;
-                    right: 10px;
-                    font-size: 20px;
-            }
-            input{
-                width: 100%;
-                height: 100%;
-                border: none;
-                outline: none;
-                padding: 0 20px;
-                padding-right: 35px;
-            }
-
-        }
-
+                i {
+                    margin-right: 10px;
+                    color: blue;
+                }
         
-    }
-    
-    .table-list{
-
-        table {
-
-            border: 1px solid #cccc;
-            
-                thead {
-                    tr {
-                        background-color: blue;
-                        color: white;
+                &:hover {
+                    background-color: #0fa1ef;
+                    color: white;
+                }
         
-                        th {
-                            text-align: left;
-                            padding-left: 10px;
+                span {
+                    position: relative;
+                    left: 0;
+                    transition: left 0.2s linear;
+                }
+        
+                &:hover span {
+                    left: 5px;
+                }
+
+                ul{
+                    display: none;
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    background-color: #0fa1ef;
+                    margin: 0;
+                    width: 100%;
+                    padding: 0;
+                    li{
+                        padding: 5px;
+                        padding-left: 35px;
+                        font-size: 15px;
+                        &:hover{
+                            background-color: #cccc;
                         }
-                        .stt{
-                            text-align: center;
-                            width: 30px;
-                            padding-left: 5px;
+                        span{
+                            position: relative;
+                            left: 0;
+                            transition: left 0.2s linear;
                         }
-                        .phone{
-                            text-align: center;
-                            padding-left: 5px;
+                        &:hover span{
+                            left: 5px;
                         }
                     }
                 }
-        
-                tbody {
-                    tr {
-                        th{
-                            text-align: center;
-                        }
-                        td {
-                            text-align: left;
-                            padding: 0;
-                            p{
-                                margin: 0;
-                                height: 50px;
-                                display: flex;
-                                align-items: center;
-                                padding-left: 10px;
-                            }
-                            
-                        }
 
-                        .tdstt{
-                            text-align: center;
-                            padding: 0;
-                            p{
-                                margin: 0;
-                                width: 100%;
-                                height: 50px;
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
-                                padding-left: 0;
-                            }
-                        }
-
-                        .tdphone{
-                            text-align: center;
-                            width: 150px;
-                            padding: 0;
-                            p{
-                                text-align: center;
-                                padding: 0;
-                                width: 100%;
-                                display: flex;
-                                justify-content: center;
-                            }
-                        }
-        
-                        .action {
-                            p{
-                                display: flex;
-                                    justify-content: left;
-                                    align-items: center;
-                                
-                                    img {
-                                        width: 25px;
-                                        margin-left: 10px;
-                                        cursor: pointer;
-                                    }
-                                
-                                    .btn-delete {
-                                        margin-left: 5px;
-                                    }
-                            }
-        
-                        }
-                    }
-        
-                    .null {
-                        color: red;
-                        font-size: italic;
-                    }
+                &:hover .ul-link {
+                    display: block;
                 }
             }
-    }
-
-        
-
-    .btn-add{
-        width: 100%;
-        margin-top: 20px;
-        margin-bottom: 5px;
     }
 }
+    .right {
+        width: 85%;
+        padding: 40px;
+        .search {
+                width: 100%;
+                height: 50px;
+                margin: 20px 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+        
+                .form-search {
+                    border: 1px solid black;
+                    width: 50%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: relative;
+                    border-radius: 30px;
+                    overflow: hidden;
+        
+                    i {
+                        position: absolute;
+                        top: 13px;
+                        right: 10px;
+                        font-size: 20px;
+                    }
+        
+                    input {
+                        width: 100%;
+                        height: 100%;
+                        border: none;
+                        outline: none;
+                        padding: 0 20px;
+                        padding-right: 35px;
+                    }
+        
+                }
+        
+        
+            }
+
+            .list-user{
+                height: 377px;
+
+                .table-list {
+            
+                    table {
+            
+                        border: 1px solid #cccc;
+            
+                        thead {
+                            tr {
+                                background-color: blue;
+                                color: white;
+            
+                                th {
+                                    text-align: left;
+                                    padding-left: 10px;
+                                }
+            
+                                .stt {
+                                    text-align: center;
+                                    width: 30px;
+                                    padding-left: 5px;
+                                }
+            
+                                .phone {
+                                    text-align: center;
+                                    padding-left: 5px;
+                                }
+                            }
+                        }
+            
+                        tbody {
+                            tr {
+                                th {
+                                    text-align: center;
+                                }
+            
+                                td {
+                                    text-align: left;
+                                    padding: 0;
+            
+                                    p {
+                                        margin: 0;
+                                        height: 50px;
+                                        display: flex;
+                                        align-items: center;
+                                        padding-left: 10px;
+                                    }
+            
+                                }
+            
+                                .tdstt {
+                                    text-align: center;
+                                    padding: 0;
+            
+                                    p {
+                                        margin: 0;
+                                        width: 100%;
+                                        height: 50px;
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        padding-left: 0;
+                                    }
+                                }
+            
+                                .tdphone {
+                                    text-align: center;
+                                    width: 150px;
+                                    padding: 0;
+            
+                                    p {
+                                        text-align: center;
+                                        padding: 0;
+                                        width: 100%;
+                                        display: flex;
+                                        justify-content: center;
+                                    }
+                                }
+            
+                                .action {
+                                    p {
+                                        display: flex;
+                                        justify-content: left;
+                                        align-items: center;
+            
+                                        img {
+                                            width: 25px;
+                                            margin-left: 10px;
+                                            cursor: pointer;
+                                        }
+            
+                                        .btn-delete {
+                                            margin-left: 5px;
+                                        }
+                                    }
+            
+                                }
+                            }
+            
+                            .null {
+                                color: red;
+                                font-size: italic;
+                            }
+                        }
+                    }
+                }
+            }
+        
+        
+        
+        
+            .btn-add {
+                width: 100%;
+                margin-top: 20px;
+                margin-bottom: 5px;
+            }
+    }
+}
+
+
+
+
+
+
+
+
+
 
 .form-add{
     margin-top: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 493px;
 
     form{
-        width: 70%;
+        width: 100%;
         padding: 15px 10px;
         border-radius: 3px;
         display: flex;

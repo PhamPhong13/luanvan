@@ -104,23 +104,43 @@ class ManageUser extends Component
         await this.getuser();
     }
 
+    linkTouser = (link) => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `${link}` );
+        }
+    }
+
     render ()
     {
 
         let { listAdmin, totalpage } = this.state;
+        console.log(this.props);
         return (
             <>
                 <title>
                     <FormattedMessage id="system.manage.manage-user"></FormattedMessage>
                 </title>
-                <div className='container manage'>
+                <div className='manage'>
 
-                    <div className='title'><FormattedMessage id="system.manage.manage-user"></FormattedMessage></div>
+                    <div className='left'>
+                        <div className='content'>
+                            <li onClick={() => this.linkTouser("/system/manage-admin")}><span><i className='fas fa-user-tie'></i><FormattedMessage id="system.manage.manage-admin"></FormattedMessage></span></li>
+                            <li ><span><i className='fas fa-user'></i><FormattedMessage id="system.manage.manage-user"></FormattedMessage></span>
+                                <ul className='ul-link'>
+                                    <li onClick={() => this.linkTouser("/system/manage-user")}><span>Quản lý hội viên</span></li>
+                                    <li onClick={() => this.linkTouser("/system/examine")}><span>Duyệt hội viên</span></li>
+                            </ul>
+                            </li>
+                        </div>
+                    </div>
+                    <div className='right'>
+                        <div className='title'><FormattedMessage id="system.manage.manage-user"></FormattedMessage></div>
 
                     <div className='search'>
                         <div className='form-search'>
                             <input type="text"
-                                placeholder={this.props.language === 'vi' ? "Tên người dùng" : "User Name"}
+                                placeholder={this.props.language === 'vi' ? "Nhập để tìm kiếm" : "Type to search"}
                                 onChange={(event) => this.handleOchangeToSearch(event)}
                             />
                             <i className='fas fa-search'></i>
@@ -135,7 +155,8 @@ class ManageUser extends Component
                         </div>
                     </div>
 
-                    <div className='table-list'>
+                        <div className='list-user'>
+                            <div className='table-list'>
                         <table className="table table-striped table-bordered">
                     <thead>
                         <tr>
@@ -202,7 +223,10 @@ class ManageUser extends Component
                             activeClassName='active'
                             marginPagesDisplayed={10}
                         />
-                    </div> 
+                        </div> 
+                    </div>
+                        
+                    </div>
                 </div>
             </>
         );

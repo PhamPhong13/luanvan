@@ -42,6 +42,8 @@ class Post extends Component
             form: "",
             checkUserform: false,
             openCloseform: false,
+            dayuntil: "",
+            openTitleForm: false
         }
     }
 
@@ -59,11 +61,48 @@ class Post extends Component
             this.setState({
                 form: res.data
             })
+            let dayuntil = this.daysUntil(res.data.date);
+            if (dayuntil > 0) {
+                this.setState({
+                    dayuntil: `Đăng ký form tại đây. Link sẽ đóng sau ${dayuntil} ngày!`,
+                    openTitleForm: true
+                })
+
+                setTimeout(() => {
+                    this.setState({
+                        openTitleForm: false
+                    });
+                }, 3000);
+
+            }
+            else {
+                this.setState({
+                    dayuntil: ``
+                })
+            }
         }
         else this.setState({
             form: ""
         })
     }
+
+    daysUntil = (dateString) => {
+    // Chuyển đổi chuỗi ngày đầu vào thành đối tượng Date
+    const targetDate = new Date(dateString);
+    
+    // Tính thời gian hiện tại
+    const currentDate = new Date();
+    
+    // Tính số mili giây còn lại giữa thời điểm hiện tại và thời điểm đích
+    const differenceMs = targetDate - currentDate;
+    
+    // Chuyển đổi số mili giây thành số ngày (1 ngày = 24 giờ * 60 phút * 60 giây * 1000 mili giây)
+    const daysLeft = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
+    
+        return daysLeft;
+}
+
+
     setCount = async () => {
         let count = this.state.post.count + 1;
         let res = await updatepost({
@@ -321,8 +360,9 @@ class Post extends Component
 
     render ()
     {
-        let { post, form, cat, thu, day, postbycat, openCloseform,
+        let { post, form, cat, thu, day, postbycat, openCloseform, dayuntil,  openTitleForm, 
             id, likepost, openReport, senReport, imageReport, checkUserform } = this.state;
+        console.log(dayuntil)
         return (
             <>
                 <title>
@@ -396,6 +436,7 @@ class Post extends Component
                                     <p className='content-p' dangerouslySetInnerHTML={ { __html: post.descHTML } }>
                                     </p>
                                 </div>
+                                {form && <div ><b>Form đăng ký <span style={{ color: 'blue', cursor: 'pointer'}} onClick={() => this.linktoform(form.postId)}>Tại đây!</span></b></div>}
                                 <div>-------------------------------------------------------</div>
                                 <div className='btn btn-primary'
                                 onClick={() => this.handlereport(post)}>
@@ -453,7 +494,8 @@ class Post extends Component
                     <div className='formgooglepost'
                                 onClick={() => this.linktoform(form.postId)}
                         title='Đăng ký form tại đây!'>
-                        <img src={ formicon} />
+                        <img src={formicon} />
+                        {openTitleForm === true && dayuntil && <div className='formgooglepost_title'>{ dayuntil}</div>}
                 </div>
                 }
 
