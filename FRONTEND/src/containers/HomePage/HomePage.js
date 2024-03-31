@@ -8,11 +8,15 @@ import Header from './Header';
 import Slider from './Slider';
 import PostOnCat from './PostOnCat';
 import Footer from './Footer';
+import chatimage from "../../assets/chat.png"
+
 class HomePage extends Component
 {
     constructor(props) {
         super(props);
         this.state = {
+             chat: false,
+            iconchat_title: false,
             listPost: [],
             listCat: [],
             totalconnect: 0,
@@ -20,6 +24,7 @@ class HomePage extends Component
     }
 
     async componentDidMount() {
+        this.setTilechat();
         await this.getAllposts();
         await this.getCat();
         await this.createconnection();
@@ -75,6 +80,23 @@ class HomePage extends Component
         }
     }
 
+     setTilechat = () => {
+        this.setState({
+            iconchat_title: true
+        });
+
+        setTimeout(() => {
+            this.setState({
+                iconchat_title: false
+            });
+        }, 3000);
+    }
+    handleChat = () => {
+        this.setState({
+            chat:!this.state.chat
+        })
+    }
+
     formatnumber = (num) => {
         let formattedNumber = parseInt(num).toLocaleString('en-US').replace(/,/g, ' ');
         return formattedNumber; // Kết quả sẽ là "100 000"
@@ -83,14 +105,31 @@ class HomePage extends Component
     render ()
     {
 
-        let { listCat , totalconnect} = this.state;
+        let { listCat , totalconnect , chat, iconchat_title} = this.state;
         return (
             <>
                 <title>
                     <FormattedMessage id="system.homepage"></FormattedMessage>
                 </title>
                 <Header /> 
-                
+                {chat === true &&
+                <div className='chatbox'>
+                    <iframe
+                    allow="microphone;"
+                    width="350"
+                    height="430"
+                    src="https://console.dialogflow.com/api-client/demo/embedded/7888c03c-760c-420a-ac59-b7fa42fd99f3">
+                </iframe>
+
+                        <span onClick={() => this.handleChat()}>x</span>
+                </div>
+                }
+                {chat === false && 
+                    <div className='iconchat' onClick={() => this.handleChat()}>
+                        <img src={chatimage} />
+                        {iconchat_title === true && <div className='iconchat_title'>Chat cùng bot Chi hội Sinh viên Bình Tân.</div>}
+                    </div>
+                }
                 <div className='container manage_container'id='top'>
                     <div className='manage_container-content' >
                         <div className='homepage' >

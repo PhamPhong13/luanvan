@@ -96,14 +96,45 @@ class Examine extends Component
                         </div>
                     </div>
 
-                    <div className='btn-add'>
-                        <div className='btn btn-primary'
-                            onClick={() => this.linkToAddAdmin()}
-                        >
-                            + Thêm nhiệm kỳ
-                        </div>
-                    </div>
+                    <div className='table-list'>
+                        <table className="table table-striped table-bordered">
+                    <thead>
+                                <tr>
+                                    
+                        <th scope="col" className='stt'>STT</th>
+                        <th scope="col">Email </th>
+                        <th scope="col">Họ tên </th>
+                        <th scope="col"><FormattedMessage id="key.action"></FormattedMessage></th>
+                        </tr>
+                    </thead>
+                        <tbody>
+                            {listCat && listCat.length > 0 && listCat.map((item, index) => {
+                                return (
+                                        <tr>
+                                        <td className='tdstt'><p>{ index + 1}</p></td>
+                                        <td><p>{item.email}</p></td>
+                                        <td><p>{item.fullName}</p></td>
+                                        <td className='action examine'>
+                                            <p>
+                                                <div className='btn btn-primary'
+                                                onClick={() => this.linkToEditExamUser(item.id)}
+                                            ><FormattedMessage id="key.see"></FormattedMessage></div>
+                                            </p>
+                                        </td>
+                                        </tr>
+                                )
+                            })}
 
+                            {listCat && listCat.length <= 0 &&
+                                <div className='null'>
+                                    Danh sách rổng!
+                            </div>
+                            }
+                        
+                    </tbody>
+                    </table>
+                    </div>
+{/* 
                     <div className='cat'>
                         {
                             listCat && isEmpty(listCat) && <span>Danh sách rổng!</span>
@@ -156,7 +187,7 @@ class Examine extends Component
 
 
                         
-                    </div>
+                    </div> */}
 
                     
                 </div>
