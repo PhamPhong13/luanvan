@@ -139,8 +139,8 @@ class EditUser extends Component
                             <li onClick={() => this.linkTouser("/system/manage-admin")}><span><i className='fas fa-user-tie'></i><FormattedMessage id="system.manage.manage-admin"></FormattedMessage></span></li>
                             <li ><span><i className='fas fa-user'></i><FormattedMessage id="system.manage.manage-user"></FormattedMessage></span>
                                 <ul className='ul-link'>
-                                    <li onClick={() => this.linkTouser("/system/manage-user")}><span>Quản lý hội viên</span></li>
-                                    <li onClick={() => this.linkTouser("/system/examine")}><span>Duyệt hội viên</span></li>
+                                    <li onClick={() => this.linkTouser("/system/manage-user")}><i className='fas fa-user'></i><span>Quản lý hội viên</span></li>
+                                    <li onClick={() => this.linkTouser("/system/examine")}><i className='fas fa-check'></i><span>Duyệt hội viên</span></li>
                             </ul>
                             </li>
                         </div>
