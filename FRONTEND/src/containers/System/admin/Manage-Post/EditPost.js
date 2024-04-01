@@ -149,6 +149,13 @@ class EditPost extends Component
         }
     }
 
+    linkTouser = (link) => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `${link}` );
+        }
+    }
+
     render ()
     {
         return (
@@ -156,14 +163,22 @@ class EditPost extends Component
                 <title>
                     <FormattedMessage id="system.manage.edit-post"></FormattedMessage>
                 </title>
-                <div className='container manage'>
-
+                <div className=' addPost'>
+<div className='leftaddPost'>
+                        <div className='content'>
+                            <li onClick={() => this.linkTouser("/system/manage-post")}><span><i className='fas fa-list'></i><FormattedMessage id="system.manage.manage-post"></FormattedMessage></span></li>
+                            <li ><span><i class="fas fa-book"></i><FormattedMessage id="system.manage.manage-form"></FormattedMessage></span>
+                                <ul className='ul-link'>
+                                    <li onClick={() => this.linkTouser("/system/manage-form")}><i className='fas fa-user'></i><span>Form của bạn</span></li>
+                                    <li onClick={() => this.linkTouser("/system/manage-form-share")}><i className='fas fa-share'></i><span>Form được chia sẻ</span></li>
+                            </ul>
+                            </li>
+                        </div>
+                    </div>
+                    <div className='rightaddPost'>
+                <div className=' Addpost-content'>
+                    <div className='addpost-contents2'>
                     <div className='title'><FormattedMessage id="system.manage.edit-post"></FormattedMessage></div>
-
-                </div>
-
-                <div className='container Addpost'>
-                    <div className='addpost-content'>
                         <div className='top'>
                             <div className='form-group'>
                                 <label><FormattedMessage id="key.name-post"></FormattedMessage>:</label>
@@ -192,7 +207,7 @@ class EditPost extends Component
                             <div className=''><FormattedMessage id="key.content-post"></FormattedMessage>: </div>
                             
                             <MdEditor
-                            style={ { height: '400px' } }
+                            style={ { height: '370px' } }
                             renderHTML={ text => mdParser.render( text ) }
                             onChange={ this.handleEditorChange }
                             value={ this.state.descMarkdown }
@@ -212,6 +227,11 @@ class EditPost extends Component
                         Tạo form
                     </div>
                </div>
+
+                    </div>
+
+                </div>
+
             </>
         );
     }

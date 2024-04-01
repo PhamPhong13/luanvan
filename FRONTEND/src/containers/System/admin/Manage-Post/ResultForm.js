@@ -9,6 +9,8 @@ import { isEmpty } from 'lodash';
 import Select from 'react-select';
 
 import ResulFormItem from './ResulFormItem';
+import { FormattedMessage } from 'react-intl';
+
 class Resultform extends Component
 {
     constructor(props) {
@@ -136,14 +138,34 @@ class Resultform extends Component
         })
     }
 
+    linkTouser = (link) => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `${link}` );
+        }
+    }
+
     render ()
     {
         let { selectedAdmins } = this.state;
         let { listkeys, postId, userform, openselect , listUser} = this.state;
         return (
             <>
-                <title>Kết quả biểu mẩu đăng ký</title>
-                <div className='container resultform'>
+                <div className='postinfor'>
+                    <div className='left'>
+                        <div className='content'>
+                            <li onClick={() => this.linkTouser("/system/manage-post")}><span><i className='fas fa-list'></i><FormattedMessage id="system.manage.manage-post"></FormattedMessage></span></li>
+                            <li ><span><i class="fas fa-book"></i><FormattedMessage id="system.manage.manage-form"></FormattedMessage></span>
+                                <ul className='ul-link'>
+                                    <li onClick={() => this.linkTouser("/system/manage-form")}><i className='fas fa-user'></i><span>Form của bạn</span></li>
+                                    <li onClick={() => this.linkTouser("/system/manage-form-share")}><i className='fas fa-share'></i><span>Form được chia sẻ</span></li>
+                            </ul>
+                            </li>
+                        </div>
+                    </div>
+                    <div className='right'>
+                        <title>Kết quả biểu mẩu đăng ký</title>
+                <div className=' resultform'>
                     <div className='resultform-content'>
                         <div className='title'>Kết quả biểu mẩu đăng ký</div>
                         <div className='updatetop'>
@@ -199,6 +221,8 @@ class Resultform extends Component
 
                         </div>
                         
+                    </div>
+                </div>
                     </div>
                 </div>
             </>

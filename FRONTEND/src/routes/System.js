@@ -40,6 +40,7 @@ import Examine from "../containers/System/admin/Manage-user/Examine";
 
 import ExamineUser from "../containers/System/admin/Manage-user/ExamineUser";
 import UserReport from "../containers/System/admin/Manage-user/UserReport";
+import ManageFormShare from "../containers/System/admin/Manage-Post/Manage-form-share";
 
 class System extends Component {
   render() {
@@ -88,6 +89,7 @@ class System extends Component {
 
               <Route path="/system/form/:id" component={Form} />
               <Route path="/system/manage-form" component={ManageForm} />
+              <Route path="/system/manage-form-share" component={ManageFormShare} />
               <Route path="/system/resultform/:id" component={ResultForm} />
               <Route
                 component={() => {

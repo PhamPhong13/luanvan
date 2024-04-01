@@ -61,27 +61,11 @@ export const chtMenu = [
   },
   {
     //quản lý bài viết
-    name: "system.manage.essay",
-    menus: [
-    {
-        name: "system.manage.manage-post",        link: "/system/manage-post",
-      },
-      {
-        name: "system.manage.manage-form",        link: "/system/manage-form",
-      },
-    ],
+    name: "system.manage.essay",link: "/system/manage-post",
   },
   {
     //quản lý report
-    name: "system.manage.report",
-    menus: [
-      {
-        name: "system.manage.manage-report-user",        link: "/system/report-user",
-      },
-      {
-        name: "system.manage.manage-report-post",        link: "/system/report-post",
-      }
-    ],
+    name: "system.manage.report",link: "/system/report-user",
   },
   {
     //quản lý nhiệm kỳ

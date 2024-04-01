@@ -83,7 +83,12 @@ class InforPost extends Component
     }
     
 
-    
+     linkTouser = (link) => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `${link}` );
+        }
+    }
 
     
     render ()
@@ -95,8 +100,20 @@ class InforPost extends Component
                     <FormattedMessage id="system.manage.manage-post"></FormattedMessage>
                 </title>
 
-                <div className='container postinfor'>
-                    <div className='postinfor-content'>
+                <div className=' postinfor'>
+                    <div className='left'>
+                        <div className='content'>
+                            <li onClick={() => this.linkTouser("/system/manage-post")}><span><i className='fas fa-list'></i><FormattedMessage id="system.manage.manage-post"></FormattedMessage></span></li>
+                            <li ><span><i class="fas fa-book"></i><FormattedMessage id="system.manage.manage-form"></FormattedMessage></span>
+                                <ul className='ul-link'>
+                                    <li onClick={() => this.linkTouser("/system/manage-form")}><i className='fas fa-user'></i><span>Form của bạn</span></li>
+                                    <li onClick={() => this.linkTouser("/system/manage-form-share")}><i className='fas fa-share'></i><span>Form được chia sẻ</span></li>
+                            </ul>
+                            </li>
+                        </div>
+                    </div>
+                    <div className='right'>
+                        <div className='postinfor-content'>
                         <div className='postinfor-title'>
                             <p className='name'>
                                 {this.state.post.name}
@@ -125,6 +142,7 @@ class InforPost extends Component
                         <div className="post-comment">
                             <Comment id={this.state.post.id} />
                         </div>
+                    </div>
                     </div>
                 </div>
                 

@@ -150,10 +150,18 @@ getday = (date) => {
             })
             toast.success("Xóa báo cáo thành công!");
     }
+
+    linkTouser = (link) => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `${link}` );
+        }
+    }
     render ()
     {
         let { listreport, listreportold, reportNew,
             reportOld, openModal, listuserreport, openloading } = this.state;
+        console.log(listreport);
         
         return (
             <>
@@ -161,26 +169,59 @@ getday = (date) => {
                     Báo cáo người dùng                    
                 </title>
 
-                <div className='container report'>
-                    <div className='title'>Danh sách người dùng báo cáo</div>
-
-                    {listreport && listreport.length >0 &&
-                    <div className='report-content'>
-                        <div className='listreportnew'>Danh sách vừa báo cáo: </div>
-                        {listreport.map((item) => {
-                            return (
-                                <div className='item'>
-                                    <div className='name'>{item.Post.name}
-                                    </div>
-                                    <div className='action'>
-                                        <div className='btn btn-primary'
+                <div className='manage report'>
+                   <div className='left'>
+                        <div className='content'>
+                            <li onClick={() => this.linkTouser("/system/report-user")}><span><i className='fas fa-list'></i><FormattedMessage id="system.manage.manage-report-user"></FormattedMessage></span></li>
+                        <li onClick={() => this.linkTouser("/system/report-post")}><span><i className='fas fa-book'></i><FormattedMessage id="system.manage.manage-report-post"></FormattedMessage></span></li>
+                        </div>
+                    </div>
+                    <div className='right'>
+                    <div className='title'>Danh sách bài viết báo cáo</div>
+                        <div className='list-user mt-5'>
+                            <div className='table-list'>
+                        <table className="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                        <th scope="col" className='stt'>STT</th>
+                        <th scope="col"><FormattedMessage id="key.fullname"></FormattedMessage></th>
+                        <th scope="col" className='datereport'>Ngày báo cáo</th>
+                        <th scope="col" className=''>Người báo cáo</th>
+                        <th scope="col"><FormattedMessage id="key.action"></FormattedMessage></th>
+                        </tr>
+                    </thead>
+                        <tbody>
+                            {listreport && listreport.length > 0 && listreport.map((item, index) => {
+                                return (
+                                        <tr>
+                                        <td className='tdstt'><p>{ index + 1}</p></td>
+                                        <td><p>{ item.Post.name}</p></td>
+                                        <td className='datereport'><p>{ this.getday(item.createdAt)}</p></td>
+                                        <td><p>{ item.user.fullName}</p></td>
+                                        <td className='action'>
+                                            <p>
+                                                <div className='btn btn-primary'
                                         onClick={() => this.handleOpenModal(item)}
                                         >Xem</div>
-                                    </div>
-                                </div>
-                            )
-                        })}
-                        <div className='ReactPaginate mt-2'>
+                                            </p>
+                                        </td>
+                                        </tr>
+                                )
+                            })}
+
+                            
+                        
+                    </tbody>
+                                </table>
+                                
+                                {listreport && listreport.length <= 0 &&
+                                <div className='null'>
+                                    Danh sách rổng!
+                            </div>
+                            }
+                    </div>
+
+                     <div className='ReactPaginate mt-2'>
                         <ReactPaginate
                             breakLabel="..."
                             nextLabel="sau >"
@@ -201,88 +242,51 @@ getday = (date) => {
                             activeClassName='active'
                             marginPagesDisplayed={10}
                         />
+                        </div> 
                     </div>
-                    </div>
-                    }
-                    
 
-                    {listreportold && listreportold.length > 0 &&
-                    <div className='report-content'>
-                        <div className='listreportnew'>Danh sách tài khoản bị khóa: </div>
-                        { listreportold.map((item) => {
-                            return (
-                                <div className='item'>
-                                    <div className='name'>{item.userreport && item.userreport.fullName}
-                                        <span>thời gian lúc: {this.getday(item.createdAt)} báo cáo bởi</span>
-                                        {item.user && item.user.fullName}
-                                    </div>
-                                    <div className='action'>
-                                        <div className='btn btn-primary'>Xem</div>
-                                    </div>
-                                </div>
-                            )
-                        })}
-                        
-                        <div className='ReactPaginate mt-2'>
-                        <ReactPaginate
-                            breakLabel="..."
-                            nextLabel="sau >"
-                            onPageChange={this.handlePageClick}
-                            pageRangeDisplayed={reportOld}
-                            pageCount={reportOld}
-                            previousLabel="< trước"
-                            renderOnZeroPageCount={null}
-                            pageClassName='page-item'
-                            pageLinkClassName='page-link'
-                            previousClassName='page-item'
-                            previousLinkClassName='page-link'
-                            nextClassName='page-item'
-                            nextLinkClassName='page-link'
-                            breakClassName='page-item'
-                            breakLinkClassName='page-link'
-                            containerClassName='pagination'
-                            activeClassName='active'
-                            marginPagesDisplayed={10}
-                        />
-                    </div>
-                    </div>
-                    }
-                    
-                </div>
 
-                {openModal === true &&
-                <div className='modal-report'>
-                    <div className='content-rpt'>
-                            <div className='title'>Nội dung báo cáo</div>
-                            <div className='content-rpt-row'>
-                                {listuserreport && <div className='listuserreport'>
-                                            {listuserreport.user && listuserreport.user.fullName && <div className='name'>Người báo cáo: <b>{listuserreport.user.fullName  }</b></div>}
-                                            <div className='name'>Ngày báo cáo: <b>{this.getday(listuserreport.createdAt)  }</b></div>
-                                            <div className='name'>Nội dung bị báo cáo: <b>{listuserreport.content}</b></div>
-                                            <div className='name'>Bài viết bị báo cáo: <b>{listuserreport.Post.name}</b></div>
-                                    <div className='name'>Link đến bài viết <a onClick={() => this.linktopost(listuserreport.Post.id)} style={{ color: "blue"}}>Tại đây</a></div>
-                                    {listuserreport.image && <div className='img'>
-                                                <img src={ listuserreport.image} />
-                                    </div>}        
+
+                        {openModal === true &&
+                        <div className='modal-report'>
+                            <div className='content-rpt'>
+                                    <div className='title'>Nội dung báo cáo</div>
+                                    <div className='content-rpt-row'>
+                                        {listuserreport && <div className='listuserreport'>
+                                                    {listuserreport.user && listuserreport.user.fullName && <div className='name'>Người báo cáo: <b>{listuserreport.user.fullName  }</b></div>}
+                                                    <div className='name'>Ngày báo cáo: <b>{this.getday(listuserreport.createdAt)  }</b></div>
+                                                    <div className='name'>Nội dung bị báo cáo: <b>{listuserreport.content}</b></div>
+                                                    <div className='name'>Bài viết bị báo cáo: <b>{listuserreport.Post.name}</b></div>
+                                            <div className='name'>Link đến bài viết <a onClick={() => this.linktopost(listuserreport.Post.id)} style={{ color: "blue"}}>Tại đây</a></div>
+                                            {listuserreport.image && <div className='img'>
+                                                        <img src={ listuserreport.image} />
+                                            </div>}        
+                                            
+                                            <div className='btn-submit'>
+                                            <div className='btn btn-danger' onClick={() => this.handleDeleteReport(listuserreport.id)} >Xóa báo cáo</div>
+                                            <div className='btn btn-primary' onClick={() => this.handleReport(listuserreport)}>Báo cáo</div>
+                                            <div className='btn btn-secondary'  onClick={() => this.handleCloseModal()}>Hủy</div>
+                                            </div>
+                                        </div>
+                                    }
+                                    </div>
                                     
-                                    <div className='btn-submit'>
-                                    <div className='btn btn-danger' onClick={() => this.handleDeleteReport(listuserreport.id)} >Xóa báo cáo</div>
-                                    <div className='btn btn-primary' onClick={() => this.handleReport(listuserreport)}>Báo cáo</div>
-                                    <div className='btn btn-secondary'  onClick={() => this.handleCloseModal()}>Hủy</div>
-                                    </div>
-                                </div>
-                            }
-                            </div>
-                            
-                         </div>   
-                            
-                </div>
-                }
+                                </div>   
+                                    
+                        </div>
+                        }
 
-                {openloading === true && 
-                <div className='loading'>
-                    <div className="loading-spinner"></div>
-                </div>}
+                        {openloading === true && 
+                        <div className='loading'>
+                            <div className="loading-spinner"></div>
+                        </div>}
+                    </div>
+
+                    
+
+                    
+                </div>
+
                 
             </>
         );

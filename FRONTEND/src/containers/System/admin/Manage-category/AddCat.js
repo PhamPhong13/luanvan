@@ -73,6 +73,13 @@ class AddCat extends Component
         }
     }
 
+    linkTouser = (link) => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `${link}` );
+        }
+    }
+
     render ()
     {
         return (
@@ -80,13 +87,17 @@ class AddCat extends Component
                 <title>
                     <FormattedMessage id="system.manage.add-cat"></FormattedMessage>
                 </title>
-                <div className='container manage'>
-
+                <div className=' manage'>
+                     <div className='left'>
+                        <div className='content'>
+                            <li onClick={() => this.linkTouser("/system/manage-cat")}><span><i className='fas fa-list'></i><FormattedMessage id="system.manage.manage-category"></FormattedMessage></span></li>
+                        <li onClick={() => this.linkTouser("/system/add-cat")}><span><i className='fas fa-plus'></i><FormattedMessage id="system.manage.add-cat"></FormattedMessage></span></li>
+                        </div>
+                    </div>
+                    <div className='right'>
                     <div className='title'><FormattedMessage id="system.manage.add-cat"></FormattedMessage></div>
 
-                </div>
-
-                <div className='container form-add-cat'>
+                    <div className=' form-add-cat'>
                     <form>
                         <div className='form-group'>
                             <label><FormattedMessage id="system.manage.cat"></FormattedMessage>:</label>
@@ -104,6 +115,12 @@ class AddCat extends Component
                         </div>
                     </form>
                 </div>
+                    </div>
+
+
+                </div>
+
+                
             </>
         );
     }

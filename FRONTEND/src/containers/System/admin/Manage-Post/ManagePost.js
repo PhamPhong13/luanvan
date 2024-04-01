@@ -132,6 +132,12 @@ class ManagePost extends Component
         else  await this.getposts(event.selected + 1);
     }
     
+     linkTouser = (link) => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `${link}` );
+        }
+    }
 
     render ()
     {
@@ -142,9 +148,21 @@ class ManagePost extends Component
                 <title>
                     <FormattedMessage id="system.manage.manage-post"></FormattedMessage>
                 </title>
-                <div className='container manage'>
+                <div className=' manage'>
 
-                    <div className='title'><FormattedMessage id="system.manage.manage-post"></FormattedMessage></div>
+                    <div className='left'>
+                        <div className='content'>
+                            <li onClick={() => this.linkTouser("/system/manage-post")}><span><i className='fas fa-list'></i><FormattedMessage id="system.manage.manage-post"></FormattedMessage></span></li>
+                            <li ><span><i class="fas fa-book"></i><FormattedMessage id="system.manage.manage-form"></FormattedMessage></span>
+                                <ul className='ul-link'>
+                                    <li onClick={() => this.linkTouser("/system/manage-form")}><i className='fas fa-user'></i><span>Form của bạn</span></li>
+                                    <li onClick={() => this.linkTouser("/system/manage-form-share")}><i className='fas fa-share'></i><span>Form được chia sẻ</span></li>
+                            </ul>
+                            </li>
+                        </div>
+                    </div>
+                    <div className='right'>
+                        <div className='title mt-0'><FormattedMessage id="system.manage.manage-post"></FormattedMessage></div>
 
                     <div className='search'>
                         <div className='form-search'>
@@ -172,7 +190,7 @@ class ManagePost extends Component
                             listPost && !isEmpty(listPost) && listPost.map((item, index) => {
                                 return (
 
-                                    <div className='cat-content'>
+                                    <div className='cat-content' style={{ margin: '6px' }}>
                                         {userPost === true ? 
                                         <div className='content-left cat-post-item' >
                                             <div className='top'>
@@ -232,6 +250,7 @@ class ManagePost extends Component
                     </div>
                     }
 
+                    </div>
                     
                 </div>
             </>

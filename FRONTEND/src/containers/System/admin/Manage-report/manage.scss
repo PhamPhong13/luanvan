@@ -1,40 +1,192 @@
 .report{
-  padding: 200px;
-  padding-top: 120px;
+  padding-top: 112px;
+  display: flex;
+  justify-content: space-between;
 
 
-  .report-content{
-    margin-top: 20px;
-    padding: 10px;
-
-    .listreportnew{
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-    
-    .item{
-      padding: 10px 25px;
-      margin-bottom: 10px;
-      display: flex;
-      justify-content: space-between;
-      background-color: white;
-      align-items: center;
-      border-radius: 30px;box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-      &:hover{
-        background-color: #d7d7ff;
-        box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
-      }
-      .name{
-        font-size: 18px;
-        font-weight: bold;
-        span{
-          font-size: 14px;
-          font-weight: 400;
-          margin:0 10px;
+  .left {
+      width: 15%;
+      padding: 30px 0;
+  
+      .content {
+        background-color: white;
+        width: 100%;
+        margin: 0;
+        height: 570px;
+        border-radius: 5px;
+        overflow: hidden;
+  
+        li {
+          list-style: none;
+          padding: 10px;
+          font-size: 17px;
+          cursor: pointer;
+          position: relative;
+  
+          i {
+            margin-right: 10px;
+            color: blue;
+          }
+  
+          &:hover {
+            background-color: #0fa1ef;
+            color: white;
+          }
+  
+          span {
+            position: relative;
+            left: 0;
+            transition: left 0.2s linear;
+          }
+  
+          &:hover span {
+            left: 5px;
+          }
+  
+          ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #0fa1ef;
+            margin: 0;
+            width: 100%;
+            padding: 0;
+  
+            li {
+              padding: 5px;
+              padding-left: 35px;
+              font-size: 15px;
+  
+              &:hover {
+                background-color: #83c5f9cc;
+              }
+  
+              span {
+                position: relative;
+                left: 0;
+                transition: left 0.2s linear;
+              }
+  
+              &:hover span {
+                left: 5px;
+              }
+            }
+          }
+  
+          &:hover .ul-link {
+            display: block;
+          }
         }
       }
     }
+  .right{
+    width: 85%;
+    padding: 0 20px;
+    .list-user {
+        height: 377px;
+    
+        .table-list {
+    
+          table {
+    
+            border: 1px solid #cccc;
+    
+            thead {
+              tr {
+                background-color: blue;
+                color: white;
+    
+                th {
+                  text-align: left;
+                  padding-left: 10px;
+                }
+
+                .datereport{
+                  width: 210px;
+                  padding-left: 10px;
+                  text-align: left;
+                }
+              }
+            }
+    
+            tbody {
+              tr {
+                th {
+                  text-align: center;
+                }
+    
+                td {
+                  text-align: left;
+                  padding: 0;
+    
+                  p {
+                    margin: 0;
+                    height: 50px;
+                    display: flex;
+                    align-items: center;
+                    padding-left: 10px;
+                  }
+    
+                }
+    
+                .tdstt {
+                  text-align: center;
+                  padding: 0;
+    
+                  p {
+                    margin: 0;
+                    width: 100%;
+                    height: 50px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding-left: 0;
+                  }
+                }
+    
+                .tdphone {
+                  text-align: center;
+                  width: 150px;
+                  padding: 0;
+    
+                  p {
+                    text-align: center;
+                    padding: 0;
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                  }
+                }
+    
+                .action {
+                  p {
+                    display: flex;
+                    justify-content: left;
+                    align-items: center;
+    
+                    img {
+                      width: 25px;
+                      margin-left: 10px;
+                      cursor: pointer;
+                    }
+    
+                    .btn-delete {
+                      margin-left: 5px;
+                    }
+                  }
+    
+                }
+              }
+    
+              .null {
+                color: red;
+                font-size: italic;
+              }
+            }
+          }
+        }
+      }
   }
 }
 

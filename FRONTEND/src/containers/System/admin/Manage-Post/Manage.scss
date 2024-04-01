@@ -7,7 +7,7 @@
         width: 100%;
             height: 70px;
             border-radius: 100px;
-            margin-top: 15px;
+            margin-top: 6px;
             background: white;
             box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
             display: flex;
@@ -115,290 +115,283 @@
 }
 
 
-.Addpost{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    .addpost-content{
-        border: 1px solid black;
-        width: 80%;
-        height: 550px;
-        padding: 10px;
-
-        .top{
-            display: flex;
-            justify-content: space-between;
-
-            .form-group{
-                width: calc(100% / 3);
-                display: flex;
-                flex-direction: column;
-                padding: 5px;
-                input{
-                    padding: 5px 10px;
-                }
-
-                &.image{
-                    display: flex;
-                }
-            }
-        }
-
-        .down{
-            padding: 5px;
-        }
-
-        .button-sumit{
-            display: flex;
-            justify-content: center;
-        }
-    }
-}
 
 
 .postinfor{
     padding-top: 120px;
     display: flex;
+    width: 100%;
     justify-content: center;
-    .postinfor-content{
-        width: 60%;
-        border-radius: 8px;
-        padding: 20px;
-        background-color: white;
-        height: 100%;
+    .left {
+        position: fixed;
+        top: 112px;
+        left: 0;
 
-        .postinfor-title{
-            .name{
-                font-size: 20px;
-                font-weight: bold;
-                text-align: justify;
-                    text-indent: 25px;
-                    margin: 0;
-
-                    
-            }
-
-            .cat{
-                i{
-                    margin-right: 5px;
-                    font-size: 12px;
-                }
-                height: 100%;
-                span {
-                        background-color: #00ff08;
-                        font-size: 13px;
-                        color: black;
-                        padding: 3px 7px;
-                        border-radius: 3px;
-                        position: relative;
-                        margin-left: 13px;
-                        color: white;
-                        font-weight: bold;
-                
-                        &::before {
-                            content: '';
-                            content: '';
-                            position: absolute;
-                            top: 0;
-                            left: -12px;
-                            width: 11px;
-                            height: 100%;
-                            border-top: 10px solid transparent;
-                            border-bottom: 11px solid transparent;
-                            border-right: 13px solid #00ff08;
-                
-                        }
-                
-                        &::after {
-                            content: '';
-                            width: 8px;
-                            height: 8px;
-                            background-color: white;
-                            position: absolute;
-                            top: 6px;
-                            left: -4px;
-                            border-radius: 50%;
-                        }
-                    }
-            }
-
-            .date{
-                font-size: 12px;
-            }
-
-            .like{
-                font-size: 12px;
-                margin-left: 10px;
-            }
-
-            .img{
+            width: 15%;
+            padding: 30px 0;
+    
+            .content {
+                background-color: white;
+                width: 100%;
                 margin: 0;
-                width: 100%;
-                margin-top: 10px;
-                display: flex;
-                justify-content: center;
-                img{
-                    width: 60%;
-
-                    height: auto;
-                    border-radius: 10px;
-                }
-            }
-
-            .content-p{
-                text-align: justify;
-                margin-top: 15px;
-                p{
-                    margin: 0;
-                    display: flex;
-                    img{
-                        margin: 0 auto;
-                        width: 60%;
-                        height: auto;
-                        margin-bottom: 10px;
-                    }
-                }
-            }
-
-            
-            
-        }
-
-        .post-comment{
-            width: 100%;
-            .post-cs{
-
-                .not-comment {
-                        color: red;
-                        margin: auto;
-                    }
-                height: 240px;
+                height: 570px;
+                border-radius: 5px;
                 overflow: hidden;
-                position: relative;
-                &.see {
-            padding-bottom: 40px;
-            height: 100%;
-                }
-
-                .open-close {
-                    cursor: default;
-                    margin-left: 10px;
-                    font-size: 12px;
-                    position: absolute;
-                    bottom: 40px;
-                    right: 15%;
-                }
-                
-                .text-comment{
-                    position: absolute;
-                    bottom: 0;
-                    width: 100%;
-                    background-color: white;
-                    border: 1px solid #cccc;
-                    height: 40px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    padding: 5px;
-                    input{
-                        width: 80%;
-                        height: 100%;
-                        border-radius: 30px;
-                        padding: 3px 10px;
-                        outline: #004aff;
-                        border-color: #004aff;
+    
+                li {
+                    list-style: none;
+                    padding: 10px;
+                    font-size: 17px;
+                    cursor: pointer;
+                    position: relative;
+    
+                    i {
+                        margin-right: 10px;
+                        color: blue;
                     }
-                    i{
+    
+                    &:hover {
+                        background-color: #0fa1ef;
+                        color: white;
+                    }
+    
+                    span {
+                        position: relative;
+                        left: 0;
+                        transition: left 0.2s linear;
+                    }
+    
+                    &:hover span {
+                        left: 5px;
+                    }
+    
+                    ul {
+                        display: none;
+                        position: absolute;
+                        top: 100%;
+                        left: 0;
+                        background-color: #0fa1ef;
+                        margin: 0;
+                        width: 100%;
+                        padding: 0;
+    
+                        li {
+                            padding: 5px;
+                            padding-left: 35px;
+                            font-size: 15px;
+    
+                            &:hover {
+                                background-color: #83c5f9cc;
+                            }
+    
+                            span {
+                                position: relative;
+                                left: 0;
+                                transition: left 0.2s linear;
+                            }
+    
+                            &:hover span {
+                                left: 5px;
+                            }
+                        }
+                    }
+    
+                    &:hover .ul-link {
+                        display: block;
+                    }
+                }
+            }
+        }
+    .right{
+        width: 100%;
+        margin: 0 auto;
+        padding-top: 22px;
+        .postinfor-content {
+            margin-left: 20%;
+                width: 60%;
+                border-radius: 8px;
+                padding: 20px;
+                background-color: white;
+                height: 100%;
+        
+                .postinfor-title {
+                    .name {
                         font-size: 20px;
-                        margin-left: 10px;
-                        color: #004aff;
+                        font-weight: bold;
+                        text-align: justify;
+                        text-indent: 25px;
+                        margin: 0;
+        
+        
                     }
-                }
-
-            .cmt-p{
-                &.cmt-p-see{
-                    overflow: hidden;
-                }
-                width: 100%;
-                padding-bottom: 5px;
-                
-                .post-comment-content {
+        
+                    .cat {
+                        i {
+                            margin-right: 5px;
+                            font-size: 12px;
+                        }
+        
+                        height: 100%;
+        
+                        span {
+                            background-color: #00ff08;
+                            font-size: 13px;
+                            color: black;
+                            padding: 3px 7px;
+                            border-radius: 3px;
+                            position: relative;
+                            margin-left: 13px;
+                            color: white;
+                            font-weight: bold;
+        
+                            &::before {
+                                content: '';
+                                content: '';
+                                position: absolute;
+                                top: 0;
+                                left: -12px;
+                                width: 11px;
+                                height: 100%;
+                                border-top: 10px solid transparent;
+                                border-bottom: 11px solid transparent;
+                                border-right: 13px solid #00ff08;
+        
+                            }
+        
+                            &::after {
+                                content: '';
+                                width: 8px;
+                                height: 8px;
+                                background-color: white;
+                                position: absolute;
+                                top: 6px;
+                                left: -4px;
+                                border-radius: 50%;
+                            }
+                        }
+                    }
+        
+                    .date {
+                        font-size: 12px;
+                    }
+        
+                    .like {
+                        font-size: 12px;
+                        margin-left: 10px;
+                    }
+        
+                    .img {
+                        margin: 0;
                         width: 100%;
                         margin-top: 10px;
-                
-                        .comment-main {
+                        display: flex;
+                        justify-content: center;
+        
+                        img {
+                            width: 60%;
+        
+                            height: auto;
+                            border-radius: 10px;
+                        }
+                    }
+        
+                    .content-p {
+                        text-align: justify;
+                        margin-top: 15px;
+        
+                        p {
+                            margin: 0;
                             display: flex;
-                            justify-content: left;
-                            .removecomment{
-                                flex: 1;
-                                margin-left: 10px;
-
-                                span{
-                                    font-weight: bold;
-                                    border: 1px  solid red;
-                                    padding: 0 3px;
-                                    padding-bottom: 2px;
-                                    border-radius: 50%;
-                                    color: red;
-                                    cursor: pointer;
-                                }
-                            }
+        
                             img {
-                                width: 7%;
-                                height: 50px;
-                                background-size: 100%;
-                                background-repeat: no-repeat;
-                                background-position: center;
-                                border-radius: 50%;
-                
-                
-                            }
-                
-                            .comment-main-content {
-                                display: flex;
+                                margin: 0 auto;
                                 width: 60%;
-                                flex-direction: column;
-                                margin-left: 15px;
-                
-                                .comment-main-content-top {
-                
-                                    background-color: #f0f2f5;
-                                    padding: 0 10px;
-                                    border-radius: 10px;
-                
-                                    .name {
-                                        font-weight: bold;
-                                    }
-                                }
-                
-                                .comment-main-content-bottom {
+                                height: auto;
+                                margin-bottom: 10px;
+                            }
+                        }
+                    }
+        
+        
+        
+                }
+        
+                .post-comment {
+                    width: 100%;
+        
+                    .post-cs {
+        
+                        .not-comment {
+                            color: red;
+                            margin: auto;
+                        }
+        
+                        height: 240px;
+                        overflow: hidden;
+                        position: relative;
+        
+                        &.see {
+                            padding-bottom: 40px;
+                            height: 100%;
+                        }
+        
+                        .open-close {
+                            cursor: default;
+                            margin-left: 10px;
+                            font-size: 12px;
+                            position: absolute;
+                            bottom: 40px;
+                            right: 15%;
+                        }
+        
+                        .text-comment {
+                            position: absolute;
+                            bottom: 0;
+                            width: 100%;
+                            background-color: white;
+                            border: 1px solid #cccc;
+                            height: 40px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            padding: 5px;
+        
+                            input {
+                                width: 80%;
+                                height: 100%;
+                                border-radius: 30px;
+                                padding: 3px 10px;
+                                outline: #004aff;
+                                border-color: #004aff;
+                            }
+        
+                            i {
+                                font-size: 20px;
+                                margin-left: 10px;
+                                color: #004aff;
+                            }
+                        }
+        
+                        .cmt-p {
+                            &.cmt-p-see {
+                                overflow: hidden;
+                            }
+        
+                            width: 100%;
+                            padding-bottom: 5px;
+        
+                            .post-comment-content {
+                                width: 100%;
+                                margin-top: 10px;
+        
+                                .comment-main {
                                     display: flex;
                                     justify-content: left;
-                                    font-size: 14px;
-                                    margin-top: 3px;
-                
-                                    span {
-                                        margin-right: 20px;
-                                    }
-                                }
-                            }
-                
-                        }
-                
-                        .comment-rep {
-                            margin-left: 60px;
-                            margin-top: 10px;
-                
-                            li {
-                                display: flex;
-                                justify-content: left;
-                                margin-top: 10px;
-
-                                .removecomment {
+        
+                                    .removecomment {
                                         flex: 1;
                                         margin-left: 10px;
-                                
+        
                                         span {
                                             font-weight: bold;
                                             border: 1px solid red;
@@ -409,55 +402,122 @@
                                             cursor: pointer;
                                         }
                                     }
-                
-                                img {
-                                    width: 7%;
-                                    height: 50px;
-                                    background-size: 100%;
-                                    background-repeat: no-repeat;
-                                    background-position: center;
-                                    border-radius: 50%;
-                
-                                }
-                
-                                .comment-main-content {
-                                    display: flex;
-                                    width: 60%;
-                                    flex-direction: column;
-                                    margin-left: 15px;
-                
-                                    .comment-main-content-top {
-                
-                                        padding: 0 10px;
-                                        border-radius: 10px;
-                                        background-color: #f0f2f5;
-                
-                                        .name {
-                                            font-weight: bold;
+        
+                                    img {
+                                        width: 7%;
+                                        height: 50px;
+                                        background-size: 100%;
+                                        background-repeat: no-repeat;
+                                        background-position: center;
+                                        border-radius: 50%;
+        
+        
+                                    }
+        
+                                    .comment-main-content {
+                                        display: flex;
+                                        width: 60%;
+                                        flex-direction: column;
+                                        margin-left: 15px;
+        
+                                        .comment-main-content-top {
+        
+                                            background-color: #f0f2f5;
+                                            padding: 0 10px;
+                                            border-radius: 10px;
+        
+                                            .name {
+                                                font-weight: bold;
+                                            }
+                                        }
+        
+                                        .comment-main-content-bottom {
+                                            display: flex;
+                                            justify-content: left;
+                                            font-size: 14px;
+                                            margin-top: 3px;
+        
+                                            span {
+                                                margin-right: 20px;
+                                            }
                                         }
                                     }
-                
-                                    .comment-main-content-bottom {
+        
+                                }
+        
+                                .comment-rep {
+                                    margin-left: 60px;
+                                    margin-top: 10px;
+        
+                                    li {
                                         display: flex;
                                         justify-content: left;
-                                        font-size: 14px;
-                                        margin-top: 3px;
-                
-                                        span {
-                                            margin-right: 20px;
+                                        margin-top: 10px;
+        
+                                        .removecomment {
+                                            flex: 1;
+                                            margin-left: 10px;
+        
+                                            span {
+                                                font-weight: bold;
+                                                border: 1px solid red;
+                                                padding: 0 3px;
+                                                padding-bottom: 2px;
+                                                border-radius: 50%;
+                                                color: red;
+                                                cursor: pointer;
+                                            }
                                         }
+        
+                                        img {
+                                            width: 7%;
+                                            height: 50px;
+                                            background-size: 100%;
+                                            background-repeat: no-repeat;
+                                            background-position: center;
+                                            border-radius: 50%;
+        
+                                        }
+        
+                                        .comment-main-content {
+                                            display: flex;
+                                            width: 60%;
+                                            flex-direction: column;
+                                            margin-left: 15px;
+        
+                                            .comment-main-content-top {
+        
+                                                padding: 0 10px;
+                                                border-radius: 10px;
+                                                background-color: #f0f2f5;
+        
+                                                .name {
+                                                    font-weight: bold;
+                                                }
+                                            }
+        
+                                            .comment-main-content-bottom {
+                                                display: flex;
+                                                justify-content: left;
+                                                font-size: 14px;
+                                                margin-top: 3px;
+        
+                                                span {
+                                                    margin-right: 20px;
+                                                }
+                                            }
+                                        }
+        
                                     }
                                 }
-                
                             }
                         }
+        
                     }
+        
+                }
+        
             }
-
-            }
-            
-        }
-
     }
 }
 
@@ -482,7 +542,7 @@
 
 
 .formgoogle{
-    padding: 0 200px;
+    padding: 0 140px;
     padding-top: 120px;
     padding-bottom: 10px;
     padding-bottom: 20px;
@@ -645,8 +705,8 @@
 
 
 .resultform{
-    padding-top: 120px;
-
+margin-left: 255px;
+width: 80%;
 
     .updatetop{
         display: flex;
@@ -829,4 +889,213 @@
         }
         margin-right: 10px;
     }
+}
+
+
+
+
+.addPost{
+    display: flex;
+    padding-top: 112px;
+    justify-content: space-between;
+    .leftaddPost {
+            width: 15%;
+            padding: 30px 0;
+    
+            .content {
+                background-color: white;
+                width: 100%;
+                margin: 0;
+                height: 570px;
+                border-radius: 5px;
+                overflow: hidden;
+    
+                li {
+                    list-style: none;
+                    padding: 10px;
+                    font-size: 17px;
+                    cursor: pointer;
+                    position: relative;
+    
+                    i {
+                        margin-right: 10px;
+                        color: blue;
+                    }
+    
+                    &:hover {
+                        background-color: #0fa1ef;
+                        color: white;
+                    }
+    
+                    span {
+                        position: relative;
+                        left: 0;
+                        transition: left 0.2s linear;
+                    }
+    
+                    &:hover span {
+                        left: 5px;
+                    }
+    
+                    ul {
+                        display: none;
+                        position: absolute;
+                        top: 100%;
+                        left: 0;
+                        background-color: #0fa1ef;
+                        margin: 0;
+                        width: 100%;
+                        padding: 0;
+    
+                        li {
+                            padding: 5px;
+                            padding-left: 35px;
+                            font-size: 15px;
+    
+                            &:hover {
+                                background-color: #83c5f9cc;
+                            }
+    
+                            span {
+                                position: relative;
+                                left: 0;
+                                transition: left 0.2s linear;
+                            }
+    
+                            &:hover span {
+                                left: 5px;
+                            }
+                        }
+                    }
+    
+                    &:hover .ul-link {
+                        display: block;
+                    }
+                }
+            }
+        }
+    .rightaddPost{
+        padding: 0 20px;
+        width: 85%;
+        margin-top: 31px;
+
+        .Addpost-content{
+            background-color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            .top {
+                    display: flex;
+            
+                    .form-group {
+                        width: calc(100% / 3);
+                        padding-right: 20px;
+            
+                        label {
+                            display: block;
+                        }
+            
+                        input {
+                            width: 100%;
+                            padding: 6px;
+                        }
+                    }
+                }
+            
+                .button-sumit {
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    margin: 10px 0;
+                }
+        }
+    }
+}
+
+.Form{
+    display: flex;
+    .leftForm {
+        position: fixed;
+        top: 112px;
+        left: 0;
+            width: 15%;
+            padding: 30px 0;
+    
+            .content {
+                background-color: white;
+                width: 100%;
+                margin: 0;
+                height: 570px;
+                border-radius: 5px;
+                overflow: hidden;
+    
+                li {
+                    list-style: none;
+                    padding: 10px;
+                    font-size: 17px;
+                    cursor: pointer;
+                    position: relative;
+    
+                    i {
+                        margin-right: 10px;
+                        color: blue;
+                    }
+    
+                    &:hover {
+                        background-color: #0fa1ef;
+                        color: white;
+                    }
+    
+                    span {
+                        position: relative;
+                        left: 0;
+                        transition: left 0.2s linear;
+                    }
+    
+                    &:hover span {
+                        left: 5px;
+                    }
+    
+                    ul {
+                        display: none;
+                        position: absolute;
+                        top: 100%;
+                        left: 0;
+                        background-color: #0fa1ef;
+                        margin: 0;
+                        width: 100%;
+                        padding: 0;
+    
+                        li {
+                            padding: 5px;
+                            padding-left: 35px;
+                            font-size: 15px;
+    
+                            &:hover {
+                                background-color: #83c5f9cc;
+                            }
+    
+                            span {
+                                position: relative;
+                                left: 0;
+                                transition: left 0.2s linear;
+                            }
+    
+                            &:hover span {
+                                left: 5px;
+                            }
+                        }
+                    }
+    
+                    &:hover .ul-link {
+                        display: block;
+                    }
+                }
+            }
+        }
+
+        .rightForm{
+            width: 85%;
+            margin-left: 220px;
+        }
 }

@@ -110,8 +110,10 @@ linkTouser = (link) => {
                 <div className='manage manage-cat'>
 
                     <div className='left'>
-                        <li onClick={() => this.linkTouser("/system/manage-cat")}><span><i className='fas fa-list'></i><FormattedMessage id="system.manage.manage-category"></FormattedMessage></span></li>
+                        <div className='content'>
+                            <li onClick={() => this.linkTouser("/system/manage-cat")}><span><i className='fas fa-list'></i><FormattedMessage id="system.manage.manage-category"></FormattedMessage></span></li>
                         <li onClick={() => this.linkTouser("/system/add-cat")}><span><i className='fas fa-plus'></i><FormattedMessage id="system.manage.add-cat"></FormattedMessage></span></li>
+                        </div>
                     </div>
                     <div className='right'>
                         <div className='title'><FormattedMessage id="system.manage.manage-category"></FormattedMessage></div>

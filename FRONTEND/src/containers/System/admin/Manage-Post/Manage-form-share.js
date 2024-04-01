@@ -11,7 +11,7 @@ import { isEmpty } from 'lodash';
 import lock from "../../../../assets/lock.png"
 
 import ReactPaginate from 'react-paginate';
-class ManageForm extends Component
+class ManageFormShare extends Component
 {
     constructor(props) {
         super(props);
@@ -104,47 +104,38 @@ class ManageForm extends Component
                         <div className='form-search'>
                             <input type="text"
                                 placeholder={this.props.language === 'vi' ? "Nhập để tìm biểu mẫu" : "Type to find the form"}
-                                /* onChange={(event) => this.handleOchangeToSearch(event)} */
                             />
                             <i className='fas fa-search'></i>
                         </div>
                     </div>
 
                     <div className='cat'>
-                        <div><b>Biểu mẫu của bạn:</b></div>
-
+                        <div><b>Biểu mẫu được chia sẻ:</b></div>
                         {
-                            listForm && isEmpty(listForm) && <span>Danh sách rổng!</span>
+                            listformshare && isEmpty(listformshare) && <span>Danh sách rổng!</span>
                         }
                         {
-                            listForm && !isEmpty(listForm) && listForm.map((item, index) => {
+                            listformshare && !isEmpty(listformshare) && listformshare.map((item, index) => {
                                 return (
 
-                                    <div className='cat-content' style={{margin: '6px'}}>
+                                    <div className='cat-content' style={{ margin: '6px' }}>
                                        <div className='content-left cat-post-item' >
                                             <div className='top'>
-                                                 <p>{item.name}</p>
+                                                 <p>{item.Form.name}</p>
                                             </div>
                                             </div>
                             
-                                        <div className='content-right form'>
-                                            {item.status === 'close' && <img src={ lock} />}
+                            <div className='content-right'>
+                                            {item.Form.status === 'close' && <img src={ lock} />}
                                 
                                             <div className='btn btn-primary'
-                                                onClick={() => this.linkToInforForm(item.id)}
+                                                onClick={() => this.linkToInforForm(item.Form.id)}
                                             ><FormattedMessage id="key.see"></FormattedMessage></div>
-                                           
-                                            <div className='btn btn-danger btn-delete'
-                                            onClick={() => this.handleDeleteUser(item.id)}
-                                            ><FormattedMessage id="key.delete"></FormattedMessage></div>
                             </div>
                         </div>
                                 )
                             })
 }
-                        
-
-
                         
                     </div>
 
@@ -153,9 +144,9 @@ class ManageForm extends Component
                         <ReactPaginate
                             breakLabel="..."
                             nextLabel="sau >"
-                            onPageChange={this.handlePageClickform}
-                            pageRangeDisplayed={totalPage}
-                            pageCount={totalPage}
+                            onPageChange={this.handlePageClick}
+                            pageRangeDisplayed={totalshare}
+                            pageCount={totalshare}
                             previousLabel="< trước"
                             renderOnZeroPageCount={null}
                             pageClassName='page-item'
@@ -173,6 +164,8 @@ class ManageForm extends Component
                     </div>
                     }
                     </div>
+
+                    
                 </div>
             </>
         );
@@ -195,4 +188,4 @@ const mapDispatchToProps = dispatch =>
     };
 };
 
-export default withRouter(connect( mapStateToProps, mapDispatchToProps )( ManageForm ));
+export default withRouter(connect( mapStateToProps, mapDispatchToProps )( ManageFormShare ));

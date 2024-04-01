@@ -120,6 +120,12 @@ class AddPost extends Component
 
     }
 
+    linkTouser = (link) => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `${link}` );
+        }
+    }
     render ()
     {
         
@@ -128,58 +134,70 @@ class AddPost extends Component
                 <title>
                     <FormattedMessage id="system.manage.add-post"></FormattedMessage>
                 </title>
-                <div className='container manage'>
+                <div className='addPost'>
+                    <div className='leftaddPost'>
+                        <div className='content'>
+                            <li onClick={() => this.linkTouser("/system/manage-post")}><span><i className='fas fa-list'></i><FormattedMessage id="system.manage.manage-post"></FormattedMessage></span></li>
+                            <li ><span><i class="fas fa-book"></i><FormattedMessage id="system.manage.manage-form"></FormattedMessage></span>
+                                <ul className='ul-link'>
+                                    <li onClick={() => this.linkTouser("/system/manage-form")}><i className='fas fa-user'></i><span>Form của bạn</span></li>
+                                    <li onClick={() => this.linkTouser("/system/manage-form-share")}><i className='fas fa-share'></i><span>Form được chia sẻ</span></li>
+                            </ul>
+                            </li>
+                        </div>
+                    </div>
+                    <div className='rightaddPost'>
 
-                    <div className='title'><FormattedMessage id="system.manage.add-post"></FormattedMessage></div>
+                            <div className=' Addpost-content'>
+                                <div className='addpost-contents2'>
+                        <div className='title'><FormattedMessage id="system.manage.add-post"></FormattedMessage></div>
+                                    <div className='top'>
+                                        <div className='form-group'>
+                                            <label><FormattedMessage id="key.name-post"></FormattedMessage>:</label>
+                                            <input type='text'
+                                                onChange={(event) => this.handleOnchangeInput(event, "name")}
+                                            />
+                                        </div>
+                                        <div className='form-group'>
+                                            <label><FormattedMessage id="key.choose-cat"></FormattedMessage>:</label>
+                                            <Select
+                                                    value={ this.state.selectedCat }
+                                                    onChange={ this.handleChangeSelect }
+                                                    options={ this.state.listCat }
+                                                    placeholder={ <FormattedMessage id="system.manage.cat" /> }
+                                                />
+                                        </div>
+                                        <div className='form-group image'>
+                                            <label className='label_upload-img' htmlFor='reviewImg'>Tải ảnh <i className='fas fa-upload'></i></label>
+                                            <input type='file' className='form-controll-file'
+                                                onChange={(event) => this.handleOnchangeImg(event)}
+                                            />
+                                        </div>
+                                    </div>
 
+                                    <div className='down'>
+                                        <div className=''><FormattedMessage id="key.content-post"></FormattedMessage>: </div>
+                                        
+                                        <MdEditor
+                                        style={ { height: '370px' } }
+                                        renderHTML={ text => mdParser.render( text ) }
+                                        onChange={ this.handleEditorChange }
+                                        value={ this.state.contentMarkdown }
+                                    />
+                                    </div>
+
+                                    <div className='button-sumit '>
+                                        <div className='btn btn-primary btn-submit '
+                                        onClick={() => this.handleSave()}
+                                        >
+                                            <FormattedMessage id="key.add"></FormattedMessage></div>
+                                    </div>
+
+                                </div>
+                        </div>
                 </div>
 
-                <div className='container Addpost'>
-                    <div className='addpost-content'>
-                        <div className='top'>
-                            <div className='form-group'>
-                                <label><FormattedMessage id="key.name-post"></FormattedMessage>:</label>
-                                <input type='text'
-                                    onChange={(event) => this.handleOnchangeInput(event, "name")}
-                                />
-                            </div>
-                            <div className='form-group'>
-                                <label><FormattedMessage id="key.choose-cat"></FormattedMessage>:</label>
-                                <Select
-                                        value={ this.state.selectedCat }
-                                        onChange={ this.handleChangeSelect }
-                                        options={ this.state.listCat }
-                                        placeholder={ <FormattedMessage id="system.manage.cat" /> }
-                                    />
-                            </div>
-                            <div className='form-group image'>
-                                <label className='label_upload-img' htmlFor='reviewImg'>Tải ảnh <i className='fas fa-upload'></i></label>
-                                <input type='file' className='form-controll-file'
-                                    onChange={(event) => this.handleOnchangeImg(event)}
-                                />
-                            </div>
-                        </div>
-
-                        <div className='down'>
-                            <div className=''><FormattedMessage id="key.content-post"></FormattedMessage>: </div>
-                            
-                            <MdEditor
-                            style={ { height: '400px' } }
-                            renderHTML={ text => mdParser.render( text ) }
-                            onChange={ this.handleEditorChange }
-                            value={ this.state.contentMarkdown }
-                        />
-                        </div>
-
-                        <div className='button-sumit'>
-                            <div className='btn btn-primary btn-submit'
-                            onClick={() => this.handleSave()}
-                            >
-                                <FormattedMessage id="key.add"></FormattedMessage></div>
-                        </div>
-
-                    </div>
-               </div>
+                </div>
             </>
         );
     }
