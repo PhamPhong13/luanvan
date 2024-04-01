@@ -127,6 +127,13 @@ class Tunure extends Component
         }
     }
 
+    linkTouser = (link) => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `${link}` );
+        }
+    }
+
     render ()
     {
         let { listCat } = this.state;
@@ -135,9 +142,17 @@ class Tunure extends Component
                 <title>
                     <FormattedMessage id="system.manage-nhiemky"></FormattedMessage>
                 </title>
-                <div className='container manage'>
+                <div className=' manage'>
 
-                    <div className='title'><FormattedMessage id="system.manage-nhiemky"></FormattedMessage></div>
+                    <div className='left'>
+                        <div className='content'>
+                            <li onClick={() => this.linkTouser("/system/manage-nhiemky")}><span><i className='fas fa-user-tie'></i>Quản lý nhiệm kỳ</span></li>
+                            <li onClick={() => this.linkTouser("/system/add-tunure")}><span><i className='fas fa-plus'></i>Thêm nhiệm kỳ</span>
+                            </li>
+                        </div>
+                    </div>
+                    <div className='right'>
+                        <div className='title'><FormattedMessage id="system.manage-nhiemky"></FormattedMessage></div>
 
                     <div className='search'>
                         <div className='form-search'>
@@ -146,14 +161,6 @@ class Tunure extends Component
                                 onChange={(event) => this.handleOchangeToSearch(event)}
                             />
                             <i className='fas fa-search'></i>
-                        </div>
-                    </div>
-
-                    <div className='btn-add'>
-                        <div className='btn btn-primary'
-                            onClick={() => this.linkToAddAdmin()}
-                        >
-                            + Thêm nhiệm kỳ
                         </div>
                     </div>
 
@@ -186,6 +193,7 @@ class Tunure extends Component
 
 
                         
+                    </div>
                     </div>
 
                     

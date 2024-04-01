@@ -141,6 +141,13 @@ class Bieumau extends Component
             openform: true
         })
     }
+
+    linkTouser = (link) => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `${link}` );
+        }
+    }
     
     render ()
     {
@@ -150,8 +157,16 @@ class Bieumau extends Component
                 <title>
                     Biểu mẫu
                 </title>
-                <div className='container bieumau'>
+                <div className='manage'>
+                    <div className='left' style={{position: 'fixed', top: '112px', left: '0'}}>
+                        <div className='content'>
+                            <li onClick={() => this.linkTouser("/system/bieumau")}><span><i class="fas fa-align-right"></i>Quản lý biểu mẫu</span></li>
+                        </div>
+                    </div>
+                    <div className='right' style={{marginLeft: '222px', padding: '33px 30px'}}>
+                        <div className=' bieumau'>
                     <div className='addbieumau' onClick={() => this.handleopenform()}>Thêm</div>
+                            <div className='title py-3 mt-0'  style={{background: 'white'}}>Quản lý biểu mẫu</div>
                     {listBieumau && isEmpty(listBieumau) && "Không có biểu mẫu nào!"}
                     {listBieumau && !isEmpty(listBieumau) && listBieumau.map((item) => {
                         return (
@@ -201,6 +216,8 @@ class Bieumau extends Component
                         </div>
                     </div>
                     }
+                </div>
+                    </div>
                 </div>
 
 

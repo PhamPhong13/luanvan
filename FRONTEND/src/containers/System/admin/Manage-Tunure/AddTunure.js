@@ -18,13 +18,6 @@ class AddTunure extends Component
 
     
 
-    async componentDidMount() {
-        
-    }
-
-    async componentDidUpdate(prevProps) {
-        
-    }
 
     handleOnchangeInput = ( event, id ) =>
     {
@@ -73,6 +66,13 @@ class AddTunure extends Component
         }
     }
 
+    linkTouser = (link) => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `${link}` );
+        }
+    }
+
     render ()
     {
         return (
@@ -80,13 +80,18 @@ class AddTunure extends Component
                 <title>
                     Thêm nhiệm kỳ
                 </title>
-                <div className='container manage'>
+                <div className='manage'>
 
-                    <div className='title'>Thêm nhiệm kỳ</div>
-
-                </div>
-
-                <div className='container form-add-cat'>
+                    <div className='left'>
+                        <div className='content'>
+                            <li onClick={() => this.linkTouser("/system/manage-nhiemky")}><span><i className='fas fa-user-tie'></i>Quản lý nhiệm kỳ</span></li>
+                            <li onClick={() => this.linkTouser("/system/add-tunure")}><span><i className='fas fa-plus'></i>Thêm nhiệm kỳ</span>
+                            </li>
+                        </div>
+                    </div>
+                    <div className='right'>
+                        <div className='title'>Thêm nhiệm kỳ</div>
+                    <div className='container form-add-cat'>
                     <form>
                         <div className='form-group'>
                             <label>Nhiệm kỳ: <i>(nhập nhiệm kỳ theo dạng 20xx-20xx)</i></label>
@@ -104,6 +109,10 @@ class AddTunure extends Component
                         </div>
                     </form>
                 </div>
+                    </div>
+                </div>
+
+                
             </>
         );
     }

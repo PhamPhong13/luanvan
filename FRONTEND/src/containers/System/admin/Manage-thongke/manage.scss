@@ -1,138 +1,164 @@
-.thongke{
-  padding-top: 120px;
-  background-color: white;
-  
-  .ltc{
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    font-size: 20px;
-    font-weight: bold;
-    select {
-      margin-left: 10px;
-    font-weight: bold;
-    }
+.manage{
+  border-radius: 5px;
+  .left{
+    padding-bottom: 0;
+    height: 598px;
   }
-
-  .line{
-    text-align: center;
-  }
-
-  .ltc-value{
-    display: flex;
-    margin: 10px;
-    font-size: 25px;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .post-value{
-    margin-top: 20px;
-    .ltc-value-item{
-      margin: 0 auto;
-      display: flex;
-      width: 60%;
-      justify-content: center;
-      align-items: center;
-      border-radius: 5px;
-      overflow: hidden;
-      margin-bottom: 20px;
-      cursor: pointer;
-      height: 110px;
-      &:hover {
-        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-      }
-      img{
-        width: 30%;
-        height: 100%;
-      }
-      .name{
-        flex: 1;
-        padding: 10px;
-        font-size: 20px;
-
-      }
-    }
-
-  }
-}
-
-
-.chart{
-  padding: 10px 250px;
-  .chart-content{
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    padding: 10px;
-    height: 400px;
-    border-radius: 5px;
+  .right{
+    padding: 32px;
+    padding-bottom: 0;
+    .thongke {
+        background-color: white;
     
-    .top{
-      height: 300px;
-      width: 100%;
-      display: flex;
-      .chart-content-left {
-        width: 50px;
-        height: 100%;
-        li{
-          list-style: none;
-          height: calc(100% * 1 / 11);
-          text-align: center;
-          transform: translateY(17px);
-        }
-      }
-      
-      .chart-content-center {
-          border: 1px solid black;
-          border-top: none;
-          border-right: none;
-          width: 94%;
-          height: 100%;
+        .ltc {
           display: flex;
-
-          li{
-            height: 100%;
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            .chart-item{
-              width: 40px;
-              background-color: #0c70eb;
-              position: relative;
-              transform: translateX(-25px);
-              span{
-                position: absolute;
-                top: -20px;
-                left: 0;
-                font-size: 16px;
-                width: 100%;
-                text-align: center;
-              }
-            }
+          justify-content: center;
+          font-size: 20px;
+          font-weight: bold;
+    
+          select {
+            margin-left: 10px;
+            font-weight: bold;
           }
         }
-      
-        .chart-content-right {
-          width: 3%;
-          height: 100%;
-          background-color: aquamarine;
-        }
-    }
-      .bottom{
-        height: 20px; 
-        padding: 0 27px;
-        width: 100%;
-        display: flex;
-  
-        li{
-          list-style: none;
-          flex: 1;
-          border-top: none;
-          border-bottom: none;
+    
+   
+        .ltc-value {
+          display: flex;
+          margin: 10px;
+          font-size: 25px;
           text-align: center;
-  
+          align-items: center;
+          justify-content: center;
+        }
+    
+        
+
+        .thongke-content{
+          display: flex;
+          justify-content: space-between;
+          padding: 5px 20px;
+
+          .chart {
+            width: 50%;
+              .chart-content {
+                box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+                padding: 10px;
+                height: 426px;
+                border-radius: 5px;
+          
+                .top {
+                  height: 300px;
+                  width: 100%;
+                  display: flex;
+          
+                  .chart-content-left {
+                    width: 50px;
+                    height: 100%;
+          
+                    li {
+                      list-style: none;
+                      height: calc(100% * 1 / 11);
+                      text-align: center;
+                      transform: translateY(12px);
+                    }
+                  }
+          
+                  .chart-content-center {
+                    border: 1px solid black;
+                    border-top: none;
+                    border-right: none;
+                    width: 94%;
+                    height: 100%;
+                    display: flex;
+          
+                    li {
+                      height: 100%;
+                      flex: 1;
+                      display: flex;
+                      justify-content: center;
+                      align-items: flex-end;
+          
+                      .chart-item {
+                        width: 40px;
+                        background-color: #0c70eb;
+                        position: relative;
+                        transform: translateX(-0);
+          
+                        span {
+                          position: absolute;
+                          top: -20px;
+                          left: 0;
+                          font-size: 16px;
+                          width: 100%;
+                          text-align: center;
+                        }
+                      }
+                    }
+                  }
+          
+                  .chart-content-right {
+                    width: 3%;
+                    height: 100%;
+                    background-color: aquamarine;
+                  }
+                }
+          
+                .bottom {
+                  height: 20px;
+                  padding: 0 27px;
+                  width: 100%;
+                  display: flex;
+          
+                  li {
+                    list-style: none;
+                    flex: 1;
+                    border-top: none;
+                    border-bottom: none;
+                    text-align: center;
+                    transform: translateX(22px);
+          
+                  }
+                }
+              }
+            }
+
+          .post-value {
+            width: 50%;
+            padding: 0 20px;
+              .ltc-value-item {
+                margin: 0 auto;
+                display: flex;
+                width: 100%;
+                justify-content: center;
+                align-items: center;
+                border-radius: 5px;
+                overflow: hidden;
+                margin-bottom: 20px;
+                cursor: pointer;
+                height: 65px;
+          
+                &:hover {
+                  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+                  color: blue;
+                }
+          
+                img {
+                  width: 30%;
+                  height: 100%;
+                }
+          
+                .name {
+                  flex: 1;
+                  padding: 10px;
+                  font-size: 16px;
+          
+                }
+              }
+          
+            }
         }
       }
-    }
+  }
 }
+

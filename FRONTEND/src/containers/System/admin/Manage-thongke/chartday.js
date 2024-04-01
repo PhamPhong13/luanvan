@@ -13,6 +13,7 @@ class ChartDay extends Component {
           listChart: [],
           listCount: [],
           chart: [],
+          maxcount: 0
     };
   }
 
@@ -33,6 +34,7 @@ class ChartDay extends Component {
         });
         }
         let maxCount = this.state.listChart[0].count;
+        
         for (let i = 1; i < this.state.listChart.length; i++) {
         if (this.state.listChart[i].count > maxCount) {
             maxCount = this.state.listChart[i].count; // Cập nhật giá trị lớn nhất nếu tìm thấy giá trị lớn hơn
@@ -40,7 +42,9 @@ class ChartDay extends Component {
     }
         const roundedNumber = Math.ceil(maxCount / 10) * 10;
         const numberOfSegments = 10;
-
+        this.setState({
+            maxcount: roundedNumber
+        })
         const step = roundedNumber / numberOfSegments;
         let current = 0;
 
@@ -136,12 +140,12 @@ class ChartDay extends Component {
 
   
   render() {
-   let { listDay , listCount, chart} = this.state;
+   let { listDay , listCount, chart, maxcount} = this.state;
     return (
         <>
             <div className="chart">
                 <div className="chart-content">
-                    <div className="m-2"><b>Biểu đồ thể hiện lược truy cập trong 1 tuần qua</b></div>
+                    <div className="m-3"><b>Biểu đồ thể hiện lược truy cập trong 1 tuần qua</b></div>
                     <div className="top">
                         <div className="chart-content-left">
                             {listCount && listCount.map((item) => {
@@ -154,7 +158,7 @@ class ChartDay extends Component {
                         <div className="chart-content-center">
                             {chart && chart.map((item, index) => (
                                 <li key={index}>
-                                    <div className="chart-item" style={{ height: `calc((100% * ${item} / 30) - 17px)` }}><span>{ item}</span></div>
+                                    <div className="chart-item" style={{ height: `calc(100% * ${item} / ${maxcount})` }}><span>{ item}</span></div>
                                 </li>
                             ))}
                         </div>

@@ -7,7 +7,7 @@ import { withRouter } from "react-router";
 import { getpost, getAllconnect, getlikepostcount } from "../../../../services/userService";
 
 import Chartday from "./chartday";
-class Thongke extends Component {
+class ThongkeLike extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -217,15 +217,16 @@ class Thongke extends Component {
           <div className="thongke-content">
           <Chartday />
 
+
           <div className="post-value">
-            <div >
-                        <b>Bài viết có lược truy cập nhiều nhất</b>
-                      </div>
-            {listpost && listpost.slice(0, 5).map((item, index) => {
+          <div className="">
+           <b> Bài viết có lược thích nhiều nhất</b>
+          </div>
+            {listLike && listLike.map((item, index) => {
               return (
-                <div className="ltc-value-item" key={index} onClick={() => this.linkToInforPost(item.id)}>
-                  <img src={ item.image} />
-                  <div className="name">{item.name}</div>
+                <div className="ltc-value-item" key={index} onClick={() => this.linkToInforPost(item.Post.id)}>
+                  <img src={ item.Post.image} />
+                  <div className="name">{item.Post.name}</div>
                 </div>
               );
             })}
@@ -235,20 +236,7 @@ class Thongke extends Component {
           
 
 
-          {/* <div className="ltc">
-            Bài viết có lược thích nhiều nhất
-          </div>
-
-          <div className="post-value">
-            {listLike && listLike.map((item, index) => {
-              return (
-                <div className="ltc-value-item" key={index} onClick={() => this.linkToInforPost(item.Post.id)}>
-                  <img src={ item.Post.image} />
-                  <div className="name">{item.Post.name}</div>
-                </div>
-              );
-            })}
-          </div> */}
+          {/*  */}
           
         </div>
           </div>
@@ -271,5 +259,5 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(Thongke)
+  connect(mapStateToProps, mapDispatchToProps)(ThongkeLike)
 );

@@ -42,6 +42,8 @@ import ExamineUser from "../containers/System/admin/Manage-user/ExamineUser";
 import UserReport from "../containers/System/admin/Manage-user/UserReport";
 import ManageFormShare from "../containers/System/admin/Manage-Post/Manage-form-share";
 
+import ThongkeLike from "../containers/System/admin/Manage-thongke/ThongkeLike";
+
 class System extends Component {
   render() {
     const { systemMenuPath, isLoggedIn } = this.props;
@@ -77,6 +79,7 @@ class System extends Component {
               <Route path="/system/infor-tunure/:id" component={InforTunure} />
               
               <Route path="/system/manage-thongke" component={Thongke} />
+              <Route path="/system/manage-thongke-like" component={ThongkeLike} />
 
               <Route path="/system/home" component={SystemHome} />
 

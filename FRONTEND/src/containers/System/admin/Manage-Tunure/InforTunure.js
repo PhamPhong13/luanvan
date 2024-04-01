@@ -35,7 +35,12 @@ class InforTunure extends Component
         })
     }
 
-    
+    linkTouser = (link) => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `${link}` );
+        }
+    }
     render ()
     {
         let { name } = this.state;
@@ -44,21 +49,29 @@ class InforTunure extends Component
                 <title>
                     Nhiệm kỳ { name }
                 </title>
-                <div className='container manage tunure'>
-
-                    <div className='title'>chi hội sinh viên bình tân</div>
+                <div className=' manage tunure'>
+                    <div className='left' style={{position: 'fixed', top: '112px', left: '0'}}>
+                        <div className='content'>
+                            <li onClick={() => this.linkTouser("/system/manage-nhiemky")}><span><i className='fas fa-user-tie'></i>Quản lý nhiệm kỳ</span></li>
+                            <li onClick={() => this.linkTouser("/system/add-tunure")}><span><i className='fas fa-plus'></i>Thêm nhiệm kỳ</span>
+                            </li>
+                        </div>
+                    </div>
+                    <div className='right' style={{marginLeft: '165px'}}>
+                        <div className='title'>chi hội sinh viên bình tân</div>
                     <div className='text-center name-nhiemky'>Nhiệm kỳ {name}</div>
                     <div className='text-center name-nhiemky'>-------------- + --------------</div>
 
+
+                    {name && <CHT tunure={name} />}
+
+                    {name && <CHP tunure={name} />}
+
+                    {name && <UV tunure={name} />}
+
+                    {name && <CTV tunure={name} />}
+                    </div>
                 </div>
-
-                {name && <CHT tunure={name} />}
-
-                {name && <CHP tunure={name} />}
-
-                {name && <UV tunure={name} />}
-
-                {name && <CTV tunure={name} />}
 
 
                

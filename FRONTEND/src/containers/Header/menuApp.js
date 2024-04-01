@@ -69,30 +69,15 @@ export const chtMenu = [
   },
   {
     //quản lý nhiệm kỳ
-    name: "system.nhiemky",
-    menus: [
-    {
-        name: "system.manage-nhiemky",        link: "/system/manage-nhiemky",
-      },
-    ],
+    name: "system.nhiemky",link: "/system/manage-nhiemky",
   },
   {
     //quản lý thống kê
-    name: "system.thongke",
-    menus: [
-    {
-        name: "system.manage-thongke",        link: "/system/manage-thongke",
-      },
-    ],
+    name: "system.thongke",link: "/system/manage-thongke",
   },
   {
     //quản lý thống kê
-    name: "form",
-    menus: [
-    {
-        name: "manage-form",        link: "/system/bieumau",
-      },
-    ],
+    name: "form",link: "/system/bieumau",
   },
 
 ];
