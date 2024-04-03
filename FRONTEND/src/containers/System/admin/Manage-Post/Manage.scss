@@ -819,6 +819,7 @@ width: 80%;
 .bieumau{
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     border-radius: 5px;
+    overflow: hidden;
     .addbieumau{
         position: fixed;
             bottom: 10%;
@@ -835,6 +836,9 @@ width: 80%;
         a{
             text-decoration: none;
         }
+
+        display: flex;
+        justify-content: space-between;
     }
 
     .openform{

@@ -152,7 +152,7 @@ class Resultform extends Component
         return (
             <>
                 <div className='postinfor'>
-                    <div className='left'>
+                    <div className='left' style={{paddingTop: "30px"}}>
                         <div className='content'>
                             <li onClick={() => this.linkTouser("/system/manage-post")}><span><i className='fas fa-list'></i><FormattedMessage id="system.manage.manage-post"></FormattedMessage></span></li>
                             <li ><span><i class="fas fa-book"></i><FormattedMessage id="system.manage.manage-form"></FormattedMessage></span>

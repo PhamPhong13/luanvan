@@ -123,7 +123,12 @@ class Bieumau extends Component
     handleopenform = () => {
         this.setState({
             openform: !this.state.openform,
-        })
+            name: '',
+            image: '',
+            id: '',
+            action: "create",
+        });
+
     }
 
 
@@ -133,6 +138,7 @@ class Bieumau extends Component
     }
 
     handleEdit = (item) => {
+        console.log(item);
         this.setState({
             name: item.name,
             image: item.image,
@@ -151,7 +157,7 @@ class Bieumau extends Component
     
     render ()
     {
-        let { openform, listBieumau , name} = this.state;
+        let { openform, listBieumau , name, image,  action} = this.state;
         return (
             <>
                 <title>
@@ -164,32 +170,60 @@ class Bieumau extends Component
                         </div>
                     </div>
                     <div className='right' style={{marginLeft: '222px', padding: '33px 30px'}}>
-                        <div className=' bieumau'>
+                        <div className=' bieumau' >
                     <div className='addbieumau' onClick={() => this.handleopenform()}>Thêm</div>
                             <div className='title py-3 mt-0'  style={{background: 'white'}}>Quản lý biểu mẫu</div>
-                    {listBieumau && isEmpty(listBieumau) && "Không có biểu mẫu nào!"}
-                    {listBieumau && !isEmpty(listBieumau) && listBieumau.map((item) => {
-                        return (
-                            <div className='bieumau_content'>
-                                 <a href={item.image} download>- {item.name}</a>
-                                
-                                <div className='button-sumit'>
-                            <div className='btn btn-primary btn-submit'
+                            {listBieumau && isEmpty(listBieumau) && "Không có biểu mẫu nào!"}
+                            
+                        <div className='list-user' style={{height: 'auto'}}>
+                            <div className='table-list'>
+                        <table className="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                        <th scope="col" className='stt'>STT</th>
+                        <th scope="col">Biểu mẫu</th>
+                        <th scope="col"><FormattedMessage id="key.action"></FormattedMessage></th>
+                        </tr>
+                    </thead>
+                        <tbody>
+                            {listBieumau && listBieumau.length > 0 && listBieumau.map((item, index) => {
+                                return (
+                                        <tr>
+                                        <td className='tdstt'><p>{ index + 1}</p></td>
+                                        <td><p>{ item.name}</p></td>
+                                        <td className='action'>
+                                            <p>
+                                                <div className='btn btn-primary btn-submit'
                             onClick={() => this.handleEdit(item)}
                             >
-                                    <FormattedMessage id="key.change"></FormattedMessage></div>
+                                    <FormattedMessage id="key.edit"></FormattedMessage></div>
                                 <div className='btn btn-danger mx-2'
                             onClick={() => this.handleDeleteBieumau(item.id)}
                             >
                                 <FormattedMessage id="key.delete"></FormattedMessage></div>
-                        </div>
+                                            </p>
+                                        </td>
+                                        </tr>
+                                )
+                            })}
+
+                        
+                    </tbody>
+                    </table>
+                            {listBieumau && listBieumau.length <= 0 &&
+                                <div className='null'>
+                                    Danh sách rổng!
                             </div>
-                        )
-                    })}
+                            }
+                    </div>
+
+                    </div>
+
+                    
                     {openform === true &&
                     <div className='openform'>
                         <div className='openformContent'>
-                            <div className='title'>Thêm biểu mẫu</div>
+                            <div className='title'>{action === 'create' ? "Thêm" : "Sửa"} biểu mẫu</div>
                             <div className='form-group'>
                                 <label>Tên biểu mẫu</label>
                                     <input type="text" value={name}
@@ -198,19 +232,21 @@ class Bieumau extends Component
                             </div>
                             <div className='form-group image'>
                                 <label className='label_upload-img' htmlFor='reviewImg'>Link biểu mẫu </label>
-                                <input type='text' className='form-controll-file' 
+                                <input type='text' className='form-controll-file'  value={image}
                                     onChange={(event) => this.handleOnchangeInput(event, 'image')}
                                 />
                             </div>
                             <div className='button-sumit'>
-                            <div className='btn btn-primary btn-submit'
+                            <p>
+                                                <div className='btn btn-primary btn-submit'
                             onClick={() => this.handleSave()}
                             >
                                     <FormattedMessage id="key.save"></FormattedMessage></div>
-                                <div className='btn btn-secondary '
+                                <div className='btn btn-secondary mx-2'
                             onClick={() => this.handleopenform()}
                             >
                                 <FormattedMessage id="key.cancel"></FormattedMessage></div>
+                                            </p>
                                 </div>
                                 
                         </div>

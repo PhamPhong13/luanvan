@@ -77,8 +77,15 @@ class Post extends Component
             }
             else {
                 this.setState({
-                    dayuntil: ``
+                    dayuntil: `Link đăng ký đã đóng!`,
+                    openTitleForm: true
                 })
+
+                setTimeout(() => {
+                    this.setState({
+                        openTitleForm: false
+                    });
+                }, 3000);
             }
         }
         else this.setState({
