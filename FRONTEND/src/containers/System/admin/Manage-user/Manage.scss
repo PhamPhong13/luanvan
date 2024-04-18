@@ -250,7 +250,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 493px;
+    height: 250px;
 
     form{
         width: 100%;
@@ -260,6 +260,7 @@
         justify-content: space-between;
         background-color: white;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        margin-top: 215px;
 
         flex-wrap: wrap;
         .form-group{

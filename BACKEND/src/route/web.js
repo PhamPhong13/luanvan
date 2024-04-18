@@ -79,6 +79,7 @@ let initWebRoutes = (app) => {
   // route post
   router.post("/api/create-post", post.createpost); // create post
   router.get("/api/get-post", post.getpost); // get post
+  router.get("/api/get-post-the-new", post.getpostnew); // get post
   router.get("/api/get-post-slide", post.getpostslide); // get post
   router.get("/api/get-all-post", post.getAllpost); // get post
   router.get("/api/get-post-by-id", post.getpostById); // get post by id

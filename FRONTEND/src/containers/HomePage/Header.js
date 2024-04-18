@@ -7,6 +7,7 @@ import logo from "../../assets/logo.jpg"
 import avatar from "../../assets/user.jpg"
 import top from "../../assets/top.png"
 import { withRouter } from 'react-router';
+import { CommonUtils} from '../../utils';
 import { getAllcat , getcat, handleSearchHeader} from '../../services/userService';
 
 class Header extends Component
@@ -32,10 +33,11 @@ class Header extends Component
             listCat: res.data
         })
     }
-    linktoLogin = () => {
+
+    linktolink = (link) => {
         if ( this.props.history )
         {
-            this.props.history.push( `/login-user` );
+            this.props.history.push( `/${link}` );
         }
     }
 
@@ -46,41 +48,7 @@ class Header extends Component
         }
     }
 
-    linktoProfile = () => {
-        if ( this.props.history )
-        {
-            this.props.history.push( `/profile` );
-        }
-    }
-
-    linktoHome = () => {
-        if ( this.props.history )
-        {
-            this.props.history.push( `/home` );
-        }
-    }
-
-    linktoTunure = () => {
-        if ( this.props.history )
-        {
-            this.props.history.push( `/tunure` );
-        }
-    }
-
-    linktolh = () => {
-        if ( this.props.history )
-        {
-            this.props.history.push( `/lienhe` );
-        }
-    }
-
-    linktoForm = () => {
-        if ( this.props.history )
-        {
-            this.props.history.push( `/forms` );
-        }
-    }
-
+    
     linktoItem = (item) => {
         if (item.type === 'category') {
             if ( this.props.history )
@@ -150,7 +118,7 @@ class Header extends Component
                         <div className='header_container-bottom'>
                             <div className='left'>
                                 <li className='li-home'
-                                onClick={() => this.linktoHome()}>
+                                onClick={() => this.linktolink('home')}>
                                     <i className='fas fa-home'></i>
 
                                     
@@ -168,13 +136,13 @@ class Header extends Component
                                         })}
                                     </ul>
                                 </li>
-                                <li onClick={() => this.linktolh()}>
+                                <li onClick={() => this.linktolink('lienhe')}>
                                     Liên hệ
                                 </li>
-                                <li onClick={() => this.linktoTunure()}>
+                                <li onClick={() => this.linktolink('tunure')}>
                                     Thông tin
                                 </li>
-                                <li onClick={() => this.linktoForm()}>
+                                <li onClick={() => this.linktolink('forms')}>
                                     Biểu mẫu
                                 </li>
                                 <li className='iconserach'
@@ -209,12 +177,12 @@ class Header extends Component
                                     }
                                     <ul>
                                         {this.props.userInfo && 
-                                            <li onClick={() => this.linktoProfile()}>       Tài khoản                   </li>}
+                                            <li onClick={() => this.linktolink('profile')}>       Tài khoản                   </li>}
                                         {this.props.userInfo === null && 
-                                        <li onClick={() => this.linktoLogin()}>       Tài khoản                   </li>}
+                                        <li onClick={() => this.linktolink('login-user')}>       Tài khoản                   </li>}
                                         <li>
                                             {this.props.userInfo && <span onClick={processLogout_U}>Đăng xuất</span>}
-                                            {this.props.userInfo === null && <span onClick={() => this.linktoLogin()}>Đăng nhâp</span>}
+                                            {this.props.userInfo === null && <span onClick={() => this.linktolink('login-user')}>Đăng nhâp</span>}
 
                                             </li>
                                     </ul>

@@ -4,10 +4,11 @@ import './HomePage.scss';
 import _ from 'lodash';
 import Header from './Header';
 import * as actions from '../../store/actions'
-import { handleLoginUser, createUser } from '../../services/userService';
+import { handleLoginUser, createUser, getAllnhiemky } from '../../services/userService';
 import { toast } from 'react-toastify';
 import { withRouter } from 'react-router';
 import { CommonUtils } from '../../utils'; // vi or en
+import Footer from './Footer';
 
 class Signup extends Component
 {
@@ -22,7 +23,11 @@ class Signup extends Component
             fullName: "",
             openSign: false,
             openLog: false,
+            nhiemky: ""
         }
+    }
+    async componentDidMount() {
+        await this.gettunures();
     }
     handleOnchangeInput = ( event, id ) =>
     {
@@ -31,6 +36,14 @@ class Signup extends Component
         this.setState( {
             ...stateCopy
         } )
+    }
+    gettunures= async () => {
+        let res = await getAllnhiemky();
+        if (res && res.errCode === 0) {
+            this.setState({
+                nhiemky: res.data[res.data.length - 1].name
+            })
+        }
     }
     handleOnchangeImg = async (event) => {
         let file = event.target.files[0];
@@ -49,7 +62,8 @@ class Signup extends Component
             phone: this.state.phone,
             fullName: this.state.fullName,
             image: this.state.image,
-            status: '0'
+            status: '0',
+            tunure: this.state.nhiemky
         })
 
         if (res && res.errCode === 0) {
@@ -75,6 +89,13 @@ class Signup extends Component
         this.setState({
             openSign: !this.state.openSign
         })
+    }
+
+    linktoLogin = () => {
+        if ( this.props.history )
+        {
+            this.props.history.push( `/login-user` );
+        }
     }
 
     render ()
@@ -179,6 +200,7 @@ class Signup extends Component
                     </div>
                 </div>
                 }
+                <Footer />
             </>
         );
     }

@@ -13,6 +13,7 @@ class CommonUtils {
             reader.onerror = error => reject(error);
         })
     }
+
 }
 
 export default CommonUtils;

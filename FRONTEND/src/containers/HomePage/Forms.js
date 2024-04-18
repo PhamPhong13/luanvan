@@ -74,7 +74,7 @@ class Forms extends Component
                                 {listbieumau && !isEmpty(listbieumau) && listbieumau.map((item) => {
                                     return (
                                         <div className='my-2'>
-                                            <a href={item.image} target='_blank'>- {item.name}</a>
+                                            <a href={item.image} target='_blank' rel='noopener noreferrer'>- {item.name}</a>
                                          </div>
                                     )
                                 })}

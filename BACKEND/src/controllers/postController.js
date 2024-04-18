@@ -22,6 +22,13 @@ let getpost = async ( req, res ) =>
     return res.status( 200 ).json( User );
 }
 
+// get all patient
+let getpostnew = async ( req, res ) =>
+{
+    let User = await postService.getpostnew();
+    return res.status( 200 ).json( User );
+}
+
 let getpostslide = async ( req, res ) =>
 {
     let User = await postService.getpostslide();
@@ -81,5 +88,6 @@ module.exports = {
     getAllpost: getAllpost,
     getAllpostBypage: getAllpostBypage,
     getpostslide: getpostslide,
-    createformusersubmit: createformusersubmit
+    createformusersubmit: createformusersubmit, 
+    getpostnew: getpostnew
 }

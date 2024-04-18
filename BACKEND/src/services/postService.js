@@ -97,6 +97,7 @@ let getpostslide = (page, userId) => {
         }
     } )
 }
+
 let getpost = (page, userId) => {
     return new Promise(async (resolve, reject) => {
         const limit = 5; // Số lượng bài viết mỗi trang
@@ -153,6 +154,26 @@ let getpost = (page, userId) => {
                 data: patients,
                 total: totalPosts,
                 totalPages: totalPages
+            });
+        } catch (err) {
+            reject(err);
+        }
+    });
+};
+
+
+let getpostnew = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const latestPost = await db.Post.findOne({
+                attributes: ['id', 'name'], // chỉ lấy trường id và name
+                order: [['createdAt', 'DESC']] // Sắp xếp theo thời gian tạo, từ mới nhất đến cũ nhất
+            });
+
+            resolve({
+                errCode: 0,
+                message: "Successfully retrieved the latest post!",
+                data: latestPost
             });
         } catch (err) {
             reject(err);
@@ -426,5 +447,6 @@ module.exports = {
     getAllpost: getAllpost,
     getAllpostBypage: getAllpostBypage,
     getpostslide: getpostslide,
-    createformusersubmit: createformusersubmit
+    createformusersubmit: createformusersubmit,
+     getpostnew: getpostnew
 }

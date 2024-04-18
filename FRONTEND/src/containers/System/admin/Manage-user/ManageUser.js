@@ -164,6 +164,7 @@ class ManageUser extends Component
                         <th scope="col"><FormattedMessage id="key.email"></FormattedMessage></th>
                         <th scope="col"><FormattedMessage id="key.fullname"></FormattedMessage></th>
                         <th scope="col" className='phone'><FormattedMessage id="key.phone"></FormattedMessage></th>
+                        <th scope="col" className='phone'>Nhiệm kỳ</th>
                         <th scope="col"><FormattedMessage id="key.action"></FormattedMessage></th>
                         </tr>
                     </thead>
@@ -175,6 +176,7 @@ class ManageUser extends Component
                                         <td><p>{ item.email}</p></td>
                                         <td><p>{ item.fullName}</p></td>
                                         <td className='tdphone'><p>{ item.phone}</p></td>
+                                        <td className='tdphone'><p>{ item.tunure}</p></td>
                                         <td className='action'>
                                             <p>
                                                 <div className='btn btn-warning btn-edit'

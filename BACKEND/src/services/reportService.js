@@ -43,7 +43,13 @@ let getreport = (id, status, page) =>
             if (page === "undefined") page = 1;
             const limit = 5; // Số lượng bài viết mỗi trang
             const offset = (page - 1) * limit;
-            let totalPosts = await db.Report.count(); // Đếm tổng số bài viết
+           let totalPosts = await db.Report.count(
+               {
+                    where: {
+                    status: status
+                },
+                }
+            ); // Đếm tổng số bài viết
             let totalPages = Math.ceil(totalPosts / limit);
             let patients = await db.Report.findAll({
                 where: {

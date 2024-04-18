@@ -546,11 +546,16 @@ const getUserlock = (page) => {
   return axios.get(`/api/get-user-lock?page=${page}`);
 };
 
+const getpostnew = () => {
+  return axios.get(`/api/get-post-the-new`);
+};
+
+
 export {
 
   getuserformbyadminid, getlikepostByuserId, getadmintunure, createbieumau, getbieumau, deletebieumau, getconnecttochart,
 
-  handleLoginApi, getAllcode, handleLoginUser, updatebieumau, getuserbystatus, examineUser, getuserstatus, 
+  handleLoginApi, getAllcode, handleLoginUser, updatebieumau, getuserbystatus, examineUser, getuserstatus, getpostnew, 
   
   getlikepostcount, getUserlock, 
 

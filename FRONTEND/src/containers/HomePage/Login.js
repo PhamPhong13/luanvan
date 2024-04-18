@@ -7,6 +7,7 @@ import * as actions from '../../store/actions'
 import { handleLoginUser , getuserstatus} from '../../services/userService';
 import { toast } from 'react-toastify';
 import { withRouter } from 'react-router';
+import Footer from './Footer'
 
 class Login extends Component
 {
@@ -73,10 +74,6 @@ class Login extends Component
     }
 
     linktoProfile = () => {
-        /* if ( this.props.history )
-        {
-            this.props.history.push( `/profile` );
-        } */
         this.props.history.goBack();
     }
 
@@ -192,6 +189,7 @@ class Login extends Component
                         </div>
                     </div>
                 </div>
+                <Footer />
             </>
         );
     }

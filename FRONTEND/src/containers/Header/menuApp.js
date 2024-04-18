@@ -84,49 +84,27 @@ export const chtMenu = [
 
 export const chpMenu = [
   {
-    //quản lý người dùng
-    name: "system.manage.user",
-    menus: [
-    {
-        name: "system.manage.manage-user",
-        link: "/system/manage-user",
-        /* subMenus: [
-                    { name: 'menu.system.system-administrator.user-manage', link: '/system/user-manage' },
-                    { name: 'menu.system.system-administrator.user-redux', link: '/system/manage-patient' },
-                ] */
-      },
-    ],
-  },
-  {
     //quản lý danh mục
-    name: "system.manage.manage-cat",
-    menus: [
-    {
-        name: "system.manage.manage-category",        link: "/system/manage-cat",
-      },
-    ],
+    name: "system.manage.manage-cat",link: "/system/manage-cat",
   },
   {
     //quản lý bài viết
-    name: "system.manage.essay",
-    menus: [
-    {
-        name: "system.manage.manage-post",        link: "/system/manage-post",
-      },
-      {
-        name: "system.manage.manage-form",        link: "/system/manage-form",
-      },
-    ],
+    name: "system.manage.essay",link: "/system/manage-post",
+  },
+ 
+  {
+    //quản lý nhiệm kỳ
+    name: "system.nhiemky",link: "/system/manage-nhiemky",
   },
   {
     //quản lý thống kê
-    name: "Biểu mẫu",
-    menus: [
-    {
-        name: "Quản lý biểu mẫu",        link: "/system/bieumau",
-      },
-    ],
+    name: "system.thongke",link: "/system/manage-thongke",
   },
+  {
+    //quản lý thống kê
+    name: "form",link: "/system/bieumau",
+  },
+
 ];
 
 
@@ -134,15 +112,7 @@ export const chpMenu = [
 export const menberMenu = [
   {
     //quản lý bài viết
-    name: "system.manage.essay",
-    menus: [
-    {
-        name: "system.manage.manage-post",        link: "/system/manage-post",
-      },
-      {
-        name: "system.manage.manage-form",        link: "/system/manage-form",
-      },
-    ],
+    name: "system.manage.essay",link: "/system/manage-post",
   },
 
 ];

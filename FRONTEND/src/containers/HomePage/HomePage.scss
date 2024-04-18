@@ -4,6 +4,8 @@
         height: 50px;
         bottom: 10px;
         right: 30%;
+        box-shadow: rgb(120, 181, 213) 0px 5px 15px;
+        border-radius: 26px;
 }
 
 .header{
@@ -46,7 +48,7 @@
 
         .header_container-bottom{
             width: 100%;
-            background-color: #009d0b;
+            background-color: #00db0f;
             height: calc(100% - 80px);
 
             display: flex;
@@ -233,12 +235,12 @@
             box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
         }
         img{
-            width: 30%;
-            height: 130px;
+            width: 23%;
+            height: 60px;
             border-radius: 5px;
         }
         .name{
-            width: 70%;
+            width: 77%;
             padding: 0 10px;
             font-size: 20px;
             font-weight: bold;
@@ -253,7 +255,7 @@
     padding: 0 100px;
     .login-user-content{
         padding-top: 122px;
-        height: 100vh;
+        height: 63vh;
 
         display: flex;
         justify-content: center;
@@ -1088,6 +1090,8 @@
     width: 50px;
     height: 50px;
     z-index: 1000;
+    box-shadow: rgb(120, 181, 213) 0px 5px 15px;
+        border-radius: 26px;
     img{
         width: 100%;
         height: 100%;
@@ -1390,4 +1394,63 @@ position: fixed;
             cursor: pointer;
         }
     }
+}
+
+
+.newpost{
+    cursor: pointer;
+        position: fixed;
+        bottom: 23%;
+        right: 30%;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        background: rgb(120, 181, 213);
+        box-shadow: rgb(120, 181, 213) 0px 5px 15px;
+
+        
+        .name{
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            position: absolute;
+            top: 6px;
+            right: 56px;
+            width: 265px;
+            overflow: hidden;
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            height: 39px;
+                /* Áp dụng hiệu ứng chuyển động */
+                animation: moveRightToLeft 0.2s linear forwards;
+                /* Đảm bảo văn bản không bị tràn ra khỏi div */
+                white-space: nowrap;
+            
+                @keyframes moveRightToLeft {
+                    0% {
+                        /* Tại thời điểm ban đầu, div sẽ ở vị trí ban đầu (trái) */
+                        transform: translateX(20%);
+                    }
+            
+                    100% {
+                        /* Tại thời điểm cuối cùng, div sẽ dịch chuyển sang phải */
+                        transform: translateX(-0%);
+                    }
+                }
+
+                .nameitem{
+                width: 240px;
+                    display: block;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 1;
+                    height: 33px;
+                    overflow: hidden;
+                    color: black;
+                }
+        }
 }

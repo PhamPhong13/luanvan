@@ -201,7 +201,7 @@ class ThongkeLike extends Component {
                     </div>
           <div className="right">
             <div className="thongke">
-          <div className="title mt-0 pt-3">Thống kê bài viết</div>
+          <div className="title mt-0 pt-3">Thống kê yêu thích</div>
           <div className="ltc">
             Lược truy cập vào hệ thống
             <select onChange={(event) => this.ltc(event)}> {selectltc}

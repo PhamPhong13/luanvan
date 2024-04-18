@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './HomePage.scss';
-import _ from 'lodash';
+import _, { isEmpty } from 'lodash';
 import { FormattedMessage } from 'react-intl';
-import { getpost, getcat, createconnect, getpostslide, getAllconnect} from '../../services/userService';
+import { getpost, getcat, createconnect, getpostslide, getAllconnect, getpostnew} from '../../services/userService';
 import Header from './Header';
 import Slider from './Slider';
 import PostOnCat from './PostOnCat';
@@ -20,6 +20,8 @@ class HomePage extends Component
             listPost: [],
             listCat: [],
             totalconnect: 0,
+            newPost: '',
+            iconnewpost: false
         }
     }
 
@@ -29,6 +31,20 @@ class HomePage extends Component
         await this.getCat();
         await this.createconnection();
         await this.getconnect();
+        await this.getnewpost();
+    }
+
+
+    getnewpost = async () => {
+        let res = await getpostnew();
+        if (res && res.errCode === 0) {
+            this.setState({
+                newPost: res.data
+            })
+        }
+        else this.setState({
+            newPost: ''
+        })
     }
 
     getconnect = async () => {
@@ -37,6 +53,15 @@ class HomePage extends Component
             this.setState({
                 totalconnect: res.total
             })
+            this.setState({
+            iconnewpost: true
+        });
+
+        setTimeout(() => {
+            this.setState({
+                iconnewpost: false
+            });
+        }, 3000);
         }
         else this.setState({
             totalconnect: 0
@@ -105,7 +130,8 @@ class HomePage extends Component
     render ()
     {
 
-        let { listCat , totalconnect , chat, iconchat_title} = this.state;
+        let { listCat, totalconnect, chat, iconchat_title, newPost, iconnewpost } = this.state;
+        console.log(newPost);
         return (
             <>
                 <title>
@@ -169,7 +195,20 @@ class HomePage extends Component
                     </div>
                 </div>
 
-                <div className='title'>Số lược truy cập: { this.formatnumber(totalconnect)}</div>
+                <div className='title'>Số lược truy cập: {this.formatnumber(totalconnect)}</div>
+                
+                {newPost && !isEmpty(newPost) && 
+                    <div className='newpost' onClick={() => this.linktopost(newPost.id)} >
+                        <div>New</div> 
+                            {iconnewpost === true &&
+                        <div className='name'>
+                                <p className='nameitem'>{newPost.name}</p>
+                                </div>
+                        }
+                        
+                        
+                </div>
+                }
 
                 <Footer />
 
