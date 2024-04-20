@@ -56,15 +56,16 @@ class HomePage extends Component
             this.setState({
             iconnewpost: true
         });
-
-        setTimeout(() => {
-            this.setState({
-                iconnewpost: false
-            });
-        }, 3000);
+        
         }
         else this.setState({
             totalconnect: 0
+        })
+    }
+
+    closeiconnewpost = () => {
+        this.setState({
+            iconnewpost: false
         })
     }
 
@@ -109,12 +110,12 @@ class HomePage extends Component
         this.setState({
             iconchat_title: true
         });
+    }
 
-        setTimeout(() => {
-            this.setState({
-                iconchat_title: false
-            });
-        }, 3000);
+    closesetTilechat = () => {
+        this.setState({
+            iconchat_title: false
+        });
     }
     handleChat = () => {
         this.setState({
@@ -153,7 +154,10 @@ class HomePage extends Component
                 {chat === false && 
                     <div className='iconchat' onClick={() => this.handleChat()}>
                         <img src={chatimage} />
-                        {iconchat_title === true && <div className='iconchat_title'>Chat cùng bot Chi hội Sinh viên Bình Tân.</div>}
+                        {iconchat_title === true && <div className='iconchat_title'>
+                            <p className='iconchat_title-name'><span>Chat cùng bot Chi hội Sinh viên Bình Tân.</span></p>
+                            <p className='closeiconchat'>x</p>
+                        </div>}
                     </div>
                 }
                 <div className='container manage_container'id='top'>
@@ -202,7 +206,8 @@ class HomePage extends Component
                         <div>New</div> 
                             {iconnewpost === true &&
                         <div className='name'>
-                                <p className='nameitem'>{newPost.name}</p>
+                                <p className='nameitem'><span>{newPost.name}</span></p>
+                                <p className='close-newpost'>x</p>
                                 </div>
                         }
                         

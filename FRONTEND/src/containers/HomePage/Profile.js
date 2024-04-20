@@ -9,6 +9,7 @@ import { CommonUtils } from '../../utils'; // vi or en
 import pen from "../../assets/pen.png"
 import play from "../../assets/play.png"
 import { toast } from 'react-toastify';
+import Footer from "./Footer"
 class Profile extends Component
 {
 
@@ -247,6 +248,7 @@ class Profile extends Component
                         }
                     </div>
                 </div>
+                <Footer />
                 
             </>
         );

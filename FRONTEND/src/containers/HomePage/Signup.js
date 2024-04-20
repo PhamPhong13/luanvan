@@ -187,9 +187,9 @@ class Signup extends Component
                     <div className='signupsuccess-content'>
                         <div className='     text-center'>
                             Bạn vừa đăng ký tài khoản để truy cập vào cổng điện
-                            tử của chúng tôi! Nhưng bạn chưa có thể đăng nhập 
+                            tử của chúng tôi! <span style={{color: '#dbdb00'}}>Nhưng bạn chưa có thể đăng nhập 
                             trước khi quản trị viên duyệt yêu cầu đăng ký của bạn.
-                            Giờ bạn có thể truy cập vào bằng tài khoản khách.
+                            Giờ bạn có thể truy cập vào bằng tài khoản khách.</span>
                         </div>
                         <div className='btn-submit mt-3'>
                             <div className='btn btn-primary'

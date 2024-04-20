@@ -1082,55 +1082,56 @@
         padding: 0 8px;
     }
 }
-
-.iconchat{
+.iconchat {
     position: fixed;
-        right: 30%;
+        right: 2%;
         bottom: 12%;
-    width: 50px;
-    height: 50px;
-    z-index: 1000;
-    box-shadow: rgb(120, 181, 213) 0px 5px 15px;
-        border-radius: 26px;
-    img{
+        width: 59px;
+        height: 59px;
+        z-index: 1000;
+        box-shadow: #78b5d5 0px 5px 15px;
+        border-radius: 37px;
+
+    img {
         width: 100%;
         height: 100%;
     }
 
-    .iconchat_title{
-        position: absolute;
-            top: 11%;
-            right: 110%;
-            width: 275px;
-            background-color: #78b5d5;
-            padding: 10px 5px;
+    .iconchat_title {
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            position: absolute;
+            top: 0px;
+            right: 75px;
+            width: 357px;
+            overflow: hidden;
+            background-color: white;
+            padding: 10px;
             border-radius: 5px;
-            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-
+            height: 60px;
+            display: flex;
+        .iconchat_title-name{
+            width: 90%;
+                font-size: 14px;
+                padding: 0 10px;
             
-                 display: inline-block;
-                /* Thiết lập chiều dài và chiều rộng tối thiểu */
-                min-width: 0;
-                /* Áp dụng hiệu ứng chuyển động */
-                animation: moveRightToLeft 0.2s linear forwards;
-                /* Đảm bảo văn bản không bị tràn ra khỏi div */
-                white-space: nowrap;
+                span {
+                    display: block;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 1;
+                    line-height: 43px;
+                }
 
-                @keyframes moveRightToLeft {
-                        0% {
-                                /* Tại thời điểm ban đầu, div sẽ ở vị trí ban đầu (trái) */
-                                transform: translateX(20%);
-                            }
-                        
-                            100% {
-                                /* Tại thời điểm cuối cùng, div sẽ dịch chuyển sang phải */
-                                transform: translateX(-0%);
-                            }
-                    }
+        }
+        .closeiconchat{
+            width: 10%;
+            text-align: center;
+            font-size: 25px;
+        }
+
+        
     }
 }
-
-
 .formgooglepost{
 position: fixed;
     bottom: 11%;
@@ -1400,57 +1401,54 @@ position: fixed;
 .newpost{
     cursor: pointer;
         position: fixed;
-        bottom: 23%;
-        right: 30%;
-        width: 50px;
-        height: 50px;
+        bottom: 26%;
+        right: 1.5%;
+        width: 60px;
+        height: 60px;
         border-radius: 50%;
-        color: white;
         display: flex;
         justify-content: center;
         align-items: center;
         font-size: 14px;
-        background: rgb(120, 181, 213);
-        box-shadow: rgb(120, 181, 213) 0px 5px 15px;
+        background: #78b5d5;
+        box-shadow: #78b5d5 0px 5px 15px;
+        z-index: 1000;
 
         
         .name{
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
             position: absolute;
-            top: 6px;
-            right: 56px;
-            width: 265px;
+            top: 0px;
+            right: 75px;
+            width: 357px;
             overflow: hidden;
             background-color: white;
             padding: 10px;
             border-radius: 5px;
-            height: 39px;
-                /* Áp dụng hiệu ứng chuyển động */
-                animation: moveRightToLeft 0.2s linear forwards;
-                /* Đảm bảo văn bản không bị tràn ra khỏi div */
-                white-space: nowrap;
-            
-                @keyframes moveRightToLeft {
-                    0% {
-                        /* Tại thời điểm ban đầu, div sẽ ở vị trí ban đầu (trái) */
-                        transform: translateX(20%);
-                    }
-            
-                    100% {
-                        /* Tại thời điểm cuối cùng, div sẽ dịch chuyển sang phải */
-                        transform: translateX(-0%);
-                    }
-                }
-
+            height: 60px;
+            display: flex;
+                
                 .nameitem{
-                width: 240px;
+                width: 90%;
+                font-size: 14px;
+                padding: 0 10px;
+                span{
                     display: block;
-                    display: -webkit-box;
-                    -webkit-box-orient: vertical;
-                    -webkit-line-clamp: 1;
-                    height: 33px;
-                    overflow: hidden;
-                    color: black;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 1;
+                        line-height: 43px;
+                }
+                }
+                .close-newpost{
+                    width: 10%;
+                        text-align: center;
+                        font-size: 24px;
                 }
         }
+}
+
+
+.df-messenger-wrapper{
+    z-index: 1000;
 }

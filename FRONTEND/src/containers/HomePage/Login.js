@@ -109,7 +109,7 @@ class Login extends Component
                     <div className='checkstatususer'>
                         <div className='checkstatususer-content'>
                             <div className='my-2'>
-                                <p>Tài khoản không tồn tại!</p>
+                                <p style={{color: "red"}}>Tài khoản không tồn tại!</p>
                             </div>
                             <div className='btn-submit'>
                                 <div className='btn btn-primary'
@@ -126,7 +126,7 @@ class Login extends Component
                 {checkstatus && checkstatus === '0' && opencheck === true &&
                     <div className='checkstatususer'>
                         <div className='checkstatususer-content'>
-                            <div className='my-2'>Tài khoản của bạn chưa được phê duyệt!</div>
+                            <div className='my-2' style={{color: "red"}}>Tài khoản của bạn chưa được phê duyệt!</div>
                             <div className='btn-submit'>
                                 <div className='btn btn-primary'
                                     onClick={() => this.opencheck()} 
@@ -143,7 +143,7 @@ class Login extends Component
                     <div className='checkstatususer'>
                         <div className='checkstatususer-content'>
                             <div className='my-2'>
-                                <p>Tài khoản của bạn đã bị khóa!</p>
+                                <p style={{color: "red"}}>Tài khoản của bạn đã bị khóa!</p>
                                 <p>Bạn có thể phản hồi với người quản trị để mở khóa!
                                     <span onClick={() => this.linktolienhe()}> Tại đây</span>  </p>
                             </div>

@@ -136,11 +136,11 @@ class Header extends Component
                                         })}
                                     </ul>
                                 </li>
-                                <li onClick={() => this.linktolink('lienhe')}>
-                                    Liên hệ
-                                </li>
                                 <li onClick={() => this.linktolink('tunure')}>
                                     Thông tin
+                                </li>
+                                <li onClick={() => this.linktolink('lienhe')}>
+                                    Liên hệ
                                 </li>
                                 <li onClick={() => this.linktolink('forms')}>
                                     Biểu mẫu
