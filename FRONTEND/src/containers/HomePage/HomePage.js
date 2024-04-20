@@ -152,11 +152,11 @@ class HomePage extends Component
                 </div>
                 }
                 {chat === false && 
-                    <div className='iconchat' onClick={() => this.handleChat()}>
-                        <img src={chatimage} />
+                    <div className='iconchat' >
+                        <img src={chatimage} onClick={() => this.handleChat()}/>
                         {iconchat_title === true && <div className='iconchat_title'>
                             <p className='iconchat_title-name'><span>Chat cùng bot Chi hội Sinh viên Bình Tân.</span></p>
-                            <p className='closeiconchat'>x</p>
+                            <p onClick={() => this.closesetTilechat()} className='closeiconchat'>x</p>
                         </div>}
                     </div>
                 }
@@ -202,12 +202,12 @@ class HomePage extends Component
                 <div className='title'>Số lược truy cập: {this.formatnumber(totalconnect)}</div>
                 
                 {newPost && !isEmpty(newPost) && 
-                    <div className='newpost' onClick={() => this.linktopost(newPost.id)} >
-                        <div>New</div> 
+                    <div className='newpost'  >
+                        <div onClick={() => this.linktopost(newPost.id)}>New</div> 
                             {iconnewpost === true &&
                         <div className='name'>
                                 <p className='nameitem'><span>{newPost.name}</span></p>
-                                <p className='close-newpost'>x</p>
+                                <p onClick={() => this.closeiconnewpost()} className='close-newpost'>x</p>
                                 </div>
                         }
                         
