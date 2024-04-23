@@ -39,29 +39,56 @@ let createpost = ( data ) =>
     } )
 }
 
-let createformusersubmit = ( data ) =>
-{
-    return new Promise( async ( resolve, reject ) =>
-    {
-        try
-        {
-            await db.FormUserSubmit.create( {
-                formId: data.formId,
-                userId: data.userId
-            } );
+let createformusersubmit = (data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            // Lấy thông tin form từ database
+            let form = await db.Form.findOne({
+                where: {
+                    id: data.formId
+                }
+            });
 
-            resolve( {
-                errCode: 0,
-                message: "Create a new post successfully!"
-            } )
+            // Kiểm tra xem form có tồn tại không
+            if (!form) {
+                return resolve({
+                    errCode: 2,
+                    message: "Form not found"
+                });
+            }
+
+            // Đếm số lượng submissions đã tồn tại cho form này
+            let formsubmit = await db.FormUserSubmit.count({
+                where: {
+                    formId: data.formId,
+                }
+            });
+
+
+            // Kiểm tra xem số lượng submit đã vượt quá số lượng cho phép chưa
+            if (formsubmit >= form.quantity) {
+                // Nếu vượt quá, trả về lỗi
+                resolve({
+                    errCode: 3,
+                });
+            } else {
+                // Nếu chưa vượt quá, tạo mới một submission
+                await db.FormUserSubmit.create({
+                    formId: data.formId,
+                    userId: data.userId
+                });
+
+                resolve({
+                    errCode: 0,
+                    message: "Created a new post successfully!"
+                });
+            }
+        } catch (err) {
+            // Xử lý ngoại lệ và trả về lỗi
+            console.error("Failed to create submission:", err);
+            reject(err);
         }
-        catch ( err )
-        {
-            reject( err );
-        }
-
-
-    } )
+    });
 }
 
 let getpostslide = (page, userId) => { 

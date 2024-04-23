@@ -61,31 +61,41 @@ class Post extends Component
             this.setState({
                 form: res.data
             })
-            let dayuntil = this.daysUntil(res.data.date);
-            if (dayuntil > 0) {
+            console.log(res.data.status);
+            if (res.data.status === 'close') {
                 this.setState({
-                    dayuntil: `Đăng ký form tại đây. Link sẽ đóng sau ${dayuntil} ngày!`,
+                    dayuntil: `Biểu mẫu đăng ký đã đóng!`,
                     openTitleForm: true
                 })
-
-                setTimeout(() => {
-                    this.setState({
-                        openTitleForm: false
-                    });
-                }, 3000);
-
             }
             else {
-                this.setState({
-                    dayuntil: `Link đăng ký đã đóng!`,
-                    openTitleForm: true
-                })
-
-                setTimeout(() => {
+                
+                let dayuntil = this.daysUntil(res.data.date);
+                if (dayuntil > 0) {
                     this.setState({
-                        openTitleForm: false
-                    });
-                }, 3000);
+                        dayuntil: `Đăng ký form tại đây. Link sẽ đóng sau ${dayuntil} ngày!`,
+                        openTitleForm: true
+                    })
+    
+                    setTimeout(() => {
+                        this.setState({
+                            openTitleForm: false
+                        });
+                    }, 3000);
+    
+                }
+                else {
+                    this.setState({
+                        dayuntil: `Link đăng ký đã đóng!`,
+                        openTitleForm: true
+                    })
+    
+                    setTimeout(() => {
+                        this.setState({
+                            openTitleForm: false
+                        });
+                    }, 3000);
+                }
             }
         }
         else this.setState({

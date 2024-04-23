@@ -21,18 +21,19 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
    
-    <!-- <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-    <df-messenger class="df-messenger" intent="WELCOME" chat-title="CHSVBT" agent-id="7888c03c-760c-420a-ac59-b7fa42fd99f3"
-      language-code="vi">
-      <style scoped="df-messenger">
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
     
-      </style>
-    </df-messenger> -->
 </head>
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"></div>
+  <div class="containerchat">
+    <df-messenger chat-title="CHSVBT" intent="WELCOME" agent-id="7888c03c-760c-420a-ac59-b7fa42fd99f3" language-code="vi">
+    </df-messenger>
+  </div>
+  <div id="root">
+  </div>
+  
   <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

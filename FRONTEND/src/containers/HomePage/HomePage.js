@@ -26,15 +26,15 @@ class HomePage extends Component
     }
 
     async componentDidMount() {
-        this.setTilechat();
+        /* this.setTilechat(); */
+        await this.getnewpost();
         await this.getAllposts();
         await this.getCat();
         await this.createconnection();
         await this.getconnect();
-        await this.getnewpost();
     }
-
-
+    
+    
     getnewpost = async () => {
         let res = await getpostnew();
         if (res && res.errCode === 0) {
@@ -139,10 +139,11 @@ class HomePage extends Component
                     <FormattedMessage id="system.homepage"></FormattedMessage>
                 </title>
                 <Header /> 
-                {chat === true &&
+                {/* {chat === true &&
                 <div className='chatbox'>
                     <iframe
-                    allow="microphone;"
+                            allow="microphone;"
+                            intent="WELCOME"
                     width="350"
                     height="430"
                     src="https://console.dialogflow.com/api-client/demo/embedded/7888c03c-760c-420a-ac59-b7fa42fd99f3">
@@ -159,7 +160,7 @@ class HomePage extends Component
                             <p onClick={() => this.closesetTilechat()} className='closeiconchat'>x</p>
                         </div>}
                     </div>
-                }
+                } */}
                 <div className='container manage_container'id='top'>
                     <div className='manage_container-content' >
                         <div className='homepage' >
@@ -199,7 +200,7 @@ class HomePage extends Component
                     </div>
                 </div>
 
-                <div className='title'>Số lược truy cập: {this.formatnumber(totalconnect)}</div>
+                <div className='title my-5'>Số lược truy cập: {this.formatnumber(totalconnect)}</div>
                 
                 {newPost && !isEmpty(newPost) && 
                     <div className='newpost'  >

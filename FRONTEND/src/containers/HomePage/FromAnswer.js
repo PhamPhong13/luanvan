@@ -21,6 +21,7 @@ class FormAnswer extends Component
             formId: "",
             success: false,
             update: false,
+            fullLink: false
         }
     }
 
@@ -140,7 +141,12 @@ class FormAnswer extends Component
         })
             if (res && res.errCode === 0) {
             await this.getformusersubmitsuccess();
-        }
+            }
+            if (res && res.errCode === 3) {
+                this.setState({
+                    fullLink: true
+                })
+            }
         }
         
         
@@ -154,7 +160,7 @@ class FormAnswer extends Component
 
     render ()
     {
-        let { name, desc, email, listquestion, remove, success, postId } = this.state;
+        let { name, desc, email, listquestion, remove, success, postId , fullLink} = this.state;
         return (
             <>
                 <title>Biểu mẩu đăng ký </title>
@@ -214,6 +220,16 @@ class FormAnswer extends Component
                         <p>Bạn vừa đăng ký thành công!</p>
                         <p>Chúc bạn có một ngày tốt lành!</p>
                         <div className='btn btn-warning' onClick={() => this.handleChangeSuccess()}>Sửa biểu mẫu</div>
+                        <div className='btn btn-primary mx-2' onClick={() => this.linktopost(postId)}>Trở về</div>
+                    </div>
+                </div>
+                }
+
+                {fullLink === true && 
+                <div className='formSuccess'>
+                    <div className='formSuccess-content'>
+                        <p>Biểu mẫu đăng ký đã đạt giới hạn!</p>
+                        <p>Chúc bạn có một ngày tốt lành!</p>
                         <div className='btn btn-primary mx-2' onClick={() => this.linktopost(postId)}>Trở về</div>
                     </div>
                 </div>

@@ -34,15 +34,6 @@ class Footer extends Component {
                         <p>&copy; CopyRight website được thực hiện bởi <a href='https://www.facebook.com/profile.php?id=100029485897703'>Phạm Phong</a></p>
                     </div>
                 </div>
-
-                {/* Thêm tập lệnh và phần HTML */}
-                <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-                <df-messenger class="df-messenger" intent="WELCOME" chat-title="CHSVBT" agent-id="7888c03c-760c-420a-ac59-b7fa42fd99f3"
-                    language-code="vi">
-                    <style scoped="df-messenger">
-
-                    </style>
-                </df-messenger>
             </>
         );
     }

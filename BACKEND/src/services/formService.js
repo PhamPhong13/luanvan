@@ -186,15 +186,16 @@ let getformbyid = (postId) => {
                     formId: patients.id
                 }
             });
+            
 
-            if (keyForm) {
+                if (keyForm) {
+                
                 let answerCount = await db.Answer.count({
                     where: {
                         kerformId: keyForm.id
                     }
                 });
-
-                if (+answerCount === +patients.quantity) {
+                if (+answerCount >= +patients.quantity) {
                     await updatestatusFrom(patients.id, 'close');
                         
                 }

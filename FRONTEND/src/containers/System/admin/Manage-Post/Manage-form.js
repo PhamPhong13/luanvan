@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
-import {getform, getuserformbyadminid } from "../../../../services/userService"
+import {getform, getuserformbyadminid, deleteform } from "../../../../services/userService"
 
 import { withRouter } from 'react-router';
 import { toast } from 'react-toastify';
@@ -74,6 +74,12 @@ class ManageForm extends Component
         }
     }
     
+
+    handleDeleteUser = async (id) => {
+        await deleteform(id);
+        toast.success("Xóa thành công");
+        await this.getForms("1");
+    }
 
     render ()
     {
