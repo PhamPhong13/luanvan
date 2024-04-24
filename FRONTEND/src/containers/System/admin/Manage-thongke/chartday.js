@@ -83,18 +83,15 @@ class ChartDay extends Component {
     this.setState({
         listDay: formattedDates
     })
-    console.log(this.state);
 }
 
 
     
     getconnect = async () => {
         let res = await getAllconnect();
-        console.log(res);
     }
 
     buidChart = () => {
-        console.log(this.state);
         const today = new Date(); // Lấy ngày hiện tại
         const sevenDaysAgo = new Date(today.getTime() - 6 * 24 * 60 * 60 * 1000); // Lấy ngày 7 ngày trước
 

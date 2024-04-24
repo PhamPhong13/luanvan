@@ -132,7 +132,6 @@ class HomePage extends Component
     {
 
         let { listCat, totalconnect, chat, iconchat_title, newPost, iconnewpost } = this.state;
-        console.log(newPost);
         return (
             <>
                 <title>

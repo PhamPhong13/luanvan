@@ -16,6 +16,7 @@ class ManageCat extends Component
         this.state = {
             listCat: [],
             totalpage: 0,
+            keysearch: ''
         }
     }
 
@@ -83,14 +84,24 @@ class ManageCat extends Component
 
         if (event.target.value.length <= 0) {
             this.getAllCats();
+            this.setState({
+                keysearch: event.target.value,
+                search: false,
+            })
         }
         else {
+            this.setState({
+                keysearch: event.target.value,
+                search: true,
+            })
              await this.getAllCats("1", event.target.value);
         }
     }
 
     handlePageClick = async (event) => {
-        await this.getAllCats(event.selected + 1);
+        if (this.state.search === true) {
+            await this.getAllCats(event.selected + 1, this.state.keysearch);
+        }
      }
 
 linkTouser = (link) => {

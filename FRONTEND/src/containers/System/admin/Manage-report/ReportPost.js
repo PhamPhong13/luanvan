@@ -161,7 +161,6 @@ getday = (date) => {
     {
         let { listreport, listreportold, reportNew,
             reportOld, openModal, listuserreport, openloading } = this.state;
-        console.log(listreport);
         
         return (
             <>

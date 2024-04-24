@@ -93,7 +93,6 @@ class ManageUser extends Component
          if (this.state.search === true) {
             await this.getAllUsers(event.selected + 1, this.state.keysearch);
         }
-        await this.getAllUsers(event.selected + 1);
      }
 
     unlock = async (item) => {

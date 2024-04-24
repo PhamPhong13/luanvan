@@ -521,7 +521,6 @@ const updatebieumau = (data) => {
 }
 
 const getuserbystatus = (page, word, status) => {
-  console.log(status);
   return axios.get(`/api/get-user-by-status?page=${page}&word=${word}&status=${status}`);
 };
 

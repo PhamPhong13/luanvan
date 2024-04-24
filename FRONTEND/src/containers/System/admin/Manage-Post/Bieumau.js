@@ -138,7 +138,6 @@ class Bieumau extends Component
     }
 
     handleEdit = (item) => {
-        console.log(item);
         this.setState({
             name: item.name,
             image: item.image,

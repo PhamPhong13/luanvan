@@ -22,9 +22,6 @@ class Login extends Component
         }
     }
 
-    componentDidMount() {
-        console.log(this.props);
-    }
     handleOnchangeInput = ( event, id ) =>
     {
         let stateCopy = { ...this.state };

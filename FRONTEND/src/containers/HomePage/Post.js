@@ -61,7 +61,6 @@ class Post extends Component
             this.setState({
                 form: res.data
             })
-            console.log(res.data.status);
             if (res.data.status === 'close') {
                 this.setState({
                     dayuntil: `Biểu mẫu đăng ký đã đóng!`,
@@ -379,7 +378,6 @@ class Post extends Component
     {
         let { post, form, cat, thu, day, postbycat, openCloseform, dayuntil,  openTitleForm, 
             id, likepost, openReport, senReport, imageReport, checkUserform } = this.state;
-        console.log(dayuntil)
         return (
             <>
                 <title>
