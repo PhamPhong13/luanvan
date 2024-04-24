@@ -17,7 +17,8 @@ class ManagePost extends Component
             listPost: [],
             totalpage: 0,
             userPost: false,
-            search: false
+            search: false,
+            keysearch: ""
         }
     }
 
@@ -118,7 +119,8 @@ class ManagePost extends Component
         }
         else {
             this.setState({
-                search: true
+                search: true,
+                keysearch: event.target.value
             })
 
             await this.getAllposts("1", event.target.value);
@@ -127,7 +129,7 @@ class ManagePost extends Component
 
     handlePageClick = async (event) => {
         if (this.state.search === true) {
-            await this.getAllposts(event.selected + 1, '');
+            await this.getAllposts(event.selected + 1, this.state.keysearch);
         }
         else  await this.getposts(event.selected + 1);
     }
@@ -142,7 +144,6 @@ class ManagePost extends Component
     render ()
     {
         let { listPost, totalpage, userPost } = this.state;
-        console.log(listPost)
         return (
             <>
                 <title>

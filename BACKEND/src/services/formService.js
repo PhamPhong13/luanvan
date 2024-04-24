@@ -1,5 +1,5 @@
 import db from '../models/index';
-
+const { Op, where } = require('sequelize');
 // create 
 let createform = ( data ) =>
 {
@@ -700,6 +700,8 @@ let getform = (page, adminId) => {
 
             let postsQuery = {
                 order: [["createdAt", "DESC"]], // Sắp xếp theo ngày tạo giảm dần
+                attributes: ["id", "name", "status"]
+                
             };
 
             if (adminId !== "1") {
@@ -833,9 +835,69 @@ let deleteuserform = ( formId , adminId) =>
 }
 
 
+let getAllForm = (page, adminId, word) => {
+    if (page === "undefined" || page == null) page = 1; // Check for undefined or null and set default page number.
+
+    return new Promise(async (resolve, reject) => {
+        const limit = 5; // Number of records per page.
+        const offset = (page - 1) * limit; // Calculate offset based on current page.
+
+        try {
+            // Base query options
+            let findOptions = {
+                order: [['createdAt', 'DESC']], // Order by creation date descending.
+                offset: offset,
+                limit: limit,
+                raw: true,
+                nest: true,
+                where: {}
+            };
+
+            // Add adminId to the search criteria if provided
+            if (adminId) {
+                findOptions.where['adminId'] = adminId;
+            }
+
+            // Include word-based search in where clause if word is not undefined or empty
+            if (word && word !== "undefined" && word.trim() !== "") {
+                findOptions.where[Op.or] = [
+                    { name: { [Op.like]: `%${word}%` } }
+                ];
+            }
+
+            // Count the total number of forms that match the where clause
+            let totalPosts = await db.Form.count({ where: findOptions.where });
+            let totalPages = Math.ceil(totalPosts / limit); // Calculate total pages.
+
+            // Fetch the list of forms using the constructed find options.
+            let forms = await db.Form.findAll(findOptions);
+
+            // Resolve the promise based on the query results.
+            if (forms) {
+                resolve({
+                    errCode: 0,
+                    message: "Get list of forms successfully!",
+                    data: forms,
+                    total: totalPosts,
+                    totalPages: totalPages
+                });
+            } else {
+                resolve({
+                    errCode: 1,
+                    message: "Failed to get list of forms."
+                });
+            }
+        } catch (err) {
+            // Reject the promise if there is an error.
+            reject(err);
+        }
+    });
+};
+
+
 
 module.exports = {
-    createform: createform,    createuserform: createuserform,
+    createform: createform,    createuserform: createuserform, getAllForm: getAllForm,
     createkeyform: createkeyform,    getformbyid: getformbyid,
     updateform: updateform,    getkeyform: getkeyform,
     updatekeyform: updatekeyform,    deletekeyform: deletekeyform,

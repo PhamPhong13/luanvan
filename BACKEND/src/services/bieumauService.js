@@ -71,6 +71,45 @@ let getbieumau = () =>
     
 }
 
+// get all patient
+let getbieumaubyword= (word) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            // Ensure the search word is defined and not empty
+            let queryOptions = {
+                order: [['createdAt', 'DESC']] // Sắp xếp theo ngày tạo giảm dần
+            };
+
+            // If a word is provided and it's not the string "undefined" or an empty string, add a where condition
+            if (word && word !== "undefined" && word.trim() !== "") {
+                queryOptions.where = {
+                    name: {
+                        [Op.like]: `%${word}%` // Tìm kiếm gần đúng theo từ khóa trong trường 'name'
+                    }
+                };
+            }
+
+            let patients = await db.Bieumau.findAll(queryOptions);
+
+            if (patients) {
+                resolve({
+                    errCode: 0,
+                    message: "Get list bieumau successfully!",
+                    data: patients,
+                });
+            } else {
+                // This else block may never be reached because findAll returns an empty array if no records match
+                resolve({
+                    errCode: 1,
+                    message: "Get list bieumau failed!"
+                });
+            }
+        } catch (err) {
+            reject(err);
+        }
+    });
+}
+
 // delete patient
 let deletebieumau = ( id ) =>
 {
@@ -157,5 +196,6 @@ module.exports = {
     getbieumau: getbieumau,
     deletebieumau: deletebieumau,
     updatebieumau: updatebieumau,
+    getbieumaubyword: getbieumaubyword
 
 }

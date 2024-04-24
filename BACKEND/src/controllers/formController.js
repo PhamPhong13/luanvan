@@ -134,9 +134,14 @@ let deleteuserform = async ( req, res ) =>
     return res.status( 200 ).json( form );
 }
 
+let getAllForm = async ( req, res ) =>
+{
+    let form = await formService.getAllForm( req.query.page, req.query.adminId, req.query.word );
+    return res.status( 200 ).json( form );
+}
 
 module.exports = {
-    createform: createform,    createuserform: createuserform,
+    createform: createform,    createuserform: createuserform, getAllForm: getAllForm,
     createkeyform: createkeyform,    getformbyid: getformbyid,
     updateform: updateform,    getkeyform: getkeyform,
     updatekeyform: updatekeyform,    deletekeyform: deletekeyform,

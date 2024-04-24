@@ -155,6 +155,7 @@ let initWebRoutes = (app) => {
   router.delete("/api/delete-keyform", form.deletekeyform); // delete report
   router.delete("/api/delete-answerform", form.deleteanswerform); // delete report
   router.post("/api/create-answerquestion", form.createanswerquestion); // create form
+  router.get("/api/get-all-form-word", form.getAllForm); // get report
 
   router.post("/api/create-formusersubmit", post.createformusersubmit); // create post
   router.put("/api/update-formusersubmit", form.updateformusersubmit); // update report
@@ -176,6 +177,7 @@ let initWebRoutes = (app) => {
   // route bieumau
   router.post("/api/create-bieumau", bieumau.createbieumau); // create bieumau
   router.get("/api/get-bieumau", bieumau.getbieumau); // get bieumau
+  router.get("/api/get-bieumau-by-word", bieumau.getbieumaubyword); // get bieumau
   router.delete("/api/delete-bieumau", bieumau.deletebieumau); // delete bieumau
   router.put("/api/update-bieumau", bieumau.updatebieumau); // update bieumau
 

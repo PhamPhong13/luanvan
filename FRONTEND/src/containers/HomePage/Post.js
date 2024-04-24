@@ -453,7 +453,8 @@ class Post extends Component
                                     <p className='content-p' dangerouslySetInnerHTML={ { __html: post.descHTML } }>
                                     </p>
                                 </div>
-                                {form && <div ><b>Form đăng ký <span style={{ color: 'blue', cursor: 'pointer'}} onClick={() => this.linktoform(form.postId)}>Tại đây!</span></b></div>}
+                                {form && <div ><b><span style={{ color: 'blue', cursor: 'pointer' }} onClick={() => this.linktoform(form.postId)}>{ dayuntil}</span></b></div>}
+                                
                                 <div>-------------------------------------------------------</div>
                                 <div className='btn btn-primary'
                                 onClick={() => this.handlereport(post)}>
@@ -512,7 +513,7 @@ class Post extends Component
                                 onClick={() => this.linktoform(form.postId)}
                         title='Đăng ký form tại đây!'>
                         <img src={formicon} />
-                        {openTitleForm === true && dayuntil && <div className='formgooglepost_title'>{ dayuntil}</div>}
+                        {openTitleForm === true && dayuntil && <div className='formgooglepost_title' onClick={() => this.linktoform(form.postId)}>{ dayuntil}</div>}
                 </div>
                 }
 

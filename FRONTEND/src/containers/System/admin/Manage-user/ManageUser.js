@@ -15,6 +15,7 @@ class ManageUser extends Component
         this.state = {
             listAdmin: [],
             totalpage: 0,
+            keysearch: ""
         }
     }
 
@@ -25,7 +26,6 @@ class ManageUser extends Component
 
     getuser = async (page) => {
         let res = await getUser(page);
-        console.log(res)
         if (res && res.data.length > 0) {
             this.setState({
                 listAdmin: res.data,
@@ -80,12 +80,19 @@ class ManageUser extends Component
             this.getuser();
         }
         else {
+            this.setState({
+                search: true,
+                keysearch: event.target.value
+            })
             await this.getAllUsers("1", event.target.value);
             }
 
         }
 
     handlePageClick = async (event) => {
+         if (this.state.search === true) {
+            await this.getAllUsers(event.selected + 1, this.state.keysearch);
+        }
         await this.getAllUsers(event.selected + 1);
      }
 
@@ -115,7 +122,6 @@ class ManageUser extends Component
     {
 
         let { listAdmin, totalpage } = this.state;
-        console.log(this.props);
         return (
             <>
                 <title>
@@ -194,14 +200,14 @@ class ManageUser extends Component
                                 )
                             })}
 
+                        
+                    </tbody>
+                    </table>
                             {listAdmin && listAdmin.length <= 0 &&
                                 <div className='null'>
                                     Danh sách rổng!
                             </div>
                             }
-                        
-                    </tbody>
-                    </table>
                     </div>
 
                      <div className='ReactPaginate mt-2'>

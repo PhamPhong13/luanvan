@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
-import { createbieumau, getbieumau, deletebieumau, updatebieumau} from "../../../../services/userService"
+import { createbieumau, getbieumau, deletebieumau, updatebieumau, getbieumaubyword} from "../../../../services/userService"
 import { CommonUtils } from '../../../../utils'; // vi or en
 import Select from 'react-select';
 import { toast } from 'react-toastify';
@@ -154,6 +154,24 @@ class Bieumau extends Component
             this.props.history.push( `${link}` );
         }
     }
+
+    handleOchangeToSearch = async (event) => {
+        
+        if (event.target.value.length <= 0) {
+           await this.getbieumaus();
+        }
+        else {
+           let res = await getbieumaubyword(event.target.value);
+        if (res && res.errCode === 0 && res.data.length > 0) {
+            this.setState({
+                listBieumau: res.data
+            })
+            }
+            else this.setState({
+            listBieumau: []
+        })
+        }
+    }
     
     render ()
     {
@@ -169,10 +187,20 @@ class Bieumau extends Component
                             <li onClick={() => this.linkTouser("/system/bieumau")}><span><i class="fas fa-align-right"></i>Quản lý biểu mẫu</span></li>
                         </div>
                     </div>
-                    <div className='right' style={{marginLeft: '222px', padding: '33px 30px'}}>
+                    <div className='right' style={{ marginLeft: '222px', padding: '33px 30px' }}>
+                            <div className='title py-3 mt-0'>Quản lý biểu mẫu</div>
+
+                        <div className='search'>
+                        <div className='form-search'>
+                            <input type="text"
+                                placeholder={this.props.language === 'vi' ? "Nhập để tìm biểu mẫu" : "Type to find the form"}
+                                onChange={(event) => this.handleOchangeToSearch(event)}
+                            />
+                            <i className='fas fa-search'></i>
+                        </div>
+                    </div>
                         <div className=' bieumau' >
                     <div className='addbieumau' onClick={() => this.handleopenform()}>Thêm</div>
-                            <div className='title py-3 mt-0'  style={{background: 'white'}}>Quản lý biểu mẫu</div>
                             {listBieumau && isEmpty(listBieumau) && "Không có biểu mẫu nào!"}
                             
                         <div className='list-user' style={{height: 'auto'}}>
@@ -210,11 +238,6 @@ class Bieumau extends Component
                         
                     </tbody>
                     </table>
-                            {listBieumau && listBieumau.length <= 0 &&
-                                <div className='null'>
-                                    Danh sách rổng!
-                            </div>
-                            }
                     </div>
 
                     </div>

@@ -267,7 +267,8 @@
         .form-content{
             width: 35%;
             padding: 10px 20px;
-            background-color: white;
+            background: linear-gradient(217deg, rgba(255, 255, 255, 0.8), rgba(255, 0, 0, 0) 70.71%), linear-gradient(127deg, rgba(255, 255, 255, 0.8), rgba(0, 255, 0, 0) 70.71%),
+             linear-gradient(336deg, rgba(135, 239, 250, 0.51), rgba(0, 0, 255, 0) 70.71%);
             border-radius: 5px;box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
             .form-group{
                 width: 100%;
@@ -319,6 +320,8 @@
         background-color: white;
         border-radius: 5px;
         box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+        background: linear-gradient(217deg, rgba(255, 255, 255, 0.8), rgba(255, 0, 0, 0) 70.71%), linear-gradient(127deg, rgba(255, 255, 255, 0.8), rgba(0, 255, 0, 0) 70.71%),
+        linear-gradient(336deg, rgba(135, 239, 250, 0.51), rgba(0, 0, 255, 0) 70.71%);
         .form{
             display: flex;
             justify-content: space-between;
@@ -1418,7 +1421,7 @@ position: fixed;
         font-size: 14px;
         background: #78b5d5;
         box-shadow: #78b5d5 0px 5px 15px;
-        z-index: 100;
+        z-index: 10;
 
         
         .name{

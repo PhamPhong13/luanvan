@@ -177,14 +177,15 @@ class ManageAdmin extends Component
                                 )
                             })}
 
-                            {listAdmin && listAdmin.length <= 0 &&
+                            
+                        
+                    </tbody>
+                                </table>
+                                {listAdmin && listAdmin.length <= 0 &&
                                 <div className='null'>
                                     Danh sách rổng!
                             </div>
                             }
-                        
-                    </tbody>
-                    </table>
                     </div>
 
                      <div className='ReactPaginate mt-2'>

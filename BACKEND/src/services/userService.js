@@ -286,6 +286,7 @@ let getAllUser = (page, word) => {
                         { email: { [Op.like]: '%' + word + '%' } }, // Tìm kiếm theo email, bạn có thể thêm các trường khác nếu cần
                         { fullName: { [Op.like]: '%' + word + '%' } }, // Tìm kiếm theo username
                         { phone: { [Op.like]: '%' + word + '%' } }, // Tìm kiếm theo username
+                        { tunure: { [Op.like]: '%' + word + '%' } }, // Tìm kiếm theo username
                     ]
                 };
 

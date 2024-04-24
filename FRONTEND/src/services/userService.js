@@ -551,13 +551,21 @@ const getpostnew = () => {
 };
 
 
+const getAllForm = (page, adminId, word) => {
+  return axios.get(`/api/get-all-form-word?page=${page}&adminId=${adminId}&word=${word}`);
+};
+
+const getbieumaubyword = (word) => {
+  return axios.get(`/api/get-bieumau-by-word?word=${word}`);
+};
+
 export {
 
   getuserformbyadminid, getlikepostByuserId, getadmintunure, createbieumau, getbieumau, deletebieumau, getconnecttochart,
 
   handleLoginApi, getAllcode, handleLoginUser, updatebieumau, getuserbystatus, examineUser, getuserstatus, getpostnew, 
   
-  getlikepostcount, getUserlock, 
+  getlikepostcount, getUserlock, getAllForm, getbieumaubyword,
 
   /* admin */
   getAllAdmin, createAdmin, deleteAdmin, getAdminById, updateAdmin, getAdmin, 

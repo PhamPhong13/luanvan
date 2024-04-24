@@ -192,12 +192,37 @@ let getAdmin = (page) =>
     } )
 }
 
+
+// Function to get positions possibly filtered by a keyword
+let getPosition = async (word) => {
+    let whereClause = {};
+    if (word && word !== "undefined" && word.trim() !== "") {
+        whereClause = {
+            valueVi: {
+                [Op.like]: '%' + word + '%'
+            }
+        };
+    }
+    try {
+        let positions = await db.Allcode.findAll({
+            where: whereClause
+        });
+        return positions;
+    } catch (error) {
+        console.error('Failed to fetch positions:', error);
+        throw error;  // Ensure that the error is handled or logged appropriately
+    }
+}
+
+
 let getAllAdmin = (page, word) => {
     if (page === "undefined") page = 1; // nếu page = undefined
     return new Promise(async (resolve, reject) => {
         const limit = 5; // Số lượng bài viết mỗi trang
         const offset = (page - 1) * limit; // Vị trí bắt đầu của trang hiện tại
+        
         try {
+            let positions = await getPosition(word); // Await the positions list
             let findOptions = {
                 attributes: {
                     exclude: ['password']
@@ -216,13 +241,18 @@ let getAllAdmin = (page, word) => {
 
             // Nếu có từ khóa tìm kiếm, thêm điều kiện vào whereClause
             if (word && word !== "undefined") {
+                 let positionIds = positions.map(p => p.keyMap);
                 whereClause = {
                     [Op.or]: [
                         { email: { [Op.like]: '%' + word + '%' } }, // Tìm kiếm theo email, bạn có thể thêm các trường khác nếu cần
                         { fullName: { [Op.like]: '%' + word + '%' } }, // Tìm kiếm theo username
                         { phone: { [Op.like]: '%' + word + '%' } }, // Tìm kiếm theo username
+                        { tunure: { [Op.like]: '%' + word + '%' } }, // Tìm kiếm theo username
+                        { position: { [Op.in]: positionIds } } // Filtering by position IDs obtained from positions
                     ]
                 };
+
+
 
                 findOptions.where = whereClause;
             }
@@ -253,6 +283,8 @@ let getAllAdmin = (page, word) => {
         }
     });
 };
+
+
 //get patient by id
 let getAdminById = ( id ) =>
 {

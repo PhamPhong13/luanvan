@@ -143,75 +143,19 @@ class Examine extends Component
                                 )
                             })}
 
+                        
+                    </tbody>
+                    </table>
                             {listCat && listCat.length <= 0 &&
                                 <div className='null'>
                                     Danh sách rổng!
                             </div>
                             }
-                        
-                    </tbody>
-                    </table>
                     </div>
                    </div>
                     </div>
 
-                    
-{/* 
-                    <div className='cat'>
-                        {
-                            listCat && isEmpty(listCat) && <span>Danh sách rổng!</span>
-                        }
-                        {
-                            listCat && !isEmpty(listCat) && listCat.map((item, index) => {
-                                return (
-
-                                    <div className='cat-content'>
-                            <div className='content-left'>
-                               {item.fullName}
-                            </div>
-                            <div className='content-right'>
-                                
-                                            <div className='btn btn-primary'
-                                                onClick={() => this.linkToEditExamUser(item.id)}
-                                            ><FormattedMessage id="key.see"></FormattedMessage></div>
-                                           
-                            </div>
-                        </div>
-                                )
-                            })
-                        }
-                        
-                        {listCat && !isEmpty(listCat) &&
-                        <div className='ReactPaginate mt-2'>
-                        <ReactPaginate
-                            breakLabel="..."
-                            nextLabel="sau >"
-                            onPageChange={this.handlePageClick}
-                            pageRangeDisplayed={totalpage}
-                            pageCount={totalpage}
-                            previousLabel="< trước"
-                            renderOnZeroPageCount={null}
-                            pageClassName='page-item'
-                            pageLinkClassName='page-link'
-                            previousClassName='page-item'
-                            previousLinkClassName='page-link'
-                            nextClassName='page-item'
-                            nextLinkClassName='page-link'
-                            breakClassName='page-item'
-                            breakLinkClassName='page-link'
-                            containerClassName='pagination'
-                            activeClassName='active'
-                            marginPagesDisplayed={10}
-                        />
-                    </div> 
-                        }
-                        
-
-
-                        
-                    </div> */}
-
-                    
+                                   
                 </div>
             </>
         );

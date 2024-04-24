@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
-import {getform, getuserformbyadminid, deleteform } from "../../../../services/userService"
+import {getform, getuserformbyadminid, deleteform , getAllForm} from "../../../../services/userService"
 
 import { withRouter } from 'react-router';
 import { toast } from 'react-toastify';
@@ -20,6 +20,7 @@ class ManageForm extends Component
             listformshare: [],
             totalPage: 0,
             totalshare: 0,
+            
         }
     }
 
@@ -49,7 +50,15 @@ class ManageForm extends Component
                 totalPage: res.totalPages
             })
         }
+        else {
+            this.setState({
+                listForm: [],
+                totalPage: 0
+            })
+        }
     }
+
+
     
 
     linkToInforForm = (id) => {
@@ -81,6 +90,28 @@ class ManageForm extends Component
         await this.getForms("1");
     }
 
+    handleOchangeToSearch = async (event) => { 
+        if (event.target.value.length <= 0) {
+           await this.getForms("1");
+        }
+        else {
+            let res = await getAllForm(1, this.props.userInfo.id, event.target.value);
+            if (res && res.errCode === 0 && res.data.length > 0) {
+                this.setState({
+                    listForm: res.data,
+                    totalPage: res.totalPages
+                })
+            }
+            else { 
+                this.setState({
+                    listForm: [],
+                    totalPage: 0
+
+                })
+            }
+        }
+    }
+
     render ()
     {
         let { listForm, totalPage, listformshare, totalshare } = this.state;
@@ -110,7 +141,7 @@ class ManageForm extends Component
                         <div className='form-search'>
                             <input type="text"
                                 placeholder={this.props.language === 'vi' ? "Nhập để tìm biểu mẫu" : "Type to find the form"}
-                                /* onChange={(event) => this.handleOchangeToSearch(event)} */
+                                onChange={(event) => this.handleOchangeToSearch(event)}
                             />
                             <i className='fas fa-search'></i>
                         </div>

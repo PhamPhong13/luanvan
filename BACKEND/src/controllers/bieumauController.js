@@ -14,6 +14,12 @@ let getbieumau = async ( req, res ) =>
     return res.status( 200 ).json( User );
 }
 
+// get all patient
+let getbieumaubyword = async ( req, res ) =>
+{
+    let User = await bieumauService.getbieumaubyword(req.query.word);
+    return res.status( 200 ).json( User );
+}
 
 let deletebieumau = async ( req, res ) =>
 {
@@ -34,4 +40,5 @@ module.exports = {
     getbieumau: getbieumau,
     deletebieumau: deletebieumau,
     updatebieumau: updatebieumau, 
+    getbieumaubyword: getbieumaubyword
 }
