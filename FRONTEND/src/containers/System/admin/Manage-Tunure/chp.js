@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import "./Manage.scss";
-import {getadmintunure, deleteAdmin, createAdmin, updateAdmin} from "../../../../services/userService"
+import {getadmintunure, deleteAdmin, createAdmin, updateAdmin, updatePositionAdmin, getAllcode} from "../../../../services/userService"
 import { CommonUtils } from '../../../../utils'; // vi or en
 import { toast } from 'react-toastify';
 import { withRouter } from 'react-router';
 import logo from "../../../../assets/logo.png";
 import { isEmpty } from 'lodash';
+import Select from 'react-select';
+
 class chp extends Component
 {
     constructor(props) {
@@ -22,13 +24,16 @@ class chp extends Component
             id: "",
             admin: [],
             openAdd: false, 
-            openEdit: false
+            openEdit: false,
+            selectedPosition: "",
+            listPosition:""
         }
     }
 
     
 
     async componentDidMount() {
+        await this.getpossition();
         await this.getadmin();
         this.adjustTextareaHeight();
     }
@@ -41,6 +46,23 @@ class chp extends Component
         }
     }
 
+    getpossition = async() =>  {
+    let res = await getAllcode("POSITION");
+         let result = [];
+        if (res && res.data) {
+            res.data.map((item, index) => {
+                let object = {};
+                object.label = this.props.language === "vi" ? item.valueVi : item.valueEn;
+                object.value = item.keyMap;
+                result.push(object);
+            })
+        }
+
+        this.setState({
+            listPosition: result
+        })
+    }
+
     componentDidUpdate() {
         this.adjustTextareaHeight();
     }
@@ -51,6 +73,14 @@ class chp extends Component
             this.setState({
                 admin: res.data
             })
+            let select = this.state.listPosition.find( item =>
+                {
+                    return item && item.value === res.data[0].position
+        })
+        
+        this.setState({
+            selectedPosition: select
+        })
         }
         else {
             this.setState({
@@ -160,7 +190,9 @@ class chp extends Component
                 phone: this.state.phone,
                 image: this.state.image,
                 desc: this.state.desc,
-                id: this.state.id
+                id: this.state.id,
+                position: this.state.position
+
             })
             if (res && res.errCode === 0) {
                 this.setState({
@@ -171,6 +203,7 @@ class chp extends Component
                     phone: "",
                     desc: "",
                     password: "",
+                    position: ""
                 })
                 toast.success("Cập nhật thành viên thành công!");
                 await this.getadmin();
@@ -189,6 +222,27 @@ class chp extends Component
                 await this.getadmin();
             }
         }
+    }
+
+    handleresignAdmin = async (id) => {
+        alert("Bạn có chắc rằng thành viên này đã từ nhiệm không!");
+        let res = await updatePositionAdmin({
+            id: id,
+            position: "P6"
+        });
+        toast.success("Cập nhật nhiệm kỳ thành công!");
+                        await this.getadmin();
+
+    }
+
+     handleChangeSelect = async(selected) => {
+        this.setState({
+            selectedPosition: selected,
+            position: selected.value
+
+        })
+        await this.getadmin();
+
     }
 
     render ()
@@ -236,6 +290,13 @@ class chp extends Component
 
                          <div className='name'>
                             <div className='label'>Phone:</div><input type='text' value={ item.phone}/>
+                                </div>
+                                
+                                <div className='name'>
+                                    <div className='label' style={{width: "13%", transform: "translateY(6px)"}}>Từ nhiệm:</div>
+                                    <button className='btn btn-danger'
+                                    
+                                        onClick={() => this.handleresignAdmin(item.id)}>Có </button>
                             </div>
 
                         <div className='name label'>
@@ -290,6 +351,18 @@ class chp extends Component
                             <div className='label'>Phone:</div><input type='text'
                             onChange={(event) => this.handleOnchangeInput(event, 'phone')}
                             value={phone}/>
+                            </div>
+
+                             <div className='name'>
+                                <div className='label'>Chức vụ:</div>
+                                <div style={{width: "425px", textAlign: "left"}}>
+                                    <Select 
+                                        value={ this.state.selectedPosition }
+                                        onChange={ this.handleChangeSelect }
+                                        options={ this.state.listPosition }
+                                        placeholder="Chọn chức vụ"
+                                    />
+                                </div>
                             </div>
 
                         <div className='name label'>

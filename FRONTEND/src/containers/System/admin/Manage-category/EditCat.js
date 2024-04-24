@@ -86,12 +86,15 @@ class EditCat extends Component
                 <title>
                     <FormattedMessage id="system.manage.edit-cat"></FormattedMessage>
                 </title>
-                <div className='container manage'>
-
+                <div className=' manage'>
+ <div className='left'>
+                        <div className='content'>
+                            <li onClick={() => this.linkTouser("/system/manage-cat")}><span><i className='fas fa-list'></i><FormattedMessage id="system.manage.manage-category"></FormattedMessage></span></li>
+                        <li onClick={() => this.linkTouser("/system/add-cat")}><span><i className='fas fa-plus'></i><FormattedMessage id="system.manage.add-cat"></FormattedMessage></span></li>
+                        </div>
+                    </div>
+                    <div className='right'>
                     <div className='title'><FormattedMessage id="system.manage.edit-cat"></FormattedMessage></div>
-
-                </div>
-
                 <div className='container form-add-cat'>
                     <form>
                         <div className='form-group'>
@@ -110,6 +113,12 @@ class EditCat extends Component
                         </div>
                     </form>
                 </div>
+
+
+                    </div>
+
+                </div>
+
             </>
         );
     }

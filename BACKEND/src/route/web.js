@@ -33,6 +33,8 @@ let initWebRoutes = (app) => {
   router.get("/api/get-admin-by-id", admin.getAdminById); // get admin by id
   router.delete("/api/delete-admin", admin.deleteAdmin); // delete admin
   router.put("/api/update-admin", admin.updateAdmin); // update admin
+  router.put("/api/update-position-admin", admin.updatePositionAdmin); // update admin
+
 
   // route user
   router.post("/api/create-user", user.createUser); // create User

@@ -73,6 +73,12 @@ let updateAdmin = async ( req, res ) =>
     return res.status( 200 ).json( admin );
 }
 
+let updatePositionAdmin = async ( req, res ) =>
+{
+    let admin = await adminService.updatePositionAdmin( req.body );
+    return res.status( 200 ).json( admin );
+}
+
 module.exports = {
     createAdmin: createAdmin,
     getAdmin: getAdmin,
@@ -81,5 +87,7 @@ module.exports = {
     updateAdmin: updateAdmin,
   login: login,
   getAllAdmin: getAllAdmin,
-    getadmintunure: getadmintunure
+  getadmintunure: getadmintunure,
+  updatePositionAdmin: updatePositionAdmin
+    
 }

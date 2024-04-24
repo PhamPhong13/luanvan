@@ -40,7 +40,6 @@ class Forms extends Component
 
     getAllposts = async () => {
         let res = await getpostslide();
-        console.log(res)
         if (res && res.errCode === 0 && res.data.length > 0) { 
             this.setState({
                 listPost: res.data

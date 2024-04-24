@@ -521,7 +521,6 @@ const updatebieumau = (data) => {
 }
 
 const getuserbystatus = (page, word, status) => {
-  console.log(status);
   return axios.get(`/api/get-user-by-status?page=${page}&word=${word}&status=${status}`);
 };
 
@@ -559,13 +558,18 @@ const getbieumaubyword = (word) => {
   return axios.get(`/api/get-bieumau-by-word?word=${word}`);
 };
 
+
+const updatePositionAdmin = (data) => {
+  return axios.put(`api/update-position-admin`, data);
+}
+
 export {
 
   getuserformbyadminid, getlikepostByuserId, getadmintunure, createbieumau, getbieumau, deletebieumau, getconnecttochart,
 
   handleLoginApi, getAllcode, handleLoginUser, updatebieumau, getuserbystatus, examineUser, getuserstatus, getpostnew, 
   
-  getlikepostcount, getUserlock, getAllForm, getbieumaubyword,
+  getlikepostcount, getUserlock, getAllForm, getbieumaubyword,updatePositionAdmin,
 
   /* admin */
   getAllAdmin, createAdmin, deleteAdmin, getAdminById, updateAdmin, getAdmin, 

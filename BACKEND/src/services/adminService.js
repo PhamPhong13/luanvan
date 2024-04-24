@@ -385,6 +385,7 @@ let updateAdmin = ( data ) =>
                 patient.phone = data.phone;
                 patient.image = data.image,
                 patient.desc = data.desc,
+                patient.position = data.position,
                 await patient.save();
 
                 resolve( {
@@ -407,6 +408,54 @@ let updateAdmin = ( data ) =>
         }
     } )
 }
+
+// update 
+let updatePositionAdmin = ( data ) =>
+{
+    return new Promise( async ( resolve, reject ) =>
+    {
+        try
+        {
+            if ( !data.id || !data.position)
+            {
+                resolve( {
+                    errCode: 2,
+                    errMessage: 'Missing required parameter!'
+                } )
+            }
+            else {
+                let patient = await db.Admin.findOne( {
+                where: { id: data.id },
+                raw: false
+
+                })
+            if ( patient )
+            {
+                patient.position = data.position,
+                await patient.save();
+
+                resolve( {
+                    errCode: 0,
+                    errMessage: 'Update admin succeed!'
+                } );
+
+            } else
+            {
+                resolve( {
+                    errCode: 2,
+                    errMessage: 'admin not found!'
+                } );
+
+            }
+            }
+        }
+        catch ( e )
+        {
+            reject( e );
+        }
+    } )
+}
+
 
 
 let getadmintunure = (tunure, position) =>
@@ -460,5 +509,6 @@ module.exports = {
     updateAdmin: updateAdmin,
     login: login,
     getAllAdmin: getAllAdmin,
-    getadmintunure:  getadmintunure
+    getadmintunure: getadmintunure,
+    updatePositionAdmin: updatePositionAdmin
 }

@@ -258,7 +258,7 @@ let getuserbystatus = (page, word, st) => {
 }
 
 
-let getAllUser = (page, word) => {
+/* let getAllUser = (page, word) => {
     if (page === "undefined") page = 1; // nếu page = undefined
     return new Promise(async (resolve, reject) => {
         const limit = 5; // Số lượng bài viết mỗi trang
@@ -318,8 +318,71 @@ let getAllUser = (page, word) => {
             reject(err);
         }
     });
-};
+}; */
 
+let getAllUser = (page, word) => {
+    if (page === "undefined") page = 1; // Nếu page là undefined, mặc định là 1
+    return new Promise(async (resolve, reject) => {
+        const limit = 5; // Số lượng bài viết mỗi trang
+        const offset = (page - 1) * limit; // Vị trí bắt đầu của trang hiện tại
+
+        // Điều kiện where ban đầu, chỉ lấy những người dùng có status 1 hoặc 2
+        let whereClause = {
+            [db.Sequelize.Op.or]: [
+                { status: '1' },
+                { status: '2' }
+            ]
+        };
+
+        // Nếu có từ khóa tìm kiếm, thêm điều kiện vào whereClause
+        if (word && word !== "undefined") {
+            whereClause = {
+                ...whereClause,
+                [db.Sequelize.Op.and]: [{ [db.Sequelize.Op.or]: [
+                    { email: { [db.Sequelize.Op.like]: '%' + word + '%' } },
+                    { fullName: { [db.Sequelize.Op.like]: '%' + word + '%' } },
+                    { phone: { [db.Sequelize.Op.like]: '%' + word + '%' } },
+                    { tunure: { [db.Sequelize.Op.like]: '%' + word + '%' } } // Giả sử đúng từ khóa là tenure
+                ]}]
+            };
+        }
+
+        try {
+            let findOptions = {
+                attributes: {
+                    exclude: ['password']
+                },
+                order: [['createdAt', 'DESC']],
+                offset: offset,
+                where: whereClause,
+                limit: limit
+            };
+
+            let totalPosts = await db.User.count({ where: whereClause });
+            let totalPages = Math.ceil(totalPosts / limit);
+
+            let users = await db.User.findAll(findOptions);
+
+            if (users) {
+                resolve({
+                    errCode: 0,
+                    message: "get list User successfully!",
+                    data: users,
+                    total: totalPosts,
+                    totalPages: totalPages
+                });
+            } else {
+                resolve({
+                    errCode: 1,
+                    message: "get list User failed!"
+                });
+            }
+
+        } catch (err) {
+            reject(err);
+        }
+    });
+};
 
 //get patient by id
 let getUserById = ( id ) =>

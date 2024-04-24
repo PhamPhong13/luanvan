@@ -7,7 +7,7 @@ let createcat = ( data ) =>
     return new Promise( async ( resolve, reject ) =>
     {
         // check input parameters
-        if ( !data.name )
+        if ( !data.name  )
         {
             resolve( {
                 errCode: 1,

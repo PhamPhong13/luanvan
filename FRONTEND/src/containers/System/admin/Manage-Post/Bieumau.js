@@ -86,7 +86,7 @@ class Bieumau extends Component
             id: this.state.id
             });
             if (res && res.errCode === 0) {
-                toast.success("Thêm biểu mẫu thành công!");
+                toast.success("Cập nhật biểu mẫu thành công!");
                 this.setState({
                     action: "create",
                     openform: false,
@@ -133,12 +133,13 @@ class Bieumau extends Component
 
 
     handleDeleteBieumau = async (id) => {
+        alert("Bạn có chắc rằng bạn muốn xóa biểu mẫu này không!");
         await deletebieumau(id);
+        toast.success("Xóa biểu mẫu thành công!");
         await this.getbieumaus();
     }
 
     handleEdit = (item) => {
-        console.log(item);
         this.setState({
             name: item.name,
             image: item.image,
@@ -200,9 +201,16 @@ class Bieumau extends Component
                         </div>
                     </div>
                         <div className=' bieumau' >
-                    <div className='addbieumau' onClick={() => this.handleopenform()}>Thêm</div>
+                   
                             {listBieumau && isEmpty(listBieumau) && "Không có biểu mẫu nào!"}
-                            
+                            <div className="btn-add mt-3">
+            <div
+              className="btn btn-primary add"
+              onClick={() => this.handleopenform()}
+            >
+              + Thêm biểu mẫu
+            </div>
+          </div>
                         <div className='list-user' style={{height: 'auto'}}>
                             <div className='table-list'>
                         <table className="table table-striped table-bordered">
