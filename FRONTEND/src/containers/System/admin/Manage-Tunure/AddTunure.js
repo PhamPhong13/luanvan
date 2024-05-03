@@ -37,17 +37,17 @@ class AddTunure extends Component
 
             if (res && res.errCode === 0) {
                 this.linkToManageAdmin();
-                toast.success("Tạo danh mục mới thành công!");
+                toast.success("Tạo nhiệm kỳ mới thành công!");
                 
             }
-            else toast.error("Tạo danh mục mới không thành công!");
+            else toast.error("Tạo nhiệm kỳ mới không thành công!");
         }
     }
 
     checkstate = () => { 
         let result = true;
         if (this.state.name === null) { 
-            alert("Vui lòng nhập tên danh mục!");
+            alert("Vui lòng nhập tên nhiệm kỳ!");
             result = false;
         }
         return result;

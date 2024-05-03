@@ -40,7 +40,7 @@ class Header extends Component
                 menu = chtMenu;
             }
             else
-            if (role === "P2" || role === "P3") {
+            if (role === "P2" || role === "P3"|| role === "P5"|| role === "P6"|| role === "P7") {
                 menu = chpMenu;
             }
 
