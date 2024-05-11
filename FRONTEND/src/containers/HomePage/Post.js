@@ -66,6 +66,11 @@ class Post extends Component
                     dayuntil: `Biểu mẫu đăng ký đã đóng!`,
                     openTitleForm: true
                 })
+                setTimeout(() => {
+                        this.setState({
+                            openTitleForm: false
+                        });
+                    }, 3000);
             }
             else {
                 
