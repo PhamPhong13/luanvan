@@ -10,6 +10,7 @@ import Select from 'react-select';
 
 import ResulFormItem from './ResulFormItem';
 import { FormattedMessage } from 'react-intl';
+import PDFGenerator from './PDFGenerator ';
 
 class Resultform extends Component
 {
@@ -148,7 +149,7 @@ class Resultform extends Component
     render ()
     {
         let { selectedAdmins } = this.state;
-        let { listkeys, postId, userform, openselect , listUser} = this.state;
+        let { listkeys, postId, userform, openselect, listUser } = this.state;
         return (
             <>
                 <div className='postinfor'>
@@ -225,6 +226,10 @@ class Resultform extends Component
                 </div>
                     </div>
                 </div>
+            {listkeys && 
+               <div style={{marginLeft: "200px"}}><PDFGenerator /></div> }
+                 
+
             </>
         );
     }

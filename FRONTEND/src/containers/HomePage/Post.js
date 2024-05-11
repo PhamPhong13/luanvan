@@ -57,6 +57,7 @@ class Post extends Component
 
     getform = async () => {
         let res = await getformbyid(this.props.match.params.id);
+        console.log(res.data.quantity);
         if (res && res.errCode === 0) {
             this.setState({
                 form: res.data
@@ -74,10 +75,23 @@ class Post extends Component
             }
             else {
                 
-                let dayuntil = this.daysUntil(res.data.date);
+                if (res.soluong >= 50) {
+                    this.setState({
+                        dayuntil: `Link đăng ký đã đóng!`,
+                        openTitleForm: true
+                    })
+    
+                    setTimeout(() => {
+                        this.setState({
+                            openTitleForm: false
+                        });
+                    }, 3000);
+                }
+                else {
+                    let dayuntil = this.daysUntil(res.data.date);
                 if (dayuntil > 0) {
                     this.setState({
-                        dayuntil: `Đăng ký form tại đây. Link sẽ đóng sau ${dayuntil} ngày!`,
+                        dayuntil: `Link sẽ đóng sau ${dayuntil} ngày! Còn ${res.data.quantity - res.soluong} slots!`,
                         openTitleForm: true
                     })
     
@@ -99,6 +113,7 @@ class Post extends Component
                             openTitleForm: false
                         });
                     }, 3000);
+                }
                 }
             }
         }

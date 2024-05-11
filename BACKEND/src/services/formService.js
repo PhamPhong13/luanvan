@@ -166,6 +166,8 @@ let getformbyid = (postId) => {
                 }
             });
 
+            let sl;
+
             if (!patients) {
                 resolve({
                     errCode: 1,
@@ -195,6 +197,7 @@ let getformbyid = (postId) => {
                         kerformId: keyForm.id
                     }
                 });
+                    sl = answerCount;
                 if (+answerCount >= +patients.quantity) {
                     await updatestatusFrom(patients.id, 'close');
                         
@@ -211,7 +214,9 @@ let getformbyid = (postId) => {
             resolve({
                 errCode: 0,
                 message: "Form retrieved successfully!",
-                data: patients
+                data: patients,
+                soluong: sl,
+                quantity: patients.quantity
             });
         } catch (err) {
             reject(err);

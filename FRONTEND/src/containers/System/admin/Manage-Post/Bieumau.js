@@ -3,14 +3,9 @@ import { connect } from 'react-redux';
 import "./Manage.scss";
 import { FormattedMessage } from 'react-intl';
 import { createbieumau, getbieumau, deletebieumau, updatebieumau, getbieumaubyword} from "../../../../services/userService"
-import { CommonUtils } from '../../../../utils'; // vi or en
-import Select from 'react-select';
 import { toast } from 'react-toastify';
 import { withRouter } from 'react-router';
-
-import logo from '../../../../assets/logo.jpg';
-
-
+import PDFGenerator from './PDFGenerator ';
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 // import style manually
