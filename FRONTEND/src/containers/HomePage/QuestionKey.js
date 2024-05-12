@@ -120,6 +120,7 @@ class QuestionKey extends Component
     render ()
     {
         let { key, desc, answer } = this.state;
+        console.log(answer);
         return (
             <>
                 <div className='formanswer-content-bottom'>

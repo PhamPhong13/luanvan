@@ -106,6 +106,9 @@ class FormAnswer extends Component
         this.setState({
             remove: 'update'
         })
+        this.setState({
+            remove: 'update'
+        })
     }
     
     handleremoveNo = () => {
@@ -143,6 +146,12 @@ class FormAnswer extends Component
             await this.getformusersubmitsuccess();
             }
             if (res && res.errCode === 3) {
+                this.setState({
+            remove: 'delete'
+        });
+        this.setState({
+            remove: 'delete'
+        });
                 this.setState({
                     fullLink: true
                 })

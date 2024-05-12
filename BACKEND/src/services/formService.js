@@ -192,9 +192,9 @@ let getformbyid = (postId) => {
 
                 if (keyForm) {
                 
-                let answerCount = await db.Answer.count({
+                let answerCount = await db.FormUserSubmit.count({
                     where: {
-                        kerformId: keyForm.id
+                        formId: patients.id
                     }
                 });
                     sl = answerCount;
@@ -650,7 +650,8 @@ let deleteanswerform = ( id , userId) =>
                 kerformId: id,
                 userId: userId,
             },
-        } );
+        });
+        
 
         if ( !Patient )
         {
@@ -660,12 +661,27 @@ let deleteanswerform = ( id , userId) =>
             } );
         }
 
+
         await db.Answer.destroy( {
            where: {
                 kerformId: id,
                 userId: userId,
             },
         });
+
+        let form = await db.Keyform.findOne({
+            where: {
+                id: id,
+            }
+        })
+        if (form.formId) {
+            await db.FormUserSubmit.destroy( {
+           where: {
+                userId: userId,
+            },
+        });
+        }
+        
         
         resolve( {
             errCode: 0,
