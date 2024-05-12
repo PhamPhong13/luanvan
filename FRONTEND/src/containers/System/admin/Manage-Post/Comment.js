@@ -85,7 +85,7 @@ class Commnent extends Component
             if (this.state.key === 'comment') { 
                 let res = await createcomment({
                     postId: this.state.postId,
-                    userId: '2',
+                    userId: '8',
                     comment: this.state.comment_input,
                 })
                if (res && res.errCode === 0) {
@@ -99,7 +99,7 @@ class Commnent extends Component
                 
                 let res = await createrepcomment({
                     commentId: this.state.commentId,
-                    userId: '2',
+                    userId: '8',
                     repcomment: this.state.comment_input,
                 })
                 if (res && res.errCode === 0) {

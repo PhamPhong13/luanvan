@@ -57,7 +57,7 @@ class Post extends Component
 
     getform = async () => {
         let res = await getformbyid(this.props.match.params.id);
-        if (res && res.errCode === 0 && res.data.length > 0) {
+        if (res && res.errCode === 0) {
             this.setState({
                 form: res.data
             })
