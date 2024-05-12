@@ -126,7 +126,7 @@ let createUser = ( data ) =>
             let hashPassWord = await hashUserPassword( data.password );
             await db.User.create( {
                 email: data.email,
-                password: hashPassWord,
+                password: hashPassWord, 
                 fullName: data.fullName,
                 phone: data.phone,
                 image: data.image,
